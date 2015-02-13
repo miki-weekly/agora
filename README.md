@@ -10,6 +10,6 @@ $ git pull
 
 Submitting changes:
 
-$ git add -A
-$ git commit -m <msg>
+$ git add -A\n
+$ git commit -m <msg>\n
 $ git push
