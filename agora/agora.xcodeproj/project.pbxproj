@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		AA8739AC1A97F015000A2E45 /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA8739A71A97F015000A2E45 /* Bolts.framework */; };
+		AA8739AD1A97F015000A2E45 /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA8739A81A97F015000A2E45 /* Parse.framework */; };
+		AA8739AE1A97F015000A2E45 /* ParseCrashReporting.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA8739A91A97F015000A2E45 /* ParseCrashReporting.framework */; };
+		AA8739AF1A97F015000A2E45 /* ParseFacebookUtils.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA8739AA1A97F015000A2E45 /* ParseFacebookUtils.framework */; };
+		AA8739B01A97F015000A2E45 /* ParseUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA8739AB1A97F015000A2E45 /* ParseUI.framework */; };
 		AA8F662A1A8EA73700CA4604 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = AA8F66291A8EA73700CA4604 /* main.m */; };
 		AA8F662D1A8EA73700CA4604 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = AA8F662C1A8EA73700CA4604 /* AppDelegate.m */; };
 		AA8F66301A8EA73700CA4604 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AA8F662F1A8EA73700CA4604 /* ViewController.m */; };
@@ -27,6 +32,11 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		AA8739A71A97F015000A2E45 /* Bolts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Bolts.framework; sourceTree = "<group>"; };
+		AA8739A81A97F015000A2E45 /* Parse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Parse.framework; sourceTree = "<group>"; };
+		AA8739A91A97F015000A2E45 /* ParseCrashReporting.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ParseCrashReporting.framework; sourceTree = "<group>"; };
+		AA8739AA1A97F015000A2E45 /* ParseFacebookUtils.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ParseFacebookUtils.framework; sourceTree = "<group>"; };
+		AA8739AB1A97F015000A2E45 /* ParseUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ParseUI.framework; sourceTree = "<group>"; };
 		AA8F66241A8EA73700CA4604 /* agora.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = agora.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AA8F66281A8EA73700CA4604 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		AA8F66291A8EA73700CA4604 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -47,6 +57,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AA8739AD1A97F015000A2E45 /* Parse.framework in Frameworks */,
+				AA8739AE1A97F015000A2E45 /* ParseCrashReporting.framework in Frameworks */,
+				AA8739B01A97F015000A2E45 /* ParseUI.framework in Frameworks */,
+				AA8739AF1A97F015000A2E45 /* ParseFacebookUtils.framework in Frameworks */,
+				AA8739AC1A97F015000A2E45 /* Bolts.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -60,9 +75,23 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		AA8739A61A97F015000A2E45 /* parse-library-1.6.3 */ = {
+			isa = PBXGroup;
+			children = (
+				AA8739A71A97F015000A2E45 /* Bolts.framework */,
+				AA8739A81A97F015000A2E45 /* Parse.framework */,
+				AA8739A91A97F015000A2E45 /* ParseCrashReporting.framework */,
+				AA8739AA1A97F015000A2E45 /* ParseFacebookUtils.framework */,
+				AA8739AB1A97F015000A2E45 /* ParseUI.framework */,
+			);
+			name = "parse-library-1.6.3";
+			path = "agora/parse-library-1.6.3";
+			sourceTree = "<group>";
+		};
 		AA8F661B1A8EA73700CA4604 = {
 			isa = PBXGroup;
 			children = (
+				AA8739A61A97F015000A2E45 /* parse-library-1.6.3 */,
 				AA8F66261A8EA73700CA4604 /* agora */,
 				AA8F66401A8EA73700CA4604 /* agoraTests */,
 				AA8F66251A8EA73700CA4604 /* Products */,
@@ -343,6 +372,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/agora/parse-library-1.6.3",
+				);
 				INFOPLIST_FILE = agora/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -353,6 +386,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/agora/parse-library-1.6.3",
+				);
 				INFOPLIST_FILE = agora/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -412,6 +449,7 @@
 				AA8F66491A8EA73700CA4604 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		AA8F664A1A8EA73700CA4604 /* Build configuration list for PBXNativeTarget "agoraTests" */ = {
 			isa = XCConfigurationList;
@@ -420,6 +458,7 @@
 				AA8F664C1A8EA73700CA4604 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
