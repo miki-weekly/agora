@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0BA507C01A97F92700881074 /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0BA507BF1A97F92700881074 /* Bolts.framework */; };
 		AA8739AD1A97F015000A2E45 /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA8739A81A97F015000A2E45 /* Parse.framework */; };
 		AA8739AE1A97F015000A2E45 /* ParseCrashReporting.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA8739A91A97F015000A2E45 /* ParseCrashReporting.framework */; };
 		AA8739AF1A97F015000A2E45 /* ParseFacebookUtils.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA8739AA1A97F015000A2E45 /* ParseFacebookUtils.framework */; };
@@ -31,6 +32,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0BA507BF1A97F92700881074 /* Bolts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Bolts.framework; sourceTree = "<group>"; };
 		AA8739A81A97F015000A2E45 /* Parse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Parse.framework; sourceTree = "<group>"; };
 		AA8739A91A97F015000A2E45 /* ParseCrashReporting.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ParseCrashReporting.framework; sourceTree = "<group>"; };
 		AA8739AA1A97F015000A2E45 /* ParseFacebookUtils.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ParseFacebookUtils.framework; sourceTree = "<group>"; };
@@ -55,6 +57,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0BA507C01A97F92700881074 /* Bolts.framework in Frameworks */,
 				AA8739AD1A97F015000A2E45 /* Parse.framework in Frameworks */,
 				AA8739AE1A97F015000A2E45 /* ParseCrashReporting.framework in Frameworks */,
 				AA8739B01A97F015000A2E45 /* ParseUI.framework in Frameworks */,
@@ -75,6 +78,7 @@
 		AA8739A61A97F015000A2E45 /* parse-library-1.6.3 */ = {
 			isa = PBXGroup;
 			children = (
+				0BA507BF1A97F92700881074 /* Bolts.framework */,
 				AA8739A81A97F015000A2E45 /* Parse.framework */,
 				AA8739A91A97F015000A2E45 /* ParseCrashReporting.framework */,
 				AA8739AA1A97F015000A2E45 /* ParseFacebookUtils.framework */,
