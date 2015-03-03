@@ -19,7 +19,7 @@
 		AA8F66351A8EA73700CA4604 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AA8F66341A8EA73700CA4604 /* Images.xcassets */; };
 		AA8F66381A8EA73700CA4604 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = AA8F66361A8EA73700CA4604 /* LaunchScreen.xib */; };
 		AA8F66441A8EA73700CA4604 /* agoraTests.m in Sources */ = {isa = PBXBuildFile; fileRef = AA8F66431A8EA73700CA4604 /* agoraTests.m */; };
-		AD7A5E881AA57552001C2DA8 /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AD7A5E871AA57552001C2DA8 /* FacebookSDK.framework */; };
+		AD958F4C1AA5935200ABCFB3 /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AD958F4B1AA5935200ABCFB3 /* FacebookSDK.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,7 +51,7 @@
 		AA8F663D1A8EA73700CA4604 /* agoraTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = agoraTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		AA8F66421A8EA73700CA4604 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		AA8F66431A8EA73700CA4604 /* agoraTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = agoraTests.m; sourceTree = "<group>"; };
-		AD7A5E871AA57552001C2DA8 /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FacebookSDK.framework; path = ../../../../../Documents/FacebookSDK/FacebookSDK.framework; sourceTree = "<group>"; };
+		AD958F4B1AA5935200ABCFB3 /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FacebookSDK.framework; path = agora/FacebookSDK/FacebookSDK.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -59,7 +59,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AD7A5E881AA57552001C2DA8 /* FacebookSDK.framework in Frameworks */,
+				AD958F4C1AA5935200ABCFB3 /* FacebookSDK.framework in Frameworks */,
 				0BA507C01A97F92700881074 /* Bolts.framework in Frameworks */,
 				AA8739AD1A97F015000A2E45 /* Parse.framework in Frameworks */,
 				AA8739AE1A97F015000A2E45 /* ParseCrashReporting.framework in Frameworks */,
@@ -94,7 +94,7 @@
 		AA8F661B1A8EA73700CA4604 = {
 			isa = PBXGroup;
 			children = (
-				AD7A5E871AA57552001C2DA8 /* FacebookSDK.framework */,
+				AD958F4B1AA5935200ABCFB3 /* FacebookSDK.framework */,
 				AA8739A61A97F015000A2E45 /* parse-library-1.6.3 */,
 				AA8F66261A8EA73700CA4604 /* agora */,
 				AA8F66401A8EA73700CA4604 /* agoraTests */,
@@ -380,6 +380,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/agora/parse-library-1.6.3",
 					/Documents/FacebookSDK,
+					"$(PROJECT_DIR)/agora/FacebookSDK",
 				);
 				INFOPLIST_FILE = agora/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -395,6 +396,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/agora/parse-library-1.6.3",
 					/Documents/FacebookSDK,
+					"$(PROJECT_DIR)/agora/FacebookSDK",
 				);
 				INFOPLIST_FILE = agora/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
