@@ -20,6 +20,10 @@
 		AA8F66381A8EA73700CA4604 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = AA8F66361A8EA73700CA4604 /* LaunchScreen.xib */; };
 		AA8F66441A8EA73700CA4604 /* agoraTests.m in Sources */ = {isa = PBXBuildFile; fileRef = AA8F66431A8EA73700CA4604 /* agoraTests.m */; };
 		AD958F4C1AA5935200ABCFB3 /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AD958F4B1AA5935200ABCFB3 /* FacebookSDK.framework */; };
+		AD958F521AA598C100ABCFB3 /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = AD958F511AA598C100ABCFB3 /* libsqlite3.dylib */; };
+		AD958F541AA5994500ABCFB3 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AD958F531AA5994500ABCFB3 /* AudioToolbox.framework */; };
+		AD958F561AA5997600ABCFB3 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AD958F551AA5997600ABCFB3 /* SystemConfiguration.framework */; };
+		AD958F581AA599C800ABCFB3 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AD958F571AA599C800ABCFB3 /* MobileCoreServices.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,7 +55,11 @@
 		AA8F663D1A8EA73700CA4604 /* agoraTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = agoraTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		AA8F66421A8EA73700CA4604 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		AA8F66431A8EA73700CA4604 /* agoraTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = agoraTests.m; sourceTree = "<group>"; };
-		AD958F4B1AA5935200ABCFB3 /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FacebookSDK.framework; path = agora/FacebookSDK/FacebookSDK.framework; sourceTree = "<group>"; };
+		AD958F4B1AA5935200ABCFB3 /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FacebookSDK.framework; path = agora/FacebookSDK/FacebookSDK.framework; sourceTree = SOURCE_ROOT; };
+		AD958F511AA598C100ABCFB3 /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
+		AD958F531AA5994500ABCFB3 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
+		AD958F551AA5997600ABCFB3 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		AD958F571AA599C800ABCFB3 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -59,6 +67,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AD958F521AA598C100ABCFB3 /* libsqlite3.dylib in Frameworks */,
+				AD958F581AA599C800ABCFB3 /* MobileCoreServices.framework in Frameworks */,
+				AD958F561AA5997600ABCFB3 /* SystemConfiguration.framework in Frameworks */,
+				AD958F541AA5994500ABCFB3 /* AudioToolbox.framework in Frameworks */,
 				AD958F4C1AA5935200ABCFB3 /* FacebookSDK.framework in Frameworks */,
 				0BA507C01A97F92700881074 /* Bolts.framework in Frameworks */,
 				AA8739AD1A97F015000A2E45 /* Parse.framework in Frameworks */,
@@ -94,6 +106,10 @@
 		AA8F661B1A8EA73700CA4604 = {
 			isa = PBXGroup;
 			children = (
+				AD958F571AA599C800ABCFB3 /* MobileCoreServices.framework */,
+				AD958F551AA5997600ABCFB3 /* SystemConfiguration.framework */,
+				AD958F531AA5994500ABCFB3 /* AudioToolbox.framework */,
+				AD958F511AA598C100ABCFB3 /* libsqlite3.dylib */,
 				AD958F4B1AA5935200ABCFB3 /* FacebookSDK.framework */,
 				AA8739A61A97F015000A2E45 /* parse-library-1.6.3 */,
 				AA8F66261A8EA73700CA4604 /* agora */,
