@@ -19,12 +19,14 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
     
+    /*
     //Creates an object for class/table TestObject
     PFObject *testObject = [PFObject objectWithClassName:@"TestObject"];
     //Creates a field of "foo" with value "bar"
     testObject[@"foo"] = @"bar";
     //Sends the object to the cloud
     [testObject saveInBackground];
+     */
 }
 
 - (void)didReceiveMemoryWarning {

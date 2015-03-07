@@ -23,14 +23,6 @@
     [Parse setApplicationId:@"U7URHkl93QVktNmfR9D1ZoZiQoib1fXZgMKIySXl"
                   clientKey:@"447pKmFDlBBmYDLXUbn6lTFuXeRa0NUUjPghtM4Q"];
 
-    //Registering for push notifications
-    UIUserNotificationType userNotificationTypes = (UIUserNotificationTypeAlert |
-                                                    UIUserNotificationTypeBadge |
-                                                    UIUserNotificationTypeSound);
-    UIUserNotificationSettings *settings = [UIUserNotificationSettings settingsForTypes:userNotificationTypes
-                                                                             categories:nil];
-    [application registerUserNotificationSettings:settings];
-    [application registerForRemoteNotifications];
     
     return YES;
 }

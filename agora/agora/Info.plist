@@ -26,6 +26,19 @@
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>
 	<string>Main</string>
+	<key>FacebookAppId</key>
+	<string>338507643020487</string>
+	<key>FacebookDisplayName</key>
+	<string>agora</string>
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>fb338507643020487</string>
+			</array>
+		</dict>
+	</array>
 	<key>UIRequiredDeviceCapabilities</key>
 	<array>
 		<string>armv7</string>
