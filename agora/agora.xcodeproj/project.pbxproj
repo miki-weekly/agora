@@ -24,6 +24,7 @@
 		AD958F541AA5994500ABCFB3 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AD958F531AA5994500ABCFB3 /* AudioToolbox.framework */; };
 		AD958F561AA5997600ABCFB3 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AD958F551AA5997600ABCFB3 /* SystemConfiguration.framework */; };
 		AD958F581AA599C800ABCFB3 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AD958F571AA599C800ABCFB3 /* MobileCoreServices.framework */; };
+		ADA0C7AF1AB61E7400B03601 /* Test.jpg in Resources */ = {isa = PBXBuildFile; fileRef = ADA0C7AE1AB61E7400B03601 /* Test.jpg */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -60,6 +61,7 @@
 		AD958F531AA5994500ABCFB3 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		AD958F551AA5997600ABCFB3 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		AD958F571AA599C800ABCFB3 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
+		ADA0C7AE1AB61E7400B03601 /* Test.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = Test.jpg; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -106,6 +108,7 @@
 		AA8F661B1A8EA73700CA4604 = {
 			isa = PBXGroup;
 			children = (
+				ADA0C7AE1AB61E7400B03601 /* Test.jpg */,
 				AD958F571AA599C800ABCFB3 /* MobileCoreServices.framework */,
 				AD958F551AA5997600ABCFB3 /* SystemConfiguration.framework */,
 				AD958F531AA5994500ABCFB3 /* AudioToolbox.framework */,
@@ -251,6 +254,7 @@
 				AA8F66331A8EA73700CA4604 /* Main.storyboard in Resources */,
 				AA8F66381A8EA73700CA4604 /* LaunchScreen.xib in Resources */,
 				AA8F66351A8EA73700CA4604 /* Images.xcassets in Resources */,
+				ADA0C7AF1AB61E7400B03601 /* Test.jpg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
