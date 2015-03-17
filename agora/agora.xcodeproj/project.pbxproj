@@ -12,7 +12,8 @@
 		0BA532411AB7CC6000A730C6 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0BA5323F1AB7CC6000A730C6 /* LoginViewController.m */; };
 		0BA532441AB7CC9C00A730C6 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0BA532421AB7CC9C00A730C6 /* Main.storyboard */; };
 		0BA532471AB7CCB000A730C6 /* ParseInterface.m in Sources */ = {isa = PBXBuildFile; fileRef = 0BA532461AB7CCB000A730C6 /* ParseInterface.m */; };
-		9EFE8A841AB7C475000018F7 /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9EFE8A831AB7C475000018F7 /* Social.framework */; };
+		9EFE8A881AB7CED1000018F7 /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9EFE8A831AB7C475000018F7 /* Social.framework */; };
+		9EFE8A8A1AB7CF4C000018F7 /* Accounts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9EFE8A891AB7CF4C000018F7 /* Accounts.framework */; };
 		AA8739AD1A97F015000A2E45 /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA8739A81A97F015000A2E45 /* Parse.framework */; };
 		AA8739AE1A97F015000A2E45 /* ParseCrashReporting.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA8739A91A97F015000A2E45 /* ParseCrashReporting.framework */; };
 		AA8739AF1A97F015000A2E45 /* ParseFacebookUtils.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA8739AA1A97F015000A2E45 /* ParseFacebookUtils.framework */; };
@@ -50,6 +51,7 @@
 		0BA532461AB7CCB000A730C6 /* ParseInterface.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ParseInterface.m; sourceTree = "<group>"; };
 		9EFE8A7A1AB7B819000018F7 /* Post.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Post.h; sourceTree = "<group>"; };
 		9EFE8A831AB7C475000018F7 /* Social.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Social.framework; path = System/Library/Frameworks/Social.framework; sourceTree = SDKROOT; };
+		9EFE8A891AB7CF4C000018F7 /* Accounts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accounts.framework; path = System/Library/Frameworks/Accounts.framework; sourceTree = SDKROOT; };
 		AA8739A81A97F015000A2E45 /* Parse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Parse.framework; path = "agora/parse-library-1.6.3/Parse.framework"; sourceTree = "<group>"; };
 		AA8739A91A97F015000A2E45 /* ParseCrashReporting.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ParseCrashReporting.framework; path = "agora/parse-library-1.6.3/ParseCrashReporting.framework"; sourceTree = "<group>"; };
 		AA8739AA1A97F015000A2E45 /* ParseFacebookUtils.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ParseFacebookUtils.framework; path = "agora/parse-library-1.6.3/ParseFacebookUtils.framework"; sourceTree = "<group>"; };
@@ -76,7 +78,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9EFE8A841AB7C475000018F7 /* Social.framework in Frameworks */,
+				9EFE8A8A1AB7CF4C000018F7 /* Accounts.framework in Frameworks */,
+				9EFE8A881AB7CED1000018F7 /* Social.framework in Frameworks */,
 				AD958F521AA598C100ABCFB3 /* libsqlite3.dylib in Frameworks */,
 				AD958F581AA599C800ABCFB3 /* MobileCoreServices.framework in Frameworks */,
 				AD958F561AA5997600ABCFB3 /* SystemConfiguration.framework in Frameworks */,
@@ -103,6 +106,7 @@
 		9EFE8A7F1AB7C3F7000018F7 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				9EFE8A891AB7CF4C000018F7 /* Accounts.framework */,
 				AD958F511AA598C100ABCFB3 /* libsqlite3.dylib */,
 				9EFE8A831AB7C475000018F7 /* Social.framework */,
 				AD958F531AA5994500ABCFB3 /* AudioToolbox.framework */,
@@ -436,7 +440,6 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/agora/parse-library-1.6.3",
-					/Documents/FacebookSDK,
 					"$(PROJECT_DIR)/agora/FacebookSDK",
 				);
 				INFOPLIST_FILE = agora/Info.plist;
@@ -452,7 +455,6 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/agora/parse-library-1.6.3",
-					/Documents/FacebookSDK,
 					"$(PROJECT_DIR)/agora/FacebookSDK",
 				);
 				INFOPLIST_FILE = agora/Info.plist;
