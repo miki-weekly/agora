@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		0BA507C01A97F92700881074 /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0BA507BF1A97F92700881074 /* Bolts.framework */; };
+		9EFE8A741AB7B577000018F7 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9EFE8A731AB7B577000018F7 /* Main.storyboard */; };
 		AA8739AD1A97F015000A2E45 /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA8739A81A97F015000A2E45 /* Parse.framework */; };
 		AA8739AE1A97F015000A2E45 /* ParseCrashReporting.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA8739A91A97F015000A2E45 /* ParseCrashReporting.framework */; };
 		AA8739AF1A97F015000A2E45 /* ParseFacebookUtils.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA8739AA1A97F015000A2E45 /* ParseFacebookUtils.framework */; };
@@ -15,7 +16,6 @@
 		AA8F662A1A8EA73700CA4604 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = AA8F66291A8EA73700CA4604 /* main.m */; };
 		AA8F662D1A8EA73700CA4604 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = AA8F662C1A8EA73700CA4604 /* AppDelegate.m */; };
 		AA8F66301A8EA73700CA4604 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AA8F662F1A8EA73700CA4604 /* ViewController.m */; };
-		AA8F66331A8EA73700CA4604 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AA8F66311A8EA73700CA4604 /* Main.storyboard */; };
 		AA8F66351A8EA73700CA4604 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AA8F66341A8EA73700CA4604 /* Images.xcassets */; };
 		AA8F66381A8EA73700CA4604 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = AA8F66361A8EA73700CA4604 /* LaunchScreen.xib */; };
 		AA8F66441A8EA73700CA4604 /* agoraTests.m in Sources */ = {isa = PBXBuildFile; fileRef = AA8F66431A8EA73700CA4604 /* agoraTests.m */; };
@@ -24,7 +24,6 @@
 		AD958F541AA5994500ABCFB3 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AD958F531AA5994500ABCFB3 /* AudioToolbox.framework */; };
 		AD958F561AA5997600ABCFB3 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AD958F551AA5997600ABCFB3 /* SystemConfiguration.framework */; };
 		AD958F581AA599C800ABCFB3 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AD958F571AA599C800ABCFB3 /* MobileCoreServices.framework */; };
-		ADA0C7AF1AB61E7400B03601 /* Test.jpg in Resources */ = {isa = PBXBuildFile; fileRef = ADA0C7AE1AB61E7400B03601 /* Test.jpg */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -39,6 +38,8 @@
 
 /* Begin PBXFileReference section */
 		0BA507BF1A97F92700881074 /* Bolts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Bolts.framework; sourceTree = "<group>"; };
+		9E2E5BCC1AB7B41600FD06FA /* ParseInterface.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ParseInterface.h; sourceTree = "<group>"; };
+		9EFE8A731AB7B577000018F7 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = Main.storyboard; path = ../../../../Downloads/Main.storyboard; sourceTree = "<group>"; };
 		AA8739A81A97F015000A2E45 /* Parse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Parse.framework; sourceTree = "<group>"; };
 		AA8739A91A97F015000A2E45 /* ParseCrashReporting.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ParseCrashReporting.framework; sourceTree = "<group>"; };
 		AA8739AA1A97F015000A2E45 /* ParseFacebookUtils.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ParseFacebookUtils.framework; sourceTree = "<group>"; };
@@ -50,7 +51,6 @@
 		AA8F662C1A8EA73700CA4604 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		AA8F662E1A8EA73700CA4604 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
 		AA8F662F1A8EA73700CA4604 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
-		AA8F66321A8EA73700CA4604 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		AA8F66341A8EA73700CA4604 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		AA8F66371A8EA73700CA4604 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		AA8F663D1A8EA73700CA4604 /* agoraTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = agoraTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -61,7 +61,6 @@
 		AD958F531AA5994500ABCFB3 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		AD958F551AA5997600ABCFB3 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		AD958F571AA599C800ABCFB3 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
-		ADA0C7AE1AB61E7400B03601 /* Test.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = Test.jpg; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -108,7 +107,6 @@
 		AA8F661B1A8EA73700CA4604 = {
 			isa = PBXGroup;
 			children = (
-				ADA0C7AE1AB61E7400B03601 /* Test.jpg */,
 				AD958F571AA599C800ABCFB3 /* MobileCoreServices.framework */,
 				AD958F551AA5997600ABCFB3 /* SystemConfiguration.framework */,
 				AD958F531AA5994500ABCFB3 /* AudioToolbox.framework */,
@@ -137,10 +135,11 @@
 				AA8F662C1A8EA73700CA4604 /* AppDelegate.m */,
 				AA8F662E1A8EA73700CA4604 /* ViewController.h */,
 				AA8F662F1A8EA73700CA4604 /* ViewController.m */,
-				AA8F66311A8EA73700CA4604 /* Main.storyboard */,
+				9EFE8A731AB7B577000018F7 /* Main.storyboard */,
 				AA8F66341A8EA73700CA4604 /* Images.xcassets */,
 				AA8F66361A8EA73700CA4604 /* LaunchScreen.xib */,
 				AA8F66271A8EA73700CA4604 /* Supporting Files */,
+				9E2E5BCC1AB7B41600FD06FA /* ParseInterface.h */,
 			);
 			path = agora;
 			sourceTree = "<group>";
@@ -251,10 +250,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AA8F66331A8EA73700CA4604 /* Main.storyboard in Resources */,
+				9EFE8A741AB7B577000018F7 /* Main.storyboard in Resources */,
 				AA8F66381A8EA73700CA4604 /* LaunchScreen.xib in Resources */,
 				AA8F66351A8EA73700CA4604 /* Images.xcassets in Resources */,
-				ADA0C7AF1AB61E7400B03601 /* Test.jpg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -297,14 +295,6 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		AA8F66311A8EA73700CA4604 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				AA8F66321A8EA73700CA4604 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		AA8F66361A8EA73700CA4604 /* LaunchScreen.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
