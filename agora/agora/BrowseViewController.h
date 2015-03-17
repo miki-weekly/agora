@@ -1,5 +1,5 @@
 //
-//  ViewController.h
+//  BrowseViewController.h
 //  agora
 //
 //  Created by Ethan Gates on 2/13/15.
@@ -7,10 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <ParseUI/ParseUI.h>
 
-@interface ViewController : UIViewController
-@property (weak, nonatomic) IBOutlet UIImageView *image;
+@interface BrowseViewController : UIViewController <PFLogInViewControllerDelegate>
 
 
 @end
-
