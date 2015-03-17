@@ -22,20 +22,6 @@
     //Connects app to Parse servers
     [Parse setApplicationId:@"U7URHkl93QVktNmfR9D1ZoZiQoib1fXZgMKIySXl"
                   clientKey:@"447pKmFDlBBmYDLXUbn6lTFuXeRa0NUUjPghtM4Q"];
-        
-    //Retrieving an image from Parse
-    /*
-     PFQuery *query = [PFQuery queryWithClassName:@"Posts"];
-    
-    [query getFirstObjectInBackgroundWithBlock:^(PFObject *object, NSError *error){
-        NSLog(@"Retrieved Data");
-        
-        if (!error) {
-            PFFile *file = [object objectForKey:@"Picture"];
-            UIImage *image = [UIImage imageWithData:file];
-        };
-    }];
-     */
     
     return YES;
 }

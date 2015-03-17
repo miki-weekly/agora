@@ -36,9 +36,29 @@
         }
     }];
 }
-
-- (Post) loadFromParse: ()post{
+/*
+- (Post*) loadFromParseIndividual: (NSString*) object_id {
+    PFQuery *query = [PFQuery queryWithClassName:@"Posts"];
     
+    [query getFirstObjectInBackgroundWithBlock:^(PFObject *object, NSError *error){
+        NSLog(@"Retrieved Data");
+        
+        if (!error) {
+            PFFile *file = [object objectForKey:@"Picture"];
+            UIImage *image = [UIImage imageWithData:file];
+        };
+    }];
+    return nil;
 }
 
+- (NSArray*) loadFromParseList: (NSString*) category {
+    
+    return nil;
+}
+
+-(NSArray*) loadFromParseListRecents {
+    
+    return nil;
+}
+*/
 @end
