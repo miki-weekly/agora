@@ -6,10 +6,9 @@
 //  Copyright (c) 2015 Ethan. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
+#ifndef agora_ParseInterface_h
+#define agora_ParseInterface_h
 
-@interface ParseInterface : NSObject
 
-- (void) saveToParse: (Post*) post;
 
-@end
+#endif
