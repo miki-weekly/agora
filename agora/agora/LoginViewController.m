@@ -19,9 +19,9 @@
     
     [[self view] setBackgroundColor:[UIColor darkGrayColor]];
     
-    /*
-    UIImageView *logoView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"logo.png"]];
-    self.logInView.logo = logoView; // logo can be any UIView*/
+    
+    //UIImageView *logoView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"logo.png"]];
+    //self.logInView.logo = nil;
 }
 
 @end

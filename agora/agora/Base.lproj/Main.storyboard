@@ -4,11 +4,10 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6736"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
+        <!--Browse View Controller-->
         <scene sceneID="ufC-wZ-h7g">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
-                <viewController id="vXZ-lx-hvc" customClass="ViewController" sceneMemberID="viewController">
+                <viewController id="vXZ-lx-hvc" customClass="BrowseViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="jyV-Pf-zRb"/>
                         <viewControllerLayoutGuide type="bottom" id="2fi-mo-0CV"/>
@@ -18,17 +17,24 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Wa3-xC-70a">
-                                <rect key="frame" x="244" y="352" width="46" height="30"/>
-                                <state key="normal" title="Button">
+                                <rect key="frame" x="137" y="269" width="38" height="30"/>
+                                <state key="normal" title="Login">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <connections>
+                                    <action selector="pressedLoginButton:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="eah-Fr-f9n"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" id="Wxk-WW-RgG"/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
+                    <connections>
+                        <outlet property="loginButton" destination="Wa3-xC-70a" id="9pO-lQ-Ns6"/>
+                    </connections>
                 </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1243" y="141"/>
         </scene>

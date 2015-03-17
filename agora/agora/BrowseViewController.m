@@ -13,6 +13,8 @@
 
 @interface BrowseViewController ()
 
+@property (strong, nonatomic) IBOutlet UIButton* loginButton;
+
 @end
 
 @implementation BrowseViewController
@@ -28,22 +30,25 @@
      //Sends the object to the cloud
      [testObject saveInBackground];
      */
-    
-    /*
+}
+- (IBAction)pressedLoginButton:(id)sender{
     LoginViewController *logInController = [[LoginViewController alloc] init];
     [logInController setDelegate:self];
     [logInController setFields:PFLogInFieldsFacebook];
     [logInController setFacebookPermissions:@[@"public_profile", @"email", @"user_education_history"]];
     
     [self presentViewController:logInController animated:YES completion:nil];
-     */
 }
 
 - (void)logInViewController:(PFLogInViewController *)controller didLogInUser:(PFUser *)user {
+    // Login procedure
+    
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (void)logInViewControllerDidCancelLogIn:(PFLogInViewController *)logInController {
+    // Logout procedure
+    
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
