@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		0BA507C01A97F92700881074 /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0BA507BF1A97F92700881074 /* Bolts.framework */; };
+		AA7912071AB392AB008747C0 /* VC.m in Sources */ = {isa = PBXBuildFile; fileRef = AA7912061AB392AB008747C0 /* VC.m */; };
 		AA8739AD1A97F015000A2E45 /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA8739A81A97F015000A2E45 /* Parse.framework */; };
 		AA8739AE1A97F015000A2E45 /* ParseCrashReporting.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA8739A91A97F015000A2E45 /* ParseCrashReporting.framework */; };
 		AA8739AF1A97F015000A2E45 /* ParseFacebookUtils.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA8739AA1A97F015000A2E45 /* ParseFacebookUtils.framework */; };
@@ -33,6 +34,8 @@
 
 /* Begin PBXFileReference section */
 		0BA507BF1A97F92700881074 /* Bolts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Bolts.framework; sourceTree = "<group>"; };
+		AA7912051AB392AB008747C0 /* VC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VC.h; sourceTree = "<group>"; };
+		AA7912061AB392AB008747C0 /* VC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VC.m; sourceTree = "<group>"; };
 		AA8739A81A97F015000A2E45 /* Parse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Parse.framework; sourceTree = "<group>"; };
 		AA8739A91A97F015000A2E45 /* ParseCrashReporting.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ParseCrashReporting.framework; sourceTree = "<group>"; };
 		AA8739AA1A97F015000A2E45 /* ParseFacebookUtils.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ParseFacebookUtils.framework; sourceTree = "<group>"; };
@@ -115,6 +118,8 @@
 				AA8F662E1A8EA73700CA4604 /* ViewController.h */,
 				AA8F662F1A8EA73700CA4604 /* ViewController.m */,
 				AA8F66311A8EA73700CA4604 /* Main.storyboard */,
+				AA7912051AB392AB008747C0 /* VC.h */,
+				AA7912061AB392AB008747C0 /* VC.m */,
 				AA8F66341A8EA73700CA4604 /* Images.xcassets */,
 				AA8F66361A8EA73700CA4604 /* LaunchScreen.xib */,
 				AA8F66271A8EA73700CA4604 /* Supporting Files */,
@@ -248,6 +253,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AA7912071AB392AB008747C0 /* VC.m in Sources */,
 				AA8F66301A8EA73700CA4604 /* ViewController.m in Sources */,
 				AA8F662D1A8EA73700CA4604 /* AppDelegate.m in Sources */,
 				AA8F662A1A8EA73700CA4604 /* main.m in Sources */,
