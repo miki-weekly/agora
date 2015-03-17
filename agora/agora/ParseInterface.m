@@ -37,4 +37,8 @@
     }];
 }
 
+- (Post) loadFromParse: ()post{
+    
+}
+
 @end
