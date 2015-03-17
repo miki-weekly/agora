@@ -22,31 +22,7 @@
     //Connects app to Parse servers
     [Parse setApplicationId:@"U7URHkl93QVktNmfR9D1ZoZiQoib1fXZgMKIySXl"
                   clientKey:@"447pKmFDlBBmYDLXUbn6lTFuXeRa0NUUjPghtM4Q"];
-    
-    //Saving an image to Parse
-    
-     UIImage* imageData = [UIImage imageNamed:@"Test"];
-    
-    NSData *image = UIImageJPEGRepresentation(imageData, 1.0);
-    
-    PFFile *imageFile = [PFFile fileWithData:image];
-    
-    PFObject *post = [PFObject objectWithClassName:@"Posts"];
-    
-    post[@"picture"] = imageFile;
-    //post[@"createdBy"] = @"Bob";
-    post[@"title"] = @"Potato";
-    post[@"description"] = @"It's a potato";
-    post[@"category"] = @"Misc";
-
-    [post saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-        if (succeeded) {
-            NSLog(@"File Uploaded");
-        } else {
-            NSLog(@"File NOT Uploaded");
-        }
-    }];
-    
+        
     //Retrieving an image from Parse
     /*
      PFQuery *query = [PFQuery queryWithClassName:@"Posts"];
