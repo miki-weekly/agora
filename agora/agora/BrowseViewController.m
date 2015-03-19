@@ -7,6 +7,7 @@
 //
 
 #import <Parse/Parse.h>
+#import <ParseFacebookUtils/PFFacebookUtils.h>
 
 #import "BrowseViewController.h"
 #import "LoginViewController.h"
@@ -35,21 +36,33 @@
     LoginViewController *logInController = [[LoginViewController alloc] init];
     [logInController setDelegate:self];
     [logInController setFields:PFLogInFieldsFacebook];
-    [logInController setFacebookPermissions:@[@"public_profile", @"email", @"user_education_history"]];
+    [logInController setFacebookPermissions:@[@"user_education_history"]];
     
     [self presentViewController:logInController animated:YES completion:nil];
 }
 
 - (void)logInViewController:(PFLogInViewController *)controller didLogInUser:(PFUser *)user {
-    // Login procedure
+    [FBRequestConnection startForMeWithCompletionHandler:^(FBRequestConnection *connection, id result, NSError *error) {
+        if (!error) {
+            NSDictionary* userInfo = result;
+            //NSString* email = userInfo[@"email"];
+            //NSString* name = userInfo[@"name"];
+            NSString* college = [[[[userInfo objectForKey:@"education"] objectAtIndex:2] objectForKey:@"school"] objectForKey:@"name"];
+            NSLog(@"College: %@", college);
+            //NSLog(@"user info: %@", result);
+        } else {
+            // An error occurred, we need to handle the error
+            // See: https://developers.facebook.com/docs/ios/errors
+        }
+    }];
     
-    [self dismissViewControllerAnimated:YES completion:nil];
+    [controller dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (void)logInViewControllerDidCancelLogIn:(PFLogInViewController *)logInController {
     // Logout procedure
     
-    [self dismissViewControllerAnimated:YES completion:nil];
+    [logInController dismissViewControllerAnimated:YES completion:nil];
 }
 
 @end
