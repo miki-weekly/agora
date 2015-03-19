@@ -17,5 +17,7 @@
 @property NSArray *stringTags;
 @property NSNumber *price;
 @property UIImage *photo;
+@property UIImage *thumbnail;
+@property PFUser *creator;
 
 @end
