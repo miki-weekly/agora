@@ -32,7 +32,6 @@
     parsePost[@"tags"] = post.stringTags;
     parsePost[@"price"] = post.price;
     
-    
     [parsePost saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
         if (succeeded) {
             NSLog(@"File Uploaded");
@@ -70,7 +69,7 @@
     [query whereKey:@"category" equalTo:category];
     [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         NSLog(@"Retrieved Data");
-        NSMutableArray *postArray = [postArray initWithCapacity:objects.count];
+        NSMutableArray *postArray = [NSMutableArray array];
         
         for(int i = 0; i < objects.count; i++) {
             PFObject *object = objects[i];
@@ -105,7 +104,7 @@
     [query orderByAscending:@"createdAt"];
     [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         NSLog(@"Retrieved Data");
-        NSMutableArray *postArray = [postArray initWithCapacity:objects.count];
+        NSMutableArray *postArray = [NSMutableArray array];
         
         for(int i = 0; i < objects.count; i++) {
             PFObject *object = objects[i];
