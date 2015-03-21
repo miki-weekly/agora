@@ -9,7 +9,9 @@
 #import <Foundation/Foundation.h>
 
 @interface ParseInterface : NSObject
-
-- (void) saveToParse: (Post*) post;
-
+    + (NSArray*) browseKeyArray;
+    - (void) saveToParse: (Post*) post;
+    - (Post*) getFromParseIndividual: (NSString*) object_id;
+    - (NSArray*) getFromParseListByCategory: (NSString*) category AndSkipBy: (int) skip;
+    - (NSArray*) getFromParseListRecents: (int) skip;
 @end

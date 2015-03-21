@@ -36,29 +36,89 @@
         }
     }];
 }
-/*
-- (Post*) loadFromParseIndividual: (NSString*) object_id {
+
+- (Post*) getFromParseIndividual: (NSString*) object_id {
     PFQuery *query = [PFQuery queryWithClassName:@"Posts"];
     
-    [query getFirstObjectInBackgroundWithBlock:^(PFObject *object, NSError *error){
+    [query whereKey:@"objectId" equalTo: object_id];
+    [query getFirstObjectInBackgroundWithBlock:^(PFObject *object, NSError *error) {
         NSLog(@"Retrieved Data");
         
-        if (!error) {
-            PFFile *file = [object objectForKey:@"Picture"];
-            UIImage *image = [UIImage imageWithData:file];
-        };
+        Post *post;
+        
+        post.title = [object objectForKey:@"title"];
+        post.description = [object objectForKey:@"description"];
+        post.category = [object objectForKey:@"category"];
+        post.price = [object objectForKey:@"price"];
+        post.objectId = [object objectForKey:@"objectId"];
+        post.creator = [object objectForKey:@"createdBy"];
     }];
     return nil;
 }
 
-- (NSArray*) loadFromParseList: (NSString*) category {
+- (NSArray*) getFromParseListByCategory: (NSString*) category AndSkipBy: (int) skip {
+    PFQuery *query = [PFQuery queryWithClassName:@"Posts"];
+    
+    [query setSkip:skip];
+    [query setLimit:20];
+    [query selectKeys: [ParseInterface browseKeyArray]];
+    [query whereKey:@"category" equalTo:category];
+    [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+        NSLog(@"Retrieved Data");
+        NSMutableArray *postArray = [NSMutableArray array];
+        
+        for(int i = 0; i < objects.count; i++) {
+            PFObject *object = objects[i];
+            Post *post;
+            
+            PFFile *file = [object objectForKey:@"thumbnail"];
+            [file getDataInBackgroundWithBlock:^(NSData *data, NSError *error) {
+                post.thumbnail = [UIImage imageWithData:data];
+            }];
+            
+            post.title = [object objectForKey:@"title"];
+            post.price = [object objectForKey:@"price"];
+            post.category = [object objectForKey:@"category"];
+            post.objectId = [object objectForKey:@"objectId"];
+            post.creator = [object objectForKey:@"createdBy"];
+            
+            [postArray addObject:post];
+        }
+    }];
     
     return nil;
 }
 
--(NSArray*) loadFromParseListRecents {
+-(NSArray*) getFromParseListRecents: (int) skip {
     
+    PFQuery *query = [PFQuery queryWithClassName:@"Posts"];
+    
+    [query setSkip:skip];
+    [query setLimit:20];
+    [query selectKeys: [ParseInterface browseKeyArray]];
+    [query orderByAscending:@"createdAt"];
+    [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+        NSLog(@"Retrieved Data");
+        NSMutableArray *postArray = [NSMutableArray array];
+        
+        for(int i = 0; i < objects.count; i++) {
+            PFObject *object = objects[i];
+            Post *post;
+            
+            PFFile *file = [object objectForKey:@"thumbnail"];
+            [file getDataInBackgroundWithBlock:^(NSData *data, NSError *error) {
+                post.thumbnail = [UIImage imageWithData:data];
+            }];
+            
+            post.title = [object objectForKey:@"title"];
+            post.price = [object objectForKey:@"price"];
+            post.category = [object objectForKey:@"category"];
+            post.objectId = [object objectForKey:@"objectId"];
+            post.creator = [object objectForKey:@"createdBy"];
+            
+            [postArray addObject:post];
+        }
+    }];
     return nil;
 }
-*/
 @end
