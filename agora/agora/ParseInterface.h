@@ -10,7 +10,7 @@
 
 @interface ParseInterface : NSObject
     + (NSArray*) browseKeyArray;
-    - (void) saveToParse: (Post*) post;
+    - (void) saveNewPostToParse: (Post*) post;
     - (Post*) getFromParseIndividual: (NSString*) object_id;
     - (NSArray*) getFromParseListByCategory: (NSString*) category AndSkipBy: (int) skip;
     - (NSArray*) getFromParseListRecents: (int) skip;
