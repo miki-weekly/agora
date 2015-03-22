@@ -31,6 +31,7 @@
 		AD958F541AA5994500ABCFB3 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AD958F531AA5994500ABCFB3 /* AudioToolbox.framework */; };
 		AD958F561AA5997600ABCFB3 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AD958F551AA5997600ABCFB3 /* SystemConfiguration.framework */; };
 		AD958F581AA599C800ABCFB3 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AD958F571AA599C800ABCFB3 /* MobileCoreServices.framework */; };
+		ADA500F11ABF6E7C000D6D9E /* Post.m in Sources */ = {isa = PBXBuildFile; fileRef = ADA500F01ABF6E7C000D6D9E /* Post.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -80,6 +81,7 @@
 		AD958F531AA5994500ABCFB3 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		AD958F551AA5997600ABCFB3 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		AD958F571AA599C800ABCFB3 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
+		ADA500F01ABF6E7C000D6D9E /* Post.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Post.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -171,6 +173,7 @@
 				0BA532451AB7CCB000A730C6 /* ParseInterface.h */,
 				0BA532461AB7CCB000A730C6 /* ParseInterface.m */,
 				9EFE8A7A1AB7B819000018F7 /* Post.h */,
+				ADA500F01ABF6E7C000D6D9E /* Post.m */,
 			);
 			name = Data;
 			sourceTree = "<group>";
@@ -338,6 +341,7 @@
 				AA8F662D1A8EA73700CA4604 /* AppDelegate.m in Sources */,
 				0BA532411AB7CC6000A730C6 /* LoginViewController.m in Sources */,
 				0BC025641ABB27860076A09B /* AddPostViewController.m in Sources */,
+				ADA500F11ABF6E7C000D6D9E /* Post.m in Sources */,
 				0BA532471AB7CCB000A730C6 /* ParseInterface.m in Sources */,
 				0BA532401AB7CC6000A730C6 /* BrowseCollectionViewController.m in Sources */,
 				AA8F662A1A8EA73700CA4604 /* main.m in Sources */,

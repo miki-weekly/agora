@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "Post.h"
 
 @interface ParseInterface : NSObject
     + (NSArray*) browseKeyArray;

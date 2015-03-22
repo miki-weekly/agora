@@ -7,11 +7,12 @@
 //
 #import <UIKit/UIKit.h>
 #import <Foundation/Foundation.h>
+#import <Parse/Parse.h>
 
 @interface Post : NSObject
 
 @property NSString *title;
-@property NSString *description;
+@property NSString *itemDescription;
 @property NSString *category;
 @property NSString *objectId;
 @property NSArray *stringTags;

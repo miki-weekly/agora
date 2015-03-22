@@ -7,7 +7,6 @@
 //
 
 #import <Parse/Parse.h>
-#import "Post.h"
 #import "ParseInterface.h"
 
 @implementation ParseInterface
@@ -31,7 +30,7 @@
     parsePost[@"picture"] = imageFile;
     parsePost[@"createdBy"] = user;
     parsePost[@"title"] = post.title;
-    parsePost[@"description"] = post.description;
+    parsePost[@"description"] = post.itemDescription;
     parsePost[@"category"] = post.category;
     parsePost[@"tags"] = post.stringTags;
     parsePost[@"price"] = post.price;
@@ -56,7 +55,7 @@
     NSLog(@"Retrieved Data");
     
     post.title = [object objectForKey:@"title"];
-    post.description = [object objectForKey:@"description"];
+    post.itemDescription = [object objectForKey:@"description"];
     post.category = [object objectForKey:@"category"];
     post.price = [object objectForKey:@"price"];
     post.objectId = [object objectForKey:@"objectId"];
@@ -107,7 +106,7 @@
     NSArray *objectsArray = [query findObjects];
 
     for(PFObject* object in objectsArray) {
-        Post *post;
+        Post *post = [[Post alloc] init];
         
         PFFile *file = [object objectForKey:@"thumbnail"];
         [file getDataInBackgroundWithBlock:^(NSData *data, NSError *error) {
