@@ -1,5 +1,5 @@
 //
-//  BrowseViewController.h
+//  BrowseCollectionViewController.h
 //  agora
 //
 //  Created by Ethan Gates on 2/13/15.
@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import <ParseUI/ParseUI.h>
 
-@interface BrowseViewController : UIViewController <PFLogInViewControllerDelegate>
+@interface BrowseCollectionViewController : UICollectionViewController <PFLogInViewControllerDelegate>
 
 
 @end
