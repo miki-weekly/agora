@@ -65,87 +65,48 @@
     return post;
 }
 
-- (NSArray*) getFromParseListByCategory: (NSString*) category AndSkipBy: (int) skip {
-    PFQuery *query = [PFQuery queryWithClassName:@"Posts"];
-    NSMutableArray *postArray = [NSMutableArray array];
+- (NSArray*) getFromParseListByCategory: (NSString*) category AndSkipBy: (NSInteger) skip {
     
-    [query setSkip:skip];
-    [query setLimit:20];
-    [query includeKey:@"createdBy"];
-    [query selectKeys: [ParseInterface browseKeyArray]];
-    [query whereKey:@"category" equalTo:category];
-    
-    NSArray *objectsArray = [query findObjects];
-    NSLog(@"Retrieved Data");
-        
-    for(int i = 0; i < objectsArray.count; i++) {
-        PFObject *object = objectsArray[i];
-        Post *post;
-        
-        PFFile *file = [object objectForKey:@"thumbnail"];
-        [file getDataInBackgroundWithBlock:^(NSData *data, NSError *error) {
-            post.thumbnail = [UIImage imageWithData:data];
-        }];
-        
-        post.title = [object objectForKey:@"title"];
-        post.price = [object objectForKey:@"price"];
-        post.category = [object objectForKey:@"category"];
-        post.objectId = [object objectForKey:@"objectId"];
-        post.creator = [object objectForKey:@"createdBy"];
-        
-        [postArray addObject:post];
-    }
-    
-    return postArray;
+    return [self getFromParse:category List:skip];
 }
 
-- (NSArray*) getFromParseListRecents: (int) skip {
+- (NSArray*) getFromParseListRecents: (NSInteger) skip {
     
-    PFQuery *query = [PFQuery queryWithClassName:@"Posts"];
-    NSMutableArray *postArray = [NSMutableArray array];
-
-    [query setSkip:skip];
-    [query setLimit:20];
-    [query includeKey:@"createdBy"];
-    [query selectKeys: [ParseInterface browseKeyArray]];
-    [query orderByAscending:@"createdAt"];
-    
-    NSArray *objectsArray = [query findObjects];
-    NSLog(@"Retrieved Data");
-        
-    for(int i = 0; i < objectsArray.count; i++) {
-        PFObject *object = objectsArray[i];
-        Post *post;
-        
-        PFFile *file = [object objectForKey:@"thumbnail"];
-        [file getDataInBackgroundWithBlock:^(NSData *data, NSError *error) {
-            post.thumbnail = [UIImage imageWithData:data];
-        }];
-        
-        post.title = [object objectForKey:@"title"];
-        post.price = [object objectForKey:@"price"];
-        post.category = [object objectForKey:@"category"];
-        post.objectId = [object objectForKey:@"objectId"];
-        post.creator = [object objectForKey:@"createdBy"];
-        
-        [postArray addObject:post];
-    }
-    
-    return postArray;
+    return [self getFromParse: @"RECENTS" List:skip];
 }
 
 - (NSArray*) getFromParseListUserPosts {
-    PFQuery *query = [PFQuery queryWithClassName:@"Posts"];
-    NSMutableArray* postsArray = [NSMutableArray array];
     
-    [query whereKey:@"createdBy" equalTo:[PFUser currentUser]];
-    [query selectKeys: [ParseInterface browseKeyArray]];
-    [query includeKey:@"createdBy"];
+    return [self getFromParse: @"USER" List: 0];
+}
 
+-(NSArray*) getFromParse: (NSString*) parameter List: (NSInteger) skip{
+    PFQuery *query = [PFQuery queryWithClassName:@"Posts"];
+    NSMutableArray *postArray = [NSMutableArray array];
+
+    if ([parameter isEqual: @"RECENTS"]) { //Getting most recent posts
+        [query setSkip:skip];
+        [query setLimit:20];
+        [query includeKey:@"createdBy"];
+        [query selectKeys: [ParseInterface browseKeyArray]];
+        [query orderByAscending:@"createdAt"];
+        
+    } else if ([parameter isEqual:@"USER"]) { //Getting the user's posts
+        [query whereKey:@"createdBy" equalTo:[PFUser currentUser]];
+        [query selectKeys: [ParseInterface browseKeyArray]];
+        [query includeKey:@"createdBy"];
+        
+    } else { //Getting the post by category
+        [query setSkip:skip];
+        [query setLimit:20];
+        [query includeKey:@"createdBy"];
+        [query selectKeys: [ParseInterface browseKeyArray]];
+        [query whereKey:@"category" equalTo:parameter];
+        
+    }
     NSArray *objectsArray = [query findObjects];
-    
-    for (int i = 0; i < objectsArray.count; i++) {
-        PFObject *object = objectsArray[i];
+
+    for(PFObject* object in objectsArray) {
         Post *post;
         
         PFFile *file = [object objectForKey:@"thumbnail"];
@@ -159,9 +120,10 @@
         post.objectId = [object objectForKey:@"objectId"];
         post.creator = [object objectForKey:@"createdBy"];
         
-        [postsArray addObject:post];
+        [postArray addObject:post];
     }
     
-    return postsArray;
+    return postArray;
 }
+
 @end

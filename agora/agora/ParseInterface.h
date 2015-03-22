@@ -12,6 +12,6 @@
     + (NSArray*) browseKeyArray;
     - (void) saveNewPostToParse: (Post*) post;
     - (Post*) getFromParseIndividual: (NSString*) object_id;
-    - (NSArray*) getFromParseListByCategory: (NSString*) category AndSkipBy: (int) skip;
-    - (NSArray*) getFromParseListRecents: (int) skip;
+    - (NSArray*) getFromParseListByCategory: (NSString*) category AndSkipBy: (NSInteger) skip;
+    - (NSArray*) getFromParseListRecents: (NSInteger) skip;
 @end
