@@ -107,7 +107,7 @@
     NSArray *objectsArray = [query findObjects];
 
     for(PFObject* object in objectsArray) {
-        Post *post = [[Post alloc] init];
+        Post *post;
         
         PFFile *file = [object objectForKey:@"thumbnail"];
         [file getDataInBackgroundWithBlock:^(NSData *data, NSError *error) {
