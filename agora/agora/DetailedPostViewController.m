@@ -23,7 +23,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *FBSellerNameButton;
 @property (weak, nonatomic) IBOutlet UILabel *FBMutalFriendsLabel;
 
-@property (weak, nonatomic) UILabel *descriptionLabel;
+@property (weak, nonatomic) IBOutlet UITextView *descriptionTextField;
 
 @property (weak, nonatomic) IBOutlet UICollectionView* collectionView;
 
@@ -65,13 +65,8 @@
     [[self FBSellerNameButton] setTitle:@"" forState:UIControlStateSelected];
     //[[self FBMutalFriendsLabel] setText:[NSString stringWithFormat:<#(NSString *), ...#>]];
     
-    // configure description label
-    UILabel* descriptionLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 330, 300, 75)];
-    [self setDescriptionLabel:descriptionLabel];
-    [[self descriptionLabel] setText:@"test"];                  // Need to set Description
-    [[self descriptionLabel] setNumberOfLines:0];
-    [[self descriptionLabel] sizeToFit];
-    [[self view] addSubview:[self descriptionLabel]];
+    // configure description textField
+    [[self descriptionTextField] setText:@""];
 }
 - (IBAction)clickedShare:(id)sender {
     // open share action sheet
