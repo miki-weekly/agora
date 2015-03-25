@@ -36,7 +36,7 @@
         parsePost[@"price"] = post.price;
     }
     
-    [parsePost saveEventually];
+    [parsePost saveInBackground];
 }
 
 + (void) updateParsePost: (Post*) post {
@@ -58,7 +58,7 @@
             [object setObject: post.price forKey:@"price"];
             [object setObject: [PFUser currentUser] forKey:@"createdBy"];
             
-            [object saveEventually];
+            [object saveInBackground];
             NSLog(@"OBJECT UPDATED!");
         } else {
             NSLog(@"UPDATE: NO OBJECT FOUND");
@@ -75,8 +75,14 @@
     
     PFObject *object = [query getFirstObject];
     NSLog(@"Retrieved Data");
-
-    PFFile *file = [object objectForKey:@"picture"];
+    
+    PFUser *user = [object objectForKey:@"createdBy"];
+    PFFile *file = [user objectForKey:@"profilePicture"];
+            [file getDataInBackgroundWithBlock:^(NSData *data, NSError *error) {
+        post.createProfilePicture = [UIImage imageWithData:data];
+    }];
+            
+    file = [object objectForKey:@"picture"];
     post.photo = [UIImage imageWithData:[file getData]];
     
     post.title = [object objectForKey:@"title"];
@@ -84,7 +90,7 @@
     post.category = [object objectForKey:@"category"];
     post.price = [object objectForKey:@"price"];
     post.objectId = [object objectForKey:@"objectId"];
-    post.creator = [object objectForKey:@"createdBy"];
+    post.creator = [user objectForKey:@"name"];
     
     return post;
 }
@@ -132,17 +138,23 @@
 
     for(PFObject* object in objectsArray) {
         Post *post = [[Post alloc] init];
-        
+        PFUser *user = [object objectForKey:@"createdBy"];
+
         PFFile *file = [object objectForKey:@"thumbnail"];
         [file getDataInBackgroundWithBlock:^(NSData *data, NSError *error) {
             post.thumbnail = [UIImage imageWithData:data];
         }];
         
+        file = [user objectForKey:@"profilePicture"];
+        [file getDataInBackgroundWithBlock:^(NSData *data, NSError *error) {
+            post.createProfilePicture = [UIImage imageWithData:data];
+        }];
+        
         post.title = [object objectForKey:@"title"];
         post.price = [object objectForKey:@"price"];
         post.category = [object objectForKey:@"category"];
-        post.objectId = [object objectForKey:@"objectId"];
-        post.creator = [object objectForKey:@"createdBy"];
+        post.objectId = object.objectId;
+        post.creator = [user objectForKey:@"name"];
         
         [postArray addObject:post];
     }
