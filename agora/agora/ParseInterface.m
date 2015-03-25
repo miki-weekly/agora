@@ -72,6 +72,11 @@
     PFObject *object = [query getFirstObject];
     NSLog(@"Retrieved Data");
     
+    PFFile *file = [object objectForKey:@"picture"];
+    [file getDataInBackgroundWithBlock:^(NSData *data, NSError *error) {
+        post.photo = [UIImage imageWithData:data];
+    }];
+    
     post.title = [object objectForKey:@"title"];
     post.itemDescription = [object objectForKey:@"description"];
     post.category = [object objectForKey:@"category"];
