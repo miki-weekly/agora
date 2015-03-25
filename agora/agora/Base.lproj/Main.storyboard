@@ -13,7 +13,7 @@
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
-                        <segue destination="KlH-in-nOd" kind="relationship" relationship="rootViewController" id="P25-Ve-V5d"/>
+                        <segue destination="nf8-rb-sYn" kind="relationship" relationship="rootViewController" id="yHb-aB-egz"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ZqA-dF-SqM" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -35,7 +35,7 @@
                             <inset key="sectionInset" minX="15" minY="15" maxX="15" maxY="15"/>
                         </collectionViewFlowLayout>
                         <cells>
-                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="postCell" id="BK7-IQ-Djs" customClass="PostCollectionViewCell">
+                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" tag="20" contentMode="center" reuseIdentifier="postCell" id="BK7-IQ-Djs" customClass="PostCollectionViewCell">
                                 <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
@@ -46,13 +46,13 @@
                                             <rect key="frame" x="0.0" y="0.0" width="140" height="140"/>
                                         </imageView>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9KY-cL-Qao">
-                                            <rect key="frame" x="8" y="115" width="92" height="21"/>
+                                            <rect key="frame" x="8" y="115" width="76" height="21"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="$$$" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dGp-d9-cva">
-                                            <rect key="frame" x="108" y="116" width="24" height="21"/>
+                                            <rect key="frame" x="92" y="116" width="40" height="21"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
@@ -62,13 +62,9 @@
                                 </view>
                                 <connections>
                                     <outlet property="imageView" destination="oXl-eY-gt9" id="yrE-y7-gkT"/>
-                                    <outlet property="postPriceAmount" destination="dGp-d9-cva" id="Yta-De-a5w"/>
-                                    <outlet property="postTitleLabel" destination="9KY-cL-Qao" id="iJn-XA-p8U"/>
-                                    <outlet property="price" destination="dGp-d9-cva" id="X6x-kE-CwE"/>
-                                    <outlet property="priceAmount" destination="dGp-d9-cva" id="6Hl-qX-PYX"/>
                                     <outlet property="priceLabel" destination="dGp-d9-cva" id="gvP-iX-kik"/>
-                                    <outlet property="title" destination="9KY-cL-Qao" id="lSC-no-smf"/>
                                     <outlet property="titleLabel" destination="9KY-cL-Qao" id="Mwf-4X-e1x"/>
+                                    <segue destination="KlH-in-nOd" kind="push" identifier="viewPostSegue" id="nSb-tN-hAP"/>
                                 </connections>
                             </collectionViewCell>
                         </cells>
@@ -186,6 +182,12 @@
                                             <outlet property="delegate" destination="KlH-in-nOd" id="dAi-0B-0Lm"/>
                                         </connections>
                                     </collectionView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="price" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="g3A-E8-xuT">
+                                        <rect key="frame" x="229" y="208" width="78" height="21"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
@@ -205,6 +207,7 @@
                         <outlet property="contentView" destination="eHA-np-gCH" id="rSO-w5-W95"/>
                         <outlet property="descriptionTextField" destination="Ub6-jd-DDB" id="egZ-N7-TBl"/>
                         <outlet property="mainImageView" destination="BPg-CC-oau" id="ACT-df-CIy"/>
+                        <outlet property="priceLabel" destination="g3A-E8-xuT" id="xTf-bj-xKz"/>
                         <outlet property="scrollView" destination="QUH-EO-Ccf" id="hlU-7y-zJC"/>
                         <outlet property="shareButton" destination="Ijl-nv-NPi" id="S1G-VX-rda"/>
                         <outlet property="titleLabel" destination="vgu-PJ-jdK" id="F0r-7c-NqR"/>
@@ -212,7 +215,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Uea-Pq-aW9" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1668" y="764"/>
+            <point key="canvasLocation" x="1704" y="140"/>
         </scene>
         <!--Add Post View Controller-->
         <scene sceneID="buh-dE-7zd">
@@ -297,8 +300,6 @@
                             <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Bb5-wS-xuU">
                                 <rect key="frame" x="0.0" y="524" width="320" height="44"/>
                                 <items>
-                                    <barButtonItem title="Preview" id="yLJ-dg-o0o"/>
-                                    <barButtonItem width="189" style="plain" systemItem="fixedSpace" id="vRz-vo-g6i"/>
                                     <barButtonItem title="Post" id="4cK-pE-vXo">
                                         <connections>
                                             <action selector="postToParse:" destination="Zwm-GF-ig9" id="oK9-Ld-9Mq"/>
