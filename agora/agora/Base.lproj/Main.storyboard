@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6751" systemVersion="14C1514" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="kv7-fY-fe8">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6751" systemVersion="14C1510" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="kv7-fY-fe8">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6736"/>
     </dependencies>
@@ -12,6 +12,9 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
+                    <connections>
+                        <segue destination="KlH-in-nOd" kind="relationship" relationship="rootViewController" id="P25-Ve-V5d"/>
+                    </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ZqA-dF-SqM" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -89,7 +92,7 @@
                         <viewControllerLayoutGuide type="bottom" id="ta0-ce-pNC"/>
                     </layoutGuides>
                     <scrollView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="QUH-EO-Ccf">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="524"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="eHA-np-gCH">
@@ -97,7 +100,7 @@
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="BPg-CC-oau">
                                         <rect key="frame" x="0.0" y="0.0" width="320" height="200"/>
-                                        <color key="backgroundColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                     </imageView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vgu-PJ-jdK">
                                         <rect key="frame" x="10" y="205" width="180" height="25"/>
@@ -201,6 +204,7 @@
                         <outlet property="contactButton" destination="09v-wR-mok" id="jH6-cF-zrd"/>
                         <outlet property="contentView" destination="eHA-np-gCH" id="rSO-w5-W95"/>
                         <outlet property="descriptionTextField" destination="Ub6-jd-DDB" id="egZ-N7-TBl"/>
+                        <outlet property="mainImageView" destination="BPg-CC-oau" id="ACT-df-CIy"/>
                         <outlet property="scrollView" destination="QUH-EO-Ccf" id="hlU-7y-zJC"/>
                         <outlet property="shareButton" destination="Ijl-nv-NPi" id="S1G-VX-rda"/>
                         <outlet property="titleLabel" destination="vgu-PJ-jdK" id="F0r-7c-NqR"/>
@@ -219,7 +223,7 @@
                         <viewControllerLayoutGuide type="bottom" id="s5X-at-GvC"/>
                     </layoutGuides>
                     <scrollView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="VBg-Pt-sXy">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="524"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="U4D-dV-Abr">
@@ -290,23 +294,26 @@
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
+                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Bb5-wS-xuU">
+                                <rect key="frame" x="0.0" y="524" width="320" height="44"/>
+                                <items>
+                                    <barButtonItem title="Preview" id="yLJ-dg-o0o"/>
+                                    <barButtonItem width="189" style="plain" systemItem="fixedSpace" id="vRz-vo-g6i"/>
+                                    <barButtonItem title="Post" id="4cK-pE-vXo">
+                                        <connections>
+                                            <action selector="postToParse:" destination="Zwm-GF-ig9" id="oK9-Ld-9Mq"/>
+                                        </connections>
+                                    </barButtonItem>
+                                </items>
+                            </toolbar>
                         </subviews>
+                        <gestureRecognizers/>
+                        <connections>
+                            <outlet property="delegate" destination="Zwm-GF-ig9" id="DRm-0v-iHQ"/>
+                        </connections>
                     </scrollView>
-                    <toolbarItems>
-                        <barButtonItem title="Preview" id="yLJ-dg-o0o">
-                            <connections>
-                                <segue destination="KlH-in-nOd" kind="push" id="V9L-st-DbG"/>
-                            </connections>
-                        </barButtonItem>
-                        <barButtonItem width="189" style="plain" systemItem="fixedSpace" id="vRz-vo-g6i"/>
-                        <barButtonItem title="Post" id="4cK-pE-vXo">
-                            <connections>
-                                <action selector="postToParse:" destination="Zwm-GF-ig9" id="oK9-Ld-9Mq"/>
-                            </connections>
-                        </barButtonItem>
-                    </toolbarItems>
+                    <toolbarItems/>
                     <navigationItem key="navigationItem" id="vVt-c1-jPk"/>
-                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics" translucent="NO"/>
                     <connections>
                         <outlet property="catagoryButton" destination="PCP-9P-BC3" id="67B-iD-G68"/>
                         <outlet property="collectionView" destination="Tz5-g2-PFl" id="w9c-o9-Dyu"/>

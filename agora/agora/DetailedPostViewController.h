@@ -7,7 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "ParseInterface.h"
 
 @interface DetailedPostViewController : UIViewController <UIScrollViewDelegate>
+
+@property Post * post;
 
 @end

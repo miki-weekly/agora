@@ -12,6 +12,7 @@
 @interface DetailedPostViewController ()
 @property (weak, nonatomic) IBOutlet UIView *contentView;
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
+@property (weak, nonatomic) IBOutlet UIImageView *mainImageView;
 
 @property (weak, nonatomic) IBOutlet UILabel *titleLabel;
 @property (weak, nonatomic) IBOutlet UILabel *catagoryLabel;
@@ -33,16 +34,18 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+    Post * post = [ParseInterface getFromParseIndividual:@"FtLA9FwG75"];
     // Must add content to scrollView to scroll
     [[self scrollView] addSubview:[self contentView]];
     CGSize size = [self contentView].frame.size;
     //size.height = 1000;                           // set the end of the scroll view
     [[self scrollView] setContentSize:size];
     
+    [[self mainImageView] setImage:[post photo]];
+    
     // configure title and description
-    [[self titleLabel] setText:@""];
-    [[self catagoryLabel] setText:@""];
+    [[self titleLabel] setText:[post title]];
+    [[self catagoryLabel] setText:[post category]];
     
     // Configure buttons
     CGColorRef buttonColor = [[UIColor blueColor] CGColor];
@@ -66,7 +69,7 @@
     //[[self FBMutalFriendsLabel] setText:[NSString stringWithFormat:<#(NSString *), ...#>]];
     
     // configure description textField
-    [[self descriptionTextField] setText:@""];
+    [[self descriptionTextField] setText:[post itemDescription]];
 }
 - (IBAction)clickedShare:(id)sender {
     // open share action sheet

@@ -30,7 +30,7 @@
     CGSize size = [self contentView].frame.size;
     //size.height = 1000;
     [[self scrollView] setContentSize:size];
-    
+    [[self scrollView] setKeyboardDismissMode:UIScrollViewKeyboardDismissModeInteractive];
     [[[self descriptionTextFeild] layer] setBorderWidth:0.5f];
     [[[self descriptionTextFeild] layer] setCornerRadius:4.0];
     [[[self descriptionTextFeild] layer] setBorderColor:[[UIColor grayColor] CGColor]];
@@ -58,6 +58,11 @@
 - (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text {
     return [[textView text] length] + ([text length] - range.length) <= 200;
 }
+
+- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
+    
+}
+
 - (IBAction)selectMainImage:(id)sender {
     UIImagePickerController* imagePickerController = [[UIImagePickerController alloc] init];
     [imagePickerController setDelegate:self];
@@ -70,7 +75,6 @@
     
     
 }
-
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
     if([[segue identifier] isEqualToString:@""]){
         
@@ -81,7 +85,7 @@
     UIImage* image = info[@"UIImagePickerControllerOriginalImage"];
     // How to know which imagePicker is which? (Main vs array of subimage)
     // do something with Image
-    
+    [[self mainImage] setImage:image];
     [picker dismissViewControllerAnimated:YES completion:nil];
 }
 
