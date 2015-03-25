@@ -19,6 +19,7 @@
 @property NSNumber *price;
 @property UIImage *photo;
 @property UIImage *thumbnail;
-@property PFUser *creator;
+@property NSString *creator;
+@property UIImage *createProfilePicture;
 
 @end
