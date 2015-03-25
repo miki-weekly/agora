@@ -29,8 +29,12 @@
     parsePost[@"title"] = post.title;
     parsePost[@"description"] = post.itemDescription;
     parsePost[@"category"] = post.category;
-    parsePost[@"tags"] = post.stringTags;
-    parsePost[@"price"] = post.price;
+    if (post.stringTags != nil) {
+        parsePost[@"tags"] = post.stringTags;
+    }
+    if (post.price != nil) {
+        parsePost[@"price"] = post.price;
+    }
     
     [parsePost saveEventually];
 }
