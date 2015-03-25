@@ -24,22 +24,40 @@
     NSData *image = UIImageJPEGRepresentation(post.photo, 1.0);
     PFFile *imageFile = [PFFile fileWithData:image];
     
-    //Getting current user for for createdBy relation
-    PFUser *user = [PFUser currentUser];
-    
     parsePost[@"picture"] = imageFile;
-    parsePost[@"createdBy"] = user;
+    parsePost[@"createdBy"] = [PFUser currentUser];
     parsePost[@"title"] = post.title;
     parsePost[@"description"] = post.itemDescription;
     parsePost[@"category"] = post.category;
     parsePost[@"tags"] = post.stringTags;
     parsePost[@"price"] = post.price;
     
-    [parsePost saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-        if (succeeded) {
-            NSLog(@"File Uploaded");
+    [parsePost saveEventually];
+}
+
+- (void) updateParsePost: (Post*) post {
+    PFQuery *query = [PFQuery queryWithClassName:@"Posts"];
+    
+    [query whereKey:@"objectId" equalTo: post.objectId];
+    
+    [query getFirstObjectInBackgroundWithBlock:^(PFObject *object, NSError *error) {
+        if (!error) {
+            NSLog(@"OBJECT FOUND");
+            NSData *image = UIImageJPEGRepresentation(post.photo, 1.0);
+            PFFile *imageFile = [PFFile fileWithData:image];
+            
+            [object setObject: post.title forKey:@"title"];
+            [object setObject: post.title forKey:@"description"];
+            [object setObject: post.title forKey:@"category"];
+            [object setObject: imageFile forKey:@"photo"];
+            [object setObject: post.stringTags forKey:@"tags"];
+            [object setObject: post.price forKey:@"price"];
+            [object setObject: [PFUser currentUser] forKey:@"createdBy"];
+            
+            [object saveEventually];
+            NSLog(@"OBJECT UPDATED!");
         } else {
-            NSLog(@"File NOT Uploaded");
+            NSLog(@"UPDATE: NO OBJECT FOUND");
         }
     }];
 }
