@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import <ParseUI/ParseUI.h>
+#import "ParseInterface.h"
 
 @interface BrowseCollectionViewController : UICollectionViewController <PFLogInViewControllerDelegate>
 

@@ -15,6 +15,8 @@
 
 @interface BrowseCollectionViewController ()
 
+@property NSMutableArray * postsArray;
+
 @end
 
 @implementation BrowseCollectionViewController
@@ -31,6 +33,10 @@
         [self presentViewController:logInController animated:YES completion:nil];
     }else{
         // continue with load
+        
+        //populate array
+        [self setPostsArray : [[NSMutableArray alloc]init]];
+        [[self postsArray] addObjectsFromArray: [ParseInterface getFromParseListByCategory:@"RECENTS" AndSkipBy:0]];
     }
 }
 
@@ -47,21 +53,22 @@
 
 #pragma mark - Collection view data source
 
-- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
-    return 0;
+- (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView{
+    return 1;
 }
 
-- (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView{
-    return 0;
+- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
+    return [[self postsArray] count];
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
     PostCollectionViewCell* postCell = [collectionView dequeueReusableCellWithReuseIdentifier:@"postCell" forIndexPath:indexPath];
+    Post* postForCell = [[self postsArray] objectAtIndex:[indexPath row]];
     
     // Cell config
-    [[postCell titleLabel] setText:@""];
-    [[postCell priceLabel] setText:@"$$$"];
-    //[[postCell imageView] setImage:<#(UIImage *)#>];
+    [[postCell titleLabel] setText:[postForCell title]];
+    [[postCell priceLabel] setText:[[postForCell price] stringValue]];
+    [[postCell imageView] setImage:[postForCell photo]];
     
     return postCell;
 }
