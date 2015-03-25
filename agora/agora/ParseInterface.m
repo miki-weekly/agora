@@ -12,7 +12,7 @@
 @implementation ParseInterface
 
 + (NSArray*) browseKeyArray {
-    return @[@"objectId", @"title", @"price", @"thumbnail", @"createdBy"];
+    return @[@"objectId", @"title", @"category", @"price", @"thumbnail", @"createdBy"];
 }
 
 + (void) saveNewPostToParse: (Post*) post {
