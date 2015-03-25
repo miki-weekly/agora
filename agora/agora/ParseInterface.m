@@ -5,7 +5,7 @@
 //  Created by Cang Truong on 3/16/15.
 //  Copyright (c) 2015 Ethan. All rights reserved.
 //
-
+#import <ParseFacebookUtils/PFFacebookUtils.h>
 #import <Parse/Parse.h>
 #import "ParseInterface.h"
 
@@ -15,7 +15,7 @@
     return @[@"objectId", @"title", @"price", @"thumbnail", @"createdBy"];
 }
 
-- (void) saveNewPostToParse: (Post*) post {
++ (void) saveNewPostToParse: (Post*) post {
     //Saving an image to Parse
     
     PFObject *parsePost = [PFObject objectWithClassName:@"Posts"];
@@ -35,7 +35,7 @@
     [parsePost saveEventually];
 }
 
-- (void) updateParsePost: (Post*) post {
++ (void) updateParsePost: (Post*) post {
     PFQuery *query = [PFQuery queryWithClassName:@"Posts"];
     
     [query whereKey:@"objectId" equalTo: post.objectId];
@@ -62,20 +62,18 @@
     }];
 }
 
-- (Post*) getFromParseIndividual: (NSString*) object_id {
++ (Post*) getFromParseIndividual: (NSString*) object_id {
     PFQuery *query = [PFQuery queryWithClassName:@"Posts"];
-    Post *post;
+    Post *post = [[Post alloc]init];
     
     [query includeKey:@"createdBy"];
     [query whereKey:@"objectId" equalTo: object_id];
     
     PFObject *object = [query getFirstObject];
     NSLog(@"Retrieved Data");
-    
+
     PFFile *file = [object objectForKey:@"picture"];
-    [file getDataInBackgroundWithBlock:^(NSData *data, NSError *error) {
-        post.photo = [UIImage imageWithData:data];
-    }];
+    post.photo = [UIImage imageWithData:[file getData]];
     
     post.title = [object objectForKey:@"title"];
     post.itemDescription = [object objectForKey:@"description"];
@@ -87,22 +85,22 @@
     return post;
 }
 
-- (NSArray*) getFromParseListByCategory: (NSString*) category AndSkipBy: (NSInteger) skip {
++ (NSArray*) getFromParseListByCategory: (NSString*) category AndSkipBy: (NSInteger) skip {
     
     return [self getFromParse:category List:skip];
 }
 
-- (NSArray*) getFromParseListRecents: (NSInteger) skip {
++ (NSArray*) getFromParseListRecents: (NSInteger) skip {
     
     return [self getFromParse: @"RECENTS" List:skip];
 }
 
-- (NSArray*) getFromParseListUserPosts {
++ (NSArray*) getFromParseListUserPosts {
     
     return [self getFromParse: @"USER" List: 0];
 }
 
--(NSArray*) getFromParse: (NSString*) parameter List: (NSInteger) skip{
++ (NSArray*) getFromParse: (NSString*) parameter List: (NSInteger) skip{
     PFQuery *query = [PFQuery queryWithClassName:@"Posts"];
     NSMutableArray *postArray = [NSMutableArray array];
 
