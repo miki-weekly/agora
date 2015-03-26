@@ -47,7 +47,6 @@
     [FBRequestConnection startForMeWithCompletionHandler:^(FBRequestConnection *connection, id result, NSError *error) {
         if (!error) {
             [[PFUser currentUser] setObject:[result objectForKey:@"id"] forKey:@"facebookId"];
-            [[PFUser currentUser] setObject:[result objectForKey:@"name"] forKey:@"name"];
             
             [[PFUser currentUser] saveEventually];
         }
