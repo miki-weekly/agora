@@ -71,16 +71,13 @@
     Post *post = [[Post alloc]init];
     
     [query includeKey:@"createdBy"];
-    [query whereKey:@"objectId" equalTo: object_id];
     
-    PFObject *object = [query getFirstObject];
+    PFObject *object = [query getObjectWithId:object_id];
+    
     NSLog(@"Retrieved Data");
     
     PFUser *user = [object objectForKey:@"createdBy"];
     PFFile *file = [user objectForKey:@"profilePicture"];
-            [file getDataInBackgroundWithBlock:^(NSData *data, NSError *error) {
-        post.createProfilePicture = [UIImage imageWithData:data];
-    }];
             
     file = [object objectForKey:@"picture"];
     post.photo = [UIImage imageWithData:[file getData]];
@@ -90,7 +87,7 @@
     post.category = [object objectForKey:@"category"];
     post.price = [object objectForKey:@"price"];
     post.objectId = [object objectForKey:@"objectId"];
-    post.creator = [user objectForKey:@"name"];
+    post.creatorFacebookId = [user objectForKey:@"facebookId"];
     
     return post;
 }
@@ -145,16 +142,11 @@
             post.thumbnail = [UIImage imageWithData:data];
         }];
         
-        file = [user objectForKey:@"profilePicture"];
-        [file getDataInBackgroundWithBlock:^(NSData *data, NSError *error) {
-            post.createProfilePicture = [UIImage imageWithData:data];
-        }];
-        
         post.title = [object objectForKey:@"title"];
         post.price = [object objectForKey:@"price"];
         post.category = [object objectForKey:@"category"];
         post.objectId = object.objectId;
-        post.creator = [user objectForKey:@"name"];
+        post.creatorFacebookId = [user objectForKey:@"facebookId"];
         
         [postArray addObject:post];
     }
