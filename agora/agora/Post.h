@@ -20,6 +20,5 @@
 @property UIImage *photo;
 @property UIImage *thumbnail;
 @property NSString *creatorFacebookId;
-@property UIImage *createProfilePicture;
 
 @end
