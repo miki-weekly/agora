@@ -24,6 +24,7 @@
     [Parse setApplicationId:@"U7URHkl93QVktNmfR9D1ZoZiQoib1fXZgMKIySXl"
                   clientKey:@"447pKmFDlBBmYDLXUbn6lTFuXeRa0NUUjPghtM4Q"];
     [PFFacebookUtils initializeFacebook];
+    [FBProfilePictureView class];
     return YES;
 }
 

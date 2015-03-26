@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6751" systemVersion="14C1510" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="kv7-fY-fe8">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6751" systemVersion="14C1514" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="kv7-fY-fe8">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6736"/>
     </dependencies>
@@ -122,9 +122,6 @@
                                             <action selector="clickedContact:" destination="KlH-in-nOd" eventType="touchUpInside" id="1B9-SN-gPh"/>
                                         </connections>
                                     </button>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="2uA-YJ-XFo">
-                                        <rect key="frame" x="10" y="280" width="50" height="50"/>
-                                    </imageView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="x and 5 mutual friends" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JgR-Y2-z4O">
                                         <rect key="frame" x="70" y="300" width="162" height="21"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="13"/>
@@ -188,6 +185,10 @@
                                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
+                                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="anW-xt-eyp" customClass="FBProfilePictureView">
+                                        <rect key="frame" x="10" y="280" width="50" height="50"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    </view>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
@@ -199,7 +200,7 @@
                     <size key="freeformSize" width="320" height="568"/>
                     <connections>
                         <outlet property="FBMutalFriendsLabel" destination="JgR-Y2-z4O" id="X6B-LS-iQu"/>
-                        <outlet property="FBSellerImageView" destination="2uA-YJ-XFo" id="dMO-Lr-FMO"/>
+                        <outlet property="FBSellerImageView" destination="anW-xt-eyp" id="DIo-xx-WWE"/>
                         <outlet property="FBSellerNameButton" destination="F6l-ft-Xbt" id="Kc4-lC-uZu"/>
                         <outlet property="catagoryLabel" destination="u9r-B1-M8S" id="gg0-x7-jq5"/>
                         <outlet property="collectionView" destination="u1U-tl-Tee" id="3UU-l5-RO9"/>

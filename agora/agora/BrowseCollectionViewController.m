@@ -7,7 +7,6 @@
 //
 
 #import <Parse/Parse.h>
-#import <ParseFacebookUtils/PFFacebookUtils.h>
 
 #import "BrowseCollectionViewController.h"
 #import "DetailedPostViewController.h"
@@ -34,7 +33,6 @@
         [self presentViewController:logInController animated:YES completion:nil];
     }else{
         // continue with load
-        
         //populate array
         [self setPostsArray : [[NSMutableArray alloc]init]];
         [[self postsArray] addObjectsFromArray: [ParseInterface getFromParseListByCategory:@"RECENTS" AndSkipBy:0]];
@@ -45,6 +43,7 @@
     // Login procedure
     [controller dismissViewControllerAnimated:YES completion:nil];
     [self viewDidLoad];     // Call viewDidLoad again to load browseCollectionView
+    [[self collectionView] reloadData];
 }
 
 - (void)logInViewControllerDidCancelLogIn:(PFLogInViewController *)logInController {

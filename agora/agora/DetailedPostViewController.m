@@ -8,6 +8,9 @@
 
 #import "DetailedPostViewController.h"
 #import <QuartzCore/QuartzCore.h>
+#import <ParseFacebookUtils/PFFacebookUtils.h>
+
+#define post [self post]
 
 @interface DetailedPostViewController ()
 @property (weak, nonatomic) IBOutlet UIView *contentView;
@@ -21,7 +24,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *shareButton;
 @property (weak, nonatomic) IBOutlet UIButton *contactButton;
 
-@property (weak, nonatomic) IBOutlet UIImageView *FBSellerImageView;
+@property (weak, nonatomic) IBOutlet FBProfilePictureView *FBSellerImageView;
 @property (weak, nonatomic) IBOutlet UIButton *FBSellerNameButton;
 @property (weak, nonatomic) IBOutlet UILabel *FBMutalFriendsLabel;
 
@@ -42,12 +45,12 @@
     //size.height = 1000;                           // set the end of the scroll view
     [[self scrollView] setContentSize:size];
     
-    [[self mainImageView] setImage:[[self post] photo]];
+    [[self mainImageView] setImage:[post photo]];
     
     // configure title, description and price
-    [[self titleLabel] setText:[[self post] title]];
-    [[self catagoryLabel] setText:[[self post] category]];
-    [[self priceLabel] setText:[[[self post] price] stringValue]];
+    [[self titleLabel] setText:[post title]];
+    [[self catagoryLabel] setText:[post category]];
+    [[self priceLabel] setText:[[post price] stringValue]];
     
     // Configure buttons
     CGColorRef buttonColor = [[UIColor blueColor] CGColor];
@@ -65,22 +68,46 @@
     [[[self contactButton] layer] setBorderColor:buttonColor];
     
     // configure FBSeller info
-    //[[self FBSellerImageView] setImage:];
-    [[self FBSellerNameButton] setTitle:@"" forState:UIControlStateNormal];
-    [[self FBSellerNameButton] setTitle:@"" forState:UIControlStateSelected];
-    //[[self FBMutalFriendsLabel] setText:[NSString stringWithFormat:<#(NSString *), ...#>]];
+    [FBRequestConnection startWithGraphPath:[post creatorFacebookId] completionHandler:^(FBRequestConnection *connection, NSDictionary* result, NSError *error) {
+        if(!error){
+            //NSString* college = [[[[result objectForKey:@"education"] objectAtIndex:2] objectForKey:@"school"] objectForKey:@"name"];
+            //NSLog(@"College: %@", college);
+            [[self FBSellerImageView] setProfileID:result[@"id"]];
+            [[self FBSellerNameButton] setTitle:result[@"name"] forState:UIControlStateNormal];
+            [[self FBSellerNameButton] setTitle:result[@"name"] forState:UIControlStateSelected];
+            //[[self FBMutalFriendsLabel] setText:[NSString stringWithFormat:<#(NSString *), ...#>]];
+        }else{
+            NSLog(@"Error Grabing FB Data in Detail");
+            // An error occurred, we need to handle the error
+            // See: https://developers.facebook.com/docs/ios/errors
+        }
+    }];
     
     // configure description textField
-    [[self descriptionTextField] setText:[[self post] itemDescription]];
+    [[self descriptionTextField] setText:[post itemDescription]];
 }
+
 - (IBAction)clickedShare:(id)sender {
     // open share action sheet
 }
 - (IBAction)clickedContact:(id)sender {
     // open FB messager to user
+    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"fb-messenger://user-thread/%@", [post creatorFacebookId]]];
+    if([[UIApplication sharedApplication] canOpenURL:url]){
+        [[UIApplication sharedApplication] openURL:url];
+    }else{
+        // Did not install FB MSGER or misc error. What Do
+    }
 }
 - (IBAction)clickedFBSellerName:(id)sender {
     // Open seller's facebook page
+    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"fb://profile/%@", [post creatorFacebookId]]];
+    [[UIApplication sharedApplication] openURL:url];
+    if([[UIApplication sharedApplication] canOpenURL:url]){
+        [[UIApplication sharedApplication] openURL:url];
+    }else{
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://www.facebook.com/%@", [post creatorFacebookId]]];];
+    }
 }
 
 #pragma mark - Collection view data source
