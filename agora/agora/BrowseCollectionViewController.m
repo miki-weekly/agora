@@ -43,10 +43,12 @@
 - (void)logInViewController:(PFLogInViewController *)controller didLogInUser:(PFUser *)user {
     // Login procedure
     [controller dismissViewControllerAnimated:YES completion:nil];
-    [FBRequestConnection startForMeWithCompletionHandler:^(FBRequestConnection *connection, id result, NSError *error) {
-        if (!error) {
+    [[FBRequest requestForMe] startWithCompletionHandler:^(FBRequestConnection *connection, id result, NSError *error) {
+        if(!error){
             [[PFUser currentUser] setObject:[result objectForKey:@"id"] forKey:@"facebookId"];
-            [[PFUser currentUser] saveEventually];
+            [[PFUser currentUser] save];
+        }else{
+            NSLog(@"%@", error);
         }
     }];
     
