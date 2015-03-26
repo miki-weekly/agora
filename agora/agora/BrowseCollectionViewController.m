@@ -7,6 +7,7 @@
 //
 
 #import <Parse/Parse.h>
+#import <ParseFacebookUtils/PFFacebookUtils.h>
 
 #import "BrowseCollectionViewController.h"
 #import "DetailedPostViewController.h"
@@ -45,7 +46,6 @@
     [FBRequestConnection startForMeWithCompletionHandler:^(FBRequestConnection *connection, id result, NSError *error) {
         if (!error) {
             [[PFUser currentUser] setObject:[result objectForKey:@"id"] forKey:@"facebookId"];
-            
             [[PFUser currentUser] saveEventually];
         }
     }];
