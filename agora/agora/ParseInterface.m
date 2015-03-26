@@ -71,14 +71,15 @@
     Post *post = [[Post alloc]init];
     
     [query includeKey:@"createdBy"];
-    [query whereKey:@"objectId" equalTo: object_id];
     
-    PFObject *object = [query getFirstObject];
+    PFObject *object = [query getObjectWithId:object_id];
+    
     NSLog(@"Retrieved Data");
     
     PFUser *user = [object objectForKey:@"createdBy"];
     PFFile *file = [user objectForKey:@"profilePicture"];
-            [file getDataInBackgroundWithBlock:^(NSData *data, NSError *error) {
+    
+    [file getDataInBackgroundWithBlock:^(NSData *data, NSError *error) {
         post.createProfilePicture = [UIImage imageWithData:data];
     }];
             
