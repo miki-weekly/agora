@@ -19,7 +19,7 @@
 @property NSNumber *price;
 @property UIImage *photo;
 @property UIImage *thumbnail;
-@property NSString *creator;
+@property NSString *creatorFacebookId;
 @property UIImage *createProfilePicture;
 
 @end
