@@ -11,6 +11,7 @@
 #import "ParseInterface.h"
 
 @interface AddPostViewController ()
+
 @property (strong, nonatomic) IBOutlet UIScrollView *scrollView;
 @property (weak, nonatomic) IBOutlet UIView *contentView;
 
@@ -19,8 +20,12 @@
 @property (weak, nonatomic) IBOutlet UITextField *titleTextField;
 @property (weak, nonatomic) IBOutlet UITextField *priceTextField;
 @property (weak, nonatomic) IBOutlet UIButton *catagoryButton;
-@property (weak, nonatomic) IBOutlet UITextView *descriptionTextFeild;
+@property (weak, nonatomic) IBOutlet UITextView *descriptionTextView;
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
+
+@property NSMutableArray* secondaryPictures;
+
+@property BOOL selectingHeadImage;
 
 @end
 
@@ -29,44 +34,27 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    [[self scrollView] addSubview:[self contentView]];
-    CGRect contentFrame = [[self contentView] frame];
-    CGSize size = CGSizeMake(contentFrame.size.width, contentFrame.origin.y + contentFrame.size.height + 20);             // set the end of the scroll view
-    [[self scrollView] setContentSize:size];
-    [[self scrollView] setKeyboardDismissMode:UIScrollViewKeyboardDismissModeInteractive];
-    [[[self descriptionTextFeild] layer] setBorderWidth:0.5f];
-    [[[self descriptionTextFeild] layer] setCornerRadius:4.0];
-    [[[self descriptionTextFeild] layer] setBorderColor:[[UIColor grayColor] CGColor]];
+    [[self scrollView] setContentSize:[[self contentView] frame].size];
+    //[[self scrollView] setKeyboardDismissMode:UIScrollViewKeyboardDismissModeInteractive];
+    [[[self descriptionTextView] layer] setBorderWidth:0.5f];
+    [[[self descriptionTextView] layer] setCornerRadius:4.0];
+    [[[self descriptionTextView] layer] setBorderColor:[[UIColor grayColor] CGColor]];
     
+    [self setSecondaryPictures:[[NSMutableArray alloc] init]];
 }
 
-- (void)textViewDidBeginEditing:(UITextView *)textView {
-    if([textView.text isEqualToString:@"Enter a description"]){
-        [textView setText:@""];
-        [textView setTextColor:[UIColor blackColor]];
-    }
-    
-    [textView becomeFirstResponder];
-}
-
-- (void)textViewDidEndEditing:(UITextView *)textView {
-    if([textView.text isEqualToString:@""]){
-        [textView setText:@"Enter a description"];
-        [textView setTextColor:[UIColor blackColor]];
-    }
-    
-    [textView resignFirstResponder];
-}
-
-- (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text {
-    return [[textView text] length] + ([text length] - range.length) <= 200;
-}
-
-- (BOOL)textFieldShouldReturn:(UITextField *)textField{
-    return YES;
-}
+#pragma mark - IB Actions
 
 - (IBAction)selectMainImage:(id)sender {
+    UIImagePickerController* imagePickerController = [[UIImagePickerController alloc] init];
+    [imagePickerController setDelegate:self];
+    [imagePickerController setSourceType:UIImagePickerControllerSourceTypePhotoLibrary];              // Access photo library
+    //[imagePickerController setSourceType:UIImagePickerControllerSourceTypeCamera];                    // Access Camera ( will crash if no camera (simulator))
+    
+    [self setSelectingHeadImage:YES];
+    [self presentViewController:imagePickerController animated:YES completion:nil];
+}
+- (IBAction)addSecondaryImage:(id)sender {
     UIImagePickerController* imagePickerController = [[UIImagePickerController alloc] init];
     [imagePickerController setDelegate:self];
     [imagePickerController setSourceType:UIImagePickerControllerSourceTypePhotoLibrary];              // Access photo library
@@ -76,36 +64,138 @@
 }
 
 - (IBAction)selectCatagory:(id)sender {
-    
+    [[self catagoryButton] setTitle:@"Misc" forState:UIControlStateNormal];
+    // TODO: show list of catagories to choose from
 }
 
 - (IBAction)postToParse:(id)sender {
     // TODO: do checks on if required feilds are enter, secondary pics
+    if([[[self titleTextField] text] isEqualToString:@""])
+        return;
+    
     Post* post = [[Post alloc] init];
     
     [post setTitle:[[self titleTextField] text]];
-    [post setItemDescription:[[self descriptionTextFeild] text]];
+    [post setItemDescription:[[self descriptionTextView] text]];
     [post setCategory:[[[self catagoryButton] titleLabel] text]];
-    // [post setStringTags:];
+    [post setStringTags:@[@"[]"]];
     [post setPrice:[NSNumber numberWithDouble:[[[self priceTextField] text] doubleValue]]];
-    [post setPhoto:[[self mainImage] image]];
+    [post setHeaderPhoto:[[self mainImage] image]];
     [post setCreatorFacebookId:[[PFUser currentUser] objectForKey:@"facebookId"]];
+    [post setPhotosArray:[self secondaryPictures]];
     
     [ParseInterface saveNewPostToParse:post];
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
-    if([[segue identifier] isEqualToString:@""]){
-        
-    }
+- (IBAction)pressedCancel:(id)sender {
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
+
+#pragma mark - Text Field
+
+- (void)textFieldDidBeginEditing:(UITextField *)textField{
+    /*
+    [UIView beginAnimations:nil context:nil];
+    [UIView setAnimationDelegate:self];
+    [UIView setAnimationDuration:0.5];
+    [UIView setAnimationBeginsFromCurrentState:YES];
+    CGRect frame = [[self view] frame];
+    [[self view] setFrame:CGRectMake(frame.origin.x, frame.origin.y - 25, frame.size.width, frame.size.height)];
+    [UIView commitAnimations];*/
+    //[self scrollView] setContentSize:[[[]self scrollView]
+}
+
+- (void)textFieldDidEndEditing:(UITextField *)textField{
+    /*
+    [UIView beginAnimations:nil context:nil];
+    [UIView setAnimationDelegate:self];
+    [UIView setAnimationDuration:0.5];
+    [UIView setAnimationBeginsFromCurrentState:YES];
+    CGRect frame = [[self view] frame];
+    [[self view] setFrame:CGRectMake(frame.origin.x, frame.origin.y + 25, frame.size.width, frame.size.height)];
+    [UIView commitAnimations];*/
+}
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField{
+    [textField resignFirstResponder];
+    return YES;
+}
+
+#pragma mark - Text View
+
+// following two functions work to manually put placeholder text
+- (void)textViewDidBeginEditing:(UITextView *)textView {
+    if([textView.text isEqualToString:@"Enter a description"]){
+        [textView setText:@""];
+        [textView setTextColor:[UIColor blackColor]];
+    }
+    
+    [textView becomeFirstResponder];
+}
+
+- (void)textViewDidEndEditing:(UITextView *)textView{
+    if([textView.text isEqualToString:@""]){
+        [textView setText:@"Enter a description"];
+        [textView setTextColor:[UIColor grayColor]];
+    }
+    
+    [textView resignFirstResponder];
+}
+
+- (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text{
+    // Limit textView to 200 char
+    return [[textView text] length] + ([text length] - range.length) <= 200;
+}
+
+#pragma mark - UIImagePickerController
 
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info{
     UIImage* image = info[@"UIImagePickerControllerOriginalImage"];
     // How to know which imagePicker is which? (Main vs array of subimage)
     // do something with Image
-    [[self mainImage] setImage:image];
+    
+    if([self selectingHeadImage]){
+        [[self mainImage] setImage:image];
+        [self setSelectingHeadImage:NO];
+    }else{
+        [[self secondaryPictures] addObject:image];
+        [[self collectionView] reloadData];
+    }
+    
     [picker dismissViewControllerAnimated:YES completion:nil];
+}
+
+#pragma mark - Collection view data source
+
+- (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView{
+    return 1;
+}
+
+- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
+    return [[self secondaryPictures] count] + 1;
+}
+
+- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
+    UICollectionViewCell* cell;
+    if([indexPath row] != [[self secondaryPictures] count]){
+        cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"imageCell" forIndexPath:indexPath];
+        
+        UIImageView* imageView = (UIImageView*)[cell viewWithTag:1];
+        [imageView setImage:[[self secondaryPictures] objectAtIndex:[indexPath row]]];
+    }else{
+        cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"addCell" forIndexPath:indexPath];
+    }
+    
+    [[cell layer] setBorderColor:[[UIColor blackColor] CGColor]];
+    [[cell layer] setBorderWidth:1.5f];
+    return cell;
+}
+
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
+    if ([indexPath row] == [[self secondaryPictures] count]) {
+        [self addSecondaryImage:nil];
+    }
 }
 
 @end

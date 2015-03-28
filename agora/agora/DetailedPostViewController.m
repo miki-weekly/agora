@@ -13,6 +13,7 @@
 #define post [self post]
 
 @interface DetailedPostViewController ()
+
 @property (weak, nonatomic) IBOutlet UIView *contentView;
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
 @property (weak, nonatomic) IBOutlet UIImageView *mainImageView;
@@ -39,11 +40,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    // Must add content to scrollView to scroll
-    [[self scrollView] addSubview:[self contentView]];
-    CGRect contentFrame = [[self contentView] frame];
-    CGSize size = CGSizeMake(contentFrame.size.width, contentFrame.origin.y + contentFrame.size.height + 20);             // set the end of the scroll view
-    [[self scrollView] setContentSize:size];
+    [[self scrollView] setContentSize:[[self contentView] frame].size];
     
     [[self mainImageView] setImage:[post headerPhoto]];
     
@@ -87,9 +84,12 @@
     [[self descriptionTextField] setText:[post itemDescription]];
 }
 
+#pragma mark - IB Actions
+
 - (IBAction)clickedShare:(id)sender {
     // open share action sheet
 }
+
 - (IBAction)clickedContact:(id)sender {
     // open FB messager to user
     NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"fb-messenger://user-thread/%@", [post creatorFacebookId]]];
@@ -99,6 +99,7 @@
         // Did not install FB MSGER or misc error. What Do
     }
 }
+
 - (IBAction)clickedFBSellerName:(id)sender {
     // Open seller's facebook page
     NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"fb://profile/%@", [post creatorFacebookId]]];

@@ -76,9 +76,11 @@
     Post* postForCell = [[self postsArray] objectAtIndex:[indexPath row]];
     
     // Cell config
+    [[postCell layer] setCornerRadius:5.0f];
+    
     [[postCell titleLabel] setText:[postForCell title]];
     [[postCell priceLabel] setText:[[postForCell price] stringValue]];
-    [[postCell imageView] setImage:[UIImage imageNamed:@"Test"]];
+    [[postCell imageView] setImage:[postForCell thumbnail]];
     
     [postCell setBackgroundColor:[UIColor grayColor]];
     
@@ -87,9 +89,10 @@
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
     if([[segue identifier] isEqualToString: @"viewPostSegue"]){
-        DetailedPostViewController * destination = [segue destinationViewController];
-        NSIndexPath *path = [[self collectionView] indexPathForCell:sender];
-        Post * selectedPost = [[self postsArray] objectAtIndex:path.row];
+        DetailedPostViewController* destination = [segue destinationViewController];
+        NSIndexPath* path = [[self collectionView] indexPathForCell:sender];
+        Post* selectedPost = [[self postsArray] objectAtIndex:path.row];
+        
         destination.post = [ParseInterface getFromParseIndividual:[selectedPost objectId]];
     }
 }
