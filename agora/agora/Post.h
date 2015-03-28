@@ -15,10 +15,11 @@
 @property NSString *itemDescription;
 @property NSString *category;
 @property NSString *objectId;
-@property NSArray *stringTags;
+@property NSArray *stringTags; //Array of strings
 @property NSNumber *price;
-@property UIImage *photo;
+@property UIImage *headerPhoto;
 @property UIImage *thumbnail;
 @property NSString *creatorFacebookId;
+@property NSArray *photosArray; //Array of UIImages
 
 @end

@@ -20,11 +20,19 @@
     
     PFObject *parsePost = [PFObject objectWithClassName:@"Posts"];
     
-    //Changing UIImage to PFFile for storage in Parse
-    NSData *image = UIImageJPEGRepresentation(post.photo, 1.0);
-    PFFile *imageFile = [PFFile fileWithData:image];
+    //Changing header image to PFFile for storage in Parse
+    NSData *imageData = UIImageJPEGRepresentation(post.headerPhoto, 1.0);
+    PFFile *imageFile = [PFFile fileWithData:imageData];
+    
+    //Converting secondary photos to PFFile
+    NSMutableArray *PFFileArray = [NSMutableArray array];
+    for (UIImage *image in post.photosArray) {
+        imageData = UIImageJPEGRepresentation(image, 1.0);
+        [PFFileArray addObject:[PFFile fileWithData: imageData]];
+    }
     
     parsePost[@"picture"] = imageFile;
+    parsePost[@"pictures"] = PFFileArray;
     parsePost[@"createdBy"] = [PFUser currentUser];
     parsePost[@"title"] = post.title;
     parsePost[@"description"] = post.itemDescription;
@@ -47,7 +55,7 @@
     [query getFirstObjectInBackgroundWithBlock:^(PFObject *object, NSError *error) {
         if (!error) {
             NSLog(@"OBJECT FOUND");
-            NSData *image = UIImageJPEGRepresentation(post.photo, 1.0);
+            NSData *image = UIImageJPEGRepresentation(post.headerPhoto, 1.0);
             PFFile *imageFile = [PFFile fileWithData:image];
             
             [object setObject: post.title forKey:@"title"];
@@ -77,10 +85,16 @@
     NSLog(@"Retrieved Data");
     
     PFUser *user = [object objectForKey:@"createdBy"];
-    PFFile *file = [user objectForKey:@"profilePicture"];
-            
-    file = [object objectForKey:@"picture"];
-    post.photo = [UIImage imageWithData:[file getData]];
+
+    PFFile *file = [object objectForKey:@"picture"];
+    post.headerPhoto = [UIImage imageWithData:[file getData]];
+    
+    NSArray* picturesPFFileArray = [object objectForKey:@"pictures"];
+    NSMutableArray *picturesUIImageArray = [NSMutableArray array];
+    
+    for (PFFile *picture in picturesPFFileArray) {
+        [picturesUIImageArray addObject: [UIImage imageWithData: [picture getData]]];
+    }
     
     post.title = [object objectForKey:@"title"];
     post.itemDescription = [object objectForKey:@"description"];
@@ -88,6 +102,7 @@
     post.price = [object objectForKey:@"price"];
     post.objectId = [object objectForKey:@"objectId"];
     post.creatorFacebookId = [user objectForKey:@"facebookId"];
+    post.photosArray = picturesUIImageArray;
     
     return post;
 }
