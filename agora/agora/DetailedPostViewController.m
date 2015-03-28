@@ -41,8 +41,8 @@
     
     // Must add content to scrollView to scroll
     [[self scrollView] addSubview:[self contentView]];
-    CGSize size = [self contentView].frame.size;
-    //size.height = 1000;                           // set the end of the scroll view
+    CGRect contentFrame = [[self contentView] frame];
+    CGSize size = CGSizeMake(contentFrame.size.width, contentFrame.origin.y + contentFrame.size.height + 20);             // set the end of the scroll view
     [[self scrollView] setContentSize:size];
     
     [[self mainImageView] setImage:[post photo]];
@@ -55,7 +55,7 @@
     // Configure buttons
     CGColorRef buttonColor = [[UIColor blueColor] CGColor];
     [[self shareButton] setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
-    [[[self shareButton] layer] setBorderWidth:2.0f];
+    [[[self shareButton] layer] setBorderWidth:1.5f];
     [[[self shareButton] layer] setCornerRadius:4.0f];
     [[[self shareButton] layer] setBorderColor:buttonColor];
     

@@ -7,6 +7,8 @@
 //
 
 #import "AddPostViewController.h"
+#import "Post.h"
+#import "ParseInterface.h"
 
 @interface AddPostViewController ()
 @property (strong, nonatomic) IBOutlet UIScrollView *scrollView;
@@ -15,6 +17,7 @@
 @property (strong, nonatomic) IBOutlet UIImageView* mainImage;
 @property (weak, nonatomic) IBOutlet UIButton *modifyMainImageButton;
 @property (weak, nonatomic) IBOutlet UITextField *titleTextField;
+@property (weak, nonatomic) IBOutlet UITextField *priceTextField;
 @property (weak, nonatomic) IBOutlet UIButton *catagoryButton;
 @property (weak, nonatomic) IBOutlet UITextView *descriptionTextFeild;
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
@@ -27,8 +30,8 @@
     [super viewDidLoad];
     
     [[self scrollView] addSubview:[self contentView]];
-    CGSize size = [self contentView].frame.size;
-    //size.height = 1000;
+    CGRect contentFrame = [[self contentView] frame];
+    CGSize size = CGSizeMake(contentFrame.size.width, contentFrame.origin.y + contentFrame.size.height + 20);             // set the end of the scroll view
     [[self scrollView] setContentSize:size];
     [[self scrollView] setKeyboardDismissMode:UIScrollViewKeyboardDismissModeInteractive];
     [[[self descriptionTextFeild] layer] setBorderWidth:0.5f];
@@ -59,8 +62,8 @@
     return [[textView text] length] + ([text length] - range.length) <= 200;
 }
 
-- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
-    
+- (BOOL)textFieldShouldReturn:(UITextField *)textField{
+    return YES;
 }
 
 - (IBAction)selectMainImage:(id)sender {
@@ -71,10 +74,26 @@
     
     [self presentViewController:imagePickerController animated:YES completion:nil];
 }
-- (IBAction)postToParse:(id)sender {
-    
+
+- (IBAction)selectCatagory:(id)sender {
     
 }
+
+- (IBAction)postToParse:(id)sender {
+    // TODO: do checks on if required feilds are enter, secondary pics
+    Post* post = [[Post alloc] init];
+    
+    [post setTitle:[[self titleTextField] text]];
+    [post setItemDescription:[[self descriptionTextFeild] text]];
+    [post setCategory:[[[self catagoryButton] titleLabel] text]];
+    // [post setStringTags:];
+    [post setPrice:[NSNumber numberWithDouble:[[[self priceTextField] text] doubleValue]]];
+    [post setPhoto:[[self mainImage] image]];
+    [post setCreatorFacebookId:[[PFUser currentUser] objectForKey:@"facebookId"]];
+    
+    [ParseInterface saveNewPostToParse:post];
+}
+
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
     if([[segue identifier] isEqualToString:@""]){
         
