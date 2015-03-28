@@ -45,7 +45,7 @@
     CGSize size = CGSizeMake(contentFrame.size.width, contentFrame.origin.y + contentFrame.size.height + 20);             // set the end of the scroll view
     [[self scrollView] setContentSize:size];
     
-    [[self mainImageView] setImage:[post photo]];
+    [[self mainImageView] setImage:[post headerPhoto]];
     
     // configure title, description and price
     [[self titleLabel] setText:[post title]];
