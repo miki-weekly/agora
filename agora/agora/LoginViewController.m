@@ -8,11 +8,21 @@
 
 #import "LoginViewController.h"
 
+
 @interface LoginViewController ()
 
 @end
 
 @implementation LoginViewController
+
+- (instancetype)init{
+    if((self = [super init])){
+        [self setFields:PFLogInFieldsFacebook];
+        [self setFacebookPermissions:@[@"public_profile", @"user_friends", @"user_education_history"]];
+    }
+    
+    return self;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];

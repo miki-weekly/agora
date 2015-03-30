@@ -72,13 +72,24 @@
             [[self FBSellerImageView] setProfileID:result[@"id"]];
             [[self FBSellerNameButton] setTitle:result[@"name"] forState:UIControlStateNormal];
             [[self FBSellerNameButton] setTitle:result[@"name"] forState:UIControlStateSelected];
-            //[[self FBMutalFriendsLabel] setText:[NSString stringWithFormat:<#(NSString *), ...#>]];
+            
         }else{
             NSLog(@"Error Grabing FB Data in Detail");
             // An error occurred, we need to handle the error
             // See: https://developers.facebook.com/docs/ios/errors
         }
     }];
+    // get amount of mutual friends (TODO: show excerpt of what friends?)
+    if(!([[post creatorFacebookId] isEqualToString:[[PFUser currentUser] objectForKey:@"facebookId"]])){
+        [FBRequestConnection startWithGraphPath:[post creatorFacebookId] parameters:@{@"fields": @"context.fields(mutual_friends)",} HTTPMethod:@"GET"
+                              completionHandler:^(FBRequestConnection *connection, FBGraphObject* result, NSError *error){
+                                  NSString* commonFriends = result[@"context"][@"mutual_friends"][@"summary"][@"total_count"];
+                                  [[self FBMutalFriendsLabel] setText:[NSString stringWithFormat:@"%@ mutual friends", commonFriends]];
+                              }
+         ];
+    }else{
+        [[self FBMutalFriendsLabel] setText:@""];
+    }
     
     // configure description textField
     [[self descriptionTextField] setText:[post itemDescription]];

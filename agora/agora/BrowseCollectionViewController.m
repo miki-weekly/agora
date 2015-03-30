@@ -16,7 +16,7 @@
 
 @interface BrowseCollectionViewController ()
 
-@property NSMutableArray * postsArray;
+@property NSMutableArray* postsArray;
 
 @end
 
@@ -28,15 +28,13 @@
     if(![PFUser currentUser]){                                                          // Not Logged in
         LoginViewController *logInController = [[LoginViewController alloc] init];
         [logInController setDelegate:self];
-        [logInController setFields:PFLogInFieldsFacebook];
-        [logInController setFacebookPermissions:@[@"user_education_history", @"public_profile"]];
         
         [self presentViewController:logInController animated:YES completion:nil];
     }else{
         // continue with load
         //populate array
-        [self setPostsArray : [[NSMutableArray alloc]init]];
-        [[self postsArray] addObjectsFromArray: [ParseInterface getFromParseListByCategory:@"RECENTS" AndSkipBy:0]];
+        [self setPostsArray:[[NSMutableArray alloc]init]];
+        [[self postsArray] addObjectsFromArray:[ParseInterface getFromParseListByCategory:@"RECENTS" AndSkipBy:0]];
     }
 }
 
