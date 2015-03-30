@@ -107,22 +107,7 @@
     return post;
 }
 
-+ (NSArray*) getFromParseListByCategory: (NSString*) category AndSkipBy: (NSInteger) skip {
-    
-    return [self getFromParse:category List:skip];
-}
-
-+ (NSArray*) getFromParseListRecents: (NSInteger) skip {
-    
-    return [self getFromParse: @"RECENTS" List:skip];
-}
-
-+ (NSArray*) getFromParseListUserPosts {
-    
-    return [self getFromParse: @"USER" List: 0];
-}
-
-+ (NSArray*) getFromParse: (NSString*) parameter List: (NSInteger) skip{
++ (void) getFromParse: (NSString*) parameter withSkip: (NSInteger) skip completion:(void (^)(NSArray* result))block;{
     PFQuery *query = [PFQuery queryWithClassName:@"Posts"];
     NSMutableArray *postArray = [NSMutableArray array];
 
@@ -144,29 +129,29 @@
         [query includeKey:@"createdBy"];
         [query selectKeys: [ParseInterface browseKeyArray]];
         [query whereKey:@"category" equalTo:parameter];
-        
-    }
-    NSArray *objectsArray = [query findObjects];
-
-    for(PFObject* object in objectsArray) {
-        Post *post = [[Post alloc] init];
-        PFUser *user = [object objectForKey:@"createdBy"];
-
-        PFFile *file = [object objectForKey:@"thumbnail"];
-        [file getDataInBackgroundWithBlock:^(NSData *data, NSError *error) {
-            post.thumbnail = [UIImage imageWithData:data];
-        }];
-        
-        post.title = [object objectForKey:@"title"];
-        post.price = [object objectForKey:@"price"];
-        post.category = [object objectForKey:@"category"];
-        post.objectId = object.objectId;
-        post.creatorFacebookId = [user objectForKey:@"facebookId"];
-        
-        [postArray addObject:post];
     }
     
-    return postArray;
+    [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+        for(PFObject* object in objects) {
+            Post *post = [[Post alloc] init];
+            PFUser *user = [object objectForKey:@"createdBy"];
+
+            PFFile *file = [object objectForKey:@"thumbnail"];
+            [file getDataInBackgroundWithBlock:^(NSData *data, NSError *error) {
+                post.thumbnail = [UIImage imageWithData:data];
+            }];
+            
+            post.title = [object objectForKey:@"title"];
+            post.price = [object objectForKey:@"price"];
+            post.category = [object objectForKey:@"category"];
+            post.objectId = object.objectId;
+            post.creatorFacebookId = [user objectForKey:@"facebookId"];
+            
+            [postArray addObject:post];
+        }
+        // Finally, pass array to block
+        block(postArray);
+    }];
 }
 
 @end

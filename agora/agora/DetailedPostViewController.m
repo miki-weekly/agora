@@ -64,6 +64,10 @@
     [[[self contactButton] layer] setCornerRadius:4.0f];
     [[[self contactButton] layer] setBorderColor:buttonColor];
     
+    [[[self FBSellerImageView] layer] setCornerRadius:[[self FBSellerImageView] frame].size.height/2];
+    [[[self FBSellerImageView] layer] setMasksToBounds:YES];
+    [[[self FBSellerImageView] layer] setBorderWidth:0];
+    
     // configure FBSeller info
     [FBRequestConnection startWithGraphPath:[post creatorFacebookId] completionHandler:^(FBRequestConnection *connection, NSDictionary* result, NSError *error) {
         if(!error){
@@ -72,7 +76,6 @@
             [[self FBSellerImageView] setProfileID:result[@"id"]];
             [[self FBSellerNameButton] setTitle:result[@"name"] forState:UIControlStateNormal];
             [[self FBSellerNameButton] setTitle:result[@"name"] forState:UIControlStateSelected];
-            
         }else{
             NSLog(@"Error Grabing FB Data in Detail");
             // An error occurred, we need to handle the error

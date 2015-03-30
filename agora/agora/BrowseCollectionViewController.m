@@ -16,6 +16,8 @@
 
 @interface BrowseCollectionViewController ()
 
+@property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activitySpinner;
+
 @property NSMutableArray* postsArray;
 
 @end
@@ -32,9 +34,13 @@
         [self presentViewController:logInController animated:YES completion:nil];
     }else{
         // continue with load
-        //populate array
-        [self setPostsArray:[[NSMutableArray alloc]init]];
-        [[self postsArray] addObjectsFromArray:[ParseInterface getFromParseListByCategory:@"RECENTS" AndSkipBy:0]];
+        
+        // populate array
+        [ParseInterface getFromParse:@"RECENTS" withSkip:0 completion:^(NSArray * result) {
+            [[self activitySpinner] stopAnimating];         // automatiicaly started via Storyboard
+            [self setPostsArray:[[NSMutableArray alloc] initWithArray:result]];
+            [[self collectionView] reloadData];
+        }];
     }
 }
 
@@ -51,7 +57,6 @@
     }];
     
     [self viewDidLoad];     // Call viewDidLoad again to load browseCollectionView
-    [[self collectionView] reloadData];
 }
 
 - (void)logInViewControllerDidCancelLogIn:(PFLogInViewController *)logInController {
