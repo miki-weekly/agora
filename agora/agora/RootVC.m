@@ -104,10 +104,9 @@
     if (self.currentVC == newVC) {
         // newVC is same as current one
     } else {
-        [self transitionFromViewController:self.currentVC toViewController:newVC duration:0.3 options:UIViewAnimationOptionTransitionNone animations:^{
-            
-        } completion:^(BOOL finished) {
-            
+        [self transitionFromViewController:self.currentVC toViewController:newVC duration:0.3 options:UIViewAnimationOptionTransitionCrossDissolve animations:^{
+            } completion:^(BOOL finished) {
+
         }];
         self.currentVC = newVC;
     }

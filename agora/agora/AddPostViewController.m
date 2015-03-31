@@ -23,6 +23,8 @@
 @property (weak, nonatomic) IBOutlet UITextView *descriptionTextView;
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
 
+@property (strong, nonatomic) UIImagePickerController* imagePickerController;
+
 @property NSMutableArray* secondaryPictures;
 
 @property BOOL selectingHeadImage;
@@ -33,6 +35,12 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    static dispatch_once_t pred = 0;
+    dispatch_once(&pred, ^{
+        [self setImagePickerController:[[UIImagePickerController alloc] init]];
+        [[self imagePickerController] setDelegate:self];
+    });
     
     [[self scrollView] setContentSize:[[self contentView] frame].size];
     //[[self scrollView] setKeyboardDismissMode:UIScrollViewKeyboardDismissModeInteractive];
@@ -46,21 +54,17 @@
 #pragma mark - IB Actions
 
 - (IBAction)selectMainImage:(id)sender {
-    UIImagePickerController* imagePickerController = [[UIImagePickerController alloc] init];
-    [imagePickerController setDelegate:self];
-    [imagePickerController setSourceType:UIImagePickerControllerSourceTypePhotoLibrary];              // Access photo library
+    [[self imagePickerController] setSourceType:UIImagePickerControllerSourceTypePhotoLibrary];              // Access photo library
     //[imagePickerController setSourceType:UIImagePickerControllerSourceTypeCamera];                    // Access Camera ( will crash if no camera (simulator))
     
     [self setSelectingHeadImage:YES];
-    [self presentViewController:imagePickerController animated:YES completion:nil];
+    [self presentViewController:[self imagePickerController] animated:YES completion:nil];
 }
 - (IBAction)addSecondaryImage:(id)sender {
-    UIImagePickerController* imagePickerController = [[UIImagePickerController alloc] init];
-    [imagePickerController setDelegate:self];
-    [imagePickerController setSourceType:UIImagePickerControllerSourceTypePhotoLibrary];              // Access photo library
+    [[self imagePickerController] setSourceType:UIImagePickerControllerSourceTypePhotoLibrary];              // Access photo library
     //[imagePickerController setSourceType:UIImagePickerControllerSourceTypeCamera];                    // Access Camera ( will crash if no camera (simulator))
     
-    [self presentViewController:imagePickerController animated:YES completion:nil];
+    [self presentViewController:[self imagePickerController] animated:YES completion:nil];
 }
 
 - (IBAction)selectCatagory:(id)sender {
