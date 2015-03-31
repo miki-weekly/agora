@@ -16,8 +16,14 @@
     
     UIViewController * vc = self;
     
-    while (![vc respondsToSelector:@selector(getEdgePanGesture)]) {
+    while (![vc respondsToSelector:@selector(getEdgePanGesture)] && vc) {
         vc = vc.parentViewController;
+    }
+    
+    if (!vc) {
+        // view controller was presented modally most likely
+        // either way is not on the VC stack so can't find ancestor root
+        return;
     }
     
     RootVC * root = (RootVC*)vc;
