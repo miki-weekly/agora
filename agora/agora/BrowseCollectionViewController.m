@@ -96,7 +96,10 @@
         NSIndexPath* path = [[self collectionView] indexPathForCell:sender];
         Post* selectedPost = [[self postsArray] objectAtIndex:path.row];
         
-        destination.post = [ParseInterface getFromParseIndividual:[selectedPost objectId]];
+        [ParseInterface getFromParseIndividual:[selectedPost objectId] completion:^(Post* result) {
+            [[self activitySpinner] stopAnimating];         // automatiicaly started via Storyboard
+            destination.post = result;
+        }];
     }
 }
 

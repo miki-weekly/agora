@@ -17,7 +17,6 @@
 
 + (void) saveNewPostToParse: (Post*) post {
     //Saving an image to Parse
-    
     PFObject *parsePost = [PFObject objectWithClassName:@"Posts"];
     
     //Changing header image to PFFile for storage in Parse
@@ -74,37 +73,36 @@
     }];
 }
 
-+ (Post*) getFromParseIndividual: (NSString*) object_id {
++ (void) getFromParseIndividual: (NSString*) object_id completion:(void (^)(Post* result))block; {
     PFQuery *query = [PFQuery queryWithClassName:@"Posts"];
     Post *post = [[Post alloc]init];
     
     [query includeKey:@"createdBy"];
-    
-    PFObject *object = [query getObjectWithId:object_id];
-    
-    NSLog(@"Retrieved Data");
-    
-    PFUser *user = [object objectForKey:@"createdBy"];
-
-    PFFile *file = [object objectForKey:@"picture"];
-    post.headerPhoto = [UIImage imageWithData:[file getData]];
-    
-    NSArray* picturesPFFileArray = [object objectForKey:@"pictures"];
-    NSMutableArray *picturesUIImageArray = [NSMutableArray array];
-    
-    for (PFFile *picture in picturesPFFileArray) {
-        [picturesUIImageArray addObject: [UIImage imageWithData: [picture getData]]];
-    }
-    
-    post.title = [object objectForKey:@"title"];
-    post.itemDescription = [object objectForKey:@"description"];
-    post.category = [object objectForKey:@"category"];
-    post.price = [object objectForKey:@"price"];
-    post.objectId = [object objectForKey:@"objectId"];
-    post.creatorFacebookId = [user objectForKey:@"facebookId"];
-    post.photosArray = picturesUIImageArray;
-    
-    return post;
+    [query getObjectInBackgroundWithId:object_id block:^(PFObject *object, NSError *error) {
+        NSLog(@"Retrieved Data");
+        
+        PFUser *user = [object objectForKey:@"createdBy"];
+        
+        PFFile *file = [object objectForKey:@"picture"];
+        post.headerPhoto = [UIImage imageWithData:[file getData]];
+        
+        NSArray* picturesPFFileArray = [object objectForKey:@"pictures"];
+        NSMutableArray *picturesUIImageArray = [NSMutableArray array];
+        
+        for (PFFile *picture in picturesPFFileArray) {
+            [picturesUIImageArray addObject: [UIImage imageWithData: [picture getData]]];
+        }
+        
+        post.title = [object objectForKey:@"title"];
+        post.itemDescription = [object objectForKey:@"description"];
+        post.category = [object objectForKey:@"category"];
+        post.price = [object objectForKey:@"price"];
+        post.objectId = [object objectForKey:@"objectId"];
+        post.creatorFacebookId = [user objectForKey:@"facebookId"];
+        post.photosArray = picturesUIImageArray;
+        
+        block(post);
+    }];
 }
 
 + (void) getFromParse: (NSString*) parameter withSkip: (NSInteger) skip completion:(void (^)(NSArray* result))block;{

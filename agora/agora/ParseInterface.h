@@ -13,7 +13,7 @@
     + (NSArray*) browseKeyArray;
     + (void) saveNewPostToParse: (Post*) post;
     + (void) updateParsePost: (Post*) post;
-    + (Post*) getFromParseIndividual: (NSString*) object_id;
+    + (void) getFromParseIndividual: (NSString*) object_id completion:(void (^)(Post* result))block;
     + (void) getFromParse: (NSString*) parameter withSkip: (NSInteger) skip completion:(void (^)(NSArray* result))block;
 
 @end
