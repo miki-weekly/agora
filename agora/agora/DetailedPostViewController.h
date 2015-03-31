@@ -8,8 +8,9 @@
 
 #import <UIKit/UIKit.h>
 #import "ParseInterface.h"
+#import "SlideItemVC.h"
 
-@interface DetailedPostViewController : UIViewController <UIScrollViewDelegate>
+@interface DetailedPostViewController : SlideItemVC <UIScrollViewDelegate>
 
 @property Post * post;
 

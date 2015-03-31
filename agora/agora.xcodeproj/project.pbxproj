@@ -19,6 +19,7 @@
 		9EFE8A8A1AB7CF4C000018F7 /* Accounts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9EFE8A891AB7CF4C000018F7 /* Accounts.framework */; };
 		AA5A86941ACA09C0005DAF4A /* SlideItemVC.m in Sources */ = {isa = PBXBuildFile; fileRef = AA5A86931ACA09C0005DAF4A /* SlideItemVC.m */; };
 		AA5A86971ACA0A63005DAF4A /* RootVC.m in Sources */ = {isa = PBXBuildFile; fileRef = AA5A86961ACA0A63005DAF4A /* RootVC.m */; };
+		AA5A869D1ACA572B005DAF4A /* SlideItemCVC.m in Sources */ = {isa = PBXBuildFile; fileRef = AA5A869C1ACA572B005DAF4A /* SlideItemCVC.m */; };
 		AA8739AD1A97F015000A2E45 /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA8739A81A97F015000A2E45 /* Parse.framework */; };
 		AA8739AE1A97F015000A2E45 /* ParseCrashReporting.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA8739A91A97F015000A2E45 /* ParseCrashReporting.framework */; };
 		AA8739AF1A97F015000A2E45 /* ParseFacebookUtils.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA8739AA1A97F015000A2E45 /* ParseFacebookUtils.framework */; };
@@ -68,6 +69,8 @@
 		AA5A86931ACA09C0005DAF4A /* SlideItemVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SlideItemVC.m; sourceTree = "<group>"; };
 		AA5A86951ACA0A63005DAF4A /* RootVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RootVC.h; sourceTree = "<group>"; };
 		AA5A86961ACA0A63005DAF4A /* RootVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RootVC.m; sourceTree = "<group>"; };
+		AA5A869B1ACA572B005DAF4A /* SlideItemCVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SlideItemCVC.h; sourceTree = "<group>"; };
+		AA5A869C1ACA572B005DAF4A /* SlideItemCVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SlideItemCVC.m; sourceTree = "<group>"; };
 		AA8739A81A97F015000A2E45 /* Parse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Parse.framework; path = "agora/parse-library-1.6.3/Parse.framework"; sourceTree = "<group>"; };
 		AA8739A91A97F015000A2E45 /* ParseCrashReporting.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ParseCrashReporting.framework; path = "agora/parse-library-1.6.3/ParseCrashReporting.framework"; sourceTree = "<group>"; };
 		AA8739AA1A97F015000A2E45 /* ParseFacebookUtils.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ParseFacebookUtils.framework; path = "agora/parse-library-1.6.3/ParseFacebookUtils.framework"; sourceTree = "<group>"; };
@@ -123,6 +126,8 @@
 		0BC025651ABB2E070076A09B /* Base Classes */ = {
 			isa = PBXGroup;
 			children = (
+				AA5A869B1ACA572B005DAF4A /* SlideItemCVC.h */,
+				AA5A869C1ACA572B005DAF4A /* SlideItemCVC.m */,
 				AA5A86921ACA09C0005DAF4A /* SlideItemVC.h */,
 				AA5A86931ACA09C0005DAF4A /* SlideItemVC.m */,
 				0BC025661ABB2E390076A09B /* PostCollectionViewCell.h */,
@@ -352,6 +357,7 @@
 				0BA532411AB7CC6000A730C6 /* LoginViewController.m in Sources */,
 				AA5A86941ACA09C0005DAF4A /* SlideItemVC.m in Sources */,
 				0BC025641ABB27860076A09B /* AddPostViewController.m in Sources */,
+				AA5A869D1ACA572B005DAF4A /* SlideItemCVC.m in Sources */,
 				AA5A86971ACA0A63005DAF4A /* RootVC.m in Sources */,
 				ADA500F11ABF6E7C000D6D9E /* Post.m in Sources */,
 				0BA532471AB7CCB000A730C6 /* ParseInterface.m in Sources */,

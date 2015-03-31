@@ -1,13 +1,31 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6751" systemVersion="14C1514" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="kv7-fY-fe8">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6751" systemVersion="14C1510" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="HDU-bj-3hO">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6736"/>
     </dependencies>
     <scenes>
+        <!--RootVC-->
+        <scene sceneID="VH1-Oy-11v">
+            <objects>
+                <viewController id="HDU-bj-3hO" customClass="RootVC" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="wTH-bG-E8Q"/>
+                        <viewControllerLayoutGuide type="bottom" id="Jr3-Hb-Qqh"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="yRI-3y-aJ7">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="BJC-uh-roY" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="346" y="438"/>
+        </scene>
         <!--Navigation Controller-->
         <scene sceneID="n7w-R0-Wew">
             <objects>
-                <navigationController id="kv7-fY-fe8" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="Browse Nav" id="kv7-fY-fe8" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="YkO-cz-4hc">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -234,7 +252,7 @@
         <!--Add Post View Controller-->
         <scene sceneID="buh-dE-7zd">
             <objects>
-                <viewController id="Zwm-GF-ig9" customClass="AddPostViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="Add Post" id="Zwm-GF-ig9" customClass="AddPostViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="djt-n1-2XC"/>
                         <viewControllerLayoutGuide type="bottom" id="s5X-at-GvC"/>
@@ -390,7 +408,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Uum-hA-ev7" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1230" y="763.5"/>
+            <point key="canvasLocation" x="1406" y="1405.5"/>
         </scene>
     </scenes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">

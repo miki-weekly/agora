@@ -9,7 +9,7 @@
 #import "RootVC.h"
 #import "SlideItemVC.h"
 
-@interface RootVC () <UIGestureRecognizerDelegate,RootVCNavProtocol>
+@interface RootVC () <UIGestureRecognizerDelegate>
 
 // View Controllers
 @property (nonatomic)  NSDictionary * buttonNames;
@@ -40,7 +40,7 @@
 -(NSDictionary*) buttonNames {
     // must return dictionary with strings in order to appear on overlay menu
 #warning - add proper names you want in your menu
-    return @{@"":@0,@"Brian":@1,@"Joel":@2};
+    return @{@"Browse":@0,@"Add":@1,@"Joel":@2};
 }
 
 -(UIScreenEdgePanGestureRecognizer *)getEdgePanGesture {
@@ -56,21 +56,19 @@
     
     UIStoryboard * story = [UIStoryboard storyboardWithName:@"Main" bundle:NULL];
     
-    SlideItemVC * first = [story instantiateViewControllerWithIdentifier:@"ADD STORYBOARD ID HERE"];
-    first.root = self;
+    UIViewController * first = [story instantiateViewControllerWithIdentifier:@"Browse Nav"];
     [self addChildViewController:first];
     [self.view addSubview:first.view];
     self.currentVC = first;
     
     
     //make other vcs but don't add them
-    SlideItemVC * second = [story instantiateViewControllerWithIdentifier:@"ADD STORYBOARD ID HERE"];
-    second.root = self;
+    SlideItemVC * second = [story instantiateViewControllerWithIdentifier:@"Add Post"];
     [self addChildViewController:second];
     
-    SlideItemVC * third = [story instantiateViewControllerWithIdentifier:@"ADD STORYBOARD ID HERE"];
-    third.root = self;
-    [self addChildViewController:third];
+//    SlideItemVC * third = [story instantiateViewControllerWithIdentifier:@"ADD STORYBOARD ID HERE"];
+//    third.root = self;
+//    [self addChildViewController:third];
     
 }
 

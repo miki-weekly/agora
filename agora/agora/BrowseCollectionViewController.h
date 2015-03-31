@@ -9,8 +9,9 @@
 #import <UIKit/UIKit.h>
 #import <ParseUI/ParseUI.h>
 #import "ParseInterface.h"
+#import "SlideItemCVC.h"
 
-@interface BrowseCollectionViewController : UICollectionViewController <PFLogInViewControllerDelegate>
+@interface BrowseCollectionViewController : SlideItemCVC <PFLogInViewControllerDelegate>
 
 
 @end

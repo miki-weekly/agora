@@ -14,7 +14,7 @@
 #import "LoginViewController.h"
 #import "PostCollectionViewCell.h"
 
-@interface BrowseCollectionViewController ()
+@interface BrowseCollectionViewController () 
 
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activitySpinner;
 
@@ -30,6 +30,7 @@
     if(![PFUser currentUser]){                                                          // Not Logged in
         LoginViewController *logInController = [[LoginViewController alloc] init];
         [logInController setDelegate:self];
+#warning presenting VC without adding to VC stack 
         
         [self presentViewController:logInController animated:YES completion:nil];
     }else{

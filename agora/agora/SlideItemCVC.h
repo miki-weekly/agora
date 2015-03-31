@@ -1,5 +1,5 @@
 //
-//  SlideItemVC.h
+//  SlideItemCVC.h
 //  agora
 //
 //  Created by Ethan Gates on 3/30/15.
@@ -8,9 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-
-
-
-@interface SlideItemVC : UIViewController
+@interface SlideItemCVC : UICollectionViewController
 
 @end

@@ -1,19 +1,17 @@
 //
-//  SlideItemVC.m
+//  SlideItemCVC.m
 //  agora
 //
 //  Created by Ethan Gates on 3/30/15.
 //  Copyright (c) 2015 Ethan. All rights reserved.
 //
 
-#import "SlideItemVC.h"
+#import "SlideItemCVC.h"
 #import "RootVC.h"
 
-@implementation SlideItemVC
+@implementation SlideItemCVC
 
 -(void)viewDidLoad {
-    [super viewDidLoad];
-    
     UIViewController * vc = self;
     
     while (![vc respondsToSelector:@selector(getEdgePanGesture)]) {
