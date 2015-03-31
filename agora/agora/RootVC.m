@@ -40,7 +40,7 @@
 -(NSDictionary*) buttonNames {
     // must return dictionary with strings in order to appear on overlay menu
 #warning - add proper names you want in your menu
-    return @{@"Browse":@0,@"Add":@1,@"Joel":@2};
+    return @{@"Browse":@0,@"Add":@1,@"":@2};
 }
 
 -(UIScreenEdgePanGestureRecognizer *)getEdgePanGesture {
