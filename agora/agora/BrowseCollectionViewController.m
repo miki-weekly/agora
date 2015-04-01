@@ -48,6 +48,9 @@
 - (void)logInViewController:(PFLogInViewController *)controller didLogInUser:(PFUser *)user {
     // Login procedure
     [controller dismissViewControllerAnimated:YES completion:nil];
+    if (!FBSession.activeSession.isOpen) {
+        [FBSession openActiveSessionWithAllowLoginUI:NO];
+    }
     [[FBRequest requestForMe] startWithCompletionHandler:^(FBRequestConnection *connection, id result, NSError *error) {
         if(!error){
             [[PFUser currentUser] setObject:[result objectForKey:@"id"] forKey:@"facebookId"];
