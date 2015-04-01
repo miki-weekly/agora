@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0B4664CD1ACBAECD00E9A3E8 /* Entitlements.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0B4664CC1ACBAECD00E9A3E8 /* Entitlements.plist */; };
 		0BA507C01A97F92700881074 /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0BA507BF1A97F92700881074 /* Bolts.framework */; };
 		0BA532401AB7CC6000A730C6 /* BrowseCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0BA5323D1AB7CC6000A730C6 /* BrowseCollectionViewController.m */; };
 		0BA532411AB7CC6000A730C6 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0BA5323F1AB7CC6000A730C6 /* LoginViewController.m */; };
@@ -48,6 +49,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0B4664CC1ACBAECD00E9A3E8 /* Entitlements.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Entitlements.plist; sourceTree = SOURCE_ROOT; };
 		0BA507BF1A97F92700881074 /* Bolts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Bolts.framework; path = "agora/parse-library-1.6.3/Bolts.framework"; sourceTree = "<group>"; };
 		0BA5323C1AB7CC6000A730C6 /* BrowseCollectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BrowseCollectionViewController.h; sourceTree = "<group>"; };
 		0BA5323D1AB7CC6000A730C6 /* BrowseCollectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BrowseCollectionViewController.m; sourceTree = "<group>"; };
@@ -228,6 +230,7 @@
 		AA8F66271A8EA73700CA4604 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				0B4664CC1ACBAECD00E9A3E8 /* Entitlements.plist */,
 				AA8F66341A8EA73700CA4604 /* Images.xcassets */,
 				AA8F66281A8EA73700CA4604 /* Info.plist */,
 				AA8F66291A8EA73700CA4604 /* main.m */,
@@ -332,6 +335,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0B4664CD1ACBAECD00E9A3E8 /* Entitlements.plist in Resources */,
 				0BC0256E1ABB8FAB0076A09B /* Main.storyboard in Resources */,
 				AA8F66381A8EA73700CA4604 /* LaunchScreen.xib in Resources */,
 				AA8F66351A8EA73700CA4604 /* Images.xcassets in Resources */,
@@ -422,7 +426,9 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_ENTITLEMENTS = Entitlements.plist;
+				CODE_SIGN_IDENTITY = "-";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "-";
 				COPY_PHASE_STRIP = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -463,6 +469,8 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_ENTITLEMENTS = Entitlements.plist;
+				CODE_SIGN_IDENTITY = "-";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = YES;
 				ENABLE_NS_ASSERTIONS = NO;
