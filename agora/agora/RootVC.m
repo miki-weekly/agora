@@ -72,6 +72,21 @@
     
 }
 
+
+-(void) switchToViewController:(NSInteger) index {
+    SlideItemVC * newVC = self.childViewControllers[index];
+    if (self.currentVC == newVC) {
+        // newVC is same as current one
+    } else {
+        [self transitionFromViewController:self.currentVC toViewController:newVC duration:0.3 options:UIViewAnimationOptionTransitionCrossDissolve animations:^{
+        } completion:^(BOOL finished) {
+            
+        }];
+        self.currentVC = newVC;
+    }
+}
+
+
 #pragma mark - VC lifecycle
 
 - (void)viewDidLoad {
@@ -100,16 +115,8 @@
     UIButton * b = (UIButton*)sender;
     
     NSInteger newVCi = [self.buttonNames[b.titleLabel.text] integerValue];
-    SlideItemVC * newVC = self.childViewControllers[newVCi];
-    if (self.currentVC == newVC) {
-        // newVC is same as current one
-    } else {
-        [self transitionFromViewController:self.currentVC toViewController:newVC duration:0.3 options:UIViewAnimationOptionTransitionCrossDissolve animations:^{
-            } completion:^(BOOL finished) {
-
-        }];
-        self.currentVC = newVC;
-    }
+    
+    [self switchToViewController:newVCi];
     
     
     
@@ -184,7 +191,7 @@ int count;
     
 }
 
-#pragma mark - Root View UI helpers
+#pragma mark - overlay UI helpers
 
 -(void) snapOpen {
     [UIView animateWithDuration:0.3 animations:^{
@@ -204,7 +211,6 @@ int count;
     
 }
 
-#pragma mark - overlay UI helpers
 
 -(void) setUpOverlay {
     self.menu = [[UIView alloc] initWithFrame:self.view.frame];

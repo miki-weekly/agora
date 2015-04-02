@@ -11,5 +11,6 @@
 @interface RootVC : UIViewController
 
 -(UIScreenEdgePanGestureRecognizer*) getEdgePanGesture;
+-(void) switchToViewController:(NSInteger) index;
 
 @end

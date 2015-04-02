@@ -9,6 +9,7 @@
 #import "AddPostViewController.h"
 #import "Post.h"
 #import "ParseInterface.h"
+#import "RootVC.h"
 
 @interface AddPostViewController ()
 
@@ -68,6 +69,9 @@
 }
 
 - (IBAction)selectCatagory:(id)sender {
+    
+    
+    
     [[self catagoryButton] setTitle:@"Misc" forState:UIControlStateNormal];
     // TODO: show list of catagories to choose from
 }
@@ -93,7 +97,12 @@
 }
 
 - (IBAction)pressedCancel:(id)sender {
-    [self dismissViewControllerAnimated:YES completion:nil];
+    if (self.parentViewController.class == [RootVC class]) {
+        RootVC * root = (RootVC*)self.parentViewController;
+        [root switchToViewController:0];
+    } else {
+        [self dismissViewControllerAnimated:YES completion:nil];
+    }
 }
 
 #pragma mark - Text Field
