@@ -94,10 +94,20 @@
     [[postCell layer] setCornerRadius:5.0f];
     
     [[postCell titleLabel] setText:[postForCell title]];
+    [[postCell titleLabel] setTextColor:[UIColor whiteColor]];
     [[postCell priceLabel] setText:[[postForCell price] stringValue]];
+    [[postCell priceLabel] setTextColor:[UIColor whiteColor]];
     [[postCell imageView] setImage:[postForCell thumbnail]];
-    
+    //indexPath.row == 0?[[postCell imageView] setImage:[UIImage imageNamed:@"soccer"]]:NULL;
     [postCell setBackgroundColor:[UIColor grayColor]];
+    
+    [postCell.gradient setBackgroundColor:[UIColor clearColor]];
+    if ([postCell.gradient.layer.sublayers count] == 0) {
+        [self addGradientBGForView:postCell.gradient];
+    }
+    
+    
+    [postCell.contentView bringSubviewToFront:postCell.titleLabel];
     
     return postCell;
 }
@@ -112,4 +122,39 @@
     }
 }
 
+
+-(void) addGradientBGForView:(UIView*) view {
+    
+    CAGradientLayer * gradient = [CAGradientLayer layer];
+    gradient.frame = view.bounds;
+    gradient.colors = [NSArray arrayWithObjects:(id)[[UIColor blackColor] colorWithAlphaComponent:0.3].CGColor, [[UIColor blackColor] colorWithAlphaComponent:0.8].CGColor, nil];
+    gradient.startPoint = CGPointMake(0.5, 0.0);
+    gradient.endPoint = CGPointMake(0.5, 1.0);
+    [view.layer addSublayer:gradient];
+    
+}
+
 @end
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

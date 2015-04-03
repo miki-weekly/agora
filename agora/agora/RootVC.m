@@ -170,18 +170,18 @@ int count;
     CGPoint velocity = [gesture velocityInView:gesture.view];
     
     if (gesture.state == UIGestureRecognizerStateBegan || gesture.state == UIGestureRecognizerStateChanged) {
-        if (gesture.state == UIGestureRecognizerStateBegan) {
-            NSLog(@"began Gesture");
-        }
+//        if (gesture.state == UIGestureRecognizerStateBegan) {
+//            NSLog(@"began Gesture");
+//        }
         
-        NSLog(@"translation x %f translation y %f",translation.x,translation.y);
-        NSLog(@"                    velocity x %f velocity y %f",velocity.x,velocity.y);
+        //NSLog(@"translation x %f translation y %f",translation.x,translation.y);
+        //NSLog(@"                    velocity x %f velocity y %f",velocity.x,velocity.y);
         
         //[self changeAlpha:translation.x > max?1.0:translation.x/max];
         
         count++;
     } else {
-        NSLog(@"gesture cancel, fail, or ended with call count %i",count);
+        //NSLog(@"gesture cancel, fail, or ended with call count %i",count);
         if (translation.x*-1 > [UIScreen mainScreen].bounds.size.width/3 || velocity.x < -1000) {
             [self snapClosed];
         }
@@ -221,12 +221,6 @@ int count;
     //set Thresholds
     self.xThresh = [UIScreen mainScreen].bounds.size.width/4;
     self.velocityThresh = 1000.0;
-    
-    
-    
-    
-    
-    
     
     
     [self.view addSubview:self.menu];

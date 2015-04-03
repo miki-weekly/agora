@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		0B4664CD1ACBAECD00E9A3E8 /* Entitlements.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0B4664CC1ACBAECD00E9A3E8 /* Entitlements.plist */; };
-		0B8996CB1ACE1CFB00357EC3 /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0B8996C51ACE1CFB00357EC3 /* Bolts.framework */; };
 		0B8996CC1ACE1CFB00357EC3 /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0B8996C61ACE1CFB00357EC3 /* Parse.framework */; };
 		0B8996CD1ACE1CFB00357EC3 /* ParseCrashReporting.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0B8996C71ACE1CFB00357EC3 /* ParseCrashReporting.framework */; };
 		0B8996D01ACE1CFB00357EC3 /* ParseUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0B8996CA1ACE1CFB00357EC3 /* ParseUI.framework */; };
@@ -29,6 +28,8 @@
 		AA5A86941ACA09C0005DAF4A /* SlideItemVC.m in Sources */ = {isa = PBXBuildFile; fileRef = AA5A86931ACA09C0005DAF4A /* SlideItemVC.m */; };
 		AA5A86971ACA0A63005DAF4A /* RootVC.m in Sources */ = {isa = PBXBuildFile; fileRef = AA5A86961ACA0A63005DAF4A /* RootVC.m */; };
 		AA5A869D1ACA572B005DAF4A /* SlideItemCVC.m in Sources */ = {isa = PBXBuildFile; fileRef = AA5A869C1ACA572B005DAF4A /* SlideItemCVC.m */; };
+		AA87F4841ACF381500AA6AB1 /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0B8996C51ACE1CFB00357EC3 /* Bolts.framework */; };
+		AA87F4871ACF4C1900AA6AB1 /* UIColor+AGColors.m in Sources */ = {isa = PBXBuildFile; fileRef = AA87F4861ACF4C1900AA6AB1 /* UIColor+AGColors.m */; };
 		AA8F662A1A8EA73700CA4604 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = AA8F66291A8EA73700CA4604 /* main.m */; };
 		AA8F662D1A8EA73700CA4604 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = AA8F662C1A8EA73700CA4604 /* AppDelegate.m */; };
 		AA8F66351A8EA73700CA4604 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AA8F66341A8EA73700CA4604 /* Images.xcassets */; };
@@ -84,6 +85,8 @@
 		AA5A86961ACA0A63005DAF4A /* RootVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RootVC.m; sourceTree = "<group>"; };
 		AA5A869B1ACA572B005DAF4A /* SlideItemCVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SlideItemCVC.h; sourceTree = "<group>"; };
 		AA5A869C1ACA572B005DAF4A /* SlideItemCVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SlideItemCVC.m; sourceTree = "<group>"; };
+		AA87F4851ACF4C1900AA6AB1 /* UIColor+AGColors.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+AGColors.h"; sourceTree = "<group>"; };
+		AA87F4861ACF4C1900AA6AB1 /* UIColor+AGColors.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+AGColors.m"; sourceTree = "<group>"; };
 		AA8F66241A8EA73700CA4604 /* agora.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = agora.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AA8F66281A8EA73700CA4604 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		AA8F66291A8EA73700CA4604 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -106,6 +109,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AA87F4841ACF381500AA6AB1 /* Bolts.framework in Frameworks */,
 				0BF40AC31ACE2A9A0034A1E5 /* ParseFacebookUtilsV4.framework in Frameworks */,
 				9EFE8A8A1AB7CF4C000018F7 /* Accounts.framework in Frameworks */,
 				0BF40ABB1ACE215C0034A1E5 /* FBSDKCoreKit.framework in Frameworks */,
@@ -119,7 +123,6 @@
 				AD958F561AA5997600ABCFB3 /* SystemConfiguration.framework in Frameworks */,
 				0BF40ABD1ACE215C0034A1E5 /* FBSDKShareKit.framework in Frameworks */,
 				AD958F541AA5994500ABCFB3 /* AudioToolbox.framework in Frameworks */,
-				0B8996CB1ACE1CFB00357EC3 /* Bolts.framework in Frameworks */,
 				0B8996D01ACE1CFB00357EC3 /* ParseUI.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -224,6 +227,15 @@
 			name = Data;
 			sourceTree = "<group>";
 		};
+		AA87F4881ACF4E5800AA6AB1 /* Categories */ = {
+			isa = PBXGroup;
+			children = (
+				AA87F4851ACF4C1900AA6AB1 /* UIColor+AGColors.h */,
+				AA87F4861ACF4C1900AA6AB1 /* UIColor+AGColors.m */,
+			);
+			name = Categories;
+			sourceTree = "<group>";
+		};
 		AA8F661B1A8EA73700CA4604 = {
 			isa = PBXGroup;
 			children = (
@@ -251,6 +263,7 @@
 				9EFE8A821AB7C454000018F7 /* Data */,
 				9EFE8A801AB7C41F000018F7 /* Interface */,
 				9EFE8A811AB7C431000018F7 /* View Controllers */,
+				AA87F4881ACF4E5800AA6AB1 /* Categories */,
 				AA8F66271A8EA73700CA4604 /* Supporting Files */,
 			);
 			path = agora;
@@ -397,6 +410,7 @@
 				0BA532401AB7CC6000A730C6 /* BrowseCollectionViewController.m in Sources */,
 				AA8F662A1A8EA73700CA4604 /* main.m in Sources */,
 				0BC025681ABB2E390076A09B /* PostCollectionViewCell.m in Sources */,
+				AA87F4871ACF4C1900AA6AB1 /* UIColor+AGColors.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
