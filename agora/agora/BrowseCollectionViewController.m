@@ -7,7 +7,8 @@
 //
 
 #import <Parse/Parse.h>
-#import <ParseFacebookUtils/PFFacebookUtils.h>
+#import <ParseFacebookUtilsV4/PFFacebookUtils.h>
+#import <FBSDKCoreKit/FBSDKCoreKit.h>
 
 #import "BrowseCollectionViewController.h"
 #import "DetailedPostViewController.h"
@@ -27,42 +28,27 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    // Let LoginViewController controll login
+    LoginViewController *logInController = [[LoginViewController alloc] init];
+    [self presentViewController:logInController animated:YES completion:nil];
+
     if(![PFUser currentUser]){                                                          // Not Logged in
-        LoginViewController *logInController = [[LoginViewController alloc] init];
-        [logInController setDelegate:self];
 #warning presenting VC without adding to VC stack 
         
-        [self presentViewController:logInController animated:YES completion:nil];
     }else{
         // continue with load
-        
-        // populate array
-        [ParseInterface getFromParse:@"RECENTS" withSkip:0 completion:^(NSArray * result) {
-            [[self activitySpinner] stopAnimating];         // automatiicaly started via Storyboard
-            [self setPostsArray:[[NSMutableArray alloc] initWithArray:result]];
-            [[self collectionView] reloadData];
-        }];
+        [self viewDidLoadAfterLogin];
     }
 }
 
-- (void)logInViewController:(PFLogInViewController *)controller didLogInUser:(PFUser *)user {
-    // Login procedure
-    [controller dismissViewControllerAnimated:YES completion:nil];
-    [[FBRequest requestForMe] startWithCompletionHandler:^(FBRequestConnection *connection, id result, NSError *error) {
-        if(!error){
-            [[PFUser currentUser] setObject:[result objectForKey:@"id"] forKey:@"facebookId"];
-            [[PFUser currentUser] save];
-        }else{
-            NSLog(@"%@", error);
-        }
-    }];
-    
-    [self viewDidLoad];     // Call viewDidLoad again to load browseCollectionView
-}
+- (void)viewDidLoadAfterLogin {
 
-- (void)logInViewControllerDidCancelLogIn:(PFLogInViewController *)logInController {
-    // Logout procedure
-    [logInController dismissViewControllerAnimated:YES completion:nil];
+    // populate array
+    [ParseInterface getFromParse:@"RECENTS" withSkip:0 completion:^(NSArray * result) {
+        [[self activitySpinner] stopAnimating];         // automatiicaly started via Storyboard
+        [self setPostsArray:[[NSMutableArray alloc] initWithArray:result]];
+        [[self collectionView] reloadData];
+    }];
 }
 
 #pragma mark - Collection view data source

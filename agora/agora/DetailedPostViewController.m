@@ -8,7 +8,8 @@
 
 #import "DetailedPostViewController.h"
 #import <QuartzCore/QuartzCore.h>
-#import <ParseFacebookUtils/PFFacebookUtils.h>
+#import <ParseFacebookUtilsV4/PFFacebookUtils.h>
+#import <FBSDKCoreKit/FBSDKCoreKit.h>
 
 #define post [self post]
 
@@ -25,7 +26,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *shareButton;
 @property (weak, nonatomic) IBOutlet UIButton *contactButton;
 
-@property (weak, nonatomic) IBOutlet FBProfilePictureView *FBSellerImageView;
+@property (weak, nonatomic) IBOutlet FBSDKProfilePictureView *FBSellerImageView;
 @property (weak, nonatomic) IBOutlet UIButton *FBSellerNameButton;
 @property (weak, nonatomic) IBOutlet UILabel *FBMutalFriendsLabel;
 
@@ -69,7 +70,8 @@
     [[[self FBSellerImageView] layer] setBorderWidth:0];
     
     // configure FBSeller info
-    [FBRequestConnection startWithGraphPath:[post creatorFacebookId] completionHandler:^(FBRequestConnection *connection, NSDictionary* result, NSError *error) {
+    FBSDKGraphRequest *request = [[FBSDKGraphRequest alloc] initWithGraphPath:[post creatorFacebookId] parameters:nil];
+    [request startWithCompletionHandler:^(FBSDKGraphRequestConnection *connection, id result, NSError *error) {
         if(!error){
             //NSString* college = [[[[result objectForKey:@"education"] objectAtIndex:2] objectForKey:@"school"] objectForKey:@"name"];
             //NSLog(@"College: %@", college);
@@ -84,14 +86,17 @@
     }];
     // get amount of mutual friends (TODO: show excerpt of what friends?)
     if(!([[post creatorFacebookId] isEqualToString:[[PFUser currentUser] objectForKey:@"facebookId"]])){
-        [FBRequestConnection startWithGraphPath:[post creatorFacebookId] parameters:@{@"fields": @"context.fields(mutual_friends)",} HTTPMethod:@"GET"
-                              completionHandler:^(FBRequestConnection *connection, FBGraphObject* result, NSError *error){
-                                  NSString* commonFriends = result[@"context"][@"mutual_friends"][@"summary"][@"total_count"];
-                                  [[self FBMutalFriendsLabel] setText:[NSString stringWithFormat:@"%@ mutual friends", commonFriends]];
-                              }
-         ];
+        FBSDKGraphRequest *request = [[FBSDKGraphRequest alloc] initWithGraphPath:[post creatorFacebookId] parameters:@{@"fields": @"context.fields(mutual_friends)",} HTTPMethod:@"GET"];
+        [request startWithCompletionHandler:^(FBSDKGraphRequestConnection *connection, id result, NSError *error) {
+                NSString* commonFriends = result[@"context"][@"mutual_friends"][@"summary"][@"total_count"];
+                [[self FBMutalFriendsLabel] setText:[NSString stringWithFormat:@"%@ mutual friends", commonFriends]];
+        }];
     }else{
+        // User is viewing their own post
         [[self FBMutalFriendsLabel] setText:@""];
+        [[self contactButton] setEnabled:NO];
+        [[[self contactButton] layer] setBackgroundColor:[[UIColor grayColor] CGColor]];
+        [[[self contactButton] layer] setBackgroundColor:[[UIColor grayColor] CGColor]];
     }
     
     // configure description textField
