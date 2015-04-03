@@ -7,7 +7,8 @@
 //
 
 #import <Parse/Parse.h>
-#import <ParseFacebookUtils/PFFacebookUtils.h>
+#import <ParseFacebookUtilsV4/PFFacebookUtils.h>
+#import <FBSDKCoreKit/FBSDKCoreKit.h>
 
 #import "BrowseCollectionViewController.h"
 #import "DetailedPostViewController.h"
@@ -48,7 +49,8 @@
 - (void)logInViewController:(PFLogInViewController *)controller didLogInUser:(PFUser *)user {
     // Login procedure
     [controller dismissViewControllerAnimated:YES completion:nil];
-    [[FBRequest requestForMe] startWithCompletionHandler:^(FBRequestConnection *connection, id result, NSError *error) {
+    FBSDKGraphRequest *request = [[FBSDKGraphRequest alloc] initWithGraphPath:@"me" parameters:nil];
+    [request startWithCompletionHandler:^(FBSDKGraphRequestConnection *connection, id result, NSError *error) {
         if(!error){
             [[PFUser currentUser] setObject:[result objectForKey:@"id"] forKey:@"facebookId"];
             [[PFUser currentUser] save];
