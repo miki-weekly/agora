@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6751" systemVersion="14C1514" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="HDU-bj-3hO">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6751" systemVersion="14C1510" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="HDU-bj-3hO">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6736"/>
     </dependencies>
@@ -277,14 +277,14 @@
                                             <outlet property="delegate" destination="Zwm-GF-ig9" id="YvJ-T2-B15"/>
                                         </connections>
                                     </textField>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PCP-9P-BC3">
-                                        <rect key="frame" x="10" y="245" width="110" height="20"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <state key="normal" title="Select Catagory">
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PCP-9P-BC3">
+                                        <rect key="frame" x="88" y="250" width="108" height="20"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                        <state key="normal" title="Select">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <connections>
-                                            <action selector="selectCatagory:" destination="Zwm-GF-ig9" eventType="touchUpInside" id="JbJ-ya-q5f"/>
+                                            <action selector="selectCatagory:" destination="Zwm-GF-ig9" eventType="touchUpInside" id="xCb-XV-21f"/>
                                         </connections>
                                     </button>
                                     <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceHorizontal="YES" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="Tz5-g2-PFl">
@@ -385,6 +385,12 @@
                                             <action selector="pressedCancel:" destination="Zwm-GF-ig9" eventType="touchUpInside" id="bqd-1G-sqE"/>
                                         </connections>
                                     </button>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Category: " lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JLl-fJ-b8Q">
+                                        <rect key="frame" x="10" y="249" width="72" height="21"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
@@ -400,7 +406,7 @@
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <size key="freeformSize" width="320" height="593"/>
                     <connections>
-                        <outlet property="catagoryButton" destination="PCP-9P-BC3" id="67B-iD-G68"/>
+                        <outlet property="categoryButton" destination="PCP-9P-BC3" id="9n3-SS-s19"/>
                         <outlet property="collectionView" destination="Tz5-g2-PFl" id="w9c-o9-Dyu"/>
                         <outlet property="contentView" destination="U4D-dV-Abr" id="dqf-d5-pp6"/>
                         <outlet property="descriptionTextView" destination="SsW-v4-1Ji" id="p3b-3F-Qey"/>

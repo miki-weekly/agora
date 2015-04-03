@@ -10,6 +10,7 @@
 #import "Post.h"
 #import "ParseInterface.h"
 #import "RootVC.h"
+#import "UIColor+AGColors.h"
 
 @interface AddPostViewController ()
 
@@ -20,7 +21,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *modifyMainImageButton;
 @property (weak, nonatomic) IBOutlet UITextField *titleTextField;
 @property (weak, nonatomic) IBOutlet UITextField *priceTextField;
-@property (weak, nonatomic) IBOutlet UIButton *catagoryButton;
+@property (weak, nonatomic) IBOutlet UIButton *categoryButton;
 @property (weak, nonatomic) IBOutlet UITextView *descriptionTextView;
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
 
@@ -29,6 +30,9 @@
 @property NSMutableArray* secondaryPictures;
 
 @property BOOL selectingHeadImage;
+
+
+@property NSDictionary * catColors;
 
 @end
 
@@ -50,7 +54,45 @@
     [[[self descriptionTextView] layer] setBorderColor:[[UIColor grayColor] CGColor]];
     
     [self setSecondaryPictures:[[NSMutableArray alloc] init]];
+    
+    [self setupSelectButton:self.categoryButton];
+    self.catColors = @{@"Tech":[UIColor techColor],@"Home":[UIColor homeColor],@"Fasion":[UIColor fashColor],@"Education":[UIColor eduColor],@"Misc":[UIColor miscColor]};
 }
+
+#pragma mark - Category selection things
+int color;
+-(void) setupSelectButton:(UIButton*) button {
+    [button.layer setCornerRadius:4.0];
+    [button.layer setBorderColor:[UIColor blueColor].CGColor];
+    [button.layer setBorderWidth:2.0];
+    
+    color = 0;
+    
+}
+
+
+-(void) presentCategorySelection {
+    NSArray * k = self.catColors.allKeys;
+    
+    NSString * newCat = k[color];
+    
+    
+    [[self categoryButton] setTitle:newCat forState:UIControlStateNormal];
+    UIColor * newColor = self.catColors[newCat];
+    [self.categoryButton.layer setBorderColor:newColor.CGColor];
+    [self.categoryButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    color++;
+    if (color == 5) {
+        color = 0;
+    }
+}
+
+-(void)dismissCategoryVCWithSelection:(NSString *)cat {
+    
+    
+}
+
+
 
 #pragma mark - IB Actions
 
@@ -69,11 +111,8 @@
 }
 
 - (IBAction)selectCatagory:(id)sender {
+    [self presentCategorySelection];
     
-    
-    
-    [[self catagoryButton] setTitle:@"Misc" forState:UIControlStateNormal];
-    // TODO: show list of catagories to choose from
 }
 
 - (IBAction)postToParse:(id)sender {
@@ -85,7 +124,7 @@
     
     [post setTitle:[[self titleTextField] text]];
     [post setItemDescription:[[self descriptionTextView] text]];
-    [post setCategory:[[[self catagoryButton] titleLabel] text]];
+    [post setCategory:[[[self categoryButton] titleLabel] text]];
     [post setStringTags:@[@"[]"]];
     [post setPrice:[NSNumber numberWithDouble:[[[self priceTextField] text] doubleValue]]];
     [post setHeaderPhoto:[[self mainImage] image]];
