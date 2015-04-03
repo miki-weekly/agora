@@ -8,7 +8,11 @@
 
 /* Begin PBXBuildFile section */
 		0B4664CD1ACBAECD00E9A3E8 /* Entitlements.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0B4664CC1ACBAECD00E9A3E8 /* Entitlements.plist */; };
-		0BA507C01A97F92700881074 /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0BA507BF1A97F92700881074 /* Bolts.framework */; };
+		0B8996CB1ACE1CFB00357EC3 /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0B8996C51ACE1CFB00357EC3 /* Bolts.framework */; };
+		0B8996CC1ACE1CFB00357EC3 /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0B8996C61ACE1CFB00357EC3 /* Parse.framework */; };
+		0B8996CD1ACE1CFB00357EC3 /* ParseCrashReporting.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0B8996C71ACE1CFB00357EC3 /* ParseCrashReporting.framework */; };
+		0B8996CE1ACE1CFB00357EC3 /* ParseFacebookUtils.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0B8996C81ACE1CFB00357EC3 /* ParseFacebookUtils.framework */; };
+		0B8996D01ACE1CFB00357EC3 /* ParseUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0B8996CA1ACE1CFB00357EC3 /* ParseUI.framework */; };
 		0BA532401AB7CC6000A730C6 /* BrowseCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0BA5323D1AB7CC6000A730C6 /* BrowseCollectionViewController.m */; };
 		0BA532411AB7CC6000A730C6 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0BA5323F1AB7CC6000A730C6 /* LoginViewController.m */; };
 		0BA532471AB7CCB000A730C6 /* ParseInterface.m in Sources */ = {isa = PBXBuildFile; fileRef = 0BA532461AB7CCB000A730C6 /* ParseInterface.m */; };
@@ -21,10 +25,6 @@
 		AA5A86941ACA09C0005DAF4A /* SlideItemVC.m in Sources */ = {isa = PBXBuildFile; fileRef = AA5A86931ACA09C0005DAF4A /* SlideItemVC.m */; };
 		AA5A86971ACA0A63005DAF4A /* RootVC.m in Sources */ = {isa = PBXBuildFile; fileRef = AA5A86961ACA0A63005DAF4A /* RootVC.m */; };
 		AA5A869D1ACA572B005DAF4A /* SlideItemCVC.m in Sources */ = {isa = PBXBuildFile; fileRef = AA5A869C1ACA572B005DAF4A /* SlideItemCVC.m */; };
-		AA8739AD1A97F015000A2E45 /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA8739A81A97F015000A2E45 /* Parse.framework */; };
-		AA8739AE1A97F015000A2E45 /* ParseCrashReporting.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA8739A91A97F015000A2E45 /* ParseCrashReporting.framework */; };
-		AA8739AF1A97F015000A2E45 /* ParseFacebookUtils.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA8739AA1A97F015000A2E45 /* ParseFacebookUtils.framework */; };
-		AA8739B01A97F015000A2E45 /* ParseUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA8739AB1A97F015000A2E45 /* ParseUI.framework */; };
 		AA8F662A1A8EA73700CA4604 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = AA8F66291A8EA73700CA4604 /* main.m */; };
 		AA8F662D1A8EA73700CA4604 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = AA8F662C1A8EA73700CA4604 /* AppDelegate.m */; };
 		AA8F66351A8EA73700CA4604 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AA8F66341A8EA73700CA4604 /* Images.xcassets */; };
@@ -50,7 +50,11 @@
 
 /* Begin PBXFileReference section */
 		0B4664CC1ACBAECD00E9A3E8 /* Entitlements.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Entitlements.plist; sourceTree = SOURCE_ROOT; };
-		0BA507BF1A97F92700881074 /* Bolts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Bolts.framework; path = "agora/parse-library-1.6.3/Bolts.framework"; sourceTree = "<group>"; };
+		0B8996C51ACE1CFB00357EC3 /* Bolts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Bolts.framework; sourceTree = "<group>"; };
+		0B8996C61ACE1CFB00357EC3 /* Parse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Parse.framework; sourceTree = "<group>"; };
+		0B8996C71ACE1CFB00357EC3 /* ParseCrashReporting.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ParseCrashReporting.framework; sourceTree = "<group>"; };
+		0B8996C81ACE1CFB00357EC3 /* ParseFacebookUtils.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ParseFacebookUtils.framework; sourceTree = "<group>"; };
+		0B8996CA1ACE1CFB00357EC3 /* ParseUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ParseUI.framework; sourceTree = "<group>"; };
 		0BA5323C1AB7CC6000A730C6 /* BrowseCollectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BrowseCollectionViewController.h; sourceTree = "<group>"; };
 		0BA5323D1AB7CC6000A730C6 /* BrowseCollectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BrowseCollectionViewController.m; sourceTree = "<group>"; };
 		0BA5323E1AB7CC6000A730C6 /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
@@ -73,10 +77,6 @@
 		AA5A86961ACA0A63005DAF4A /* RootVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RootVC.m; sourceTree = "<group>"; };
 		AA5A869B1ACA572B005DAF4A /* SlideItemCVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SlideItemCVC.h; sourceTree = "<group>"; };
 		AA5A869C1ACA572B005DAF4A /* SlideItemCVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SlideItemCVC.m; sourceTree = "<group>"; };
-		AA8739A81A97F015000A2E45 /* Parse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Parse.framework; path = "agora/parse-library-1.6.3/Parse.framework"; sourceTree = "<group>"; };
-		AA8739A91A97F015000A2E45 /* ParseCrashReporting.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ParseCrashReporting.framework; path = "agora/parse-library-1.6.3/ParseCrashReporting.framework"; sourceTree = "<group>"; };
-		AA8739AA1A97F015000A2E45 /* ParseFacebookUtils.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ParseFacebookUtils.framework; path = "agora/parse-library-1.6.3/ParseFacebookUtils.framework"; sourceTree = "<group>"; };
-		AA8739AB1A97F015000A2E45 /* ParseUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ParseUI.framework; path = "agora/parse-library-1.6.3/ParseUI.framework"; sourceTree = "<group>"; };
 		AA8F66241A8EA73700CA4604 /* agora.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = agora.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AA8F66281A8EA73700CA4604 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		AA8F66291A8EA73700CA4604 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -101,17 +101,17 @@
 			buildActionMask = 2147483647;
 			files = (
 				9EFE8A8A1AB7CF4C000018F7 /* Accounts.framework in Frameworks */,
+				0B8996CD1ACE1CFB00357EC3 /* ParseCrashReporting.framework in Frameworks */,
+				0B8996CC1ACE1CFB00357EC3 /* Parse.framework in Frameworks */,
 				9EFE8A881AB7CED1000018F7 /* Social.framework in Frameworks */,
 				AD958F521AA598C100ABCFB3 /* libsqlite3.dylib in Frameworks */,
 				AD958F581AA599C800ABCFB3 /* MobileCoreServices.framework in Frameworks */,
 				AD958F561AA5997600ABCFB3 /* SystemConfiguration.framework in Frameworks */,
+				0B8996CE1ACE1CFB00357EC3 /* ParseFacebookUtils.framework in Frameworks */,
 				AD958F541AA5994500ABCFB3 /* AudioToolbox.framework in Frameworks */,
 				AD958F4C1AA5935200ABCFB3 /* FacebookSDK.framework in Frameworks */,
-				0BA507C01A97F92700881074 /* Bolts.framework in Frameworks */,
-				AA8739AD1A97F015000A2E45 /* Parse.framework in Frameworks */,
-				AA8739AE1A97F015000A2E45 /* ParseCrashReporting.framework in Frameworks */,
-				AA8739B01A97F015000A2E45 /* ParseUI.framework in Frameworks */,
-				AA8739AF1A97F015000A2E45 /* ParseFacebookUtils.framework in Frameworks */,
+				0B8996CB1ACE1CFB00357EC3 /* Bolts.framework in Frameworks */,
+				0B8996D01ACE1CFB00357EC3 /* ParseUI.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -125,6 +125,19 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0B8996C41ACE1CFB00357EC3 /* parse-library-1.7.1 */ = {
+			isa = PBXGroup;
+			children = (
+				0B8996C51ACE1CFB00357EC3 /* Bolts.framework */,
+				0B8996C61ACE1CFB00357EC3 /* Parse.framework */,
+				0B8996C71ACE1CFB00357EC3 /* ParseCrashReporting.framework */,
+				0B8996C81ACE1CFB00357EC3 /* ParseFacebookUtils.framework */,
+				0B8996CA1ACE1CFB00357EC3 /* ParseUI.framework */,
+			);
+			name = "parse-library-1.7.1";
+			path = "agora/parse-library-1.7.1";
+			sourceTree = "<group>";
+		};
 		0BC025651ABB2E070076A09B /* Base Classes */ = {
 			isa = PBXGroup;
 			children = (
@@ -141,15 +154,11 @@
 		9EFE8A7F1AB7C3F7000018F7 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				0B8996C41ACE1CFB00357EC3 /* parse-library-1.7.1 */,
 				9EFE8A891AB7CF4C000018F7 /* Accounts.framework */,
 				AD958F511AA598C100ABCFB3 /* libsqlite3.dylib */,
 				9EFE8A831AB7C475000018F7 /* Social.framework */,
 				AD958F531AA5994500ABCFB3 /* AudioToolbox.framework */,
-				0BA507BF1A97F92700881074 /* Bolts.framework */,
-				AA8739A81A97F015000A2E45 /* Parse.framework */,
-				AA8739A91A97F015000A2E45 /* ParseCrashReporting.framework */,
-				AA8739AA1A97F015000A2E45 /* ParseFacebookUtils.framework */,
-				AA8739AB1A97F015000A2E45 /* ParseUI.framework */,
 				AD958F571AA599C800ABCFB3 /* MobileCoreServices.framework */,
 				AD958F551AA5997600ABCFB3 /* SystemConfiguration.framework */,
 				AD958F4B1AA5935200ABCFB3 /* FacebookSDK.framework */,
@@ -495,7 +504,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/agora/parse-library-1.6.3",
+					"$(PROJECT_DIR)/agora/parse-library-1.7.1",
 					"$(PROJECT_DIR)/agora/FacebookSDK",
 				);
 				INFOPLIST_FILE = agora/Info.plist;
@@ -510,7 +519,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/agora/parse-library-1.6.3",
+					"$(PROJECT_DIR)/agora/parse-library-1.7.1",
 					"$(PROJECT_DIR)/agora/FacebookSDK",
 				);
 				INFOPLIST_FILE = agora/Info.plist;
