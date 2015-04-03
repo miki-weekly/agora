@@ -223,12 +223,6 @@ int count;
     self.velocityThresh = 1000.0;
     
     
-    
-    
-    
-    
-    
-    
     [self.view addSubview:self.menu];
     
     self.gradient = [CAGradientLayer layer];
