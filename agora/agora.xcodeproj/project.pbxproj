@@ -205,8 +205,8 @@
 				0BA5323D1AB7CC6000A730C6 /* BrowseCollectionViewController.m */,
 				0BA5323E1AB7CC6000A730C6 /* LoginViewController.h */,
 				0BA5323F1AB7CC6000A730C6 /* LoginViewController.m */,
-				0BC025621ABB27860076A09B /* AddPostViewController.h */,
 				0BC025631ABB27860076A09B /* AddPostViewController.m */,
+				0BC025621ABB27860076A09B /* AddPostViewController.h */,
 				0BC025691ABB3ECB0076A09B /* DetailedPostViewController.h */,
 				0BC0256A1ABB3ECB0076A09B /* DetailedPostViewController.m */,
 			);

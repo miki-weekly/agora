@@ -7,10 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "AddPostViewController.h"
 #import "ParseInterface.h"
 #import "SlideItemCVC.h"
 
-@interface BrowseCollectionViewController : SlideItemCVC
+@interface BrowseCollectionViewController : SlideItemCVC <AddPostDelegate>
 
 - (void)viewDidLoadAfterLogin;
 

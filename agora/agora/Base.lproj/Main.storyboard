@@ -98,7 +98,7 @@
                     <navigationItem key="navigationItem" id="Byi-w6-FWM">
                         <barButtonItem key="rightBarButtonItem" title="Item" systemItem="add" id="MG8-SG-0yq">
                             <connections>
-                                <segue destination="Zwm-GF-ig9" kind="modal" id="fyS-FN-jCl"/>
+                                <action selector="pressedAddButton:" destination="nf8-rb-sYn" id="F0E-CW-HWw"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -153,8 +153,8 @@
                                             <action selector="clickedContact:" destination="KlH-in-nOd" eventType="touchUpInside" id="1B9-SN-gPh"/>
                                         </connections>
                                     </button>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="x and 5 mutual friends" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JgR-Y2-z4O">
-                                        <rect key="frame" x="70" y="300" width="162" height="21"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JgR-Y2-z4O">
+                                        <rect key="frame" x="70" y="300" width="195" height="21"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                         <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
@@ -167,7 +167,7 @@
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="F6l-ft-Xbt">
                                         <rect key="frame" x="70" y="280" width="162" height="30"/>
-                                        <state key="normal" title="FBName">
+                                        <state key="normal">
                                             <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
@@ -230,7 +230,7 @@
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <size key="freeformSize" width="320" height="595"/>
                     <connections>
-                        <outlet property="FBMutalFriendsLabel" destination="JgR-Y2-z4O" id="X6B-LS-iQu"/>
+                        <outlet property="FBMutualFriendsLabel" destination="JgR-Y2-z4O" id="YsE-ib-e6H"/>
                         <outlet property="FBSellerImageView" destination="anW-xt-eyp" id="DIo-xx-WWE"/>
                         <outlet property="FBSellerNameButton" destination="F6l-ft-Xbt" id="Kc4-lC-uZu"/>
                         <outlet property="catagoryLabel" destination="u9r-B1-M8S" id="gg0-x7-jq5"/>
@@ -247,7 +247,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Uea-Pq-aW9" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1704" y="140"/>
+            <point key="canvasLocation" x="1704" y="139.5"/>
         </scene>
         <!--Add Post View Controller-->
         <scene sceneID="buh-dE-7zd">
@@ -408,7 +408,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Uum-hA-ev7" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1406" y="1405.5"/>
+            <point key="canvasLocation" x="1230" y="867.5"/>
         </scene>
     </scenes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
