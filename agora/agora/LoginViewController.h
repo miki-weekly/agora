@@ -10,6 +10,6 @@
 #import <ParseUI/ParseUI.h>
 #import <ParseFacebookUtilsV4/PFFacebookUtils.h>
 
-@interface LoginViewController : PFLogInViewController
+@interface LoginViewController : PFLogInViewController <PFLogInViewControllerDelegate>
 
 @end

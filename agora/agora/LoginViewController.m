@@ -7,7 +7,8 @@
 //
 
 #import "LoginViewController.h"
-
+#import "BrowseCollectionViewController.h"
+#import <FBSDKCoreKit/FBSDKCoreKit.h>
 
 @interface LoginViewController ()
 
@@ -19,6 +20,7 @@
     if((self = [super init])){
         [self setFields:PFLogInFieldsFacebook];
         [self setFacebookPermissions:@[@"public_profile", @"user_friends", @"user_education_history"]];
+        [self setDelegate:self];
     }
     
     return self;
@@ -33,5 +35,42 @@
     //UIImageView *logoView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"logo.png"]];
     //self.logInView.logo = nil;
 }
+
+- (void)viewDidAppear:(BOOL)animated{
+    if([PFUser currentUser]){                                       // Already logged in
+        //[self dissmissOnLoginWithUser:[PFUser currentUser]];
+    }
+}
+
+- (void)dissmissOnLoginWithUser:(PFUser*) user{
+    [self dismissViewControllerAnimated:YES completion:nil];
+    
+    BrowseCollectionViewController* parent = (BrowseCollectionViewController*)[self parentViewController];
+    [parent viewDidLoadAfterLogin];
+}
+
+- (void)logInViewController:(PFLogInViewController *)controller didLogInUser:(PFUser *)user {
+    // Login procedure
+    [self dissmissOnLoginWithUser:user];
+    
+    if([user isNew]){
+        FBSDKGraphRequest *request = [[FBSDKGraphRequest alloc] initWithGraphPath:@"me" parameters:nil];
+        [request startWithCompletionHandler:^(FBSDKGraphRequestConnection *connection, id result, NSError *error) {
+            if(!error){
+                [[PFUser currentUser] setObject:[result objectForKey:@"id"] forKey:@"facebookId"];
+                [[PFUser currentUser] save];
+            }else{
+                NSLog(@"%@", error);
+            }
+        }];
+    }
+}
+
+- (void)logInViewControllerDidCancelLogIn:(PFLogInViewController *)logInController {
+    // Logout procedure
+    [logInController dismissViewControllerAnimated:YES completion:nil];
+}
+
+#pragma mark - Observations
 
 @end
