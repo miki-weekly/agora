@@ -43,12 +43,14 @@
     
     [[self scrollView] setContentSize:[[self contentView] frame].size];
     
+    [[self mainImageView] setContentMode:UIViewContentModeScaleAspectFill];
+    [[self mainImageView] setClipsToBounds:YES];
     [[self mainImageView] setImage:[post headerPhoto]];
     
     // configure title, description and price
     [[self titleLabel] setText:[post title]];
     [[self catagoryLabel] setText:[post category]];
-    [[self priceLabel] setText:[[post price] stringValue]];
+    [[self priceLabel] setText:[@"$" stringByAppendingString:[[post price] stringValue]]];
     
     // Configure buttons
     CGColorRef buttonColor = [[UIColor blueColor] CGColor];
@@ -109,7 +111,7 @@
         [[self FBMutualFriendsLabel] setText:@""];
         [[self contactButton] setEnabled:NO];
         [[[self contactButton] layer] setBackgroundColor:[[UIColor grayColor] CGColor]];
-        [[[self contactButton] layer] setBackgroundColor:[[UIColor grayColor] CGColor]];
+        [[[self contactButton] layer] setBorderColor:[[UIColor grayColor] CGColor]];
     }
     
     // configure description textField

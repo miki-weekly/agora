@@ -31,7 +31,6 @@
 
 @property BOOL selectingHeadImage;
 
-
 @property NSDictionary * catColors;
 
 @end
@@ -89,16 +88,13 @@ int color;
 
 -(void)dismissCategoryVCWithSelection:(NSString *)cat {
     
-    
 }
-
-
 
 #pragma mark - IB Actions
 
 - (IBAction)selectMainImage:(id)sender {
-    //[[self imagePickerController] setSourceType:UIImagePickerControllerSourceTypePhotoLibrary];              // Access photo library
-    [[self imagePickerController] setSourceType:UIImagePickerControllerSourceTypeCamera];                    // Access Camera ( will crash if no camera (simulator))
+    [[self imagePickerController] setSourceType:UIImagePickerControllerSourceTypePhotoLibrary];              // Access photo library
+    //[[self imagePickerController] setSourceType:UIImagePickerControllerSourceTypeCamera];                    // Access Camera ( will crash if no camera (simulator))
     
     [self setSelectingHeadImage:YES];
     [self presentViewController:[self imagePickerController] animated:YES completion:nil];
@@ -140,7 +136,7 @@ int color;
         RootVC * root = (RootVC*)self.parentViewController;
         [root switchToViewController:0];
     } else {
-        [self dismissViewControllerAnimated:YES completion:nil];
+        [[self delgate] addPostController:self didFinishWithPost:nil];
     }
 }
 

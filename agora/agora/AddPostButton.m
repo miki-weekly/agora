@@ -17,7 +17,8 @@
         [plus setText:@"+"];
         [plus setFont:[UIFont systemFontOfSize:48]];
         [plus setTextColor:[UIColor whiteColor]];
-
+        
+        // config button shadow
         [[self layer] setCornerRadius:frame.size.height/2];
         [[self layer] setMasksToBounds:NO];
         [[self layer] setBorderWidth:0];

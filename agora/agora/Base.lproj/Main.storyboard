@@ -72,7 +72,7 @@
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </view>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="$$$" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dGp-d9-cva">
-                                            <rect key="frame" x="85" y="114" width="40" height="19"/>
+                                            <rect key="frame" x="92" y="114" width="40" height="19"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
@@ -100,14 +100,7 @@
                             <outlet property="delegate" destination="nf8-rb-sYn" id="CNS-Eb-q9q"/>
                         </connections>
                     </collectionView>
-                    <navigationItem key="navigationItem" id="Byi-w6-FWM">
-                        <barButtonItem key="rightBarButtonItem" title="Item" systemItem="add" id="MG8-SG-0yq">
-                            <connections>
-                                <action selector="pressedAddButton:" destination="nf8-rb-sYn" id="F0E-CW-HWw"/>
-                                <segue destination="Zwm-GF-ig9" kind="push" id="Avn-2X-wIX"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" id="Byi-w6-FWM"/>
                     <connections>
                         <outlet property="activitySpinner" destination="9FN-lk-XKO" id="4Of-Jl-zPm"/>
                     </connections>

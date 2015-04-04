@@ -38,20 +38,14 @@
 
 - (void)viewDidAppear:(BOOL)animated{
     if([PFUser currentUser]){                                       // Already logged in
-        //[self dissmissOnLoginWithUser:[PFUser currentUser]];
+        // BUG: FBSDK accessToken not held/refreshed by Parse
+        //[[self loginDelegate] loginViewController:self didLogin:YES];
     }
-}
-
-- (void)dissmissOnLoginWithUser:(PFUser*) user{
-    [self dismissViewControllerAnimated:YES completion:nil];
-    
-    BrowseCollectionViewController* parent = (BrowseCollectionViewController*)[self parentViewController];
-    [parent viewDidLoadAfterLogin];
 }
 
 - (void)logInViewController:(PFLogInViewController *)controller didLogInUser:(PFUser *)user {
     // Login procedure
-    [self dissmissOnLoginWithUser:user];
+    [[self loginDelegate] loginViewController:self didLogin:YES];
     
     if([user isNew]){
         FBSDKGraphRequest *request = [[FBSDKGraphRequest alloc] initWithGraphPath:@"me" parameters:nil];
@@ -68,9 +62,7 @@
 
 - (void)logInViewControllerDidCancelLogIn:(PFLogInViewController *)logInController {
     // Logout procedure
-    [logInController dismissViewControllerAnimated:YES completion:nil];
+    [[self loginDelegate] loginViewController:self didLogin:NO];
 }
-
-#pragma mark - Observations
 
 @end
