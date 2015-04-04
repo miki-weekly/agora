@@ -136,11 +136,8 @@
             Post *post = [[Post alloc] init];
             PFUser *user = [object objectForKey:@"createdBy"];
             
-            //TODO: Thumbnail are blank due to load in background. thus is nil upon collection load
             PFFile *file = [object objectForKey:@"thumbnail"];
-            [file getDataInBackgroundWithBlock:^(NSData *data, NSError *error) {
-                post.thumbnail = [UIImage imageWithData:data];
-            }];
+            post.thumbnail = [UIImage imageWithData:[file getData]];
             
             post.title = [object objectForKey:@"title"];
             post.price = [object objectForKey:@"price"];
