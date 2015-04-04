@@ -11,7 +11,7 @@
 #import "ParseInterface.h"
 #import "SlideItemCVC.h"
 
-@interface BrowseCollectionViewController : SlideItemCVC <AddPostDelegate>
+@interface BrowseCollectionViewController : SlideItemCVC <AddPostViewControllerDelegate>
 
 - (void)viewDidLoadAfterLogin;
 

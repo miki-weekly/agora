@@ -18,6 +18,7 @@
 		0BC025681ABB2E390076A09B /* PostCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0BC025671ABB2E390076A09B /* PostCollectionViewCell.m */; };
 		0BC0256B1ABB3ECB0076A09B /* DetailedPostViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0BC0256A1ABB3ECB0076A09B /* DetailedPostViewController.m */; };
 		0BC0256E1ABB8FAB0076A09B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0BC0256C1ABB8FAB0076A09B /* Main.storyboard */; };
+		0BCC9C551ACFAA8A00A75108 /* AddPostButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 0BCC9C541ACFAA8A00A75108 /* AddPostButton.m */; };
 		0BF40ABB1ACE215C0034A1E5 /* FBSDKCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0BF40AB81ACE215C0034A1E5 /* FBSDKCoreKit.framework */; };
 		0BF40ABC1ACE215C0034A1E5 /* FBSDKMessengerShareKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0BF40AB91ACE215C0034A1E5 /* FBSDKMessengerShareKit.framework */; };
 		0BF40ABD1ACE215C0034A1E5 /* FBSDKShareKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0BF40ABA1ACE215C0034A1E5 /* FBSDKShareKit.framework */; };
@@ -71,6 +72,9 @@
 		0BC025691ABB3ECB0076A09B /* DetailedPostViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailedPostViewController.h; sourceTree = "<group>"; };
 		0BC0256A1ABB3ECB0076A09B /* DetailedPostViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailedPostViewController.m; sourceTree = "<group>"; };
 		0BC0256D1ABB8FAB0076A09B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		0BCC9C531ACFAA8A00A75108 /* AddPostButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddPostButton.h; sourceTree = "<group>"; };
+		0BCC9C541ACFAA8A00A75108 /* AddPostButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddPostButton.m; sourceTree = "<group>"; };
+		0BCC9C561ACFB78500A75108 /* AddPostViewControllerDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AddPostViewControllerDelegate.h; sourceTree = "<group>"; };
 		0BF40AB81ACE215C0034A1E5 /* FBSDKCoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSDKCoreKit.framework; path = agora/FacebookSDK/FBSDKCoreKit.framework; sourceTree = "<group>"; };
 		0BF40AB91ACE215C0034A1E5 /* FBSDKMessengerShareKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSDKMessengerShareKit.framework; path = agora/FacebookSDK/FBSDKMessengerShareKit.framework; sourceTree = "<group>"; };
 		0BF40ABA1ACE215C0034A1E5 /* FBSDKShareKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSDKShareKit.framework; path = agora/FacebookSDK/FBSDKShareKit.framework; sourceTree = "<group>"; };
@@ -201,6 +205,7 @@
 		9EFE8A811AB7C431000018F7 /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				0BCC9C561ACFB78500A75108 /* AddPostViewControllerDelegate.h */,
 				0BC025651ABB2E070076A09B /* Base Classes */,
 				AA5A86951ACA0A63005DAF4A /* RootVC.h */,
 				AA5A86961ACA0A63005DAF4A /* RootVC.m */,
@@ -208,10 +213,13 @@
 				0BA5323D1AB7CC6000A730C6 /* BrowseCollectionViewController.m */,
 				0BA5323E1AB7CC6000A730C6 /* LoginViewController.h */,
 				0BA5323F1AB7CC6000A730C6 /* LoginViewController.m */,
-				0BC025631ABB27860076A09B /* AddPostViewController.m */,
 				0BC025621ABB27860076A09B /* AddPostViewController.h */,
+				0BC025631ABB27860076A09B /* AddPostViewController.m */,
 				0BC025691ABB3ECB0076A09B /* DetailedPostViewController.h */,
 				0BC0256A1ABB3ECB0076A09B /* DetailedPostViewController.m */,
+				0BCC9C531ACFAA8A00A75108 /* AddPostButton.h */,
+				0BCC9C541ACFAA8A00A75108 /* AddPostButton.m */,
+				AA87F4881ACF4E5800AA6AB1 /* Categories */,
 			);
 			name = "View Controllers";
 			sourceTree = "<group>";
@@ -263,7 +271,6 @@
 				9EFE8A821AB7C454000018F7 /* Data */,
 				9EFE8A801AB7C41F000018F7 /* Interface */,
 				9EFE8A811AB7C431000018F7 /* View Controllers */,
-				AA87F4881ACF4E5800AA6AB1 /* Categories */,
 				AA8F66271A8EA73700CA4604 /* Supporting Files */,
 			);
 			path = agora;
@@ -403,6 +410,7 @@
 				0BA532411AB7CC6000A730C6 /* LoginViewController.m in Sources */,
 				AA5A86941ACA09C0005DAF4A /* SlideItemVC.m in Sources */,
 				0BC025641ABB27860076A09B /* AddPostViewController.m in Sources */,
+				0BCC9C551ACFAA8A00A75108 /* AddPostButton.m in Sources */,
 				AA5A869D1ACA572B005DAF4A /* SlideItemCVC.m in Sources */,
 				AA5A86971ACA0A63005DAF4A /* RootVC.m in Sources */,
 				ADA500F11ABF6E7C000D6D9E /* Post.m in Sources */,

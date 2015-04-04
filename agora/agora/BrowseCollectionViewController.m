@@ -9,8 +9,9 @@
 #import <Parse/Parse.h>
 #import <ParseFacebookUtilsV4/PFFacebookUtils.h>
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
-#import <QuartzCore/QuartzCore.h>
 
+#import "AddPostButton.h"
+#import "AddPostViewController.h"
 #import "BrowseCollectionViewController.h"
 #import "DetailedPostViewController.h"
 #import "LoginViewController.h"
@@ -33,19 +34,8 @@
     LoginViewController *logInController = [[LoginViewController alloc] init];
     [self presentViewController:logInController animated:YES completion:nil];
     
-    CGRect addButtonRect = CGRectMake(300, 580, 75, 75);
-    UILabel* plus = [[UILabel alloc] initWithFrame:CGRectMake(addButtonRect.size.height/2 - 16, addButtonRect.size.height/2 - 22, 40, 40)];
-    [plus setText:@"+"];
-    //[plus sizeToFit];
-    [plus setFont:[UIFont systemFontOfSize:48]];
-    
-    UIButton* addButton = [[UIButton alloc] initWithFrame:addButtonRect];
-    [[addButton layer] setCornerRadius:[addButton frame].size.height/2];
-    [[addButton layer] setMasksToBounds:YES];
-    [[addButton layer] setBorderWidth:0];
-    [addButton addSubview:plus];
-    [addButton setBackgroundColor:[UIColor colorWithRed:0.247f green:0.318f blue:0.71f alpha:1.0f]];
-    [addButton bringSubviewToFront:plus];
+    AddPostButton* addButton = [[AddPostButton alloc] initWithFrame:CGRectMake(300, 590, 66, 66)];
+    [addButton addTarget:self action:@selector(pressedAddButton:) forControlEvents:UIControlEventTouchDown];
     [[self view] addSubview:addButton];
     
 
@@ -67,13 +57,17 @@
         [[self collectionView] reloadData];
     }];
 }
+
 - (IBAction)pressedAddButton:(UIBarButtonItem *)sender {
+    AddPostViewController* addView = [[AddPostViewController alloc] init];
+    [self presentViewController:addView animated:YES completion:nil];
 }
 
 #pragma mark - AddPostDelegate
 
-- (void)didFinishWithPost:(Post *)addedPost{
-    //xself
+- (void)addPostController:(AddPostViewController *)addPostController didFinishWithPost:(Post *)addedPost{
+    [addPostController dismissViewControllerAnimated:YES completion:nil];
+    //
 }
 
 #pragma mark - Collection view data source

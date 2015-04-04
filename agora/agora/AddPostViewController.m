@@ -97,8 +97,8 @@ int color;
 #pragma mark - IB Actions
 
 - (IBAction)selectMainImage:(id)sender {
-    [[self imagePickerController] setSourceType:UIImagePickerControllerSourceTypePhotoLibrary];              // Access photo library
-    //[imagePickerController setSourceType:UIImagePickerControllerSourceTypeCamera];                    // Access Camera ( will crash if no camera (simulator))
+    //[[self imagePickerController] setSourceType:UIImagePickerControllerSourceTypePhotoLibrary];              // Access photo library
+    [[self imagePickerController] setSourceType:UIImagePickerControllerSourceTypeCamera];                    // Access Camera ( will crash if no camera (simulator))
     
     [self setSelectingHeadImage:YES];
     [self presentViewController:[self imagePickerController] animated:YES completion:nil];
