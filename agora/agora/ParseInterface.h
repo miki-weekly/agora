@@ -15,5 +15,5 @@
     + (void) updateParsePost: (Post*) post;
     + (Post*) getFromParseIndividual: (NSString*) object_id;
     + (void) getFromParse: (NSString*) parameter withSkip: (NSInteger) skip completion:(void (^)(NSArray* result))block;
-
+    + (void) deleteFromParse: (NSString*) object_id;
 @end
