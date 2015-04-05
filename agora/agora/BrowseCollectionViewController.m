@@ -16,8 +16,9 @@
 #import "DetailedPostViewController.h"
 #import "LoginViewController.h"
 #import "PostCollectionViewCell.h"
+#import "RootVC.h"
 
-@interface BrowseCollectionViewController () 
+@interface BrowseCollectionViewController () <LoginViewControllerDelegate, AddPostViewControllerDelegate>
 
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activitySpinner;
 @property NSMutableArray* postsArray;
@@ -28,8 +29,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-    _category = @"RECENTS";
     
     // Let LoginViewController controll login
     LoginViewController *logInController = [[LoginViewController alloc] init];
@@ -44,7 +43,7 @@
 }
 
 - (void)viewWillAppear:(BOOL)animated {
-    [self.navigationController setNavigationBarHidden:YES animated:animated];
+    //[self.navigationController setNavigationBarHidden:YES animated:animated];
     [super viewWillAppear:animated];
 }
 
@@ -58,7 +57,7 @@
         DetailedPostViewController* destination = [segue destinationViewController];
         NSIndexPath* path = [[self collectionView] indexPathForCell:sender];
         Post* selectedPost = [[self postsArray] objectAtIndex:path.row];
-        
+        destination.post = selectedPost;
     }else{
         // continue with load
         [self reloadDataWithCategory:@"RECENTS"];
@@ -86,9 +85,12 @@
     }
 }
 
--(UIBarButtonItem*) threeLineBarButtonItem {
-    return NULL;
+- (IBAction)clickMenu:(id)sender {
+    
+    RootVC * root = (RootVC*)self.parentViewController.parentViewController;
+    [root snapOpen];
 }
+
 
 - (void)pressedAddButton{
     UIStoryboard* story = [UIStoryboard storyboardWithName:@"Main" bundle:NULL];
@@ -105,7 +107,7 @@
     [addPostController dismissViewControllerAnimated:YES completion:nil];
     
     if(addedPost){
-        [self refreshCollectionViewData];
+        [self reloadData];
     }else{
         // No post was made
         [[self activitySpinner] stopAnimating];
@@ -117,7 +119,7 @@
 - (void)loginViewController:(LoginViewController *)loginViewController didLogin:(BOOL)login{
     if(login){
         [loginViewController dismissViewControllerAnimated:YES completion:nil];
-        [self refreshCollectionViewData];
+        [self reloadData];
     }else{
         UIAlertView* alert = [[UIAlertView alloc] initWithTitle:@"agora"
     message:@"Login Error" delegate:nil cancelButtonTitle:@"cancel" otherButtonTitles:nil, nil];

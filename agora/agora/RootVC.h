@@ -12,5 +12,6 @@
 
 -(UIScreenEdgePanGestureRecognizer*) getEdgePanGesture;
 -(void) switchToViewController:(NSInteger) index;
+-(void) snapOpen;
 
 @end

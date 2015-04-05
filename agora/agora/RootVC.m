@@ -210,6 +210,7 @@ int count;
 #pragma mark - overlay UI helpers
 
 -(void) snapOpen {
+    [self.view bringSubviewToFront:self.menu];
     [UIView animateWithDuration:0.3 animations:^{
         [self changeAlpha:1.0];
     } completion:^(BOOL finished) {
