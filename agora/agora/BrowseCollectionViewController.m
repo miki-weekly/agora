@@ -40,10 +40,7 @@
 }
 
 - (void)viewDidAppear:(BOOL)animated{
-    CGSize screen = [[UIScreen mainScreen] bounds].size;
-    CGSize button = CGSizeMake(65, 65);
-    CGRect frame = CGRectMake(screen.width - button.width - 10, screen.height - button.height - 10, button.width, button.height);
-    AddPostButton* addButton = [[AddPostButton alloc] initWithFrame:frame];
+    AddPostButton* addButton = [[AddPostButton alloc] init];
     
     [addButton addTarget:self action:@selector(pressedAddButton) forControlEvents:UIControlEventTouchDown];
     [[self view] addSubview:addButton];

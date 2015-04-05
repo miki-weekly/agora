@@ -45,7 +45,8 @@
     }
     
     [parsePost saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-        block();
+        if(block)
+            block();
     }];
 }
 
@@ -150,7 +151,8 @@
             [postArray addObject:post];
         }
         // Finally, pass array to block
-        block(postArray);
+        if(block)
+            block(postArray);
     }];
 }
 
