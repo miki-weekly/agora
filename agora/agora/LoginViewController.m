@@ -31,15 +31,17 @@
     
     [[self view] setBackgroundColor:[UIColor whiteColor]];
     
-    // Configure Login here, Set logo?
+    // TODO: Configure Login here, Set logo?
     //UIImageView *logoView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"logo.png"]];
     //self.logInView.logo = nil;
 }
 
 - (void)viewDidAppear:(BOOL)animated{
-    if([PFUser currentUser]){                                       // Already logged in
-        // BUG: FBSDK accessToken not held/refreshed by Parse
-        //[[self loginDelegate] loginViewController:self didLogin:YES];
+    PFUser* cUser = [PFUser currentUser];
+    FBSDKAccessToken* cAccessToken = [FBSDKAccessToken currentAccessToken];
+    if(cUser && cAccessToken){                                       // Already logged in
+        // BUG: FBSDK accessToken not held/refreshed by Parse/FB or not acknowledged
+        [[self loginDelegate] loginViewController:self didLogin:YES];
     }
 }
 

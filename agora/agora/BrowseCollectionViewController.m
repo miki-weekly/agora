@@ -37,7 +37,8 @@
 }
 
 - (void)viewDidAppear:(BOOL)animated{
-    AddPostButton* addButton = [[AddPostButton alloc] initWithFrame:CGRectMake(250, 490, 66, 66)];
+    AddPostButton* addButton = [[AddPostButton alloc] init];
+    
     [addButton addTarget:self action:@selector(pressedAddButton) forControlEvents:UIControlEventTouchDown];
     [[self view] addSubview:addButton];
 }

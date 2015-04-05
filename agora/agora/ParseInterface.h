@@ -11,9 +11,9 @@
 
 @interface ParseInterface : NSObject
     + (NSArray*) browseKeyArray;
-    + (void) saveNewPostToParse: (Post*) post;
+    + (void) saveNewPostToParse: (Post*) post completion:(void (^)(void))block;
     + (void) updateParsePost: (Post*) post;
     + (Post*) getFromParseIndividual: (NSString*) object_id;
     + (void) getFromParse: (NSString*) parameter withSkip: (NSInteger) skip completion:(void (^)(NSArray* result))block;
-
+    + (void) deleteFromParse: (NSString*) object_id;
 @end

@@ -141,6 +141,18 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0B6A8BDF1AD0B89800523D63 /* AddPostView */ = {
+			isa = PBXGroup;
+			children = (
+				0BCC9C531ACFAA8A00A75108 /* AddPostButton.h */,
+				0BCC9C541ACFAA8A00A75108 /* AddPostButton.m */,
+				0BCC9C561ACFB78500A75108 /* AddPostViewControllerDelegate.h */,
+				0BC025621ABB27860076A09B /* AddPostViewController.h */,
+				0BC025631ABB27860076A09B /* AddPostViewController.m */,
+			);
+			name = AddPostView;
+			sourceTree = "<group>";
+		};
 		0B8996C41ACE1CFB00357EC3 /* parse-library-1.7.1 */ = {
 			isa = PBXGroup;
 			children = (
@@ -157,9 +169,7 @@
 		0BACC1A21ACFBBBD00B52E7F /* Misc */ = {
 			isa = PBXGroup;
 			children = (
-				0BCC9C531ACFAA8A00A75108 /* AddPostButton.h */,
-				0BCC9C541ACFAA8A00A75108 /* AddPostButton.m */,
-				0BCC9C561ACFB78500A75108 /* AddPostViewControllerDelegate.h */,
+				AA87F4881ACF4E5800AA6AB1 /* Categories */,
 				0BC025661ABB2E390076A09B /* PostCollectionViewCell.h */,
 				0BC025671ABB2E390076A09B /* PostCollectionViewCell.m */,
 			);
@@ -215,6 +225,7 @@
 		9EFE8A811AB7C431000018F7 /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				0B6A8BDF1AD0B89800523D63 /* AddPostView */,
 				0BACC1A21ACFBBBD00B52E7F /* Misc */,
 				0BC025651ABB2E070076A09B /* Base Classes */,
 				AA5A86951ACA0A63005DAF4A /* RootVC.h */,
@@ -223,11 +234,8 @@
 				0BA5323D1AB7CC6000A730C6 /* BrowseCollectionViewController.m */,
 				0BA5323E1AB7CC6000A730C6 /* LoginViewController.h */,
 				0BA5323F1AB7CC6000A730C6 /* LoginViewController.m */,
-				0BC025621ABB27860076A09B /* AddPostViewController.h */,
-				0BC025631ABB27860076A09B /* AddPostViewController.m */,
 				0BC025691ABB3ECB0076A09B /* DetailedPostViewController.h */,
 				0BC0256A1ABB3ECB0076A09B /* DetailedPostViewController.m */,
-				AA87F4881ACF4E5800AA6AB1 /* Categories */,
 			);
 			name = "View Controllers";
 			sourceTree = "<group>";
@@ -560,6 +568,7 @@
 				INFOPLIST_FILE = agora/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
@@ -575,6 +584,7 @@
 				INFOPLIST_FILE = agora/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
 		};

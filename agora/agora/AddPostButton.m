@@ -11,8 +11,12 @@
 
 @implementation AddPostButton
 
-- (instancetype)initWithFrame:(CGRect)frame{
-    if((self = [super initWithFrame:frame])){
+- (instancetype)init{
+    if((self = [super init])){
+        CGSize screen = [[UIScreen mainScreen] bounds].size;
+        CGSize button = CGSizeMake(50, 50);
+        CGRect frame = CGRectMake(screen.width - button.width - 10, screen.height - button.height - 10, button.width, button.height);
+        [self setFrame:frame];
         UILabel* plus = [[UILabel alloc] initWithFrame:CGRectMake(frame.size.height/2 - 15, frame.size.height/2 - 25, 40, 40)];
         [plus setText:@"+"];
         [plus setFont:[UIFont systemFontOfSize:48]];
@@ -22,9 +26,9 @@
         [[self layer] setCornerRadius:frame.size.height/2];
         [[self layer] setMasksToBounds:NO];
         [[self layer] setBorderWidth:0];
-
-        [[self layer] setShadowOffset:CGSizeMake(-5, 10)];
-        [[self layer] setShadowRadius:5];
+        
+        [[self layer] setShadowOffset:CGSizeMake(0, 0)];
+        [[self layer] setShadowRadius:4.0f];
         [[self layer] setShadowOpacity:0.4f];
         [[self layer] setShadowPath:[[UIBezierPath bezierPathWithRoundedRect:[self bounds] cornerRadius:[[self layer] cornerRadius]] CGPath]];
         
