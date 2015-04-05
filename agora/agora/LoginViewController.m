@@ -46,7 +46,7 @@
     [self dismissViewControllerAnimated:YES completion:nil];
     
     BrowseCollectionViewController* parent = (BrowseCollectionViewController*)[self parentViewController];
-    [parent viewDidLoadAfterLogin];
+    [parent reloadData];
 }
 
 - (void)logInViewController:(PFLogInViewController *)controller didLogInUser:(PFUser *)user {

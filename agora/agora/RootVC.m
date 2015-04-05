@@ -8,11 +8,12 @@
 
 #import "RootVC.h"
 #import "SlideItemVC.h"
+#import "BrowseCollectionViewController.h"
 
 @interface RootVC () <UIGestureRecognizerDelegate>
 
 // View Controllers
-@property (nonatomic)  NSDictionary * buttonNames;
+@property (nonatomic)  NSArray * buttonNames;
 @property NSMutableArray * viewControllers;
 @property UIViewController * currentVC;
 
@@ -37,10 +38,10 @@
 
 
 @synthesize buttonNames = _buttonNames;
--(NSDictionary*) buttonNames {
+-(NSArray*) buttonNames {
     // must return dictionary with strings in order to appear on overlay menu
 #warning - add proper names you want in your menu
-    return @{@"Browse":@0,@"Add":@1,@"":@2};
+    return @[@"Browse",@"Add",@"",@"Education",@"Fashion",@"Home",@"Tech",@"Misc"];
 }
 
 -(UIScreenEdgePanGestureRecognizer *)getEdgePanGesture {
@@ -113,10 +114,25 @@
 
 -(IBAction)clickMenuItem:(id)sender {
     UIButton * b = (UIButton*)sender;
+    NSString * item = b.titleLabel.text;
     
-    NSInteger newVCi = [self.buttonNames[b.titleLabel.text] integerValue];
+    NSInteger newVCi = 0;
+    for (int i = 0; i < [self.buttonNames count]; i++) {
+        if ([item isEqualToString:self.buttonNames[i]]) {
+            newVCi = i;
+        }
+    }
     
-    [self switchToViewController:newVCi];
+    
+    
+    if (newVCi < 2) {
+        [self switchToViewController:newVCi];
+        
+    } else {
+        //clicked a category
+        [self switchToViewController:0];
+        [((BrowseCollectionViewController*)self.currentVC.childViewControllers[0]) reloadDataWithCategory:item];
+    }
     
     
     
@@ -245,9 +261,9 @@ int count;
     
     CGFloat y = 90;
     
-    for (NSString * name in self.buttonNames.allKeys) {
-        UIButton * button = [[UIButton alloc]initWithFrame:CGRectMake(20, y, 100, 50)];
-        y += 60;
+    for (NSString * name in self.buttonNames) {
+        UIButton * button = [[UIButton alloc]initWithFrame:CGRectMake(20, y, 160, 50)];
+        y += 40;
         [button setTitle:name forState:UIControlStateNormal];
         button.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
         

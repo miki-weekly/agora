@@ -18,7 +18,6 @@
 @interface BrowseCollectionViewController () 
 
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activitySpinner;
-
 @property NSMutableArray* postsArray;
 
 @end
@@ -37,18 +36,33 @@
         
     }else{
         // continue with load
-        [self viewDidLoadAfterLogin];
+        [self reloadDataWithCategory:@"RECENTS"];
     }
+    
+    
 }
 
-- (void)viewDidLoadAfterLogin {
+-(void) reloadData {
+    [self reloadDataWithCategory:@"RECENTS"];
+}
 
+- (void) reloadDataWithCategory:(NSString*) cat {
     // populate array
-    [ParseInterface getFromParse:@"RECENTS" withSkip:0 completion:^(NSArray * result) {
+    [ParseInterface getFromParse:cat withSkip:0 completion:^(NSArray * result) {
         [[self activitySpinner] stopAnimating];         // automatiicaly started via Storyboard
         [self setPostsArray:[[NSMutableArray alloc] initWithArray:result]];
         [[self collectionView] reloadData];
     }];
+    
+    if ([cat isEqualToString:@"RECENTS"]) {
+        self.title = @"All";
+    } else {
+        self.title = cat;
+    }
+}
+
+-(UIBarButtonItem*) threeLineBarButtonItem {
+    return NULL;
 }
 
 #pragma mark - Collection view data source
@@ -72,9 +86,8 @@
     [[postCell titleLabel] setTextColor:[UIColor whiteColor]];
     [[postCell priceLabel] setText:[[postForCell price] stringValue]];
     [[postCell priceLabel] setTextColor:[UIColor whiteColor]];
-    [[postCell imageView] setImage:[postForCell thumbnail]];
-    //indexPath.row == 0?[[postCell imageView] setImage:[UIImage imageNamed:@"soccer"]]:NULL;
-    [postCell setBackgroundColor:[UIColor grayColor]];
+    //[[postCell imageView] setImage:[postForCell thumbnail]];
+    indexPath.row == 0?[[postCell imageView] setImage:[UIImage imageNamed:@"soccer"]]:NULL;
     
     [postCell.gradient setBackgroundColor:[UIColor clearColor]];
     if ([postCell.gradient.layer.sublayers count] == 0) {
@@ -102,7 +115,7 @@
     
     CAGradientLayer * gradient = [CAGradientLayer layer];
     gradient.frame = view.bounds;
-    gradient.colors = [NSArray arrayWithObjects:(id)[[UIColor blackColor] colorWithAlphaComponent:0.3].CGColor, [[UIColor blackColor] colorWithAlphaComponent:0.8].CGColor, nil];
+    gradient.colors = [NSArray arrayWithObjects:(id)[[UIColor blackColor] colorWithAlphaComponent:0.1].CGColor, [[UIColor blackColor] colorWithAlphaComponent:0.8].CGColor, nil];
     gradient.startPoint = CGPointMake(0.5, 0.0);
     gradient.endPoint = CGPointMake(0.5, 1.0);
     [view.layer addSublayer:gradient];

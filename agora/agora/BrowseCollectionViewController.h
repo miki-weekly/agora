@@ -12,6 +12,7 @@
 
 @interface BrowseCollectionViewController : SlideItemCVC
 
-- (void)viewDidLoadAfterLogin;
+- (void)reloadDataWithCategory:(NSString*) cat;
+- (void)reloadData;
 
 @end
