@@ -184,13 +184,13 @@
                                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                 </state>
                                             </button>
-                                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" editable="NO" text="Enter a description" translatesAutoresizingMaskIntoConstraints="NO" id="Ub6-jd-DDB">
+                                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" editable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ub6-jd-DDB">
                                                 <rect key="frame" x="8" y="504" width="584" height="106"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="106" id="Cxv-5f-JvN"/>
                                                 </constraints>
-                                                <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                                <color key="textColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                                 <dataDetectorType key="dataDetectorTypes" phoneNumber="YES" link="YES" address="YES"/>
@@ -237,12 +237,18 @@
                                                         </view>
                                                     </collectionViewCell>
                                                 </cells>
+                                                <connections>
+                                                    <outlet property="dataSource" destination="aPy-YZ-LJV" id="AVw-vO-fEi"/>
+                                                    <outlet property="delegate" destination="aPy-YZ-LJV" id="ie3-lj-IwZ"/>
+                                                </connections>
                                             </collectionView>
                                         </subviews>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <constraints>
                                             <constraint firstItem="Ijl-nv-NPi" firstAttribute="leading" secondItem="eHA-np-gCH" secondAttribute="leading" constant="10" id="0c6-m2-8I2"/>
-                                            <constraint firstItem="vgu-PJ-jdK" firstAttribute="top" secondItem="BPg-CC-oau" secondAttribute="bottom" constant="5" id="3Ti-Je-NxZ"/>
+                                            <constraint firstItem="vgu-PJ-jdK" firstAttribute="top" secondItem="BPg-CC-oau" secondAttribute="bottom" constant="5" id="3Ti-Je-NxZ">
+                                                <variation key="heightClass=regular-widthClass=compact" constant="8"/>
+                                            </constraint>
                                             <constraint firstItem="g3A-E8-xuT" firstAttribute="top" secondItem="vgu-PJ-jdK" secondAttribute="top" id="6VW-xS-aW8"/>
                                             <constraint firstItem="09v-wR-mok" firstAttribute="height" secondItem="Ijl-nv-NPi" secondAttribute="height" id="8iA-Gw-iHZ"/>
                                             <constraint firstItem="vgu-PJ-jdK" firstAttribute="leading" secondItem="u9r-B1-M8S" secondAttribute="leading" id="H1U-t6-tgS"/>
@@ -382,6 +388,9 @@
                                                 <rect key="frame" x="10" y="210" width="180" height="30"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <textInputTraits key="textInputTraits"/>
+                                                <connections>
+                                                    <outlet property="delegate" destination="MTM-at-aU3" id="dPH-Ig-gDl"/>
+                                                </connections>
                                             </textField>
                                             <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eEJ-z7-TvZ">
                                                 <rect key="frame" x="0.0" y="0.0" width="320" height="200"/>
@@ -423,6 +432,9 @@
                                                 </constraints>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits" keyboardType="decimalPad"/>
+                                                <connections>
+                                                    <outlet property="delegate" destination="MTM-at-aU3" id="dMy-YF-P1B"/>
+                                                </connections>
                                             </textField>
                                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" alwaysBounceHorizontal="YES" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="dJN-Jz-XXy">
                                                 <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
@@ -471,6 +483,10 @@
                                                         </view>
                                                     </collectionViewCell>
                                                 </cells>
+                                                <connections>
+                                                    <outlet property="dataSource" destination="MTM-at-aU3" id="q9l-Kz-oeK"/>
+                                                    <outlet property="delegate" destination="MTM-at-aU3" id="Knh-oR-Crx"/>
+                                                </connections>
                                             </collectionView>
                                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" text="Enter a description" translatesAutoresizingMaskIntoConstraints="NO" id="l0M-IY-nkX">
                                                 <rect key="frame" x="8" y="273" width="304" height="106"/>
@@ -481,6 +497,9 @@
                                                 <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                                <connections>
+                                                    <outlet property="delegate" destination="MTM-at-aU3" id="g5C-Pl-TYi"/>
+                                                </connections>
                                             </textView>
                                             <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="azB-7T-5LV">
                                                 <rect key="frame" x="10" y="545" width="142" height="30"/>

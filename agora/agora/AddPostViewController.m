@@ -29,6 +29,8 @@
 
 @property NSMutableArray* secondaryPictures;
 
+@property (weak, nonatomic) UITextField *activeField;
+
 @property BOOL selectingHeadImage;
 
 @property NSDictionary * catColors;
@@ -46,8 +48,17 @@
         [[self imagePickerController] setDelegate:self];
     });
     
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(keyboardDidShow:)
+                                                 name:UIKeyboardDidShowNotification
+                                               object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(keyboardWillBeHidden:)
+                                                 name:UIKeyboardWillHideNotification
+                                               object:nil];
+    
     [[self scrollView] setContentSize:[[UIScreen mainScreen] bounds].size];
-    //[[self scrollView] setKeyboardDismissMode:UIScrollViewKeyboardDismissModeInteractive];
     [[[self descriptionTextView] layer] setBorderWidth:0.5f];
     [[[self descriptionTextView] layer] setCornerRadius:4.0];
     [[[self descriptionTextView] layer] setBorderColor:[[UIColor grayColor] CGColor]];
@@ -57,6 +68,7 @@
     [self setupSelectButton:self.categoryButton];
     self.catColors = @{@"Tech":[UIColor techColor],@"Home":[UIColor homeColor],@"Fasion":[UIColor fashColor],@"Education":[UIColor eduColor],@"Misc":[UIColor miscColor]};
 }
+
 
 #pragma mark - Category selection things
 int color;
@@ -142,27 +154,34 @@ int color;
 
 #pragma mark - Text Field
 
-- (void)textFieldDidBeginEditing:(UITextField *)textField{
-    /*
-    [UIView beginAnimations:nil context:nil];
-    [UIView setAnimationDelegate:self];
-    [UIView setAnimationDuration:0.5];
-    [UIView setAnimationBeginsFromCurrentState:YES];
-    CGRect frame = [[self view] frame];
-    [[self view] setFrame:CGRectMake(frame.origin.x, frame.origin.y - 25, frame.size.width, frame.size.height)];
-    [UIView commitAnimations];*/
-    //[self scrollView] setContentSize:[[[]self scrollView]
+- (void) keyboardDidShow:(NSNotification *)notification {
+    NSDictionary* info = [notification userInfo];
+    CGRect kbRect = [[info objectForKey:UIKeyboardFrameBeginUserInfoKey] CGRectValue];
+    kbRect = [self.view convertRect:kbRect fromView:nil];
+
+    UIEdgeInsets contentInsets = UIEdgeInsetsMake(0.0, 0.0, kbRect.size.height, 0.0);
+    self.scrollView.contentInset = contentInsets;
+    self.scrollView.scrollIndicatorInsets = contentInsets;
+    
+    CGRect aRect = self.view.frame;
+    aRect.size.height -= kbRect.size.height;
+    if (!CGRectContainsPoint(aRect, self.activeField.frame.origin) ) {
+        [self.scrollView scrollRectToVisible:self.activeField.frame animated:YES];
+    }
 }
 
-- (void)textFieldDidEndEditing:(UITextField *)textField{
-    /*
-    [UIView beginAnimations:nil context:nil];
-    [UIView setAnimationDelegate:self];
-    [UIView setAnimationDuration:0.5];
-    [UIView setAnimationBeginsFromCurrentState:YES];
-    CGRect frame = [[self view] frame];
-    [[self view] setFrame:CGRectMake(frame.origin.x, frame.origin.y + 25, frame.size.width, frame.size.height)];
-    [UIView commitAnimations];*/
+- (IBAction)textFieldDidBeginEditing:(UITextField *)sender {
+    [self setActiveField:sender];
+}
+
+- (IBAction)textFieldDidEndEditing:(UITextField *)sender {
+    [self setActiveField:nil];
+}
+
+- (void) keyboardWillBeHidden:(NSNotification *)notification{
+    UIEdgeInsets contentInsets = UIEdgeInsetsZero;
+    [[self scrollView] setContentInset:contentInsets];
+    [[self scrollView] setScrollIndicatorInsets:contentInsets];
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField{
