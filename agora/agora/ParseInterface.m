@@ -152,4 +152,10 @@
     }];
 }
 
++ (void) deleteFromParse: (NSString*) object_id {
+    PFObject *object = [PFObject objectWithoutDataWithClassName:@"Posts" objectId: object_id];
+    
+    [object deleteEventually];
+}
+
 @end
