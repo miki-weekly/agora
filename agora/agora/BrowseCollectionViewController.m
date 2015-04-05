@@ -40,19 +40,13 @@
 }
 
 - (void)viewDidAppear:(BOOL)animated{
-    AddPostButton* addButton = [[AddPostButton alloc] initWithFrame:CGRectMake(250, 490, 66, 66)];
+    CGSize screen = [[UIScreen mainScreen] bounds].size;
+    CGSize button = CGSizeMake(65, 65);
+    CGRect frame = CGRectMake(screen.width - button.width - 10, screen.height - button.height - 10, button.width, button.height);
+    AddPostButton* addButton = [[AddPostButton alloc] initWithFrame:frame];
+    
     [addButton addTarget:self action:@selector(pressedAddButton) forControlEvents:UIControlEventTouchDown];
     [[self view] addSubview:addButton];
-}
-
-- (void)viewWillAppear:(BOOL)animated {
-    [self.navigationController setNavigationBarHidden:YES animated:animated];
-    [super viewWillAppear:animated];
-}
-
-- (void)viewWillDisappear:(BOOL)animated {
-    [self.navigationController setNavigationBarHidden:NO animated:animated];
-    [super viewWillDisappear:animated];
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{

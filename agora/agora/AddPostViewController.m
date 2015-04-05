@@ -46,7 +46,7 @@
         [[self imagePickerController] setDelegate:self];
     });
     
-    [[self scrollView] setContentSize:[[self contentView] frame].size];
+    [[self scrollView] setContentSize:[[UIScreen mainScreen] bounds].size];
     //[[self scrollView] setKeyboardDismissMode:UIScrollViewKeyboardDismissModeInteractive];
     [[[self descriptionTextView] layer] setBorderWidth:0.5f];
     [[[self descriptionTextView] layer] setCornerRadius:4.0];
