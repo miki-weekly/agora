@@ -41,7 +41,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    [[self scrollView] setContentSize:[[self contentView] frame].size];
+    [[self scrollView] setContentSize:[[UIScreen mainScreen] bounds].size];
     
     [[self mainImageView] setContentMode:UIViewContentModeScaleAspectFill];
     [[self mainImageView] setClipsToBounds:YES];
@@ -72,6 +72,9 @@
     [[[self FBSellerImageView] layer] setBorderWidth:0];
     
     // configure FBSeller info
+    [[self FBSellerNameButton] setTitle:@"" forState:UIControlStateNormal];
+    [[self FBMutualFriendsLabel] setText:@""];
+    
     FBSDKGraphRequest *request = [[FBSDKGraphRequest alloc] initWithGraphPath:[post creatorFacebookId] parameters:nil];
     [request startWithCompletionHandler:^(FBSDKGraphRequestConnection *connection, id result, NSError *error) {
         if(!error){
@@ -79,7 +82,6 @@
             //NSLog(@"College: %@", college);
             [[self FBSellerImageView] setProfileID:result[@"id"]];
             [[self FBSellerNameButton] setTitle:result[@"name"] forState:UIControlStateNormal];
-            [[self FBSellerNameButton] setTitle:result[@"name"] forState:UIControlStateSelected];
         }else{
             NSLog(@"Error Grabing FB Data in Detail");
             // An error occurred, we need to handle the error
