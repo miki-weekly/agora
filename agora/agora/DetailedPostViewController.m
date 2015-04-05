@@ -28,7 +28,7 @@
 
 @property (weak, nonatomic) IBOutlet FBSDKProfilePictureView *FBSellerImageView;
 @property (weak, nonatomic) IBOutlet UIButton *FBSellerNameButton;
-@property (weak, nonatomic) IBOutlet UILabel *FBMutalFriendsLabel;
+@property (weak, nonatomic) IBOutlet UILabel *FBMutualFriendsLabel;
 
 @property (weak, nonatomic) IBOutlet UITextView *descriptionTextField;
 
@@ -41,14 +41,16 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    [[self scrollView] setContentSize:[[self contentView] frame].size];
+    [[self scrollView] setContentSize:[[UIScreen mainScreen] bounds].size];
     
+    [[self mainImageView] setContentMode:UIViewContentModeScaleAspectFill];
+    [[self mainImageView] setClipsToBounds:YES];
     [[self mainImageView] setImage:[post headerPhoto]];
     
     // configure title, description and price
     [[self titleLabel] setText:[post title]];
     [[self catagoryLabel] setText:[post category]];
-    [[self priceLabel] setText:[[post price] stringValue]];
+    [[self priceLabel] setText:[@"$" stringByAppendingString:[[post price] stringValue]]];
     
     // Configure buttons
     CGColorRef buttonColor = [[UIColor blueColor] CGColor];
@@ -70,6 +72,9 @@
     [[[self FBSellerImageView] layer] setBorderWidth:0];
     
     // configure FBSeller info
+    [[self FBSellerNameButton] setTitle:@"" forState:UIControlStateNormal];
+    [[self FBMutualFriendsLabel] setText:@""];
+    
     FBSDKGraphRequest *request = [[FBSDKGraphRequest alloc] initWithGraphPath:[post creatorFacebookId] parameters:nil];
     [request startWithCompletionHandler:^(FBSDKGraphRequestConnection *connection, id result, NSError *error) {
         if(!error){
@@ -77,7 +82,6 @@
             //NSLog(@"College: %@", college);
             [[self FBSellerImageView] setProfileID:result[@"id"]];
             [[self FBSellerNameButton] setTitle:result[@"name"] forState:UIControlStateNormal];
-            [[self FBSellerNameButton] setTitle:result[@"name"] forState:UIControlStateSelected];
         }else{
             NSLog(@"Error Grabing FB Data in Detail");
             // An error occurred, we need to handle the error
@@ -87,16 +91,29 @@
     // get amount of mutual friends (TODO: show excerpt of what friends?)
     if(!([[post creatorFacebookId] isEqualToString:[[PFUser currentUser] objectForKey:@"facebookId"]])){
         FBSDKGraphRequest *request = [[FBSDKGraphRequest alloc] initWithGraphPath:[post creatorFacebookId] parameters:@{@"fields": @"context.fields(mutual_friends)",} HTTPMethod:@"GET"];
-        [request startWithCompletionHandler:^(FBSDKGraphRequestConnection *connection, id result, NSError *error) {
-                NSString* commonFriends = result[@"context"][@"mutual_friends"][@"summary"][@"total_count"];
-                [[self FBMutalFriendsLabel] setText:[NSString stringWithFormat:@"%@ mutual friends", commonFriends]];
+        [request startWithCompletionHandler:^(FBSDKGraphRequestConnection *connection, NSDictionary* result, NSError *error) {
+            NSString* mutualText = [NSString stringWithFormat:@"%@ mutual friends", result[@"context"][@"mutual_friends"][@"summary"][@"total_count"]];
+            NSArray* mutualFriends = result[@"context"][@"mutual_friends"][@"data"];
+            
+            for(int i=0; i<[mutualFriends count]; i++){
+                NSString* friendName = mutualFriends[i][@"name"];
+                if(i == 0)
+                    mutualText = [mutualText stringByAppendingFormat:@" including %@", friendName];
+                else if(i == ([mutualFriends count]-1)){
+                    mutualText = [mutualText stringByAppendingFormat:@" and %@,", friendName];
+                }else{
+                    mutualText = [mutualText stringByAppendingFormat:@" %@,", friendName];
+                }
+            }
+            // Format: 8 mutual friends including xx, xx, and xx
+            [[self FBMutualFriendsLabel] setText:mutualText];
         }];
     }else{
         // User is viewing their own post
-        [[self FBMutalFriendsLabel] setText:@""];
+        [[self FBMutualFriendsLabel] setText:@""];
         [[self contactButton] setEnabled:NO];
         [[[self contactButton] layer] setBackgroundColor:[[UIColor grayColor] CGColor]];
-        [[[self contactButton] layer] setBackgroundColor:[[UIColor grayColor] CGColor]];
+        [[[self contactButton] layer] setBorderColor:[[UIColor grayColor] CGColor]];
     }
     
     // configure description textField

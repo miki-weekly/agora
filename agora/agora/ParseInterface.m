@@ -135,11 +135,9 @@
         for(PFObject* object in objects) {
             Post *post = [[Post alloc] init];
             PFUser *user = [object objectForKey:@"createdBy"];
-
+            
             PFFile *file = [object objectForKey:@"thumbnail"];
-            [file getDataInBackgroundWithBlock:^(NSData *data, NSError *error) {
-                post.thumbnail = [UIImage imageWithData:data];
-            }];
+            post.thumbnail = [UIImage imageWithData:[file getData]];
             
             post.title = [object objectForKey:@"title"];
             post.price = [object objectForKey:@"price"];

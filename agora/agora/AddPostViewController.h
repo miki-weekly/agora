@@ -7,11 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "AddPostViewControllerDelegate.h"
+#import "Post.h"
 #import "SlideItemVC.h"
 
-@interface AddPostViewController : SlideItemVC <UINavigationControllerDelegate,UIImagePickerControllerDelegate, UITextViewDelegate, UITextFieldDelegate>
+@interface AddPostViewController : SlideItemVC <UINavigationControllerDelegate, UIImagePickerControllerDelegate, UITextViewDelegate, UITextFieldDelegate>
 
--(void) dismissCategoryVCWithSelection:(NSString*) cat;
-
+@property id <AddPostViewControllerDelegate> delgate;
 
 @end
