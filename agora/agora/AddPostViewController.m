@@ -43,12 +43,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    static dispatch_once_t pred = 0;
-    dispatch_once(&pred, ^{
-        [self setImagePickerController:[[UIImagePickerController alloc] init]];
-        [[self imagePickerController] setDelegate:self];
-    });
-    
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(keyboardDidShow:)
                                                  name:UIKeyboardDidShowNotification
@@ -68,6 +62,16 @@
     
     [self setupSelectButton:self.categoryButton];
     self.catColors = @{@"Tech":[UIColor techColor],@"Home":[UIColor homeColor],@"Fasion":[UIColor fashColor],@"Education":[UIColor eduColor],@"Misc":[UIColor miscColor]};
+}
+
+- (void)viewWillAppear:(BOOL)animated{
+    if(![self imagePickerController]){
+        static dispatch_once_t pred = 0;
+        dispatch_once(&pred, ^{
+            [self setImagePickerController:[[UIImagePickerController alloc] init]];
+            [[self imagePickerController] setDelegate:self];
+        });
+    }
 }
 
 
@@ -236,6 +240,11 @@ int color;
     }
     
     [picker dismissViewControllerAnimated:YES completion:nil];
+}
+
+- (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker{
+    [picker dismissViewControllerAnimated:YES completion:nil];
+    [self setSelectingHeadImage:NO];
 }
 
 #pragma mark - Collection view data source
