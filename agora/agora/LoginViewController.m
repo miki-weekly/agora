@@ -37,8 +37,10 @@
 }
 
 - (void)viewDidAppear:(BOOL)animated{
-    if([PFUser currentUser] && [FBSDKAccessToken currentAccessToken]){                                       // Already logged in
-        // BUG: FBSDK accessToken not held/refreshed by Parse
+    PFUser* cUser = [PFUser currentUser];
+    FBSDKAccessToken* cAccessToken = [FBSDKAccessToken currentAccessToken];
+    if(cUser && cAccessToken){                                       // Already logged in
+        // BUG: FBSDK accessToken not held/refreshed by Parse/FB or not acknowledged
         [[self loginDelegate] loginViewController:self didLogin:YES];
     }
 }

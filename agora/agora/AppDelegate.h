@@ -42,4 +42,6 @@
  - Addview's NSNotification notifier is slow when initially clicking a textfield
  - FBSDKAccessToken is not retained
  
+ - ParseInterface doing long ops on main thread warnings
+ 
  */

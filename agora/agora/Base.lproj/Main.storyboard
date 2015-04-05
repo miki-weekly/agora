@@ -232,7 +232,7 @@
                                                         <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
                                                         <autoresizingMask key="autoresizingMask"/>
                                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                                            <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="150" height="150"/>
                                                             <autoresizingMask key="autoresizingMask"/>
                                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                         </view>
@@ -526,6 +526,9 @@
                                                     <action selector="selectCatagory:" destination="MTM-at-aU3" eventType="touchUpInside" id="GN2-9M-onC"/>
                                                 </connections>
                                             </button>
+                                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="8HN-Mu-sBa">
+                                                <rect key="frame" x="-10" y="-10" width="20" height="20"/>
+                                            </activityIndicatorView>
                                         </subviews>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <constraints>
@@ -554,8 +557,10 @@
                                             <constraint firstItem="rc3-oV-2WM" firstAttribute="leading" secondItem="azB-7T-5LV" secondAttribute="trailing" constant="55" id="bSR-OM-KCR">
                                                 <variation key="widthClass=compact" constant="10"/>
                                             </constraint>
+                                            <constraint firstAttribute="centerX" secondItem="8HN-Mu-sBa" secondAttribute="centerX" id="bW2-i7-umc"/>
                                             <constraint firstItem="eEJ-z7-TvZ" firstAttribute="leading" secondItem="cyc-VU-Orx" secondAttribute="leading" id="exF-IV-S4y"/>
                                             <constraint firstItem="azB-7T-5LV" firstAttribute="leading" secondItem="cyc-VU-Orx" secondAttribute="leading" constant="10" id="hKr-dK-JZz"/>
+                                            <constraint firstAttribute="centerY" secondItem="8HN-Mu-sBa" secondAttribute="centerY" id="iwE-mB-tag"/>
                                             <constraint firstItem="eEJ-z7-TvZ" firstAttribute="width" secondItem="JyA-PZ-f9l" secondAttribute="width" id="lPJ-dy-wnC"/>
                                             <constraint firstItem="eEJ-z7-TvZ" firstAttribute="height" secondItem="JyA-PZ-f9l" secondAttribute="height" id="ltz-lF-HBo"/>
                                             <constraint firstItem="dJN-Jz-XXy" firstAttribute="top" secondItem="l0M-IY-nkX" secondAttribute="bottom" constant="8" id="m6l-q2-OPt"/>
@@ -570,6 +575,24 @@
                                             <constraint firstItem="zPX-Sy-YB2" firstAttribute="top" secondItem="iVU-na-Znk" secondAttribute="bottom" constant="10" id="yse-NF-EdD"/>
                                             <constraint firstAttribute="trailing" secondItem="dJN-Jz-XXy" secondAttribute="trailing" id="zcg-G2-ZlA"/>
                                         </constraints>
+                                        <variation key="default">
+                                            <mask key="subviews">
+                                                <exclude reference="8HN-Mu-sBa"/>
+                                            </mask>
+                                            <mask key="constraints">
+                                                <exclude reference="bW2-i7-umc"/>
+                                                <exclude reference="iwE-mB-tag"/>
+                                            </mask>
+                                        </variation>
+                                        <variation key="heightClass=regular-widthClass=compact">
+                                            <mask key="subviews">
+                                                <include reference="8HN-Mu-sBa"/>
+                                            </mask>
+                                            <mask key="constraints">
+                                                <include reference="bW2-i7-umc"/>
+                                                <include reference="iwE-mB-tag"/>
+                                            </mask>
+                                        </variation>
                                     </view>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -635,6 +658,7 @@
                         </variation>
                     </view>
                     <connections>
+                        <outlet property="activitySpinner" destination="8HN-Mu-sBa" id="XKA-ot-4Pg"/>
                         <outlet property="categoryButton" destination="EwP-xx-MuD" id="554-PA-seG"/>
                         <outlet property="collectionView" destination="dJN-Jz-XXy" id="tp1-7Q-jMc"/>
                         <outlet property="contentView" destination="cyc-VU-Orx" id="UJp-rE-tgv"/>

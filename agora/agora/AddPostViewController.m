@@ -24,6 +24,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *categoryButton;
 @property (weak, nonatomic) IBOutlet UITextView *descriptionTextView;
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
+@property (weak, nonatomic) IBOutlet UIActivityIndicatorView* activitySpinner;
 
 @property (strong, nonatomic) UIImagePickerController* imagePickerController;
 
@@ -128,6 +129,7 @@ int color;
     if([[[self titleTextField] text] isEqualToString:@""])
         return;
     
+    [[self activitySpinner] startAnimating];
     Post* post = [[Post alloc] init];
     
     [post setTitle:[[self titleTextField] text]];
@@ -139,8 +141,11 @@ int color;
     [post setCreatorFacebookId:[[PFUser currentUser] objectForKey:@"facebookId"]];
     [post setPhotosArray:[self secondaryPictures]];
     
-    [ParseInterface saveNewPostToParse:post];
-    [self dismissViewControllerAnimated:YES completion:nil];
+    [ParseInterface saveNewPostToParse:post completion:^{
+        [[self activitySpinner] stopAnimating];
+        [[self delgate] addPostController:self didFinishWithPost:post];
+        [self dismissViewControllerAnimated:YES completion:nil];
+    }];
 }
 
 - (IBAction)pressedCancel:(id)sender {
