@@ -88,7 +88,7 @@
             // See: https://developers.facebook.com/docs/ios/errors
         }
     }];
-    // get amount of mutual friends (TODO: show excerpt of what friends?)
+
     if(!([[post creatorFacebookId] isEqualToString:[[PFUser currentUser] objectForKey:@"facebookId"]])){
         FBSDKGraphRequest *request = [[FBSDKGraphRequest alloc] initWithGraphPath:[post creatorFacebookId] parameters:@{@"fields": @"context.fields(mutual_friends)",} HTTPMethod:@"GET"];
         [request startWithCompletionHandler:^(FBSDKGraphRequestConnection *connection, NSDictionary* result, NSError *error) {

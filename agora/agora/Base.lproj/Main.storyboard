@@ -120,9 +120,10 @@
                         <viewControllerLayoutGuide type="bottom" id="xyw-M8-bbv"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="Yj4-yB-gL6">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QUH-EO-Ccf">
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QUH-EO-Ccf">
                                 <rect key="frame" x="0.0" y="0.0" width="400" height="700"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="eHA-np-gCH">
@@ -231,7 +232,7 @@
                                                         <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
                                                         <autoresizingMask key="autoresizingMask"/>
                                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                                            <rect key="frame" x="0.0" y="0.0" width="150" height="150"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
                                                             <autoresizingMask key="autoresizingMask"/>
                                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                         </view>
@@ -325,12 +326,12 @@
                                 <exclude reference="QUH-EO-Ccf"/>
                             </mask>
                             <mask key="constraints">
+                                <exclude reference="iQm-j4-mhf"/>
                                 <exclude reference="1EE-PE-kbc"/>
                                 <exclude reference="7QV-Zm-Bfq"/>
                                 <exclude reference="zeE-3k-cn9"/>
                                 <exclude reference="5WM-v3-Ybp"/>
                                 <exclude reference="ANs-qf-ihU"/>
-                                <exclude reference="iQm-j4-mhf"/>
                             </mask>
                         </variation>
                         <variation key="heightClass=regular-widthClass=compact">
@@ -338,12 +339,12 @@
                                 <include reference="QUH-EO-Ccf"/>
                             </mask>
                             <mask key="constraints">
+                                <include reference="iQm-j4-mhf"/>
                                 <include reference="1EE-PE-kbc"/>
                                 <include reference="7QV-Zm-Bfq"/>
                                 <include reference="zeE-3k-cn9"/>
                                 <include reference="5WM-v3-Ybp"/>
                                 <include reference="ANs-qf-ihU"/>
-                                <include reference="iQm-j4-mhf"/>
                             </mask>
                         </variation>
                     </view>
@@ -376,9 +377,10 @@
                         <viewControllerLayoutGuide type="bottom" id="dTd-LA-X8u"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="xfA-KO-HjJ">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="QB6-3r-CTZ">
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QB6-3r-CTZ">
                                 <rect key="frame" x="0.0" y="0.0" width="400" height="700"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="cyc-VU-Orx">
@@ -610,12 +612,12 @@
                                 <exclude reference="QB6-3r-CTZ"/>
                             </mask>
                             <mask key="constraints">
+                                <exclude reference="6jJ-Va-MGg"/>
                                 <exclude reference="0T8-o2-zbe"/>
                                 <exclude reference="M9D-0u-hIc"/>
                                 <exclude reference="Yjn-Ld-dpH"/>
                                 <exclude reference="71r-J5-k2n"/>
                                 <exclude reference="ZJU-hG-p0u"/>
-                                <exclude reference="6jJ-Va-MGg"/>
                             </mask>
                         </variation>
                         <variation key="heightClass=regular-widthClass=compact">
@@ -623,12 +625,12 @@
                                 <include reference="QB6-3r-CTZ"/>
                             </mask>
                             <mask key="constraints">
+                                <include reference="6jJ-Va-MGg"/>
                                 <include reference="0T8-o2-zbe"/>
                                 <include reference="M9D-0u-hIc"/>
                                 <include reference="Yjn-Ld-dpH"/>
                                 <include reference="71r-J5-k2n"/>
                                 <include reference="ZJU-hG-p0u"/>
-                                <include reference="6jJ-Va-MGg"/>
                             </mask>
                         </variation>
                     </view>
