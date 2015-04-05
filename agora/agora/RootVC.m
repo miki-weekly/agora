@@ -24,6 +24,7 @@
 //button view
 @property UIView * buttonView;
 @property NSMutableArray * buttons;
+@property UILabel * titleLabel;
 
 
 //device specific defines
@@ -257,7 +258,17 @@ int count;
 
 -(void) setupButtonView {
     self.buttonView = [[UIView alloc]initWithFrame:self.view.frame];
-    //NSArray * buttonNames = @[@"Browse",@"Education",@"Fashion",@"Home",@"Tech",@"Misc",@"Manage"];
+    
+    // TITLE yaaayyy
+    
+    UILabel * title = [[UILabel alloc]initWithFrame:CGRectMake(40, 40, 300, 90)];
+    title.text = @"Agora";
+    [title setFont:[UIFont systemFontOfSize:60.0]];
+    [title setTextAlignment:NSTextAlignmentCenter];
+    title.center = CGPointMake([UIScreen mainScreen].bounds.size.width/2,50);
+    title.textColor = [[UIColor whiteColor] colorWithAlphaComponent:0.0];
+    self.titleLabel = title;
+    [self.buttonView addSubview:title];
     
     
     CGFloat y = 90;
@@ -296,6 +307,10 @@ int count;
     //NSLog(@"alpha is %f",alpha);
     
     [self.menu setAlpha:bgAlpha];
+    
+    
+    self.titleLabel.textColor = [self.titleLabel.textColor colorWithAlphaComponent:textAlpha];
+    
     for (UIButton* button in self.buttons) {
         [button setTitleColor:[[button titleColorForState:UIControlStateNormal] colorWithAlphaComponent:textAlpha] forState:UIControlStateNormal];
         if (ratio != 0.0) {
