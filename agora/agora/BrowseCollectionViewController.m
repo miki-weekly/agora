@@ -36,27 +36,20 @@
     LoginViewController *logInController = [[LoginViewController alloc] init];
     [logInController setLoginDelegate:self];
     [self presentViewController:logInController animated:YES completion:nil];
-    self.navigationController.navigationBar.barTintColor = [UIColor indigoColor];
     
-    
-    //[self.navigationController.navigationBar setBackgroundColor:[UIColor indigoColor]];
-}
-
-- (void)viewDidAppear:(BOOL)animated{
     AddPostButton* addButton = [[AddPostButton alloc] init];
     
     [addButton addTarget:self action:@selector(pressedAddButton) forControlEvents:UIControlEventTouchDown];
     [[self view] addSubview:addButton];
+    
+    [self reloadData];
+    
+    self.navigationController.navigationBar.barTintColor = [UIColor indigoColor];
+    //[self.navigationController.navigationBar setBackgroundColor:[UIColor indigoColor]];
 }
 
-- (void)viewWillAppear:(BOOL)animated {
-    //[self.navigationController setNavigationBarHidden:YES animated:animated];
-    [super viewWillAppear:animated];
-}
-
-- (void)viewWillDisappear:(BOOL)animated {
-    [self.navigationController setNavigationBarHidden:NO animated:animated];
-    [super viewWillDisappear:animated];
+- (void)viewDidAppear:(BOOL)animated{
+    
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
@@ -65,12 +58,7 @@
         NSIndexPath* path = [[self collectionView] indexPathForCell:sender];
         Post* selectedPost = [[self postsArray] objectAtIndex:path.row];
         destination.post = [ParseInterface getFromParseIndividual:[selectedPost objectId]];
-    }else{
-        // continue with load
-        [self reloadDataWithCategory:@"RECENTS"];
     }
-    
-    
 }
 
 -(void) reloadData {
