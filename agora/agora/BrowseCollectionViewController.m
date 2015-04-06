@@ -18,8 +18,6 @@
 #import "PostCollectionViewCell.h"
 #import "RootVC.h"
 
-#import "UIColor+AGColors.h"
-
 @interface BrowseCollectionViewController () <LoginViewControllerDelegate, AddPostViewControllerDelegate>
 
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activitySpinner;
@@ -43,13 +41,10 @@
     [[self view] addSubview:addButton];
     
     [self reloadData];
-    
-    self.navigationController.navigationBar.barTintColor = [UIColor indigoColor];
-    //[self.navigationController.navigationBar setBackgroundColor:[UIColor indigoColor]];
 }
 
 - (void)viewDidAppear:(BOOL)animated{
-    
+    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent animated:animated];
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{

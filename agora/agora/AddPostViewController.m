@@ -65,6 +65,7 @@
 }
 
 - (void)viewWillAppear:(BOOL)animated{
+    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault animated:animated];
     if(![self imagePickerController]){
         static dispatch_once_t pred = 0;
         dispatch_once(&pred, ^{

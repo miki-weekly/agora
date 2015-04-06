@@ -37,6 +37,7 @@
 }
 
 - (void)viewDidAppear:(BOOL)animated{
+    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault animated:animated];
     PFUser* cUser = [PFUser currentUser];
     FBSDKAccessToken* cAccessToken = [FBSDKAccessToken currentAccessToken];
     if(cUser && cAccessToken){                                       // Already logged in
