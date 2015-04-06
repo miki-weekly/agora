@@ -17,6 +17,6 @@
 +(instancetype) fashColor;
 
 +(instancetype) indigoColor;
-
++(instancetype) catColor:(NSString*) cat;
 
 @end

@@ -58,7 +58,7 @@
         DetailedPostViewController* destination = [segue destinationViewController];
         NSIndexPath* path = [[self collectionView] indexPathForCell:sender];
         Post* selectedPost = [[self postsArray] objectAtIndex:path.row];
-        destination.post = selectedPost;
+        destination.post = [ParseInterface getFromParseIndividual:[selectedPost objectId]];
     }else{
         // continue with load
         [self reloadDataWithCategory:@"RECENTS"];

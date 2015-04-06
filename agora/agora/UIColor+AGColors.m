@@ -35,4 +35,22 @@
 }
 
 
++ (instancetype) catColor:(NSString*) cat {
+    cat  = [cat lowercaseString];
+    if ([cat isEqualToString:@"edu"] || [cat isEqualToString:@"education"]) {
+        return [self eduColor];
+    } else if ([cat isEqualToString:@"fashion"] || [cat isEqualToString:@"fash"]) {
+        return [self fashColor];
+    } else if ([cat isEqualToString:@"home"]) {
+        return [self homeColor];
+    } else if ([cat isEqualToString:@"tech"] || [cat isEqualToString:@"technology"]) {
+        return [self techColor];
+    } else if ([cat isEqualToString:@"misc"] || [cat isEqualToString:@"miscellaneous"]) {
+        return [self miscColor];
+    }
+    
+    return NULL;
+}
+
+
 @end

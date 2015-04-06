@@ -299,7 +299,7 @@ int count;
     //NSLog(@"ratio change alpha is %f",ratio);
     //ratio is 0.0 to 1.0
     CGFloat textMaxAlpha = 1.0;
-    CGFloat bgMaxAlpha = 0.75;
+    CGFloat bgMaxAlpha = 0.85;
     
     CGFloat textAlpha = textMaxAlpha*ratio;
     CGFloat bgAlpha = bgMaxAlpha*ratio;

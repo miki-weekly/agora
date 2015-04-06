@@ -10,6 +10,10 @@
 #import <QuartzCore/QuartzCore.h>
 #import <ParseFacebookUtilsV4/PFFacebookUtils.h>
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
+#import "UILabel+FormattedText.h"
+
+#import "UIColor+AGColors.h"
+#import "UILabel+FormattedText.h"
 
 #define post [self post]
 
@@ -20,7 +24,7 @@
 @property (weak, nonatomic) IBOutlet UIImageView *mainImageView;
 
 @property (weak, nonatomic) IBOutlet UILabel *titleLabel;
-@property (weak, nonatomic) IBOutlet UILabel *catagoryLabel;
+@property (weak, nonatomic) IBOutlet UILabel *categoryLabel;
 @property (weak, nonatomic) IBOutlet UILabel *priceLabel;
 
 @property (weak, nonatomic) IBOutlet UIButton *shareButton;
@@ -38,6 +42,8 @@
 
 @implementation DetailedPostViewController
 
+#pragma mark - view did load and helpers
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     
@@ -49,7 +55,7 @@
     
     // configure title, description and price
     [[self titleLabel] setText:[post title]];
-    [[self catagoryLabel] setText:[post category]];
+    [self setUpCategoryLabel];
     [[self priceLabel] setText:[@"$" stringByAppendingString:[[post price] stringValue]]];
     
     // configure description textField
@@ -57,6 +63,18 @@
     
     [self setUpButtons];
     [self setUpFBSeller];
+}
+
+- (void)setUpCategoryLabel {
+    //[[self categoryLabel] setText:[post category]];
+    
+    NSString * catText = [NSString stringWithFormat:@"%@ %@",@"⦁",[post category]];
+    
+    NSAttributedString * cat = [[NSAttributedString alloc]initWithString:catText];
+    [[self categoryLabel] setAttributedText:cat];
+    [self.categoryLabel setTextColor:[UIColor catColor:[post category]] range:NSMakeRange(0, 1)];
+    
+    
 }
 
 - (void)setUpButtons{
