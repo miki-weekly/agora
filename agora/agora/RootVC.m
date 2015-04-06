@@ -136,8 +136,11 @@
     
     
     
-    if (buttonIndex < 2) {
+    if (buttonIndex == 0) {
         [self switchToViewController:buttonIndex];
+        [((BrowseCollectionViewController*)self.currentVC.childViewControllers[0]) reloadData];
+        
+    } else if (buttonIndex == 1) {
         
     } else if (buttonIndex == 9) {
         [self switchToViewController:2];
