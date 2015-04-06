@@ -24,6 +24,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *categoryButton;
 @property (weak, nonatomic) IBOutlet UITextView *descriptionTextView;
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
+@property (weak, nonatomic) IBOutlet UIButton *addButton;
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView* activitySpinner;
 
 @property (strong, nonatomic) UIImagePickerController* imagePickerController;
@@ -58,6 +59,14 @@
     [[[self descriptionTextView] layer] setCornerRadius:4.0];
     [[[self descriptionTextView] layer] setBorderColor:[[UIColor grayColor] CGColor]];
     
+    [[self addButton] setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [[self addButton] setTitleColor:[UIColor grayColor] forState:UIControlStateSelected];
+    [[[self addButton] titleLabel] setFont:[UIFont fontWithName:@"Helvetica-Bold" size:15]];
+    [[[self addButton] layer] setBorderWidth:2.0f];
+    [[[self addButton] layer] setBackgroundColor:[[UIColor indigoColor] CGColor]];
+    [[[self addButton] layer] setCornerRadius:4.0f];
+    [[[self addButton] layer] setBorderColor:[[UIColor indigoColor] CGColor]];
+    
     [self setSecondaryPictures:[[NSMutableArray alloc] init]];
     
     [self setupSelectButton:self.categoryButton];
@@ -67,8 +76,7 @@
 - (void)viewWillAppear:(BOOL)animated{
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault animated:animated];
     if(![self imagePickerController]){
-        static dispatch_once_t pred = 0;
-        dispatch_once(&pred, ^{
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
             [self setImagePickerController:[[UIImagePickerController alloc] init]];
             [[self imagePickerController] setDelegate:self];
         });
@@ -111,6 +119,8 @@ int color;
 #pragma mark - IB Actions
 
 - (IBAction)selectMainImage:(id)sender {
+    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent animated:YES];
+    
     [[self imagePickerController] setSourceType:UIImagePickerControllerSourceTypePhotoLibrary];              // Access photo library
     //[[self imagePickerController] setSourceType:UIImagePickerControllerSourceTypeCamera];                    // Access Camera ( will crash if no camera (simulator))
     
@@ -118,6 +128,7 @@ int color;
     [self presentViewController:[self imagePickerController] animated:YES completion:nil];
 }
 - (IBAction)addSecondaryImage:(id)sender {
+    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent animated:YES];
     [[self imagePickerController] setSourceType:UIImagePickerControllerSourceTypePhotoLibrary];              // Access photo library
     //[imagePickerController setSourceType:UIImagePickerControllerSourceTypeCamera];                    // Access Camera ( will crash if no camera (simulator))
     
@@ -265,6 +276,7 @@ int color;
         
         UIImageView* imageView = (UIImageView*)[cell viewWithTag:1];
         [imageView setImage:[[self secondaryPictures] objectAtIndex:[indexPath row]]];
+        [imageView setContentMode:UIViewContentModeScaleAspectFill];
     }else{
         cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"addCell" forIndexPath:indexPath];
     }
