@@ -149,8 +149,7 @@
     [[postCell titleLabel] setTextColor:[UIColor whiteColor]];
     [[postCell priceLabel] setText:[@"$" stringByAppendingString:[[postForCell price] stringValue]]];
     [[postCell priceLabel] setTextColor:[UIColor whiteColor]];
-    //[[postCell imageView] setImage:[postForCell thumbnail]];
-    indexPath.row == 0?[[postCell imageView] setImage:[UIImage imageNamed:@"soccer"]]:NULL;
+    [[postCell imageView] setImage:[postForCell thumbnail]];
     
     [postCell.gradient setBackgroundColor:[UIColor clearColor]];
     if ([postCell.gradient.layer.sublayers count] == 0) {
