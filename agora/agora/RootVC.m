@@ -42,7 +42,7 @@
 -(NSArray*) buttonNames {
     // must return dictionary with strings in order to appear on overlay menu
 #warning - add proper names you want in your menu
-    return @[@"Browse",@"Add",@"",@"Education",@"Fashion",@"Home",@"Tech",@"Misc"];
+    return @[@"Browse",@"Add",@"",@"Education",@"Fashion",@"Home",@"Tech",@"Misc",@"",@"Manage"];
 }
 
 -(UIScreenEdgePanGestureRecognizer *)getEdgePanGesture {
@@ -58,15 +58,18 @@
     
     UIStoryboard * story = [UIStoryboard storyboardWithName:@"Main" bundle:NULL];
     
-    UIViewController * first = [story instantiateViewControllerWithIdentifier:@"Browse Nav"];
-    [self addChildViewController:first];
-    [self.view addSubview:first.view];
-    self.currentVC = first;
+    UIViewController * browse = [story instantiateViewControllerWithIdentifier:@"Browse Nav"];
+    [self addChildViewController:browse];
+    [self.view addSubview:browse.view];
+    self.currentVC = browse;
     
     
     //make other vcs but don't add them
     SlideItemVC * second = [story instantiateViewControllerWithIdentifier:@"Add Post"];
     [self addChildViewController:second];
+    
+    UIViewController * manage = [story instantiateViewControllerWithIdentifier:@"manage nav"];
+    [self addChildViewController:manage];
     
 //    SlideItemVC * third = [story instantiateViewControllerWithIdentifier:@"ADD STORYBOARD ID HERE"];
 //    third.root = self;
@@ -117,18 +120,21 @@
     UIButton * b = (UIButton*)sender;
     NSString * item = b.titleLabel.text;
     
-    NSInteger newVCi = 0;
+    NSInteger buttonIndex = 0;
     for (int i = 0; i < [self.buttonNames count]; i++) {
         if ([item isEqualToString:self.buttonNames[i]]) {
-            newVCi = i;
+            buttonIndex = i;
         }
     }
     
     
     
-    if (newVCi < 2) {
-        [self switchToViewController:newVCi];
+    if (buttonIndex < 2) {
+        [self switchToViewController:buttonIndex];
         
+    } else if (buttonIndex == 9) {
+        [self switchToViewController:2];
+    
     } else {
         //clicked a category
         [self switchToViewController:0];
