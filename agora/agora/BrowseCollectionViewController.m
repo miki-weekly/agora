@@ -18,6 +18,8 @@
 #import "PostCollectionViewCell.h"
 #import "RootVC.h"
 
+#import "UIColor+AGColors.h"
+
 @interface BrowseCollectionViewController () <LoginViewControllerDelegate, AddPostViewControllerDelegate>
 
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activitySpinner;
@@ -34,6 +36,10 @@
     LoginViewController *logInController = [[LoginViewController alloc] init];
     [logInController setLoginDelegate:self];
     [self presentViewController:logInController animated:YES completion:nil];
+    self.navigationController.navigationBar.barTintColor = [UIColor indigoColor];
+    
+    
+    //[self.navigationController.navigationBar setBackgroundColor:[UIColor indigoColor]];
 }
 
 - (void)viewDidAppear:(BOOL)animated{
