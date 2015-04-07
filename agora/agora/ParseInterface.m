@@ -12,7 +12,7 @@
 @implementation ParseInterface
 
 + (NSArray*) browseKeyArray {
-    return @[@"objectId", @"title", @"category", @"price", @"thumbnail", @"createdBy"];
+    return @[@"objectId", @"title", @"category", @"price", @"createdBy"];
 }
 
 + (void) saveNewPostToParse: (Post*) post completion:(void (^)(BOOL succeeded))block{
@@ -89,12 +89,8 @@
     
     PFUser *user = [object objectForKey:@"createdBy"];
 
-    PFFile *file = [object objectForKey:@"picture"];
-    post.headerPhoto = [UIImage imageWithData:[file getData]];
-    
     NSArray* picturesPFFileArray = [object objectForKey:@"pictures"];
     NSMutableArray *picturesUIImageArray = [NSMutableArray array];
-    
     for (PFFile *picture in picturesPFFileArray) {
         [picturesUIImageArray addObject: [UIImage imageWithData: [picture getData]]];
     }
@@ -142,10 +138,7 @@
             for(PFObject* object in objects) {
                 Post *post = [[Post alloc] init];
                 PFUser *user = [object objectForKey:@"createdBy"];
-                
-                PFFile *file = [object objectForKey:@"thumbnail"];
-                post.thumbnail = [UIImage imageWithData:[file getData]];
-                
+
                 post.title = [object objectForKey:@"title"];
                 post.price = [object objectForKey:@"price"];
                 post.category = [object objectForKey:@"category"];
@@ -169,4 +162,29 @@
     [object deleteEventually];
 }
 
++(void) getHeaderPhoto: (NSString*) object_id completion: (void(^)(UIImage* result))block; {
+    PFQuery* query = [PFQuery queryWithClassName:@"Posts"];
+    [query selectKeys:@[@"picture"]];
+    
+    PFObject* object = [query getObjectWithId:object_id];
+    PFFile* file = [object objectForKey:@"picture"];
+    
+    [file getDataInBackgroundWithBlock:^(NSData *data, NSError *error) {
+        UIImage* headerPhoto = [UIImage imageWithData: data];
+        block(headerPhoto);
+    }];
+}
+
++ (void) getThumbnail: (NSString*) object_id completion: (void (^)(UIImage* result))block; {
+    PFQuery* query = [PFQuery queryWithClassName:@"Posts"];
+    [query selectKeys:@[@"thumbnail" ]];
+    
+    PFObject* object = [query getObjectWithId:object_id];
+    PFFile* file = [object objectForKey:@"thumbnail"];
+    
+    [file getDataInBackgroundWithBlock:^(NSData *data, NSError *error) {
+        UIImage* thumbnail = [UIImage imageWithData: data];
+        block(thumbnail);
+    }];
+}
 @end
