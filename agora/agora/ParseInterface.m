@@ -12,7 +12,7 @@
 @implementation ParseInterface
 
 + (NSArray*) browseKeyArray {
-    return @[@"objectId", @"title", @"category", @"price", @"createdBy"];
+    return @[@"objectId", @"title", @"category", @"price", @"createdBy", @"description"];
 }
 
 + (void) saveNewPostToParse: (Post*) post completion:(void (^)(BOOL succeeded))block{
@@ -138,6 +138,7 @@
 
                 post.title = [object objectForKey:@"title"];
                 post.price = [object objectForKey:@"price"];
+                post.itemDescription = [object objectForKey:@"description"];
                 post.category = [object objectForKey:@"category"];
                 post.objectId = object.objectId;
                 post.creatorFacebookId = [user objectForKey:@"facebookId"];

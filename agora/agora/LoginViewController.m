@@ -7,7 +7,6 @@
 //
 
 #import "LoginViewController.h"
-#import "BrowseCollectionViewController.h"
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
 
 @interface LoginViewController ()
@@ -56,13 +55,6 @@
     }else{
         return NO;
     }
-}
-
-- (void)dissmissOnLoginWithUser:(PFUser*) user{
-    [self dismissViewControllerAnimated:YES completion:nil];
-    
-    BrowseCollectionViewController* parent = (BrowseCollectionViewController*)[self parentViewController];
-    [parent reloadData];
 }
 
 - (void)logInViewController:(PFLogInViewController *)controller didLogInUser:(PFUser *)user {

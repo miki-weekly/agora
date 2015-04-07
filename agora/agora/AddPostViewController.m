@@ -7,8 +7,6 @@
 //
 
 #import "AddPostViewController.h"
-#import "Post.h"
-#import "ParseInterface.h"
 #import "RootVC.h"
 #import "UIColor+AGColors.h"
 
@@ -55,6 +53,10 @@
                                                object:nil];
     
     [[self scrollView] setContentSize:[[UIScreen mainScreen] bounds].size];
+    
+    [[self mainImage] setContentMode:UIViewContentModeScaleAspectFill];
+    [[self mainImage] setClipsToBounds:YES];
+    
     [[[self descriptionTextView] layer] setBorderWidth:0.5f];
     [[[self descriptionTextView] layer] setCornerRadius:4.0];
     [[[self descriptionTextView] layer] setBorderColor:[[UIColor grayColor] CGColor]];
@@ -177,9 +179,8 @@ int color;
             if(succeeded){
                 [[self activitySpinner] stopAnimating];
                 [[self delgate] addPostController:self didFinishWithPost:post];
-                [self dismissViewControllerAnimated:YES completion:nil];
             }else{
-                
+                // TODO: failed add
             }
         }];
     }else{
@@ -188,20 +189,19 @@ int color;
             if(succeeded){
                 // TODO: Splash screen succeded or not
                 [[self activitySpinner] stopAnimating];
-                [self dismissViewControllerAnimated:YES completion:nil];
+                [[self delgate] addPostController:self didFinishUpdatePost:post];
             }else{
-                
+                // TODO: failed update
             }
         }];
     }
 }
 
 - (IBAction)pressedCancel:(id)sender {
-    if (self.parentViewController.class == [RootVC class]) {
-        RootVC * root = (RootVC*)self.parentViewController;
-        [root switchToViewController:0];
-    } else {
+    if(![self editingPost]){
         [[self delgate] addPostController:self didFinishWithPost:nil];
+    }else{
+        [[self delgate] addPostController:self didFinishUpdatePost:nil];
     }
 }
 

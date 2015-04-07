@@ -10,7 +10,6 @@
 #import <QuartzCore/QuartzCore.h>
 #import <ParseFacebookUtilsV4/PFFacebookUtils.h>
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
-#import "UILabel+FormattedText.h"
 
 #import "UIColor+AGColors.h"
 #import "UILabel+FormattedText.h"
@@ -194,7 +193,12 @@
 #pragma mark - IB Actions
 
 - (IBAction)clickedEdit:(id)sender {
+    UIStoryboard* story = [UIStoryboard storyboardWithName:@"Main" bundle:NULL];
+    AddPostViewController* addView = [story instantiateViewControllerWithIdentifier:@"Add Post"];
+    [addView setDelgate:self];
+    [addView setEditingPost:post];
     
+    [self presentViewController:addView animated:YES completion:nil];
 }
 
 - (IBAction)clickedShare:(id)sender {
@@ -219,6 +223,19 @@
         [[UIApplication sharedApplication] openURL:url];
     }else{
         [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://www.facebook.com/%@", [post creatorFacebookId]]]];
+    }
+}
+
+#pragma mark - Add Post View Controller Delegate
+
+- (void)addPostController:(AddPostViewController *)addPostController didFinishUpdatePost:(Post *)updatedPost{
+    [addPostController dismissViewControllerAnimated:YES completion:nil];
+    
+    if(updatedPost){
+        [self reloadPost];
+    }else{
+        // Did not update
+        // TODO: Splash Overlay for saved or not
     }
 }
 

@@ -80,7 +80,6 @@
 		0BC0256A1ABB3ECB0076A09B /* DetailedPostViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailedPostViewController.m; sourceTree = "<group>"; };
 		0BCC9C531ACFAA8A00A75108 /* AddPostButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddPostButton.h; sourceTree = "<group>"; };
 		0BCC9C541ACFAA8A00A75108 /* AddPostButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddPostButton.m; sourceTree = "<group>"; };
-		0BCC9C561ACFB78500A75108 /* AddPostViewControllerDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AddPostViewControllerDelegate.h; sourceTree = "<group>"; };
 		0BF40AB81ACE215C0034A1E5 /* FBSDKCoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSDKCoreKit.framework; path = agora/FacebookSDK/FBSDKCoreKit.framework; sourceTree = "<group>"; };
 		0BF40AB91ACE215C0034A1E5 /* FBSDKMessengerShareKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSDKMessengerShareKit.framework; path = agora/FacebookSDK/FBSDKMessengerShareKit.framework; sourceTree = "<group>"; };
 		0BF40ABA1ACE215C0034A1E5 /* FBSDKShareKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSDKShareKit.framework; path = agora/FacebookSDK/FBSDKShareKit.framework; sourceTree = "<group>"; };
@@ -164,7 +163,6 @@
 			children = (
 				0BCC9C531ACFAA8A00A75108 /* AddPostButton.h */,
 				0BCC9C541ACFAA8A00A75108 /* AddPostButton.m */,
-				0BCC9C561ACFB78500A75108 /* AddPostViewControllerDelegate.h */,
 				0BC025621ABB27860076A09B /* AddPostViewController.h */,
 				0BC025631ABB27860076A09B /* AddPostViewController.m */,
 			);

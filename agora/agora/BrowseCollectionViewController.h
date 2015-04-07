@@ -7,9 +7,6 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "AddPostViewController.h"
-#import "LoginViewController.h"
-#import "ParseInterface.h"
 #import "SlideItemCVC.h"
 
 @interface BrowseCollectionViewController : SlideItemCVC

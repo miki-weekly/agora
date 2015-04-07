@@ -6,9 +6,10 @@
 //  Copyright (c) 2015 Ethan. All rights reserved.
 //
 
-#import "DetailedPostViewController.h"
 #import "ManageTableVC.h"
 #import "ManageTableViewCell.h"
+
+#import "DetailedPostViewController.h"
 #import "ParseInterface.h"
 #import "RootVC.h"
 #import "UIColor+AGColors.h"
@@ -21,9 +22,6 @@
 @end
 
 @implementation ManageTableVC
-// setup if anyone wants to take a crack at it
-//                                  -Ethan
-//                                  05/04/15
 
 -(void)viewDidLoad{
     [super viewDidLoad];

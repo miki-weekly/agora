@@ -7,9 +7,17 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "AddPostViewControllerDelegate.h"
-#import "Post.h"
+#import "ParseInterface.h"
 #import "SlideItemVC.h"
+
+@class AddPostViewController;
+
+@protocol AddPostViewControllerDelegate
+@optional
+- (void)addPostController:(AddPostViewController*)addPostController didFinishWithPost:(Post*)addedPost;
+- (void)addPostController:(AddPostViewController*)addPostController didFinishUpdatePost:(Post *)updatedPost;
+
+@end
 
 @interface AddPostViewController : SlideItemVC <UINavigationControllerDelegate, UIImagePickerControllerDelegate, UITextViewDelegate, UITextFieldDelegate>
 

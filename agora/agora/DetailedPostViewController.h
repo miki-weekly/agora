@@ -7,10 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "AddPostViewController.h"
 #import "ParseInterface.h"
 #import "SlideItemVC.h"
 
-@interface DetailedPostViewController : SlideItemVC <UIScrollViewDelegate, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout>
+@interface DetailedPostViewController : SlideItemVC <UIScrollViewDelegate, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, AddPostViewControllerDelegate>
 
 @property Post * post;
 

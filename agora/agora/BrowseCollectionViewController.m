@@ -10,11 +10,13 @@
 #import <ParseFacebookUtilsV4/PFFacebookUtils.h>
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
 
+#import "BrowseCollectionViewController.h"
+
 #import "AddPostButton.h"
 #import "AddPostViewController.h"
-#import "BrowseCollectionViewController.h"
 #import "DetailedPostViewController.h"
 #import "LoginViewController.h"
+#import "ParseInterface.h"
 #import "PostCollectionViewCell.h"
 #import "RootVC.h"
 

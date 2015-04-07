@@ -7,7 +7,6 @@
 //
 
 #import "Post.h"
-#import <Foundation/Foundation.h>
 
 @implementation Post : NSObject
 
