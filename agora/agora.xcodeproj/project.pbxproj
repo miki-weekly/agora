@@ -24,6 +24,7 @@
 		0BF40ABD1ACE215C0034A1E5 /* FBSDKShareKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0BF40ABA1ACE215C0034A1E5 /* FBSDKShareKit.framework */; };
 		0BF40AC11ACE28CC0034A1E5 /* FBSDKLoginKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0BF40AC01ACE28CC0034A1E5 /* FBSDKLoginKit.framework */; };
 		0BF40AC31ACE2A9A0034A1E5 /* ParseFacebookUtilsV4.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0BF40ABE1ACE21900034A1E5 /* ParseFacebookUtilsV4.framework */; };
+		9E2DA4371AD3705400296C34 /* ManageTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E2DA4361AD3705400296C34 /* ManageTableViewCell.m */; };
 		9EFE8A881AB7CED1000018F7 /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9EFE8A831AB7C475000018F7 /* Social.framework */; };
 		9EFE8A8A1AB7CF4C000018F7 /* Accounts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9EFE8A891AB7CF4C000018F7 /* Accounts.framework */; };
 		AA49384A1AD21470000FCC9B /* UIImage+ImageEffects.m in Sources */ = {isa = PBXBuildFile; fileRef = AA4938491AD21470000FCC9B /* UIImage+ImageEffects.m */; };
@@ -85,6 +86,8 @@
 		0BF40ABA1ACE215C0034A1E5 /* FBSDKShareKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSDKShareKit.framework; path = agora/FacebookSDK/FBSDKShareKit.framework; sourceTree = "<group>"; };
 		0BF40ABE1ACE21900034A1E5 /* ParseFacebookUtilsV4.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ParseFacebookUtilsV4.framework; sourceTree = "<group>"; };
 		0BF40AC01ACE28CC0034A1E5 /* FBSDKLoginKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSDKLoginKit.framework; path = agora/FacebookSDK/FBSDKLoginKit.framework; sourceTree = "<group>"; };
+		9E2DA4351AD3705400296C34 /* ManageTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ManageTableViewCell.h; sourceTree = "<group>"; };
+		9E2DA4361AD3705400296C34 /* ManageTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ManageTableViewCell.m; sourceTree = "<group>"; };
 		9EFE8A7A1AB7B819000018F7 /* Post.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Post.h; sourceTree = "<group>"; };
 		9EFE8A831AB7C475000018F7 /* Social.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Social.framework; path = System/Library/Frameworks/Social.framework; sourceTree = SDKROOT; };
 		9EFE8A891AB7CF4C000018F7 /* Accounts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accounts.framework; path = System/Library/Frameworks/Accounts.framework; sourceTree = SDKROOT; };
@@ -187,6 +190,8 @@
 				AA87F4881ACF4E5800AA6AB1 /* Categories */,
 				0BC025661ABB2E390076A09B /* PostCollectionViewCell.h */,
 				0BC025671ABB2E390076A09B /* PostCollectionViewCell.m */,
+				9E2DA4351AD3705400296C34 /* ManageTableViewCell.h */,
+				9E2DA4361AD3705400296C34 /* ManageTableViewCell.m */,
 			);
 			name = Misc;
 			sourceTree = "<group>";
@@ -458,6 +463,7 @@
 				AA5A86971ACA0A63005DAF4A /* RootVC.m in Sources */,
 				ADA500F11ABF6E7C000D6D9E /* Post.m in Sources */,
 				0BA532471AB7CCB000A730C6 /* ParseInterface.m in Sources */,
+				9E2DA4371AD3705400296C34 /* ManageTableViewCell.m in Sources */,
 				0BA532401AB7CC6000A730C6 /* BrowseCollectionViewController.m in Sources */,
 				AA49384A1AD21470000FCC9B /* UIImage+ImageEffects.m in Sources */,
 				AA8F662A1A8EA73700CA4604 /* main.m in Sources */,
