@@ -51,21 +51,18 @@
     
     [[self mainImageView] setContentMode:UIViewContentModeScaleAspectFill];
     [[self mainImageView] setClipsToBounds:YES];
-    [[self mainImageView] setImage:[post headerPhoto]];
     
-    // configure title, description and price
-    [[self titleLabel] setText:[post title]];
-    [self setUpCategoryLabel];
-    [[self priceLabel] setText:[@"$" stringByAppendingString:[[post price] stringValue]]];
+    if([[post creatorFacebookId] isEqualToString:[[PFUser currentUser] objectForKey:@"facebookId"]]){
+        UIBarButtonItem* editButton = [[UIBarButtonItem alloc] initWithTitle:@"Edit"
+                                                                       style:UIBarButtonItemStylePlain
+                                                                      target:self
+                                                                       action:@selector(clickedEdit:)];
+        [[self navigationItem] setLeftBarButtonItem:editButton];
+    }
     
-    // configure description textField
-    [[self descriptionTextField] setText:[post itemDescription]];
-    
+    [self reloadPost];
     [self setUpButtons];
     [self setUpFBSeller];
-    
-    self.collectionView.dataSource = self;
-    self.collectionView.delegate = self;
 }
 
 - (void)setUpCategoryLabel {
@@ -76,8 +73,6 @@
     NSAttributedString * cat = [[NSAttributedString alloc]initWithString:catText];
     [[self categoryLabel] setAttributedText:cat];
     [self.categoryLabel setTextColor:[UIColor catColor:[post category]] range:NSMakeRange(0, 1)];
-    
-    
 }
 
 - (void)setUpButtons{
@@ -145,7 +140,28 @@
     }
 }
 
+- (void)setPostDetails{
+    [[self mainImageView] setImage:[post headerPhoto]];
+    
+    // configure title, description and price
+    [[self titleLabel] setText:[post title]];
+    [[self priceLabel] setText:[@"$" stringByAppendingString:[[post price] stringValue]]];
+    
+    // configure description textField
+    [[self descriptionTextField] setText:[post itemDescription]];
+}
+
+- (void)reloadPost{
+    [self setPost:[ParseInterface getFromParseIndividual:[post objectId]]];
+    [self setUpCategoryLabel];
+    [self setPostDetails];
+}
+
 #pragma mark - IB Actions
+
+- (IBAction)clickedEdit:(id)sender {
+    
+}
 
 - (IBAction)clickedShare:(id)sender {
     // open share action sheet

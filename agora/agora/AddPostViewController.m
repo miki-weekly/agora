@@ -31,7 +31,7 @@
 
 @property NSMutableArray* secondaryPictures;
 
-@property (weak, nonatomic) UITextField *activeField;
+@property (weak, nonatomic) id activeField;
 
 @property BOOL selectingHeadImage;
 
@@ -95,7 +95,6 @@ int color;
     
 }
 
-
 -(void) presentCategorySelection {
     NSArray * k = self.catColors.allKeys;
     
@@ -157,10 +156,14 @@ int color;
     [post setCreatorFacebookId:[[PFUser currentUser] objectForKey:@"facebookId"]];
     [post setPhotosArray:[self secondaryPictures]];
     
-    [ParseInterface saveNewPostToParse:post completion:^{
-        [[self activitySpinner] stopAnimating];
-        [[self delgate] addPostController:self didFinishWithPost:post];
-        [self dismissViewControllerAnimated:YES completion:nil];
+    [ParseInterface saveNewPostToParse:post completion:^(BOOL succeeded){
+        if(succeeded){
+            [[self activitySpinner] stopAnimating];
+            [[self delgate] addPostController:self didFinishWithPost:post];
+            [self dismissViewControllerAnimated:YES completion:nil];
+        }else{
+            
+        }
     }];
 }
 
@@ -186,8 +189,8 @@ int color;
     
     CGRect aRect = self.view.frame;
     aRect.size.height -= kbRect.size.height;
-    if (!CGRectContainsPoint(aRect, self.activeField.frame.origin) ) {
-        [self.scrollView scrollRectToVisible:self.activeField.frame animated:YES];
+    if (!CGRectContainsPoint(aRect, [[self activeField] frame].origin) ) {
+        [self.scrollView scrollRectToVisible:[[self activeField] frame] animated:YES];
     }
 }
 
@@ -218,6 +221,7 @@ int color;
         [textView setText:@""];
         [textView setTextColor:[UIColor blackColor]];
     }
+    [self setActiveField:textView];
     
     [textView becomeFirstResponder];
 }
@@ -227,7 +231,7 @@ int color;
         [textView setText:@"Enter a description"];
         [textView setTextColor:[UIColor grayColor]];
     }
-    
+    [self setActiveField:nil];
     [textView resignFirstResponder];
 }
 

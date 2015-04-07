@@ -14,4 +14,6 @@
 
 @property Post * post;
 
+- (void)reloadPost;
+
 @end

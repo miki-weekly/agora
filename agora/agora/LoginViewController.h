@@ -22,4 +22,6 @@
 
 @property id <LoginViewControllerDelegate> loginDelegate;
 
+- (BOOL)userLoggedIn;
+
 @end

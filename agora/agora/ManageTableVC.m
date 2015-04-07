@@ -6,10 +6,11 @@
 //  Copyright (c) 2015 Ethan. All rights reserved.
 //
 
+#import "DetailedPostViewController.h"
 #import "ManageTableVC.h"
-#import "RootVC.h"
 #import "ManageTableViewCell.h"
 #import "ParseInterface.h"
+#import "RootVC.h"
 #import "UIColor+AGColors.h"
 
 @interface ManageTableVC()
@@ -44,6 +45,10 @@
 
 #pragma mark - Table view data source
 
+- (NSInteger) tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+    return self.postsArray.count;
+}
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     ManageTableViewCell* tableCell = [tableView dequeueReusableCellWithIdentifier:@"tableCell" forIndexPath:indexPath];
     
@@ -53,13 +58,22 @@
     //[[tableCell image] setImage:[postForCell thumbnail]];
     tableCell.categoryBar.backgroundColor = [UIColor catColor:postForCell.category];
     tableCell.image.image = [postForCell thumbnail];
+    tableCell.image.contentMode = UIViewContentModeScaleAspectFill;
+    tableCell.image.clipsToBounds = YES;
     tableCell.title.text = [postForCell title];
     
     return tableCell;
 }
 
-- (NSInteger) tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return self.postsArray.count;
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    UIStoryboard* story = [UIStoryboard storyboardWithName:@"Main" bundle:NULL];
+    DetailedPostViewController* detailPostView = [story instantiateViewControllerWithIdentifier:@"DetailedVC"];
+    Post* postForPath = [[self postsArray] objectAtIndex:indexPath.row];
+    
+    postForPath = [ParseInterface getFromParseIndividual:postForPath.objectId];
+    [detailPostView setPost:postForPath];
+    
+    [[self navigationController] pushViewController:detailPostView animated:YES];
 }
 
 @end

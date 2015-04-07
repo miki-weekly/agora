@@ -15,7 +15,7 @@
     return @[@"objectId", @"title", @"category", @"price", @"thumbnail", @"createdBy"];
 }
 
-+ (void) saveNewPostToParse: (Post*) post completion:(void (^)(void))block{
++ (void) saveNewPostToParse: (Post*) post completion:(void (^)(BOOL succeeded))block{
     //Saving an image to Parse
     
     PFObject *parsePost = [PFObject objectWithClassName:@"Posts"];
@@ -46,7 +46,7 @@
     
     [parsePost saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
         if(block)
-            block();
+            block(succeeded);
     }];
 }
 

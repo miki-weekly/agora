@@ -34,7 +34,6 @@
     // TODO: Configure Login here, Set logo?
     //UIImageView *logoView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"logo.png"]];
     
-    
     UILabel * agora = [[UILabel alloc]initWithFrame:CGRectMake(10.0, 200.0, 300.0, 70.0)];
     agora.textAlignment = NSTextAlignmentCenter;
     [agora setFont:[UIFont systemFontOfSize:60.0]];
@@ -46,11 +45,16 @@
 
 - (void)viewDidAppear:(BOOL)animated{
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault animated:animated];
+}
+
+- (BOOL)userLoggedIn{
     PFUser* cUser = [PFUser currentUser];
     FBSDKAccessToken* cAccessToken = [FBSDKAccessToken currentAccessToken];
+    NSLog(@"Parse: %@ FB: %@", cUser, cAccessToken);
     if(cUser && cAccessToken){                                       // Already logged in
-        // BUG: FBSDK accessToken not held/refreshed by Parse/FB or not acknowledged
-        [[self loginDelegate] loginViewController:self didLogin:YES];
+        return YES;
+    }else{
+        return NO;
     }
 }
 

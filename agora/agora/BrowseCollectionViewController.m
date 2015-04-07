@@ -33,7 +33,11 @@
     // Let LoginViewController controll login
     LoginViewController *logInController = [[LoginViewController alloc] init];
     [logInController setLoginDelegate:self];
-    [self presentViewController:logInController animated:YES completion:nil];
+    if(![logInController userLoggedIn]){
+        [self presentViewController:logInController animated:YES completion:nil];
+    }else{
+        [self reloadData];
+    }
     
     AddPostButton* addButton = [[AddPostButton alloc] init];
     
@@ -50,7 +54,7 @@
         DetailedPostViewController* destination = [segue destinationViewController];
         NSIndexPath* path = [[self collectionView] indexPathForCell:sender];
         Post* selectedPost = [[self postsArray] objectAtIndex:path.row];
-        destination.post = [ParseInterface getFromParseIndividual:[selectedPost objectId]];
+        destination.post = selectedPost;
     }
 }
 
@@ -60,6 +64,7 @@
 
 - (void) reloadDataWithCategory:(NSString*) cat {
     // populate array
+    [[self activitySpinner] startAnimating];
     [ParseInterface getFromParse:cat withSkip:0 completion:^(NSArray * result) {
         [[self activitySpinner] stopAnimating];         // automatiicaly started via Storyboard
         [self setPostsArray:[[NSMutableArray alloc] initWithArray:result]];
