@@ -51,6 +51,7 @@
         NSIndexPath* path = [[self collectionView] indexPathForCell:sender];
         Post* selectedPost = [[self postsArray] objectAtIndex:path.row];
         destination.post = [ParseInterface getFromParseIndividual:[selectedPost objectId]];
+        destination.post.objectId = [selectedPost objectId];
     }
 }
 

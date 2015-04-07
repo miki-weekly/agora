@@ -51,7 +51,10 @@
     
     [[self mainImageView] setContentMode:UIViewContentModeScaleAspectFill];
     [[self mainImageView] setClipsToBounds:YES];
-    [[self mainImageView] setImage:[post headerPhoto]];
+
+    [ParseInterface getHeaderPhoto:post.objectId completion:^(UIImage *result) {
+        [[self mainImageView] setImage:result];
+    }];
     
     // configure title, description and price
     [[self titleLabel] setText:[post title]];
