@@ -95,7 +95,8 @@
     [ParseInterface getHeaderPhoto:post.objectId completion:^(UIImage *result) {
         [[self mainImage] setImage:result];
     }];
-    
+	
+	[[self titleTextField] setTextColor:[UIColor blackColor]];
     [[self titleTextField] setText:[post title]];
     [[self priceTextField] setText:[[post price] stringValue]];
     [[self categoryButton] setTitle:[post category] forState:UIControlStateNormal];
@@ -169,11 +170,12 @@ int color;
     [post setItemDescription:[[self descriptionTextView] text]];
     [post setCategory:[[[self categoryButton] titleLabel] text]];
     [post setStringTags:@[@"[]"]];
-    [post setPrice:[NSNumber numberWithDouble:[[[self priceTextField] text] doubleValue]]];
     [post setHeaderPhoto:[[self mainImage] image]];
     [post setCreatorFacebookId:[[PFUser currentUser] objectForKey:@"facebookId"]];
     [post setPhotosArray:[self secondaryPictures]];
-    
+	
+	NSString* price = [[[self priceTextField] text] stringByReplacingOccurrencesOfString:@"$" withString:@""];
+    [post setPrice:[NSNumber numberWithDouble:[price doubleValue]]];
     if(![self editingPost]){
         [ParseInterface saveNewPostToParse:post completion:^(BOOL succeeded){
             if(succeeded){
@@ -223,23 +225,84 @@ int color;
     }
 }
 
-- (IBAction)textFieldDidBeginEditing:(UITextField *)sender {
-    [self setActiveField:sender];
-}
-
-- (IBAction)textFieldDidEndEditing:(UITextField *)sender {
-    [self setActiveField:nil];
-}
-
 - (void) keyboardWillBeHidden:(NSNotification *)notification{
     UIEdgeInsets contentInsets = UIEdgeInsetsZero;
     [[self scrollView] setContentInset:contentInsets];
     [[self scrollView] setScrollIndicatorInsets:contentInsets];
 }
 
+- (IBAction)textFieldDidBeginEditing:(UITextField *)sender {
+    [self setActiveField:sender];
+	
+	if(sender == [self priceTextField])
+		[[self priceTextField] setText:[[[self priceTextField] text] stringByReplacingOccurrencesOfString:@"$" withString:@""]];
+}
+
+- (IBAction)textFieldDidEndEditing:(UITextField *)sender {
+    [self setActiveField:nil];
+	
+	if(sender == [self priceTextField] && ![[[self priceTextField] text] isEqualToString:@""])
+		[[self priceTextField] setText:[@"$" stringByAppendingString:[[self priceTextField] text]]];
+}
+
 - (BOOL)textFieldShouldReturn:(UITextField *)textField{
     [textField resignFirstResponder];
     return YES;
+}
+
+// http://stackoverflow.com/questions/27308595/how-do-you-dynamically-format-a-number-to-have-commas-in-a-uitextfield-entry
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
+	if(textField != [self priceTextField]) return YES; // only moderate the priceLabel
+	if([[textField text] length] > 6 && ![string isEqualToString:@""]) return NO;
+	
+	if (([string isEqualToString:@"0"] || [string isEqualToString:@""]) && [textField.text rangeOfString:@"."].location < range.location) {
+		return YES;
+	}
+	
+	// First check whether the replacement string's numeric...
+	NSCharacterSet *cs = [[NSCharacterSet characterSetWithCharactersInString:@"0123456789"] invertedSet];
+	NSString *filtered = [[string componentsSeparatedByCharactersInSet:cs] componentsJoinedByString:@""];
+	bool isNumeric = [string isEqualToString:filtered];
+	
+	// Then if the replacement string's numeric, or if it's
+	// a backspace, or if it's a decimal point and the text
+	// field doesn't already contain a decimal point,
+	// reformat the new complete number using
+	// NSNumberFormatterDecimalStyle
+	if (isNumeric ||
+		[string isEqualToString:@""] ||
+		([string isEqualToString:@"."] &&
+		 [textField.text rangeOfString:@"."].location == NSNotFound)) {
+			
+			// Create the decimal style formatter
+			NSNumberFormatter *formatter = [[NSNumberFormatter alloc] init];
+			[formatter setNumberStyle:NSNumberFormatterDecimalStyle];
+			[formatter setMaximumFractionDigits:10];
+			
+			// Combine the new text with the old; then remove any
+			// commas from the textField before formatting
+			NSString *combinedText = [textField.text stringByReplacingCharactersInRange:range withString:string];
+			NSString *numberWithoutCommas = [combinedText stringByReplacingOccurrencesOfString:@"," withString:@""];
+			NSNumber *number = [formatter numberFromString:numberWithoutCommas];
+			
+			NSString *formattedString = [formatter stringFromNumber:number];
+			
+			// If the last entry was a decimal or a zero after a decimal,
+			// re-add it here because the formatter will naturally remove
+			// it.
+			if ([string isEqualToString:@"."] &&
+				range.location == textField.text.length) {
+				formattedString = [formattedString stringByAppendingString:@"."];
+			}
+			
+			textField.text = formattedString;
+			
+		}
+	
+	// Return no, because either the replacement string is not
+	// valid or it is and the textfield has already been updated
+	// accordingly
+	return NO;
 }
 
 #pragma mark - Text View

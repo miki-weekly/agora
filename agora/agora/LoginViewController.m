@@ -49,7 +49,7 @@
 - (BOOL)userLoggedIn{
     PFUser* cUser = [PFUser currentUser];
     FBSDKAccessToken* cAccessToken = [FBSDKAccessToken currentAccessToken];
-    NSLog(@"Parse: %@ FB: %@", cUser, cAccessToken);
+    NSLog(@"Parse: %@\nFB: %@", cUser, cAccessToken);
     if(cUser && cAccessToken){                                       // Already logged in
         return YES;
     }else{

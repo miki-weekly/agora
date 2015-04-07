@@ -147,7 +147,8 @@
     [[postCell priceLabel] setText:[@"$" stringByAppendingString:[[postForCell price] stringValue]]];
     [[postCell priceLabel] setTextColor:[UIColor whiteColor]];
     [[postCell imageView] setContentMode:UIViewContentModeScaleAspectFill];
-    
+	[[postCell imageView] setImage:nil];
+	
     if(![postForCell thumbnail]){
         [ParseInterface getThumbnail:[postForCell objectId] completion:^(UIImage *result){
             [postForCell setThumbnail:result];

@@ -21,6 +21,7 @@
 @property (weak, nonatomic) IBOutlet UIView *contentView;
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
 @property (weak, nonatomic) IBOutlet UIImageView *mainImageView;
+@property (weak, nonatomic) IBOutlet UIActivityIndicatorView *mainImageIndicator;
 
 @property (weak, nonatomic) IBOutlet UILabel *titleLabel;
 @property (weak, nonatomic) IBOutlet UILabel *categoryLabel;
@@ -35,6 +36,7 @@
 
 @property (weak, nonatomic) IBOutlet UITextView *descriptionTextField;
 
+@property (weak, nonatomic) IBOutlet UIActivityIndicatorView *collectionIndicator;
 @property (weak, nonatomic) IBOutlet UICollectionView* collectionView;
 
 @end
@@ -140,41 +142,27 @@
 }
 
 - (void)setPostDetails{
-    UIActivityIndicatorView* headerIndicator = [[UIActivityIndicatorView alloc] init];
-    [headerIndicator setHidesWhenStopped:YES];
-    CGSize imageFrame = [[self mainImageView] frame].size;
-    [headerIndicator setCenter:CGPointMake(imageFrame.width/2, imageFrame.height/2)];
-     
-    [headerIndicator startAnimating];
-    [[self mainImageView] addSubview:headerIndicator];
     if(![post headerPhoto]){
         [ParseInterface getHeaderPhoto:post.objectId completion:^(UIImage *result) {
             post.headerPhoto = result;
             [[self mainImageView] setImage:post.headerPhoto];
-            [headerIndicator stopAnimating];
+            [[self mainImageIndicator] stopAnimating];
         }];
     }else{
         [[self mainImageView] setImage:post.headerPhoto];
-        [headerIndicator stopAnimating];
+        [[self mainImageIndicator] stopAnimating];
     }
-    
-    UIActivityIndicatorView* arrayIndicator = [[UIActivityIndicatorView alloc] init];
-    [arrayIndicator setHidesWhenStopped:YES];
-    [arrayIndicator setCenter:[[self collectionView] center]];
-    [arrayIndicator startAnimating];
-    [[self collectionView] addSubview:arrayIndicator];
-    
+	
     if(![post photosArray]){
         [ParseInterface getPhotosArrayWithObjectID:post.objectId completion:^(NSArray *result) {
             [post setPhotosArray:result];
             
             [[self collectionView] reloadData];
-            [arrayIndicator stopAnimating];
+            [[self collectionIndicator] stopAnimating];
         }];
     }else{
         [[self collectionView] reloadData];
-        [arrayIndicator stopAnimating];
-
+        [[self collectionIndicator] stopAnimating];
     }
     
     // configure title, description and price
@@ -242,16 +230,16 @@
 #pragma mark - Collection view data source
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
-    return 1;
+    return post.photosArray.count;
 }
 
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView{
-    return post.photosArray.count;
+    return 1;
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
     UICollectionViewCell* postCell = [collectionView dequeueReusableCellWithReuseIdentifier:@"imageCell" forIndexPath:indexPath];
-
+	
     UIImageView* imageView = (UIImageView*)[postCell viewWithTag:1];
     [imageView setImage:[[post photosArray] objectAtIndex:[indexPath row]]];
     

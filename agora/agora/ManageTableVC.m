@@ -55,10 +55,18 @@
         
     //[[tableCell image] setImage:[postForCell thumbnail]];
     tableCell.categoryBar.backgroundColor = [UIColor catColor:postForCell.category];
-    tableCell.image.image = [postForCell thumbnail];
+	tableCell.title.text = [postForCell title];
+	
     tableCell.image.contentMode = UIViewContentModeScaleAspectFill;
     tableCell.image.clipsToBounds = YES;
-    tableCell.title.text = [postForCell title];
+	if(![postForCell thumbnail]){
+		[ParseInterface getHeaderPhoto:postForCell.objectId completion:^(UIImage *result) {
+			tableCell.image.image = result;
+		}];
+	}else{
+		tableCell.image.image = [postForCell thumbnail];
+	}
+    
     
     return tableCell;
 }
