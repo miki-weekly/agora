@@ -242,7 +242,7 @@ int count;
     [self.view bringSubviewToFront:self.menu];
     [UIView animateWithDuration:0.3 animations:^{
         [self fadeToRatio:1.0];
-        [self animateBlur:YES];
+        //[self animateBlur:YES];
     } completion:^(BOOL finished) {
         
     }];
@@ -256,7 +256,7 @@ int count;
     }];
     self.buttonView.userInteractionEnabled = NO;
     self.needsNewScreenshot = YES;
-}
+    }
 
 
 -(void) setUpOverlay {
@@ -392,17 +392,17 @@ int blurMod = 0;
         UIGraphicsEndImageContext();
         self.needsNewScreenshot = NO;
     }
-    //    blurMod++;
-    //    if (blurMod == 5) {
-    //        UIImage* blurImg = [self.screenshot applyBlurWithRadius:ratio*4.0 tintColor:[UIColor clearColor] saturationDeltaFactor:1.2 maskImage:self.screenshot];
-    //        blurMod = 0;
-    //
-    //        if (ratio != 0.0) {
-    //            self.blurView.image = blurImg;
-    //        }
-    //
-    //    }
-    //
+        blurMod++;
+        if (blurMod == 5) {
+            UIImage* blurImg = [self.screenshot applyBlurWithRadius:ratio*4.0 tintColor:[UIColor clearColor] saturationDeltaFactor:1.2 maskImage:self.screenshot];
+            blurMod = 0;
+    
+            if (ratio != 0.0) {
+                self.blurView.image = blurImg;
+            }
+    
+        }
+    
     
     
     
