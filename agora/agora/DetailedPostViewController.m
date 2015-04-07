@@ -57,7 +57,7 @@
                                                                        style:UIBarButtonItemStylePlain
                                                                       target:self
                                                                        action:@selector(clickedEdit:)];
-        [[self navigationItem] setLeftBarButtonItem:editButton];
+        [[self navigationItem] setRightBarButtonItem:editButton];
     }
     
     [self reloadPost];
@@ -141,7 +141,42 @@
 }
 
 - (void)setPostDetails{
-    [[self mainImageView] setImage:[post headerPhoto]];
+    UIActivityIndicatorView* headerIndicator = [[UIActivityIndicatorView alloc] init];
+    [headerIndicator setHidesWhenStopped:YES];
+    CGSize imageFrame = [[self mainImageView] frame].size;
+    [headerIndicator setCenter:CGPointMake(imageFrame.width/2, imageFrame.height/2)];
+     
+    [headerIndicator startAnimating];
+    [[self mainImageView] addSubview:headerIndicator];
+    if(![post headerPhoto]){
+        [ParseInterface getHeaderPhoto:post.objectId completion:^(UIImage *result) {
+            post.headerPhoto = result;
+            [[self mainImageView] setImage:post.headerPhoto];
+            [headerIndicator stopAnimating];
+        }];
+    }else{
+        [[self mainImageView] setImage:post.headerPhoto];
+        [headerIndicator stopAnimating];
+    }
+    
+    UIActivityIndicatorView* arrayIndicator = [[UIActivityIndicatorView alloc] init];
+    [arrayIndicator setHidesWhenStopped:YES];
+    [arrayIndicator setCenter:[[self collectionView] center]];
+    [arrayIndicator startAnimating];
+    [[self collectionView] addSubview:arrayIndicator];
+    
+    if(![post photosArray]){
+        [ParseInterface getPhotosArrayWithObjectID:post.objectId completion:^(NSArray *result) {
+            [post setPhotosArray:result];
+            
+            [[self collectionView] reloadData];
+            [arrayIndicator stopAnimating];
+        }];
+    }else{
+        [[self collectionView] reloadData];
+        [arrayIndicator stopAnimating];
+
+    }
     
     // configure title, description and price
     [[self titleLabel] setText:[post title]];
@@ -152,7 +187,6 @@
 }
 
 - (void)reloadPost{
-    [self setPost:[ParseInterface getFromParseIndividual:[post objectId]]];
     [self setUpCategoryLabel];
     [self setPostDetails];
 }
@@ -200,9 +234,7 @@
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
     UICollectionViewCell* postCell = [collectionView dequeueReusableCellWithReuseIdentifier:@"imageCell" forIndexPath:indexPath];
-    postCell.backgroundColor = [UIColor orangeColor];
-    
-    
+
     UIImageView* imageView = (UIImageView*)[postCell viewWithTag:1];
     [imageView setImage:[[post photosArray] objectAtIndex:[indexPath row]]];
     

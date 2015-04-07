@@ -71,6 +71,11 @@
     
     [self setupSelectButton:self.categoryButton];
     self.catColors = @{@"Tech":[UIColor techColor],@"Home":[UIColor homeColor],@"Fashion":[UIColor fashColor],@"Education":[UIColor eduColor],@"Misc":[UIColor miscColor]};
+    
+    if([self editingPost]){
+        [self setUpEditting];
+        [[self addButton] setTitle:@"Save" forState:UIControlStateNormal];
+    }
 }
 
 - (void)viewWillAppear:(BOOL)animated{
@@ -83,6 +88,18 @@
     }
 }
 
+- (void)setUpEditting{
+    Post* post = [self editingPost];
+    [ParseInterface getHeaderPhoto:post.objectId completion:^(UIImage *result) {
+        [[self mainImage] setImage:result];
+    }];
+    
+    [[self titleTextField] setText:[post title]];
+    [[self priceTextField] setText:[[post price] stringValue]];
+    [[self categoryButton] setTitle:[post category] forState:UIControlStateNormal];
+    [[self descriptionTextView] setText:[post itemDescription]];
+    [self setSecondaryPictures:[[NSMutableArray alloc] initWithArray:[post photosArray]]];
+}
 
 #pragma mark - Category selection things
 int color;
@@ -99,7 +116,6 @@ int color;
     NSArray * k = self.catColors.allKeys;
     
     NSString * newCat = k[color];
-    
     
     [[self categoryButton] setTitle:newCat forState:UIControlStateNormal];
     UIColor * newColor = self.catColors[newCat];
@@ -156,15 +172,28 @@ int color;
     [post setCreatorFacebookId:[[PFUser currentUser] objectForKey:@"facebookId"]];
     [post setPhotosArray:[self secondaryPictures]];
     
-    [ParseInterface saveNewPostToParse:post completion:^(BOOL succeeded){
-        if(succeeded){
-            [[self activitySpinner] stopAnimating];
-            [[self delgate] addPostController:self didFinishWithPost:post];
-            [self dismissViewControllerAnimated:YES completion:nil];
-        }else{
-            
-        }
-    }];
+    if(![self editingPost]){
+        [ParseInterface saveNewPostToParse:post completion:^(BOOL succeeded){
+            if(succeeded){
+                [[self activitySpinner] stopAnimating];
+                [[self delgate] addPostController:self didFinishWithPost:post];
+                [self dismissViewControllerAnimated:YES completion:nil];
+            }else{
+                
+            }
+        }];
+    }else{
+        [post setObjectId:[[self editingPost] objectId]];
+        [ParseInterface updateParsePost:post completion:^(BOOL succeeded) {
+            if(succeeded){
+                // TODO: Splash screen succeded or not
+                [[self activitySpinner] stopAnimating];
+                [self dismissViewControllerAnimated:YES completion:nil];
+            }else{
+                
+            }
+        }];
+    }
 }
 
 - (IBAction)pressedCancel:(id)sender {

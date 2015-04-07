@@ -43,6 +43,8 @@
     
     [addButton addTarget:self action:@selector(pressedAddButton) forControlEvents:UIControlEventTouchDown];
     [[self view] addSubview:addButton];
+    
+    [self setPostsArray:[[NSMutableArray alloc] init]];
 }
 
 - (void)viewWillAppear:(BOOL)animated{
@@ -67,7 +69,8 @@
     [[self activitySpinner] startAnimating];
     [ParseInterface getFromParse:cat withSkip:0 completion:^(NSArray * result) {
         [[self activitySpinner] stopAnimating];         // automatiicaly started via Storyboard
-        [self setPostsArray:[[NSMutableArray alloc] initWithArray:result]];
+        [[self postsArray] removeAllObjects];
+        [[self postsArray] addObjectsFromArray:result];
         [[self collectionView] reloadData];
     }];
     
@@ -142,7 +145,16 @@
     [[postCell priceLabel] setText:[@"$" stringByAppendingString:[[postForCell price] stringValue]]];
     [[postCell priceLabel] setTextColor:[UIColor whiteColor]];
     [[postCell imageView] setContentMode:UIViewContentModeScaleAspectFill];
-    [[postCell imageView] setImage:[postForCell thumbnail]];
+    
+    if(![postForCell thumbnail]){
+        [ParseInterface getThumbnail:[postForCell objectId] completion:^(UIImage *result){
+            [postForCell setThumbnail:result];
+            [[postCell imageView] setImage:[postForCell thumbnail]];
+        }];
+    }else{
+        [[postCell imageView] setImage:[postForCell thumbnail]];
+    }
+   
     
     [postCell.gradient setBackgroundColor:[UIColor clearColor]];
     if ([postCell.gradient.layer.sublayers count] == 0) {

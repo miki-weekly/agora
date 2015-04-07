@@ -12,10 +12,11 @@
 @interface ParseInterface : NSObject
     + (NSArray*) browseKeyArray;
     + (void) saveNewPostToParse: (Post*) post completion:(void (^)(BOOL succeeded))block;
-    + (void) updateParsePost: (Post*) post;
-    + (Post*) getFromParseIndividual: (NSString*) object_id;
+    + (void) updateParsePost: (Post*) post completion:(void (^)(BOOL succeeded))block;
+    + (Post*) getFromParseIndividual: (NSString*) object_id ;
     + (void) getFromParse: (NSString*) parameter withSkip: (NSInteger) skip completion:(void (^)(NSArray* result))block;
     + (void) deleteFromParse: (NSString*) object_id;
     + (void) getHeaderPhoto: (NSString*) object_id completion: (void(^)(UIImage* result))block;
     + (void) getThumbnail: (NSString*) object_id completion: (void (^)(UIImage* result))block;
+    + (void) getPhotosArrayWithObjectID:(NSString*)objectID completion:(void (^)(NSArray* result))block;
 @end

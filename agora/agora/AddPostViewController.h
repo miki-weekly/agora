@@ -15,4 +15,6 @@
 
 @property id <AddPostViewControllerDelegate> delgate;
 
+@property Post* editingPost;
+
 @end

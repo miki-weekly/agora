@@ -50,7 +50,7 @@
     }];
 }
 
-+ (void) updateParsePost: (Post*) post {
++ (void) updateParsePost: (Post*) post completion:(void (^)(BOOL succeeded))block{
     PFQuery *query = [PFQuery queryWithClassName:@"Posts"];
     
     [query whereKey:@"objectId" equalTo: post.objectId];
@@ -71,8 +71,12 @@
             
             [object saveInBackground];
             NSLog(@"OBJECT UPDATED!");
+            if(block)
+                block(YES);
         } else {
             NSLog(@"UPDATE: NO OBJECT FOUND");
+            if(block)
+                block(NO);
         }
     }];
 }
@@ -88,20 +92,13 @@
     NSLog(@"Retrieved Data");
     
     PFUser *user = [object objectForKey:@"createdBy"];
-
-    NSArray* picturesPFFileArray = [object objectForKey:@"pictures"];
-    NSMutableArray *picturesUIImageArray = [NSMutableArray array];
-    for (PFFile *picture in picturesPFFileArray) {
-        [picturesUIImageArray addObject: [UIImage imageWithData: [picture getData]]];
-    }
     
     post.title = [object objectForKey:@"title"];
     post.itemDescription = [object objectForKey:@"description"];
     post.category = [object objectForKey:@"category"];
     post.price = [object objectForKey:@"price"];
-    post.objectId = [object objectForKey:@"objectId"];
+    post.objectId = [object objectId];
     post.creatorFacebookId = [user objectForKey:@"facebookId"];
-    post.photosArray = picturesUIImageArray;
     
     return post;
 }
@@ -162,16 +159,39 @@
     [object deleteEventually];
 }
 
+// http://orion98mc.blogspot.com/2012/08/on-ios-uiimage-decompression-nightmare.html
+NS_INLINE void forceImageDecompression(UIImage *image) {
+    CGImageRef imageRef = [image CGImage];
+    CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
+    CGContextRef context = CGBitmapContextCreate(NULL, CGImageGetWidth(imageRef), CGImageGetHeight(imageRef), 8, CGImageGetWidth(imageRef) * 4, colorSpace,kCGImageAlphaPremultipliedFirst | kCGBitmapByteOrder32Little);
+    CGColorSpaceRelease(colorSpace);
+    if (!context) { NSLog(@"Could not create context for image decompression"); return; }
+    CGContextDrawImage(context, (CGRect){{0.0f, 0.0f}, {CGImageGetWidth(imageRef), CGImageGetHeight(imageRef)}}, imageRef);
+    CFRelease(context);
+}
+
 +(void) getHeaderPhoto: (NSString*) object_id completion: (void(^)(UIImage* result))block; {
     PFQuery* query = [PFQuery queryWithClassName:@"Posts"];
     [query selectKeys:@[@"picture"]];
     
-    PFObject* object = [query getObjectWithId:object_id];
-    PFFile* file = [object objectForKey:@"picture"];
-    
-    [file getDataInBackgroundWithBlock:^(NSData *data, NSError *error) {
-        UIImage* headerPhoto = [UIImage imageWithData: data];
-        block(headerPhoto);
+    [query getObjectInBackgroundWithId:object_id block:^(PFObject *object, NSError *error) {
+        PFFile* file = [object objectForKey:@"picture"];
+        NSMutableArray* container = [[NSMutableArray alloc] init];
+        dispatch_group_t group = dispatch_group_create();
+        dispatch_queue_t bg_queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
+        
+        dispatch_group_async(group, bg_queue, ^{
+            if(block){
+                UIImage* image = [UIImage imageWithData:[file getData]];
+                forceImageDecompression(image);
+                [container addObject:image];
+            }
+        });
+        
+        dispatch_group_notify(group, dispatch_get_main_queue(), ^{
+            if(block)
+                block([container objectAtIndex:0]);
+        });
     }];
 }
 
@@ -179,12 +199,48 @@
     PFQuery* query = [PFQuery queryWithClassName:@"Posts"];
     [query selectKeys:@[@"thumbnail" ]];
     
-    PFObject* object = [query getObjectWithId:object_id];
-    PFFile* file = [object objectForKey:@"thumbnail"];
+    [query getObjectInBackgroundWithId:object_id block:^(PFObject *object, NSError *error) {
+        PFFile* file = [object objectForKey:@"thumbnail"];
+        NSMutableArray* container = [[NSMutableArray alloc] init];
+        dispatch_group_t group = dispatch_group_create();
+        dispatch_queue_t bg_queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
+        
+        dispatch_group_async(group, bg_queue, ^{
+            if(block){
+                UIImage* image = [UIImage imageWithData:[file getData]];
+                forceImageDecompression(image);
+                [container addObject:image];
+            }
+        });
+        
+        dispatch_group_notify(group, dispatch_get_main_queue(), ^{
+            if(block)
+                block([container objectAtIndex:0]);
+        });
+    }];
+}
+
++ (void) getPhotosArrayWithObjectID:(NSString*)objectID completion:(void (^)(NSArray* result))block{
+    NSMutableArray *photosArray = [[NSMutableArray alloc] init];
     
-    [file getDataInBackgroundWithBlock:^(NSData *data, NSError *error) {
-        UIImage* thumbnail = [UIImage imageWithData: data];
-        block(thumbnail);
+    PFQuery* query = [PFQuery queryWithClassName:@"Posts"];
+    [query selectKeys:@[@"pictures"]];
+    [query getObjectInBackgroundWithId:objectID block:^(PFObject *object, NSError *error) {
+        NSArray* picturesPFFileArray = [object objectForKey:@"pictures"];
+        
+        dispatch_group_t group = dispatch_group_create();
+        dispatch_queue_t bg_queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
+        
+        dispatch_group_async(group, bg_queue, ^{
+            for (PFFile *picture in picturesPFFileArray) {
+                [photosArray addObject:[UIImage imageWithData:[picture getData]]];
+            }
+        });
+        //when done do this
+        dispatch_group_notify(group, dispatch_get_main_queue(), ^{
+            if(block)
+                block(photosArray);
+        });
     }];
 }
 @end
