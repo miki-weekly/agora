@@ -135,24 +135,31 @@
     }
     
     [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
-        for(PFObject* object in objects) {
-            Post *post = [[Post alloc] init];
-            PFUser *user = [object objectForKey:@"createdBy"];
-            
-            PFFile *file = [object objectForKey:@"thumbnail"];
-            post.thumbnail = [UIImage imageWithData:[file getData]];
-            
-            post.title = [object objectForKey:@"title"];
-            post.price = [object objectForKey:@"price"];
-            post.category = [object objectForKey:@"category"];
-            post.objectId = object.objectId;
-            post.creatorFacebookId = [user objectForKey:@"facebookId"];
-            
-            [postArray addObject:post];
-        }
-        // Finally, pass array to block
-        if(block)
-            block(postArray);
+        dispatch_group_t group = dispatch_group_create();
+        dispatch_queue_t bg_queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
+        
+        dispatch_group_async(group, bg_queue, ^{
+            for(PFObject* object in objects) {
+                Post *post = [[Post alloc] init];
+                PFUser *user = [object objectForKey:@"createdBy"];
+                
+                PFFile *file = [object objectForKey:@"thumbnail"];
+                post.thumbnail = [UIImage imageWithData:[file getData]];
+                
+                post.title = [object objectForKey:@"title"];
+                post.price = [object objectForKey:@"price"];
+                post.category = [object objectForKey:@"category"];
+                post.objectId = object.objectId;
+                post.creatorFacebookId = [user objectForKey:@"facebookId"];
+                
+                [postArray addObject:post];
+            }
+        });
+        //when done do this
+        dispatch_group_notify(group, dispatch_get_main_queue(), ^{
+            if(block)
+                block(postArray);
+        });
     }];
 }
 
