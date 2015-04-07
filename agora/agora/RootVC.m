@@ -51,8 +51,12 @@
 @synthesize buttonNames = _buttonNames;
 -(NSArray*) buttonNames {
     // must return dictionary with strings in order to appear on overlay menu
-#warning - add proper names you want in your menu
-    return @[@"Browse",@"",@"Education",@"Fashion",@"Home",@"Tech",@"Misc",@"",@"Manage"];
+    
+    if (!_buttonNames) {
+        _buttonNames =@[@"Browse",@"",@"Education",@"Fashion",@"Home",@"Tech",@"Misc",@"",@"Manage"];
+    }
+    
+    return _buttonNames;
 }
 
 -(UIScreenEdgePanGestureRecognizer *)getEdgePanGesture {
@@ -79,9 +83,9 @@
     UIViewController * manage = [story instantiateViewControllerWithIdentifier:@"manage nav"];
     [self addChildViewController:manage];
     
-//    SlideItemVC * third = [story instantiateViewControllerWithIdentifier:@"ADD STORYBOARD ID HERE"];
-//    third.root = self;
-//    [self addChildViewController:third];
+    //    SlideItemVC * third = [story instantiateViewControllerWithIdentifier:@"ADD STORYBOARD ID HERE"];
+    //    third.root = self;
+    //    [self addChildViewController:third];
     
 }
 
@@ -126,7 +130,7 @@
 
 -(IBAction)clickMenuItem:(id)sender {
     UIButton * b = (UIButton*)sender;
-    NSString * item = b.titleLabel.text;
+    NSString * item = [[b.titleLabel.text substringWithRange:NSMakeRange(1, 1)] isEqualToString:@" "]?[b.titleLabel.text substringFromIndex:2]:b.titleLabel.text;
     
     NSInteger buttonIndex = 0;
     for (int i = 0; i < [self.buttonNames count]; i++) {
@@ -145,7 +149,7 @@
         
     } else if (buttonIndex == 8) {
         [self switchToViewController:1];
-    
+        
     } else {
         //clicked a category
         [self switchToViewController:0];
@@ -204,9 +208,9 @@ int count;
     CGPoint velocity = [gesture velocityInView:gesture.view];
     
     if (gesture.state == UIGestureRecognizerStateBegan || gesture.state == UIGestureRecognizerStateChanged) {
-//        if (gesture.state == UIGestureRecognizerStateBegan) {
-//            NSLog(@"began Gesture");
-//        }
+        //        if (gesture.state == UIGestureRecognizerStateBegan) {
+        //            NSLog(@"began Gesture");
+        //        }
         
         //NSLog(@"translation x %f translation y %f",translation.x,translation.y);
         //NSLog(@"                    velocity x %f velocity y %f",velocity.x,velocity.y);
@@ -238,6 +242,7 @@ int count;
     [self.view bringSubviewToFront:self.menu];
     [UIView animateWithDuration:0.3 animations:^{
         [self fadeToRatio:1.0];
+        //[self animateBlur:YES];
     } completion:^(BOOL finished) {
         
     }];
@@ -251,7 +256,7 @@ int count;
     }];
     self.buttonView.userInteractionEnabled = NO;
     self.needsNewScreenshot = YES;
-}
+    }
 
 
 -(void) setUpOverlay {
@@ -306,7 +311,7 @@ int count;
         }
         UIButton * button = [[UIButton alloc]initWithFrame:CGRectMake(-80, y, 160, 50)];
         y += 40;
-
+        
         UIColor * catColor = [UIColor catColor:name];
         if (catColor) {
             NSAttributedString * buttonTitle = [[NSAttributedString alloc]initWithString:[NSString stringWithFormat:@"%@ %@",@"⦁",name]];
@@ -316,7 +321,7 @@ int count;
         } else {
             [button setTitle:name forState:UIControlStateNormal];
         }
-    
+        
         button.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
         
         [button setTitleColor:[[UIColor whiteColor] colorWithAlphaComponent:0.0]forState:UIControlStateNormal];
@@ -333,6 +338,26 @@ int count;
     [self.buttonView addGestureRecognizer:swipeClosed];
     self.buttonView.userInteractionEnabled = NO;
     
+}
+
+
+-(void) animateBlur:(BOOL) yes {
+    
+    for (double i = 0.0; i <= 1.0; i = i + 0.05) {
+        NSNumber * ratio = [NSNumber numberWithDouble:i];
+        [self performSelector:@selector(blurToRatio:) withObject:ratio afterDelay:i*1.0];
+    }
+    
+}
+
+-(void) blurToRatio:(NSNumber*) ratio {
+    
+    double r = [ratio doubleValue];
+    UIImage* blurImg = [self.screenshot applyBlurWithRadius:r*4.0 tintColor:[UIColor clearColor] saturationDeltaFactor:1.2 maskImage:self.screenshot];
+    self.blurView.image = blurImg;
+    [self.view bringSubviewToFront:self.blurView];
+    [self.view bringSubviewToFront:self.menu];
+    [self.view bringSubviewToFront:self.buttonView];
 }
 
 int blurMod = 0;
@@ -367,16 +392,16 @@ int blurMod = 0;
         UIGraphicsEndImageContext();
         self.needsNewScreenshot = NO;
     }
-    blurMod++;
-    if (blurMod == 5) {
-        UIImage* blurImg = [self.screenshot applyBlurWithRadius:ratio*4.0 tintColor:[UIColor clearColor] saturationDeltaFactor:1.2 maskImage:self.screenshot];
-        blurMod = 0;
-        
-        if (ratio != 0.0) {
-            self.blurView.image = blurImg;
+        blurMod++;
+        if (blurMod == 5) {
+            UIImage* blurImg = [self.screenshot applyBlurWithRadius:ratio*4.0 tintColor:[UIColor clearColor] saturationDeltaFactor:1.2 maskImage:self.screenshot];
+            blurMod = 0;
+    
+            if (ratio != 0.0) {
+                self.blurView.image = blurImg;
+            }
+    
         }
-        
-    }
     
     
     
