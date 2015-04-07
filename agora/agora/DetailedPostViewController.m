@@ -81,7 +81,7 @@
 }
 
 - (void)setUpButtons{
-    CGColorRef buttonColor = [[UIColor blueColor] CGColor];
+    CGColorRef buttonColor = [[UIColor indigoColor] CGColor];
     [[self shareButton] setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
     [[[self shareButton] layer] setBorderWidth:1.5f];
     [[[self shareButton] layer] setCornerRadius:4.0f];

@@ -34,23 +34,17 @@
     LoginViewController *logInController = [[LoginViewController alloc] init];
     [logInController setLoginDelegate:self];
     [self presentViewController:logInController animated:YES completion:nil];
-}
-
-- (void)viewDidAppear:(BOOL)animated{
+    
     AddPostButton* addButton = [[AddPostButton alloc] init];
     
     [addButton addTarget:self action:@selector(pressedAddButton) forControlEvents:UIControlEventTouchDown];
     [[self view] addSubview:addButton];
+    
+    [self reloadData];
 }
 
-- (void)viewWillAppear:(BOOL)animated {
-    //[self.navigationController setNavigationBarHidden:YES animated:animated];
-    [super viewWillAppear:animated];
-}
-
-- (void)viewWillDisappear:(BOOL)animated {
-    [self.navigationController setNavigationBarHidden:NO animated:animated];
-    [super viewWillDisappear:animated];
+- (void)viewDidAppear:(BOOL)animated{
+    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent animated:animated];
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
@@ -59,12 +53,7 @@
         NSIndexPath* path = [[self collectionView] indexPathForCell:sender];
         Post* selectedPost = [[self postsArray] objectAtIndex:path.row];
         destination.post = [ParseInterface getFromParseIndividual:[selectedPost objectId]];
-    }else{
-        // continue with load
-        [self reloadDataWithCategory:@"RECENTS"];
     }
-    
-    
 }
 
 -(void) reloadData {
@@ -149,8 +138,8 @@
     [[postCell titleLabel] setTextColor:[UIColor whiteColor]];
     [[postCell priceLabel] setText:[@"$" stringByAppendingString:[[postForCell price] stringValue]]];
     [[postCell priceLabel] setTextColor:[UIColor whiteColor]];
-    //[[postCell imageView] setImage:[postForCell thumbnail]];
-    indexPath.row == 0?[[postCell imageView] setImage:[UIImage imageNamed:@"soccer"]]:NULL;
+    [[postCell imageView] setContentMode:UIViewContentModeScaleAspectFill];
+    [[postCell imageView] setImage:[postForCell thumbnail]];
     
     [postCell.gradient setBackgroundColor:[UIColor clearColor]];
     if ([postCell.gradient.layer.sublayers count] == 0) {

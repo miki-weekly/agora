@@ -7,6 +7,7 @@
 //
 
 #import "AddPostButton.h"
+#import "UIColor+AGColors.h"
 #import <QuartzCore/QuartzCore.h>
 
 @implementation AddPostButton
@@ -33,7 +34,7 @@
         [[self layer] setShadowPath:[[UIBezierPath bezierPathWithRoundedRect:[self bounds] cornerRadius:[[self layer] cornerRadius]] CGPath]];
         
         [self addSubview:plus];
-        [self setBackgroundColor:[UIColor colorWithRed:0.247f green:0.318f blue:0.71f alpha:1.0f]];
+        [self setBackgroundColor:[UIColor indigoColor]];
     }
     
     return self;

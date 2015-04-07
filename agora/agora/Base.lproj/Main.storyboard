@@ -103,7 +103,7 @@
                         </connections>
                     </collectionView>
                     <navigationItem key="navigationItem" id="Byi-w6-FWM">
-                        <barButtonItem key="leftBarButtonItem" title="Menu" id="CqS-j9-mVo">
+                        <barButtonItem key="leftBarButtonItem" image="menu" id="CqS-j9-mVo">
                             <connections>
                                 <action selector="clickMenu:" destination="nf8-rb-sYn" id="745-uu-4SG"/>
                             </connections>
@@ -380,7 +380,56 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1tc-uP-COV" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3054" y="147.75"/>
+            <point key="canvasLocation" x="3666" y="450.75"/>
+        </scene>
+        <!--Manage View Controller-->
+        <scene sceneID="zrU-8p-9ng">
+            <objects>
+                <tableViewController id="iL5-Mb-LU2" customClass="ManageTableVC" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="fIp-yM-eLQ">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="0tD-OD-YXP">
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="0tD-OD-YXP" id="VJE-s9-JGr">
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="iL5-Mb-LU2" id="0xD-Kn-7v6"/>
+                            <outlet property="delegate" destination="iL5-Mb-LU2" id="szG-VA-SyM"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="Manage View Controller" id="InO-xH-bIv">
+                        <barButtonItem key="leftBarButtonItem" image="menu" id="QFO-ej-UnK">
+                            <connections>
+                                <action selector="clickMenu:" destination="iL5-Mb-LU2" id="EoR-6f-wEw"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Q0R-i8-cZ5" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2458.5" y="1244.25"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="ypl-P9-Vgd">
+            <objects>
+                <navigationController storyboardIdentifier="manage nav" id="YUR-1E-BSb" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="QfK-tD-X4t">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="iL5-Mb-LU2" kind="relationship" relationship="rootViewController" id="SaY-um-EQ7"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Xg4-LW-JFx" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1528.5" y="1243.5"/>
         </scene>
         <!--Add Post View Controller-->
         <scene sceneID="3al-vh-vjv">
@@ -675,6 +724,7 @@
                     </view>
                     <connections>
                         <outlet property="activitySpinner" destination="8HN-Mu-sBa" id="XKA-ot-4Pg"/>
+                        <outlet property="addButton" destination="rc3-oV-2WM" id="GeI-mi-99Y"/>
                         <outlet property="categoryButton" destination="EwP-xx-MuD" id="554-PA-seG"/>
                         <outlet property="collectionView" destination="dJN-Jz-XXy" id="tp1-7Q-jMc"/>
                         <outlet property="contentView" destination="cyc-VU-Orx" id="UJp-rE-tgv"/>
@@ -688,7 +738,10 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="XRm-Gs-sS6" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2380.5" y="801"/>
+            <point key="canvasLocation" x="4702.5" y="762"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="menu" width="28" height="20"/>
+    </resources>
 </document>

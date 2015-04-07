@@ -9,6 +9,10 @@
 #import "RootVC.h"
 #import "SlideItemVC.h"
 #import "BrowseCollectionViewController.h"
+#import "UIImage+ImageEffects.h"
+
+#define MENU_BUTTON_X_OFFSET 20
+
 
 @interface RootVC () <UIGestureRecognizerDelegate>
 
@@ -20,6 +24,9 @@
 //overlay properties
 @property UIView * menu;
 @property CAGradientLayer * gradient;
+@property UIImage * screenshot;
+@property BOOL needsNewScreenshot;
+@property UIImageView * blurView;
 
 //button view
 @property UIView * buttonView;
@@ -42,7 +49,7 @@
 -(NSArray*) buttonNames {
     // must return dictionary with strings in order to appear on overlay menu
 #warning - add proper names you want in your menu
-    return @[@"Browse",@"Add",@"",@"Education",@"Fashion",@"Home",@"Tech",@"Misc"];
+    return @[@"Browse",@"Add",@"",@"Education",@"Fashion",@"Home",@"Tech",@"Misc",@"",@"Manage"];
 }
 
 -(UIScreenEdgePanGestureRecognizer *)getEdgePanGesture {
@@ -58,15 +65,18 @@
     
     UIStoryboard * story = [UIStoryboard storyboardWithName:@"Main" bundle:NULL];
     
-    UIViewController * first = [story instantiateViewControllerWithIdentifier:@"Browse Nav"];
-    [self addChildViewController:first];
-    [self.view addSubview:first.view];
-    self.currentVC = first;
+    UIViewController * browse = [story instantiateViewControllerWithIdentifier:@"Browse Nav"];
+    [self addChildViewController:browse];
+    [self.view addSubview:browse.view];
+    self.currentVC = browse;
     
     
     //make other vcs but don't add them
     SlideItemVC * second = [story instantiateViewControllerWithIdentifier:@"Add Post"];
     [self addChildViewController:second];
+    
+    UIViewController * manage = [story instantiateViewControllerWithIdentifier:@"manage nav"];
+    [self addChildViewController:manage];
     
 //    SlideItemVC * third = [story instantiateViewControllerWithIdentifier:@"ADD STORYBOARD ID HERE"];
 //    third.root = self;
@@ -102,7 +112,7 @@
     
     //children setup
     [self setupChildrenVCs];
-    
+    self.needsNewScreenshot = YES;
     
 }
 
@@ -117,18 +127,24 @@
     UIButton * b = (UIButton*)sender;
     NSString * item = b.titleLabel.text;
     
-    NSInteger newVCi = 0;
+    NSInteger buttonIndex = 0;
     for (int i = 0; i < [self.buttonNames count]; i++) {
         if ([item isEqualToString:self.buttonNames[i]]) {
-            newVCi = i;
+            buttonIndex = i;
         }
     }
     
     
     
-    if (newVCi < 2) {
-        [self switchToViewController:newVCi];
+    if (buttonIndex == 0) {
+        [self switchToViewController:buttonIndex];
+        [((BrowseCollectionViewController*)self.currentVC.childViewControllers[0]) reloadData];
         
+    } else if (buttonIndex == 1) {
+        
+    } else if (buttonIndex == 9) {
+        [self switchToViewController:2];
+    
     } else {
         //clicked a category
         [self switchToViewController:0];
@@ -161,7 +177,7 @@ int count;
         //NSLog(@"velocity x %f velocity y %f",velocity.x,velocity.y);
         // Move the view's center using the gesture
         CGFloat max = [UIScreen mainScreen].bounds.size.width/2;
-        [self changeAlpha:translation.x > max?1.0:translation.x/max];
+        [self fadeToRatio:translation.x > max?1.0:translation.x/max];
         
         
         
@@ -194,13 +210,20 @@ int count;
         //NSLog(@"translation x %f translation y %f",translation.x,translation.y);
         //NSLog(@"                    velocity x %f velocity y %f",velocity.x,velocity.y);
         
-        //[self changeAlpha:translation.x > max?1.0:translation.x/max];
-        
+        CGFloat fadeTo = (translation.x+100.0)/100.0;
+        if (fadeTo < 0) {
+            
+        } else {
+            fadeTo = fadeTo>1.0?1.0:fadeTo;
+            [self fadeToRatio:fadeTo];
+        }
         count++;
     } else {
         //NSLog(@"gesture cancel, fail, or ended with call count %i",count);
         if (translation.x*-1 > [UIScreen mainScreen].bounds.size.width/3 || velocity.x < -1000) {
             [self snapClosed];
+        } else {
+            [self snapOpen];
         }
         count = 0;
     }
@@ -213,7 +236,7 @@ int count;
 -(void) snapOpen {
     [self.view bringSubviewToFront:self.menu];
     [UIView animateWithDuration:0.3 animations:^{
-        [self changeAlpha:1.0];
+        [self fadeToRatio:1.0];
     } completion:^(BOOL finished) {
         
     }];
@@ -223,16 +246,18 @@ int count;
 
 -(void) snapClosed {
     [UIView animateWithDuration:0.3 animations:^{
-        [self changeAlpha:0.0];
+        [self fadeToRatio:0.0];
     }];
     self.buttonView.userInteractionEnabled = NO;
-    
+    self.needsNewScreenshot = YES;
 }
 
 
 -(void) setUpOverlay {
     self.menu = [[UIView alloc] initWithFrame:self.view.frame];
     self.buttons = [[NSMutableArray alloc] init];
+    self.blurView = [[UIImageView alloc]initWithFrame:[UIScreen mainScreen].bounds];
+    [self.view addSubview:self.blurView];
     //for position in addition to alpha
     //self.menu.center = CGPointMake(self.menu.center.x-50, self.menu.center.y);
     
@@ -245,7 +270,7 @@ int count;
     
     self.gradient = [CAGradientLayer layer];
     self.gradient.frame = self.menu.bounds;
-    self.gradient.colors = [NSArray arrayWithObjects:(id)[[UIColor blackColor] colorWithAlphaComponent:1.0].CGColor, [[UIColor blackColor] colorWithAlphaComponent:0.65].CGColor, nil];
+    self.gradient.colors = [NSArray arrayWithObjects:(id)[[UIColor blackColor] colorWithAlphaComponent:0.7].CGColor, [[UIColor blackColor] colorWithAlphaComponent:0.4].CGColor, nil];
     self.gradient.startPoint = CGPointMake(0.0, 0.5);
     self.gradient.endPoint = CGPointMake(1.0, 0.5);
     
@@ -274,7 +299,11 @@ int count;
     CGFloat y = 90;
     
     for (NSString * name in self.buttonNames) {
-        UIButton * button = [[UIButton alloc]initWithFrame:CGRectMake(20, y, 160, 50)];
+        if ([name isEqualToString:@""]) {
+            y += 40;
+            continue;
+        }
+        UIButton * button = [[UIButton alloc]initWithFrame:CGRectMake(-80, y, 160, 50)];
         y += 40;
         [button setTitle:name forState:UIControlStateNormal];
         button.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
@@ -295,7 +324,7 @@ int count;
     
 }
 
--(void) changeAlpha:(CGFloat) ratio {
+-(void) fadeToRatio:(CGFloat) ratio {
     //NSLog(@"ratio change alpha is %f",ratio);
     //ratio is 0.0 to 1.0
     CGFloat textMaxAlpha = 1.0;
@@ -306,17 +335,67 @@ int count;
     
     //NSLog(@"alpha is %f",alpha);
     
-    [self.menu setAlpha:bgAlpha];
     
+    // BLUR THINGS
+    
+    if (self.needsNewScreenshot) {
+        // create graphics context with screen size
+        CGRect screenRect = [[UIScreen mainScreen] bounds];
+        UIGraphicsBeginImageContext(screenRect.size);
+        CGContextRef ctx = UIGraphicsGetCurrentContext();
+        [[UIColor blackColor] set];
+        CGContextFillRect(ctx, screenRect);
+        
+        // grab reference to our window
+        UIWindow *window = [UIApplication sharedApplication].keyWindow;
+        
+        // transfer content into our context
+        [window.layer renderInContext:ctx];
+        self.screenshot = UIGraphicsGetImageFromCurrentImageContext();
+        UIGraphicsEndImageContext();
+        self.needsNewScreenshot = NO;
+    }
+    
+    UIImage* blurImg = [self.screenshot applyBlurWithRadius:ratio*4.0 tintColor:[UIColor clearColor] saturationDeltaFactor:1.2 maskImage:self.screenshot];
+    if (ratio != 0.0) {
+        self.blurView.image = blurImg;
+    }
+    
+    
+    
+    // change the alpha color stuff
+    [self.menu setAlpha:bgAlpha];
     
     self.titleLabel.textColor = [self.titleLabel.textColor colorWithAlphaComponent:textAlpha];
     
     for (UIButton* button in self.buttons) {
         [button setTitleColor:[[button titleColorForState:UIControlStateNormal] colorWithAlphaComponent:textAlpha] forState:UIControlStateNormal];
-        if (ratio != 0.0) {
-            [self.view bringSubviewToFront:self.buttonView];
-        }
+        
     }
+    if (ratio != 0.0) {
+        [self.view bringSubviewToFront:self.blurView];
+        [self.view bringSubviewToFront:self.menu];
+        [self.view bringSubviewToFront:self.buttonView];
+    } else {
+        self.blurView.image = NULL;
+    }
+    //change the movement stuff
+    
+    
+    
+    CGFloat maxMove = 100;
+    CGFloat newX = maxMove*ratio;
+    
+    
+    
+    for (UIButton* b in self.buttons) {
+        CGFloat y = b.center.y;
+        b.center = CGPointMake(newX, y);
+    }
+    
+    
+    
+    
 }
 
 

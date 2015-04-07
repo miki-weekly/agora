@@ -28,6 +28,8 @@
 		9EFE8A8A1AB7CF4C000018F7 /* Accounts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9EFE8A891AB7CF4C000018F7 /* Accounts.framework */; };
 		AA49384A1AD21470000FCC9B /* UIImage+ImageEffects.m in Sources */ = {isa = PBXBuildFile; fileRef = AA4938491AD21470000FCC9B /* UIImage+ImageEffects.m */; };
 		AA49384D1AD215D9000FCC9B /* UILabel+FormattedText.m in Sources */ = {isa = PBXBuildFile; fileRef = AA49384B1AD215D9000FCC9B /* UILabel+FormattedText.m */; };
+		AA4938501AD24C51000FCC9B /* slideItemTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = AA49384F1AD24C51000FCC9B /* slideItemTVC.m */; };
+		AA4938531AD24C9F000FCC9B /* ManageTableVC.m in Sources */ = {isa = PBXBuildFile; fileRef = AA4938521AD24C9F000FCC9B /* ManageTableVC.m */; };
 		AA5A86941ACA09C0005DAF4A /* SlideItemVC.m in Sources */ = {isa = PBXBuildFile; fileRef = AA5A86931ACA09C0005DAF4A /* SlideItemVC.m */; };
 		AA5A86971ACA0A63005DAF4A /* RootVC.m in Sources */ = {isa = PBXBuildFile; fileRef = AA5A86961ACA0A63005DAF4A /* RootVC.m */; };
 		AA5A869D1ACA572B005DAF4A /* SlideItemCVC.m in Sources */ = {isa = PBXBuildFile; fileRef = AA5A869C1ACA572B005DAF4A /* SlideItemCVC.m */; };
@@ -89,6 +91,10 @@
 		AA4938491AD21470000FCC9B /* UIImage+ImageEffects.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+ImageEffects.m"; sourceTree = "<group>"; };
 		AA49384B1AD215D9000FCC9B /* UILabel+FormattedText.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UILabel+FormattedText.m"; sourceTree = "<group>"; };
 		AA49384C1AD215D9000FCC9B /* UILabel+FormattedText.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UILabel+FormattedText.h"; sourceTree = "<group>"; };
+		AA49384E1AD24C51000FCC9B /* slideItemTVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = slideItemTVC.h; sourceTree = "<group>"; };
+		AA49384F1AD24C51000FCC9B /* slideItemTVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = slideItemTVC.m; sourceTree = "<group>"; };
+		AA4938511AD24C9F000FCC9B /* ManageTableVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ManageTableVC.h; sourceTree = "<group>"; };
+		AA4938521AD24C9F000FCC9B /* ManageTableVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ManageTableVC.m; sourceTree = "<group>"; };
 		AA5A86921ACA09C0005DAF4A /* SlideItemVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SlideItemVC.h; sourceTree = "<group>"; };
 		AA5A86931ACA09C0005DAF4A /* SlideItemVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SlideItemVC.m; sourceTree = "<group>"; };
 		AA5A86951ACA0A63005DAF4A /* RootVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RootVC.h; sourceTree = "<group>"; };
@@ -185,6 +191,8 @@
 		0BC025651ABB2E070076A09B /* Base Classes */ = {
 			isa = PBXGroup;
 			children = (
+				AA49384E1AD24C51000FCC9B /* slideItemTVC.h */,
+				AA49384F1AD24C51000FCC9B /* slideItemTVC.m */,
 				AA5A869B1ACA572B005DAF4A /* SlideItemCVC.h */,
 				AA5A869C1ACA572B005DAF4A /* SlideItemCVC.m */,
 				AA5A86921ACA09C0005DAF4A /* SlideItemVC.h */,
@@ -234,14 +242,16 @@
 				0B6A8BDF1AD0B89800523D63 /* AddPostView */,
 				0BACC1A21ACFBBBD00B52E7F /* Misc */,
 				0BC025651ABB2E070076A09B /* Base Classes */,
-				AA5A86951ACA0A63005DAF4A /* RootVC.h */,
-				AA5A86961ACA0A63005DAF4A /* RootVC.m */,
-				0BA5323C1AB7CC6000A730C6 /* BrowseCollectionViewController.h */,
-				0BA5323D1AB7CC6000A730C6 /* BrowseCollectionViewController.m */,
 				0BA5323E1AB7CC6000A730C6 /* LoginViewController.h */,
 				0BA5323F1AB7CC6000A730C6 /* LoginViewController.m */,
 				0BC025691ABB3ECB0076A09B /* DetailedPostViewController.h */,
 				0BC0256A1ABB3ECB0076A09B /* DetailedPostViewController.m */,
+				AA5A86951ACA0A63005DAF4A /* RootVC.h */,
+				AA5A86961ACA0A63005DAF4A /* RootVC.m */,
+				AA4938511AD24C9F000FCC9B /* ManageTableVC.h */,
+				AA4938521AD24C9F000FCC9B /* ManageTableVC.m */,
+				0BA5323C1AB7CC6000A730C6 /* BrowseCollectionViewController.h */,
+				0BA5323D1AB7CC6000A730C6 /* BrowseCollectionViewController.m */,
 			);
 			name = "View Controllers";
 			sourceTree = "<group>";
@@ -445,6 +455,8 @@
 				0BA532401AB7CC6000A730C6 /* BrowseCollectionViewController.m in Sources */,
 				AA49384A1AD21470000FCC9B /* UIImage+ImageEffects.m in Sources */,
 				AA8F662A1A8EA73700CA4604 /* main.m in Sources */,
+				AA4938531AD24C9F000FCC9B /* ManageTableVC.m in Sources */,
+				AA4938501AD24C51000FCC9B /* slideItemTVC.m in Sources */,
 				0BC025681ABB2E390076A09B /* PostCollectionViewCell.m in Sources */,
 				AA87F4871ACF4C1900AA6AB1 /* UIColor+AGColors.m in Sources */,
 			);
