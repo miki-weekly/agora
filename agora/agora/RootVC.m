@@ -51,8 +51,12 @@
 @synthesize buttonNames = _buttonNames;
 -(NSArray*) buttonNames {
     // must return dictionary with strings in order to appear on overlay menu
-#warning - add proper names you want in your menu
-    return @[@"Browse",@"",@"Education",@"Fashion",@"Home",@"Tech",@"Misc",@"",@"Manage"];
+    
+    if (!_buttonNames) {
+        _buttonNames =@[@"Browse",@"",@"Education",@"Fashion",@"Home",@"Tech",@"Misc",@"",@"Manage"];
+    }
+    
+    return _buttonNames;
 }
 
 -(UIScreenEdgePanGestureRecognizer *)getEdgePanGesture {
@@ -126,7 +130,7 @@
 
 -(IBAction)clickMenuItem:(id)sender {
     UIButton * b = (UIButton*)sender;
-    NSString * item = b.titleLabel.text;
+    NSString * item = [[b.titleLabel.text substringWithRange:NSMakeRange(1, 1)] isEqualToString:@" "]?[b.titleLabel.text substringFromIndex:2]:b.titleLabel.text;
     
     NSInteger buttonIndex = 0;
     for (int i = 0; i < [self.buttonNames count]; i++) {
