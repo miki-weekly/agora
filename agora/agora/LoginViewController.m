@@ -33,7 +33,15 @@
     
     // TODO: Configure Login here, Set logo?
     //UIImageView *logoView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"logo.png"]];
-    //self.logInView.logo = nil;
+    
+    
+    UILabel * agora = [[UILabel alloc]initWithFrame:CGRectMake(10.0, 200.0, 300.0, 70.0)];
+    agora.textAlignment = NSTextAlignmentCenter;
+    [agora setFont:[UIFont systemFontOfSize:60.0]];
+    [agora setText:@"Agora"];
+    
+    self.logInView.logo = NULL;
+    [self.logInView addSubview:agora];
 }
 
 - (void)viewDidAppear:(BOOL)animated{

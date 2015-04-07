@@ -70,7 +70,7 @@
     [self setSecondaryPictures:[[NSMutableArray alloc] init]];
     
     [self setupSelectButton:self.categoryButton];
-    self.catColors = @{@"Tech":[UIColor techColor],@"Home":[UIColor homeColor],@"Fasion":[UIColor fashColor],@"Education":[UIColor eduColor],@"Misc":[UIColor miscColor]};
+    self.catColors = @{@"Tech":[UIColor techColor],@"Home":[UIColor homeColor],@"Fashion":[UIColor fashColor],@"Education":[UIColor eduColor],@"Misc":[UIColor miscColor]};
 }
 
 - (void)viewWillAppear:(BOOL)animated{

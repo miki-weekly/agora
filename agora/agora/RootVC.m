@@ -10,6 +10,9 @@
 #import "SlideItemVC.h"
 #import "BrowseCollectionViewController.h"
 #import "UIImage+ImageEffects.h"
+#import "UIColor+AGColors.h"
+#import "UIButton+FormatText.h"
+
 
 #define MENU_BUTTON_X_OFFSET 20
 
@@ -49,7 +52,7 @@
 -(NSArray*) buttonNames {
     // must return dictionary with strings in order to appear on overlay menu
 #warning - add proper names you want in your menu
-    return @[@"Browse",@"Add",@"",@"Education",@"Fashion",@"Home",@"Tech",@"Misc",@"",@"Manage"];
+    return @[@"Browse",@"",@"Education",@"Fashion",@"Home",@"Tech",@"Misc",@"",@"Manage"];
 }
 
 -(UIScreenEdgePanGestureRecognizer *)getEdgePanGesture {
@@ -72,8 +75,6 @@
     
     
     //make other vcs but don't add them
-    SlideItemVC * second = [story instantiateViewControllerWithIdentifier:@"Add Post"];
-    [self addChildViewController:second];
     
     UIViewController * manage = [story instantiateViewControllerWithIdentifier:@"manage nav"];
     [self addChildViewController:manage];
@@ -142,8 +143,8 @@
         
     } else if (buttonIndex == 1) {
         
-    } else if (buttonIndex == 9) {
-        [self switchToViewController:2];
+    } else if (buttonIndex == 8) {
+        [self switchToViewController:1];
     
     } else {
         //clicked a category
@@ -305,7 +306,17 @@ int count;
         }
         UIButton * button = [[UIButton alloc]initWithFrame:CGRectMake(-80, y, 160, 50)];
         y += 40;
-        [button setTitle:name forState:UIControlStateNormal];
+
+        UIColor * catColor = [UIColor catColor:name];
+        if (catColor) {
+            NSAttributedString * buttonTitle = [[NSAttributedString alloc]initWithString:[NSString stringWithFormat:@"%@ %@",@"⦁",name]];
+            [button setAttributedTitle:buttonTitle forState:UIControlStateNormal];
+            [button setTextColor:[UIColor catColor:name] range:NSMakeRange(0, 1)];
+            [button setTextColor:[UIColor whiteColor] range:NSMakeRange(2, [name length])];
+        } else {
+            [button setTitle:name forState:UIControlStateNormal];
+        }
+    
         button.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
         
         [button setTitleColor:[[UIColor whiteColor] colorWithAlphaComponent:0.0]forState:UIControlStateNormal];
@@ -324,6 +335,7 @@ int count;
     
 }
 
+int blurMod = 0;
 -(void) fadeToRatio:(CGFloat) ratio {
     //NSLog(@"ratio change alpha is %f",ratio);
     //ratio is 0.0 to 1.0
@@ -355,11 +367,17 @@ int count;
         UIGraphicsEndImageContext();
         self.needsNewScreenshot = NO;
     }
-    
-    UIImage* blurImg = [self.screenshot applyBlurWithRadius:ratio*4.0 tintColor:[UIColor clearColor] saturationDeltaFactor:1.2 maskImage:self.screenshot];
-    if (ratio != 0.0) {
-        self.blurView.image = blurImg;
+    blurMod++;
+    if (blurMod == 5) {
+        UIImage* blurImg = [self.screenshot applyBlurWithRadius:ratio*4.0 tintColor:[UIColor clearColor] saturationDeltaFactor:1.2 maskImage:self.screenshot];
+        blurMod = 0;
+        
+        if (ratio != 0.0) {
+            self.blurView.image = blurImg;
+        }
+        
     }
+    
     
     
     
@@ -369,8 +387,12 @@ int count;
     self.titleLabel.textColor = [self.titleLabel.textColor colorWithAlphaComponent:textAlpha];
     
     for (UIButton* button in self.buttons) {
-        [button setTitleColor:[[button titleColorForState:UIControlStateNormal] colorWithAlphaComponent:textAlpha] forState:UIControlStateNormal];
         
+        if ([UIColor catColor:[button.titleLabel.text substringFromIndex:2]]) {
+            [button setAlpha:textAlpha];
+        } else {
+            [button setTitleColor:[[button titleColorForState:UIControlStateNormal] colorWithAlphaComponent:textAlpha] forState:UIControlStateNormal];
+        }
     }
     if (ratio != 0.0) {
         [self.view bringSubviewToFront:self.blurView];

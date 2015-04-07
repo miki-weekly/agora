@@ -40,6 +40,7 @@
 		AA8F66351A8EA73700CA4604 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AA8F66341A8EA73700CA4604 /* Images.xcassets */; };
 		AA8F66381A8EA73700CA4604 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = AA8F66361A8EA73700CA4604 /* LaunchScreen.xib */; };
 		AA8F66441A8EA73700CA4604 /* agoraTests.m in Sources */ = {isa = PBXBuildFile; fileRef = AA8F66431A8EA73700CA4604 /* agoraTests.m */; };
+		AAF958D21AD3B9FE00C1C7D5 /* UIButton+FormatText.m in Sources */ = {isa = PBXBuildFile; fileRef = AAF958D11AD3B9FE00C1C7D5 /* UIButton+FormatText.m */; };
 		AD958F521AA598C100ABCFB3 /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = AD958F511AA598C100ABCFB3 /* libsqlite3.dylib */; };
 		AD958F541AA5994500ABCFB3 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AD958F531AA5994500ABCFB3 /* AudioToolbox.framework */; };
 		AD958F561AA5997600ABCFB3 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AD958F551AA5997600ABCFB3 /* SystemConfiguration.framework */; };
@@ -113,6 +114,8 @@
 		AA8F663D1A8EA73700CA4604 /* agoraTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = agoraTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		AA8F66421A8EA73700CA4604 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		AA8F66431A8EA73700CA4604 /* agoraTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = agoraTests.m; sourceTree = "<group>"; };
+		AAF958D01AD3B9FE00C1C7D5 /* UIButton+FormatText.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIButton+FormatText.h"; sourceTree = "<group>"; };
+		AAF958D11AD3B9FE00C1C7D5 /* UIButton+FormatText.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIButton+FormatText.m"; sourceTree = "<group>"; };
 		AD958F511AA598C100ABCFB3 /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
 		AD958F531AA5994500ABCFB3 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		AD958F551AA5997600ABCFB3 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
@@ -270,8 +273,10 @@
 		AA87F4881ACF4E5800AA6AB1 /* Categories */ = {
 			isa = PBXGroup;
 			children = (
-				AA49384B1AD215D9000FCC9B /* UILabel+FormattedText.m */,
+				AAF958D01AD3B9FE00C1C7D5 /* UIButton+FormatText.h */,
+				AAF958D11AD3B9FE00C1C7D5 /* UIButton+FormatText.m */,
 				AA49384C1AD215D9000FCC9B /* UILabel+FormattedText.h */,
+				AA49384B1AD215D9000FCC9B /* UILabel+FormattedText.m */,
 				AA4938481AD21470000FCC9B /* UIImage+ImageEffects.h */,
 				AA4938491AD21470000FCC9B /* UIImage+ImageEffects.m */,
 				AA87F4851ACF4C1900AA6AB1 /* UIColor+AGColors.h */,
@@ -444,6 +449,7 @@
 				0BC0256B1ABB3ECB0076A09B /* DetailedPostViewController.m in Sources */,
 				AA8F662D1A8EA73700CA4604 /* AppDelegate.m in Sources */,
 				0BA532411AB7CC6000A730C6 /* LoginViewController.m in Sources */,
+				AAF958D21AD3B9FE00C1C7D5 /* UIButton+FormatText.m in Sources */,
 				AA5A86941ACA09C0005DAF4A /* SlideItemVC.m in Sources */,
 				0BC025641ABB27860076A09B /* AddPostViewController.m in Sources */,
 				0BCC9C551ACFAA8A00A75108 /* AddPostButton.m in Sources */,
