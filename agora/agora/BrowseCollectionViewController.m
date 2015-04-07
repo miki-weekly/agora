@@ -39,8 +39,6 @@
     
     [addButton addTarget:self action:@selector(pressedAddButton) forControlEvents:UIControlEventTouchDown];
     [[self view] addSubview:addButton];
-    
-    [self reloadData];
 }
 
 - (void)viewDidAppear:(BOOL)animated{
