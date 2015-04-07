@@ -280,14 +280,12 @@ int color;
     }else{
         cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"addCell" forIndexPath:indexPath];
     }
-    
-    [[cell layer] setBorderColor:[[UIColor blackColor] CGColor]];
-    [[cell layer] setBorderWidth:1.5f];
+
     return cell;
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
-    if ([indexPath row] == [[self secondaryPictures] count]) {
+    if ([indexPath row] == [[self secondaryPictures] count]) { // clicked the last cell (addCell)
         [self addSecondaryImage:nil];
     }
 }

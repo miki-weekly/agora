@@ -580,11 +580,15 @@
                                                             <rect key="frame" x="0.0" y="0.0" width="150" height="150"/>
                                                             <autoresizingMask key="autoresizingMask"/>
                                                             <subviews>
-                                                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="r6f-wQ-Aeg">
+                                                                <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="r6f-wQ-Aeg">
                                                                     <rect key="frame" x="52" y="60" width="46" height="30"/>
-                                                                    <state key="normal" title="add">
+                                                                    <fontDescription key="fontDescription" type="system" pointSize="42"/>
+                                                                    <state key="normal" title="+">
                                                                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                                     </state>
+                                                                    <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
+                                                                        <rect key="frame" x="-15" y="-32" width="30" height="64"/>
+                                                                    </variation>
                                                                     <connections>
                                                                         <action selector="addSecondaryImage:" destination="MTM-at-aU3" eventType="touchUpInside" id="krj-VY-4vq"/>
                                                                     </connections>
@@ -592,6 +596,22 @@
                                                             </subviews>
                                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                         </view>
+                                                        <constraints>
+                                                            <constraint firstAttribute="centerY" secondItem="r6f-wQ-Aeg" secondAttribute="centerY" id="Gm1-ET-sac"/>
+                                                            <constraint firstAttribute="centerX" secondItem="r6f-wQ-Aeg" secondAttribute="centerX" id="MY1-BA-lAk"/>
+                                                        </constraints>
+                                                        <variation key="default">
+                                                            <mask key="constraints">
+                                                                <exclude reference="Gm1-ET-sac"/>
+                                                                <exclude reference="MY1-BA-lAk"/>
+                                                            </mask>
+                                                        </variation>
+                                                        <variation key="heightClass=regular-widthClass=compact">
+                                                            <mask key="constraints">
+                                                                <include reference="Gm1-ET-sac"/>
+                                                                <include reference="MY1-BA-lAk"/>
+                                                            </mask>
+                                                        </variation>
                                                     </collectionViewCell>
                                                 </cells>
                                                 <connections>
