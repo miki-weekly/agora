@@ -63,6 +63,9 @@
     
     [self setUpButtons];
     [self setUpFBSeller];
+    
+    self.collectionView.dataSource = self;
+    self.collectionView.delegate = self;
 }
 
 - (void)setUpCategoryLabel {
@@ -172,17 +175,21 @@
 #pragma mark - Collection view data source
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
-    return 0;
+    return 1;
 }
 
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView{
-    return 0;
+    return post.photosArray.count;
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
     UICollectionViewCell* postCell = [collectionView dequeueReusableCellWithReuseIdentifier:@"imageCell" forIndexPath:indexPath];
+    postCell.backgroundColor = [UIColor orangeColor];
+    
+    
+    UIImageView* imageView = (UIImageView*)[postCell viewWithTag:1];
+    [imageView setImage:[[post photosArray] objectAtIndex:[indexPath row]]];
     
     return postCell;
 }
-
 @end
