@@ -10,7 +10,7 @@
 #import "ParseInterface.h"
 #import "SlideItemVC.h"
 
-@interface DetailedPostViewController : SlideItemVC <UIScrollViewDelegate>
+@interface DetailedPostViewController : SlideItemVC <UIScrollViewDelegate, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout>
 
 @property Post * post;
 

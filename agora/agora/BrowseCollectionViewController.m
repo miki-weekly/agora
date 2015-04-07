@@ -136,6 +136,7 @@
     [[postCell titleLabel] setTextColor:[UIColor whiteColor]];
     [[postCell priceLabel] setText:[@"$" stringByAppendingString:[[postForCell price] stringValue]]];
     [[postCell priceLabel] setTextColor:[UIColor whiteColor]];
+    [[postCell imageView] setContentMode:UIViewContentModeScaleAspectFill];
     [[postCell imageView] setImage:[postForCell thumbnail]];
     
     [postCell.gradient setBackgroundColor:[UIColor clearColor]];
