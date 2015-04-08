@@ -66,6 +66,10 @@
     [self setUpFBSeller];
 }
 
+- (void)viewDidAppear:(BOOL)animated{
+	[[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent animated:animated];
+}
+
 - (void)setUpCategoryLabel {
     //[[self categoryLabel] setText:[post category]];
     

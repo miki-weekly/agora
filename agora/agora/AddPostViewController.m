@@ -51,7 +51,12 @@
                                              selector:@selector(keyboardWillBeHidden:)
                                                  name:UIKeyboardWillHideNotification
                                                object:nil];
-    
+	
+	UIView* statusBarBack = [[UIView alloc] initWithFrame:[[UIApplication sharedApplication] statusBarFrame]];
+	[[statusBarBack layer] setBackgroundColor:[[[UIColor indigoColor] colorWithAlphaComponent:0.9f] CGColor]];
+	[[self view] addSubview:statusBarBack];
+
+	
     [[self scrollView] setContentSize:[[UIScreen mainScreen] bounds].size];
     
     [[self mainImage] setContentMode:UIViewContentModeScaleAspectFill];
@@ -81,8 +86,7 @@
 }
 
 - (void)viewWillAppear:(BOOL)animated{
-    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault animated:animated];
-    if(![self imagePickerController]){
+	if(![self imagePickerController]){
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
             [self setImagePickerController:[[UIImagePickerController alloc] init]];
             [[self imagePickerController] setDelegate:self];
@@ -162,7 +166,8 @@ int color;
     // TODO: do checks on if required feilds are enter, secondary pics
     if([[[self titleTextField] text] isEqualToString:@""])
         return;
-    
+	
+	[[self scrollView] setUserInteractionEnabled:NO];
     [[self activitySpinner] startAnimating];
 	if(![self editingPost]){
 		Post* post = [[Post alloc] init];
