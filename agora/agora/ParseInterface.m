@@ -64,7 +64,7 @@
             [object setObject: post.title forKey:@"title"];
             [object setObject: post.title forKey:@"description"];
             [object setObject: post.title forKey:@"category"];
-            [object setObject: imageFile forKey:@"photo"];
+            [object setObject: imageFile forKey:@"picture"];
             [object setObject: post.stringTags forKey:@"tags"];
             [object setObject: post.price forKey:@"price"];
             [object setObject: [PFUser currentUser] forKey:@"createdBy"];
