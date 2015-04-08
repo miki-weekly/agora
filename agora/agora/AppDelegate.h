@@ -17,8 +17,10 @@
 
 /* TODO:
  - Share and Contact button functionality
+    -> implement native chat
  - likeing/commenting posts?
  - Placement Tweaks (DetailedPostView/AddPostView)
+ - logout
  
  - Proper layout for browseCollectionView (on iPhone 6 constraints are off)
  

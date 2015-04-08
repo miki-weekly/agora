@@ -12,6 +12,10 @@
 #import "UIImage+ImageEffects.h"
 #import "UIColor+AGColors.h"
 #import "UIButton+FormatText.h"
+#import <FBSDKCoreKit/FBSDKCoreKit.h>
+#import <Parse/Parse.h>
+
+
 
 
 #define MENU_BUTTON_X_OFFSET 20
@@ -36,6 +40,12 @@
 @property NSMutableArray * buttons;
 @property UILabel * titleLabel;
 
+@property UIView * logoutView;
+
+//@property UIButton * logout;
+@property FBSDKProfilePictureView * profPic;
+@property UILabel * name;
+
 
 //device specific defines
 @property CGFloat xThresh;
@@ -53,7 +63,7 @@
     // must return dictionary with strings in order to appear on overlay menu
     
     if (!_buttonNames) {
-        _buttonNames =@[@"Browse",@"",@"Education",@"Fashion",@"Home",@"Tech",@"Misc",@"",@"Manage"];
+        _buttonNames =@[@"Browse",@"",@"Education",@"Fashion",@"Home",@"Tech",@"Misc",@"",@"Manage Posts"];
     }
     
     return _buttonNames;
@@ -127,6 +137,22 @@
 }
 
 #pragma mark - IB connection action stuff
+
+-(IBAction)clickLogOut:(id)sender {
+    
+    [PFUser logOut];
+    
+    for (UIViewController * vc in self.childViewControllers) {
+        [vc removeFromParentViewController];
+    };
+    
+    [self setupChildrenVCs];
+    
+    
+    
+    
+    [self fadeToRatio:0.0];
+}
 
 -(IBAction)clickMenuItem:(id)sender {
     UIButton * b = (UIButton*)sender;
@@ -248,6 +274,8 @@ int count;
     }];
     self.buttonView.userInteractionEnabled = YES;
     
+    [self.view bringSubviewToFront:self.logoutView];
+    
 }
 
 -(void) snapClosed {
@@ -265,7 +293,6 @@ int count;
     self.blurView = [[UIImageView alloc]initWithFrame:[UIScreen mainScreen].bounds];
     [self.view addSubview:self.blurView];
     //for position in addition to alpha
-    //self.menu.center = CGPointMake(self.menu.center.x-50, self.menu.center.y);
     
     //set Thresholds
     self.xThresh = [UIScreen mainScreen].bounds.size.width/4;
@@ -276,7 +303,7 @@ int count;
     
     self.gradient = [CAGradientLayer layer];
     self.gradient.frame = self.menu.bounds;
-    self.gradient.colors = [NSArray arrayWithObjects:(id)[[UIColor blackColor] colorWithAlphaComponent:0.7].CGColor, [[UIColor blackColor] colorWithAlphaComponent:0.4].CGColor, nil];
+    self.gradient.colors = [NSArray arrayWithObjects:(id)[[UIColor blackColor] colorWithAlphaComponent:0.8].CGColor, [[UIColor blackColor] colorWithAlphaComponent:0.5].CGColor, nil];
     self.gradient.startPoint = CGPointMake(0.0, 0.5);
     self.gradient.endPoint = CGPointMake(1.0, 0.5);
     
@@ -284,8 +311,6 @@ int count;
     
     self.menu.alpha = 0.0;
 }
-
-
 
 -(void) setupButtonView {
     self.buttonView = [[UIView alloc]initWithFrame:self.view.frame];
@@ -300,6 +325,13 @@ int count;
     title.textColor = [[UIColor whiteColor] colorWithAlphaComponent:0.0];
     self.titleLabel = title;
     [self.buttonView addSubview:title];
+    
+    // Logout view
+    
+    CGRect r = CGRectMake(0, [UIScreen mainScreen].bounds.size.height-50, [UIScreen mainScreen].bounds.size.width, 40);
+    self.logoutView = [[UIView alloc]initWithFrame:r];
+    [self addLogoutItemsToView:self.logoutView];
+    
     
     
     CGFloat y = 90;
@@ -318,8 +350,10 @@ int count;
             [button setAttributedTitle:buttonTitle forState:UIControlStateNormal];
             [button setTextColor:[UIColor catColor:name] range:NSMakeRange(0, 1)];
             [button setTextColor:[UIColor whiteColor] range:NSMakeRange(2, [name length])];
+            [button.titleLabel setFont:[UIFont systemFontOfSize:17]];
         } else {
             [button setTitle:name forState:UIControlStateNormal];
+            [button.titleLabel setFont:[UIFont systemFontOfSize:22]];
         }
         
         button.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
@@ -340,6 +374,61 @@ int count;
     
 }
 
+- (void) reloadUserProfpicAndName {
+    
+    [self.profPic setProfileID:[[PFUser currentUser] objectForKey:@"facebookId"]];
+
+    
+    FBSDKGraphRequest * request = [[FBSDKGraphRequest alloc]initWithGraphPath:[[PFUser currentUser] objectForKey:@"facebookId"] parameters:NULL];
+    [request startWithCompletionHandler:^(FBSDKGraphRequestConnection *connection, id result, NSError *error) {
+        if (!error) {
+            self.name.text = result[@"name"];
+            self.name.text = [self.name.text stringByAppendingString:@"  |"];
+        }
+    }];
+    
+}
+
+-(void) addLogoutItemsToView:(UIView*) view {
+    
+    
+    //[view setBackgroundColor:[UIColor indigoColor]];
+    [self.buttonView addSubview:view];
+    
+    CGFloat h = view.frame.size.height;
+    
+    
+    self.profPic = [[FBSDKProfilePictureView alloc]initWithFrame:CGRectMake(20, 0, h, h)];
+    [self.profPic setProfileID:[[PFUser currentUser] objectForKey:@"facebookId"]];
+    [self.profPic.layer setBorderWidth:2.0];
+    [self.profPic.layer setCornerRadius:h/2];
+    [self.profPic.layer setMasksToBounds:YES];
+    [view addSubview:self.profPic];
+    
+    self.name = [[UILabel alloc]initWithFrame:CGRectMake(70, 0, 100, view.frame.size.height)];
+    FBSDKGraphRequest * request = [[FBSDKGraphRequest alloc]initWithGraphPath:[[PFUser currentUser] objectForKey:@"facebookId"] parameters:NULL];
+    [request startWithCompletionHandler:^(FBSDKGraphRequestConnection *connection, id result, NSError *error) {
+        if (!error) {
+            self.name.text = result[@"name"];
+            self.name.text = [self.name.text stringByAppendingString:@"  |"];
+        }
+    }];
+    
+    
+    
+    [self.name setFont:[UIFont systemFontOfSize:15.0]];
+    [self.name setTextColor:[UIColor whiteColor]];
+    [view addSubview:self.name];
+    
+    
+    UIButton * logMeOut = [[UIButton alloc] initWithFrame:CGRectMake(160, 0, 150, view.frame.size.height)];
+    [logMeOut setTitle:@"Log Out" forState:UIControlStateNormal];
+    [logMeOut setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [logMeOut addTarget:self action:@selector(clickLogOut:) forControlEvents:UIControlEventTouchUpInside];
+    
+    [view addSubview:logMeOut];
+    
+}
 
 -(void) animateBlur:(BOOL) yes {
     
@@ -353,7 +442,7 @@ int count;
 -(void) blurToRatio:(NSNumber*) ratio {
     
     double r = [ratio doubleValue];
-    UIImage* blurImg = [self.screenshot applyBlurWithRadius:r*4.0 tintColor:[UIColor clearColor] saturationDeltaFactor:1.2 maskImage:self.screenshot];
+    UIImage* blurImg = [self.screenshot applyBlurWithRadius:r*5.0 tintColor:[UIColor clearColor] saturationDeltaFactor:1.2 maskImage:self.screenshot];
     self.blurView.image = blurImg;
     [self.view bringSubviewToFront:self.blurView];
     [self.view bringSubviewToFront:self.menu];
@@ -361,6 +450,7 @@ int count;
 }
 
 int blurMod = 0;
+
 -(void) fadeToRatio:(CGFloat) ratio {
     //NSLog(@"ratio change alpha is %f",ratio);
     //ratio is 0.0 to 1.0
@@ -393,7 +483,7 @@ int blurMod = 0;
         self.needsNewScreenshot = NO;
     }
         blurMod++;
-        if (blurMod == 5) {
+        if (blurMod == 10) {
             UIImage* blurImg = [self.screenshot applyBlurWithRadius:ratio*4.0 tintColor:[UIColor clearColor] saturationDeltaFactor:1.2 maskImage:self.screenshot];
             blurMod = 0;
     
@@ -423,9 +513,16 @@ int blurMod = 0;
         [self.view bringSubviewToFront:self.blurView];
         [self.view bringSubviewToFront:self.menu];
         [self.view bringSubviewToFront:self.buttonView];
+        
     } else {
         self.blurView.image = NULL;
     }
+    
+    [self.logoutView setAlpha:ratio];
+    
+    
+    
+    
     //change the movement stuff
     
     
@@ -451,3 +548,13 @@ int blurMod = 0;
 
 
 @end
+
+
+
+
+
+
+
+
+
+
