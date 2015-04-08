@@ -20,7 +20,6 @@
     -> implement native chat
  - likeing/commenting posts?
  - Placement Tweaks (DetailedPostView/AddPostView)
- - logout
  
  - Proper layout for browseCollectionView (on iPhone 6 constraints are off)
  
@@ -34,6 +33,8 @@
  
  - Color schemeing the entire app
  - Logo placements (App Icon/Login screen/Launch Screen)
+ 
+ - Search functionality
  
  *BUGS:
  - Addview's NSNotification notifier is slow when initially clicking a textfield
