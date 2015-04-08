@@ -62,8 +62,8 @@
             PFFile *imageFile = [PFFile fileWithData:image];
             
             [object setObject: post.title forKey:@"title"];
-            [object setObject: post.title forKey:@"description"];
-            [object setObject: post.title forKey:@"category"];
+            [object setObject: post.itemDescription forKey:@"description"];
+            [object setObject: post.category forKey:@"category"];
             [object setObject: imageFile forKey:@"picture"];
             [object setObject: post.stringTags forKey:@"tags"];
             [object setObject: post.price forKey:@"price"];
