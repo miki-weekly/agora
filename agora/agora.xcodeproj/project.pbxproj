@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		0B4664CD1ACBAECD00E9A3E8 /* Entitlements.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0B4664CC1ACBAECD00E9A3E8 /* Entitlements.plist */; };
 		0B58E4CF1ACFC27300694BE8 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0B58E4CD1ACFC27300694BE8 /* Main.storyboard */; };
+		0B5A58F51AD5BD2C005DD9C3 /* AddPostViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B5A58F41AD5BD2C005DD9C3 /* AddPostViewCell.m */; };
 		0B8996CC1ACE1CFB00357EC3 /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0B8996C61ACE1CFB00357EC3 /* Parse.framework */; };
 		0B8996CD1ACE1CFB00357EC3 /* ParseCrashReporting.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0B8996C71ACE1CFB00357EC3 /* ParseCrashReporting.framework */; };
 		0B8996D01ACE1CFB00357EC3 /* ParseUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0B8996CA1ACE1CFB00357EC3 /* ParseUI.framework */; };
@@ -62,6 +63,8 @@
 /* Begin PBXFileReference section */
 		0B4664CC1ACBAECD00E9A3E8 /* Entitlements.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Entitlements.plist; sourceTree = SOURCE_ROOT; };
 		0B58E4CE1ACFC27300694BE8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		0B5A58F31AD5BD2C005DD9C3 /* AddPostViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddPostViewCell.h; sourceTree = "<group>"; };
+		0B5A58F41AD5BD2C005DD9C3 /* AddPostViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddPostViewCell.m; sourceTree = "<group>"; };
 		0B8996C51ACE1CFB00357EC3 /* Bolts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Bolts.framework; sourceTree = "<group>"; };
 		0B8996C61ACE1CFB00357EC3 /* Parse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Parse.framework; sourceTree = "<group>"; };
 		0B8996C71ACE1CFB00357EC3 /* ParseCrashReporting.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ParseCrashReporting.framework; sourceTree = "<group>"; };
@@ -163,6 +166,8 @@
 			children = (
 				0BCC9C531ACFAA8A00A75108 /* AddPostButton.h */,
 				0BCC9C541ACFAA8A00A75108 /* AddPostButton.m */,
+				0B5A58F31AD5BD2C005DD9C3 /* AddPostViewCell.h */,
+				0B5A58F41AD5BD2C005DD9C3 /* AddPostViewCell.m */,
 				0BC025621ABB27860076A09B /* AddPostViewController.h */,
 				0BC025631ABB27860076A09B /* AddPostViewController.m */,
 			);
@@ -462,6 +467,7 @@
 				ADA500F11ABF6E7C000D6D9E /* Post.m in Sources */,
 				0BA532471AB7CCB000A730C6 /* ParseInterface.m in Sources */,
 				9E2DA4371AD3705400296C34 /* ManageTableViewCell.m in Sources */,
+				0B5A58F51AD5BD2C005DD9C3 /* AddPostViewCell.m in Sources */,
 				0BA532401AB7CC6000A730C6 /* BrowseCollectionViewController.m in Sources */,
 				AA49384A1AD21470000FCC9B /* UIImage+ImageEffects.m in Sources */,
 				AA8F662A1A8EA73700CA4604 /* main.m in Sources */,

@@ -7,6 +7,7 @@
 //
 
 #import "AddPostViewController.h"
+#import "AddPostViewCell.h"
 #import "RootVC.h"
 #import "UIColor+AGColors.h"
 
@@ -17,6 +18,7 @@
 
 @property (strong, nonatomic) IBOutlet UIImageView* mainImage;
 @property (weak, nonatomic) IBOutlet UIButton *modifyMainImageButton;
+@property (weak, nonatomic) IBOutlet UIButton *removeMainImageButton;
 @property (weak, nonatomic) IBOutlet UITextField *titleTextField;
 @property (weak, nonatomic) IBOutlet UITextField *priceTextField;
 @property (weak, nonatomic) IBOutlet UIButton *categoryButton;
@@ -26,12 +28,12 @@
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView* activitySpinner;
 
 @property (strong, nonatomic) UIImagePickerController* imagePickerController;
-
 @property NSMutableArray* secondaryPictures;
 
 @property (weak, nonatomic) id activeField;
-
 @property BOOL selectingHeadImage;
+
+@property UIView* statusBarBack;
 
 @property NSDictionary * catColors;
 
@@ -52,10 +54,9 @@
                                                  name:UIKeyboardWillHideNotification
                                                object:nil];
 	
-	UIView* statusBarBack = [[UIView alloc] initWithFrame:[[UIApplication sharedApplication] statusBarFrame]];
-	[[statusBarBack layer] setBackgroundColor:[[[UIColor indigoColor] colorWithAlphaComponent:0.9f] CGColor]];
-	[[self view] addSubview:statusBarBack];
-
+	_statusBarBack = [[UIView alloc] initWithFrame:[[UIApplication sharedApplication] statusBarFrame]];
+	[[_statusBarBack layer] setBackgroundColor:[[[UIColor indigoColor] colorWithAlphaComponent:0.8f] CGColor]];
+	[[self view] addSubview:_statusBarBack];
 	
     [[self scrollView] setContentSize:[[UIScreen mainScreen] bounds].size];
     
@@ -78,11 +79,19 @@
     
     [self setupSelectButton:self.categoryButton];
     self.catColors = @{@"Tech":[UIColor techColor],@"Home":[UIColor homeColor],@"Fashion":[UIColor fashColor],@"Education":[UIColor eduColor],@"Misc":[UIColor miscColor]};
-    
+	/*
+	CALayer* removeMainLayer = [[self removeMainImageButton] layer];
+	[removeMainLayer setCornerRadius:[[self mainImage] frame].size.height/2];
+	[removeMainLayer setMasksToBounds:YES];
+	[removeMainLayer setBorderColor:[[UIColor blackColor] CGColor]];
+	[removeMainLayer setBorderWidth:2];*/
+	
     if([self editingPost]){
         [self setUpEditting];
         [[self addButton] setTitle:@"Save" forState:UIControlStateNormal];
-    }
+	}else{
+		[[self removeMainImageButton] setHidden:YES];
+	}
 }
 
 - (void)viewWillAppear:(BOOL)animated{
@@ -98,6 +107,8 @@
     Post* post = [self editingPost];
     [ParseInterface getHeaderPhoto:post.objectId completion:^(UIImage *result) {
         [[self mainImage] setImage:result];
+		[[self modifyMainImageButton] setHidden:YES];
+		[[self removeMainImageButton] setEnabled:YES];
     }];
 	
 	[[self titleTextField] setTextColor:[UIColor blackColor]];
@@ -128,10 +139,23 @@ int color;
     UIColor * newColor = self.catColors[newCat];
     [self.categoryButton.layer setBorderColor:newColor.CGColor];
     [self.categoryButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+	
+	// also change statusBarBackground
+	[UIView animateWithDuration:0.5
+						  delay:0.0
+						options: UIViewAnimationOptionCurveEaseOut
+					 animations:^{
+						 [[_statusBarBack layer] setBackgroundColor:[[newColor colorWithAlphaComponent:0.8f] CGColor]];
+					 }
+					 completion:^(BOOL finished){}];
     color++;
     if (color == 5) {
         color = 0;
-    }
+	}else if(color == 1){	// if color is yellow, set black statusbar
+		[[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault animated:YES];
+	}else{
+		[[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent animated:YES];
+	}
 }
 
 -(void)dismissCategoryVCWithSelection:(NSString *)cat {
@@ -159,7 +183,6 @@ int color;
 
 - (IBAction)selectCatagory:(id)sender {
     [self presentCategorySelection];
-    
 }
 
 - (IBAction)postToParse:(id)sender {
@@ -222,6 +245,18 @@ int color;
     }else{
         [[self delgate] addPostController:self didFinishUpdatePost:nil];
     }
+}
+- (IBAction)removeMainImage:(id)sender {
+	[[self mainImage] setImage:nil];
+	
+	[[self removeMainImageButton] setHidden:YES];
+	[[self removeMainImageButton] setEnabled:NO];
+	[[self modifyMainImageButton] setHidden:NO];
+}
+
+- (IBAction)removeImageFromArray:(UIButton*)sender{
+	[[self secondaryPictures] removeObjectAtIndex:[sender tag]];
+	[[self collectionView] reloadData];
 }
 
 #pragma mark - Text Field
@@ -359,7 +394,10 @@ int color;
     if([self selectingHeadImage]){
         [[self mainImage] setImage:image];
         [self setSelectingHeadImage:NO];
-    }else{
+		[[self modifyMainImageButton] setHidden:YES];
+		[[self removeMainImageButton] setEnabled:YES];
+		[[self removeMainImageButton] setHidden:NO];
+	}else{
         [[self secondaryPictures] addObject:image];
         [[self collectionView] reloadData];
     }
@@ -383,13 +421,15 @@ int color;
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
-    UICollectionViewCell* cell;
+	UICollectionViewCell* cell;
     if([indexPath row] != [[self secondaryPictures] count]){
-        cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"imageCell" forIndexPath:indexPath];
-        
-        UIImageView* imageView = (UIImageView*)[cell viewWithTag:1];
-        [imageView setImage:[[self secondaryPictures] objectAtIndex:[indexPath row]]];
-        [imageView setContentMode:UIViewContentModeScaleAspectFill];
+        AddPostViewCell* imageCell = [collectionView dequeueReusableCellWithReuseIdentifier:@"imageCell" forIndexPath:indexPath];
+		NSInteger row = [indexPath row];
+        [[imageCell cellImage] setImage:[[self secondaryPictures] objectAtIndex:[indexPath row]]];
+		[[imageCell removeButton] setTag:row];
+		[[imageCell removeButton] addTarget:self action:@selector(removeImageFromArray:) forControlEvents:UIControlEventTouchDown];
+		
+		return imageCell;
     }else{
         cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"addCell" forIndexPath:indexPath];
     }
