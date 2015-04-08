@@ -11,7 +11,7 @@
 #import "RootVC.h"
 #import "UIColor+AGColors.h"
 
-@interface AddPostViewController ()
+@interface AddPostViewController () <UIActionSheetDelegate>
 
 @property (strong, nonatomic) IBOutlet UIScrollView *scrollView;
 @property (weak, nonatomic) IBOutlet UIView *contentView;
@@ -105,11 +105,9 @@
 
 - (void)setUpEditting{
     Post* post = [self editingPost];
-    [ParseInterface getHeaderPhoto:post.objectId completion:^(UIImage *result) {
-        [[self mainImage] setImage:result];
-		[[self modifyMainImageButton] setHidden:YES];
-		[[self removeMainImageButton] setEnabled:YES];
-    }];
+	[[self mainImage] setImage:[post headerPhoto]];
+	[[self modifyMainImageButton] setTitle:@"" forState:UIControlStateNormal];
+	[[self removeMainImageButton] setEnabled:YES];
 	
 	[[self titleTextField] setTextColor:[UIColor blackColor]];
     [[self titleTextField] setText:[post title]];
@@ -165,20 +163,20 @@ int color;
 #pragma mark - IB Actions
 
 - (IBAction)selectMainImage:(id)sender {
-    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent animated:YES];
-    
-    [[self imagePickerController] setSourceType:UIImagePickerControllerSourceTypePhotoLibrary];              // Access photo library
-    //[[self imagePickerController] setSourceType:UIImagePickerControllerSourceTypeCamera];                    // Access Camera ( will crash if no camera (simulator))
-    
-    [self setSelectingHeadImage:YES];
-    [self presentViewController:[self imagePickerController] animated:YES completion:nil];
+	UIActionSheet *popup = [[UIActionSheet alloc] initWithTitle:@"Select an Image Source:" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:	@"Camera",
+							@"Photo Library",
+							nil];
+	popup.tag = 1;
+	[popup showInView:[UIApplication sharedApplication].keyWindow];
+	
+	[self setSelectingHeadImage:YES];
 }
 - (IBAction)addSecondaryImage:(id)sender {
-    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent animated:YES];
-    [[self imagePickerController] setSourceType:UIImagePickerControllerSourceTypePhotoLibrary];              // Access photo library
-    //[imagePickerController setSourceType:UIImagePickerControllerSourceTypeCamera];                    // Access Camera ( will crash if no camera (simulator))
-    
-    [self presentViewController:[self imagePickerController] animated:YES completion:nil];
+	UIActionSheet *popup = [[UIActionSheet alloc] initWithTitle:@"Select an Image Source:" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:	@"Camera",
+							@"Photo Library",
+							nil];
+	popup.tag = 1;
+	[popup showInView:[UIApplication sharedApplication].keyWindow];
 }
 
 - (IBAction)selectCatagory:(id)sender {
@@ -187,7 +185,7 @@ int color;
 
 - (IBAction)postToParse:(id)sender {
     // TODO: do checks on if required feilds are enter, secondary pics
-    if([[[self titleTextField] text] isEqualToString:@""])
+	if([[[self titleTextField] text] isEqualToString:@""] || [[[[self categoryButton] titleLabel] text] isEqualToString:@"Select"])
         return;
 	
 	[[self scrollView] setUserInteractionEnabled:NO];
@@ -251,7 +249,7 @@ int color;
 	
 	[[self removeMainImageButton] setHidden:YES];
 	[[self removeMainImageButton] setEnabled:NO];
-	[[self modifyMainImageButton] setHidden:NO];
+	[[self modifyMainImageButton] setTitle:@"📷+" forState:UIControlStateNormal];
 }
 
 - (IBAction)removeImageFromArray:(UIButton*)sender{
@@ -384,6 +382,33 @@ int color;
     return [[textView text] length] + ([text length] - range.length) <= 200;
 }
 
+#pragma mark - UIActionSheetDelegate
+
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex{
+	switch(actionSheet.tag){
+		case 1:{
+				switch (buttonIndex){
+					case 0:		// Camera
+						[[self imagePickerController] setSourceType:UIImagePickerControllerSourceTypeCamera];
+						[self presentViewController:[self imagePickerController] animated:YES completion:nil];
+						[[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent animated:YES];
+						break;
+					case 1:		// Photo Library
+						[[self imagePickerController] setSourceType:UIImagePickerControllerSourceTypePhotoLibrary];
+						[self presentViewController:[self imagePickerController] animated:YES completion:nil];
+						[[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent animated:YES];
+						break;
+					default:
+						break;
+				}
+				break;
+			}
+			break;
+		default:
+			break;
+	}
+}
+
 #pragma mark - UIImagePickerController
 
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info{
@@ -394,9 +419,9 @@ int color;
     if([self selectingHeadImage]){
         [[self mainImage] setImage:image];
         [self setSelectingHeadImage:NO];
-		[[self modifyMainImageButton] setHidden:YES];
-		[[self removeMainImageButton] setEnabled:YES];
 		[[self removeMainImageButton] setHidden:NO];
+		[[self removeMainImageButton] setEnabled:YES];
+		[[self modifyMainImageButton] setTitle:@"" forState:UIControlStateNormal];		// TODO: If hidden, the button is not clickable.
 	}else{
         [[self secondaryPictures] addObject:image];
         [[self collectionView] reloadData];
