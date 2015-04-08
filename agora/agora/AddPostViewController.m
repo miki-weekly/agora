@@ -164,19 +164,20 @@ int color;
         return;
     
     [[self activitySpinner] startAnimating];
-    Post* post = [[Post alloc] init];
-    
-    [post setTitle:[[self titleTextField] text]];
-    [post setItemDescription:[[self descriptionTextView] text]];
-    [post setCategory:[[[self categoryButton] titleLabel] text]];
-    [post setStringTags:@[@"[]"]];
-    [post setHeaderPhoto:[[self mainImage] image]];
-    [post setCreatorFacebookId:[[PFUser currentUser] objectForKey:@"facebookId"]];
-    [post setPhotosArray:[self secondaryPictures]];
-	
-	NSString* price = [[[self priceTextField] text] stringByReplacingOccurrencesOfString:@"$" withString:@""];
-    [post setPrice:[NSNumber numberWithDouble:[price doubleValue]]];
-    if(![self editingPost]){
+	if(![self editingPost]){
+		Post* post = [[Post alloc] init];
+		
+		[post setTitle:[[self titleTextField] text]];
+		[post setItemDescription:[[self descriptionTextView] text]];
+		[post setCategory:[[[self categoryButton] titleLabel] text]];
+		[post setStringTags:@[@"[]"]];
+		[post setHeaderPhoto:[[self mainImage] image]];
+		[post setCreatorFacebookId:[[PFUser currentUser] objectForKey:@"facebookId"]];
+		[post setPhotosArray:[self secondaryPictures]];
+		
+		NSString* price = [[[self priceTextField] text] stringByReplacingOccurrencesOfString:@"$" withString:@""];
+		[post setPrice:[NSNumber numberWithDouble:[price doubleValue]]];
+
         [ParseInterface saveNewPostToParse:post completion:^(BOOL succeeded){
             if(succeeded){
                 [[self activitySpinner] stopAnimating];
@@ -186,7 +187,18 @@ int color;
             }
         }];
     }else{
-        [post setObjectId:[[self editingPost] objectId]];
+		// TODO: Centralized Post (shorten Code)
+		Post* post = [self editingPost];
+		[post setTitle:[[self titleTextField] text]];
+		[post setItemDescription:[[self descriptionTextView] text]];
+		[post setCategory:[[[self categoryButton] titleLabel] text]];
+		[post setStringTags:@[@"[]"]];
+		[post setHeaderPhoto:[[self mainImage] image]];
+		[post setPhotosArray:[self secondaryPictures]];
+		
+		NSString* price = [[[self priceTextField] text] stringByReplacingOccurrencesOfString:@"$" withString:@""];
+		[post setPrice:[NSNumber numberWithDouble:[price doubleValue]]];
+		
         [ParseInterface updateParsePost:post completion:^(BOOL succeeded) {
             if(succeeded){
                 // TODO: Splash screen succeded or not
