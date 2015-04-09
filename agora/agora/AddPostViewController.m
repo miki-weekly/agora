@@ -421,7 +421,7 @@ int color;
         [self setSelectingHeadImage:NO];
 		[[self removeMainImageButton] setHidden:NO];
 		[[self removeMainImageButton] setEnabled:YES];
-		[[self modifyMainImageButton] setTitle:@"" forState:UIControlStateNormal];		// TODO: If hidden, the button is not clickable.
+		[[self modifyMainImageButton] setTitle:@"" forState:UIControlStateNormal];
 	}else{
         [[self secondaryPictures] addObject:image];
         [[self collectionView] reloadData];
