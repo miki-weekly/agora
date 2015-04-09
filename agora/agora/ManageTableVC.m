@@ -25,7 +25,7 @@
 
 -(void)viewDidLoad{
     [super viewDidLoad];
-    self.title = @"Manage Posts";
+    self.title = @"My Posts";
 }
 
 - (void)viewWillAppear:(BOOL)animated{

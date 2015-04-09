@@ -18,6 +18,11 @@
 /* TODO:
  - Share and Contact button functionality
     -> implement native chat
+
+ - Search functionality
+ - settings page?
+ 
+ 
  - likeing/commenting posts?
  - Placement Tweaks (DetailedPostView/AddPostView)
  
@@ -34,7 +39,6 @@
  - Color schemeing the entire app
  - Logo placements (App Icon/Login screen/Launch Screen)
  
- - Search functionality
  
  *BUGS:
  - Addview's NSNotification notifier is slow when initially clicking a textfield

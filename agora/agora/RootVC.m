@@ -19,6 +19,7 @@
 
 
 #define MENU_BUTTON_X_OFFSET 20
+#define BLUR_RATE 10
 
 
 @interface RootVC () <UIGestureRecognizerDelegate>
@@ -63,7 +64,7 @@
     // must return dictionary with strings in order to appear on overlay menu
     
     if (!_buttonNames) {
-        _buttonNames =@[@"Browse",@"",@"Education",@"Fashion",@"Home",@"Tech",@"Misc",@"",@"Manage Posts"];
+        _buttonNames =@[@"Browse",@"",@"Education",@"Fashion",@"Home",@"Tech",@"Misc",@"",@"My Posts"];
     }
     
     return _buttonNames;
@@ -338,7 +339,7 @@ int count;
     
     for (NSString * name in self.buttonNames) {
         if ([name isEqualToString:@""]) {
-            y += 40;
+            y += 20;
             continue;
         }
         UIButton * button = [[UIButton alloc]initWithFrame:CGRectMake(-80, y, 160, 50)];
@@ -483,7 +484,7 @@ int blurMod = 0;
         self.needsNewScreenshot = NO;
     }
         blurMod++;
-        if (blurMod == 10) {
+        if (blurMod == BLUR_RATE) {
             UIImage* blurImg = [self.screenshot applyBlurWithRadius:ratio*4.0 tintColor:[UIColor clearColor] saturationDeltaFactor:1.2 maskImage:self.screenshot];
             blurMod = 0;
     
