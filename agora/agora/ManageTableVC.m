@@ -16,7 +16,6 @@
 
 @interface ManageTableVC()
 
-@property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property NSMutableArray* postsArray;
 
 @end
