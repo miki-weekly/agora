@@ -20,6 +20,7 @@
 		0BC025681ABB2E390076A09B /* PostCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0BC025671ABB2E390076A09B /* PostCollectionViewCell.m */; };
 		0BC0256B1ABB3ECB0076A09B /* DetailedPostViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0BC0256A1ABB3ECB0076A09B /* DetailedPostViewController.m */; };
 		0BCC9C551ACFAA8A00A75108 /* AddPostButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 0BCC9C541ACFAA8A00A75108 /* AddPostButton.m */; };
+		0BE0472A1AD8504900949C69 /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0BE047281AD8502300949C69 /* Bolts.framework */; };
 		0BF40ABB1ACE215C0034A1E5 /* FBSDKCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0BF40AB81ACE215C0034A1E5 /* FBSDKCoreKit.framework */; };
 		0BF40ABC1ACE215C0034A1E5 /* FBSDKMessengerShareKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0BF40AB91ACE215C0034A1E5 /* FBSDKMessengerShareKit.framework */; };
 		0BF40ABD1ACE215C0034A1E5 /* FBSDKShareKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0BF40ABA1ACE215C0034A1E5 /* FBSDKShareKit.framework */; };
@@ -35,7 +36,6 @@
 		AA5A86941ACA09C0005DAF4A /* SlideItemVC.m in Sources */ = {isa = PBXBuildFile; fileRef = AA5A86931ACA09C0005DAF4A /* SlideItemVC.m */; };
 		AA5A86971ACA0A63005DAF4A /* RootVC.m in Sources */ = {isa = PBXBuildFile; fileRef = AA5A86961ACA0A63005DAF4A /* RootVC.m */; };
 		AA5A869D1ACA572B005DAF4A /* SlideItemCVC.m in Sources */ = {isa = PBXBuildFile; fileRef = AA5A869C1ACA572B005DAF4A /* SlideItemCVC.m */; };
-		AA87F4841ACF381500AA6AB1 /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0B8996C51ACE1CFB00357EC3 /* Bolts.framework */; };
 		AA87F4871ACF4C1900AA6AB1 /* UIColor+AGColors.m in Sources */ = {isa = PBXBuildFile; fileRef = AA87F4861ACF4C1900AA6AB1 /* UIColor+AGColors.m */; };
 		AA8F662A1A8EA73700CA4604 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = AA8F66291A8EA73700CA4604 /* main.m */; };
 		AA8F662D1A8EA73700CA4604 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = AA8F662C1A8EA73700CA4604 /* AppDelegate.m */; };
@@ -65,7 +65,6 @@
 		0B58E4CE1ACFC27300694BE8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		0B5A58F31AD5BD2C005DD9C3 /* AddPostViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddPostViewCell.h; sourceTree = "<group>"; };
 		0B5A58F41AD5BD2C005DD9C3 /* AddPostViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddPostViewCell.m; sourceTree = "<group>"; };
-		0B8996C51ACE1CFB00357EC3 /* Bolts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Bolts.framework; sourceTree = "<group>"; };
 		0B8996C61ACE1CFB00357EC3 /* Parse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Parse.framework; sourceTree = "<group>"; };
 		0B8996C71ACE1CFB00357EC3 /* ParseCrashReporting.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ParseCrashReporting.framework; sourceTree = "<group>"; };
 		0B8996CA1ACE1CFB00357EC3 /* ParseUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ParseUI.framework; sourceTree = "<group>"; };
@@ -83,6 +82,7 @@
 		0BC0256A1ABB3ECB0076A09B /* DetailedPostViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailedPostViewController.m; sourceTree = "<group>"; };
 		0BCC9C531ACFAA8A00A75108 /* AddPostButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddPostButton.h; sourceTree = "<group>"; };
 		0BCC9C541ACFAA8A00A75108 /* AddPostButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddPostButton.m; sourceTree = "<group>"; };
+		0BE047281AD8502300949C69 /* Bolts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Bolts.framework; sourceTree = "<group>"; };
 		0BF40AB81ACE215C0034A1E5 /* FBSDKCoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSDKCoreKit.framework; path = agora/FacebookSDK/FBSDKCoreKit.framework; sourceTree = "<group>"; };
 		0BF40AB91ACE215C0034A1E5 /* FBSDKMessengerShareKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSDKMessengerShareKit.framework; path = agora/FacebookSDK/FBSDKMessengerShareKit.framework; sourceTree = "<group>"; };
 		0BF40ABA1ACE215C0034A1E5 /* FBSDKShareKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSDKShareKit.framework; path = agora/FacebookSDK/FBSDKShareKit.framework; sourceTree = "<group>"; };
@@ -133,7 +133,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AA87F4841ACF381500AA6AB1 /* Bolts.framework in Frameworks */,
+				0BE0472A1AD8504900949C69 /* Bolts.framework in Frameworks */,
 				0BF40AC31ACE2A9A0034A1E5 /* ParseFacebookUtilsV4.framework in Frameworks */,
 				9EFE8A8A1AB7CF4C000018F7 /* Accounts.framework in Frameworks */,
 				0BF40ABB1ACE215C0034A1E5 /* FBSDKCoreKit.framework in Frameworks */,
@@ -177,8 +177,8 @@
 		0B8996C41ACE1CFB00357EC3 /* parse-library-1.7.1 */ = {
 			isa = PBXGroup;
 			children = (
+				0BE047281AD8502300949C69 /* Bolts.framework */,
 				0BF40ABE1ACE21900034A1E5 /* ParseFacebookUtilsV4.framework */,
-				0B8996C51ACE1CFB00357EC3 /* Bolts.framework */,
 				0B8996C61ACE1CFB00357EC3 /* Parse.framework */,
 				0B8996C71ACE1CFB00357EC3 /* ParseCrashReporting.framework */,
 				0B8996CA1ACE1CFB00357EC3 /* ParseUI.framework */,
@@ -520,6 +520,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
@@ -563,6 +564,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
@@ -608,7 +610,7 @@
 				INFOPLIST_FILE = agora/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -624,7 +626,7 @@
 				INFOPLIST_FILE = agora/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
