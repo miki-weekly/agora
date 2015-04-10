@@ -163,12 +163,18 @@
                                                 <state key="normal" title="Share">
                                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                 </state>
+                                                <connections>
+                                                    <action selector="clickedShare:" destination="aPy-YZ-LJV" eventType="touchUpInside" id="K6R-pP-2sj"/>
+                                                </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="09v-wR-mok">
                                                 <rect key="frame" x="305" y="420" width="285" height="30"/>
                                                 <state key="normal" title="Contact">
                                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                 </state>
+                                                <connections>
+                                                    <action selector="clickedContact:" destination="aPy-YZ-LJV" eventType="touchUpInside" id="3jx-mz-TC2"/>
+                                                </connections>
                                             </button>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="friends" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JgR-Y2-z4O">
                                                 <rect key="frame" x="70" y="475" width="475" height="21"/>
@@ -192,6 +198,9 @@
                                                     <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                 </state>
+                                                <connections>
+                                                    <action selector="clickedFBSellerName:" destination="aPy-YZ-LJV" eventType="touchUpInside" id="qDs-Gc-ypE"/>
+                                                </connections>
                                             </button>
                                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" editable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ub6-jd-DDB">
                                                 <rect key="frame" x="8" y="504" width="584" height="106"/>
