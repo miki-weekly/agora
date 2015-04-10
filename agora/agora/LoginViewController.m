@@ -8,6 +8,7 @@
 
 #import "LoginViewController.h"
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
+#import <ParseFacebookUtilsV4/PFFacebookUtils.h>
 
 @interface LoginViewController ()
 
@@ -18,8 +19,25 @@
 - (instancetype)init{
     if((self = [super init])){
         [self setFields:PFLogInFieldsFacebook];
-        [self setFacebookPermissions:@[@"public_profile", @"user_friends", @"user_education_history"]];
-        [self setDelegate:self];
+		[self setFacebookPermissions:@[@"public_profile", @"user_friends", @"user_education_history", @"user_groups"]];
+		[self setDelegate:self];
+		/*
+		//https://developers.facebook.com/docs/graph-api/reference/v2.3/group/feed
+		// UC Merced Classifieds ID = 246947172002847
+		FBSDKGraphRequest* request = [[FBSDKGraphRequest alloc] initWithGraphPath:@"/246947172002847/feed" parameters:nil];
+		[request startWithCompletionHandler:^(FBSDKGraphRequestConnection *connection, NSDictionary* result, NSError *error) {
+			NSLog(@"%@", result);
+			
+		}];
+		
+		NSDictionary *params = @{@"message": @"test",};
+		
+		request = [[FBSDKGraphRequest alloc] initWithGraphPath:@"/246947172002847/feed" parameters:params HTTPMethod:@"POST"];
+		[request startWithCompletionHandler:^(FBSDKGraphRequestConnection *connection, NSDictionary* result, NSError *error) {
+			NSLog(@"%@", result);
+			
+		}];
+		 */
     }
     
     return self;
@@ -46,6 +64,8 @@
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault animated:animated];
 }
 
+//https://www.parse.com/docs/ios_guide#sessions-handleerror/iOS
+
 - (BOOL)userLoggedIn{
     PFUser* cUser = [PFUser currentUser];
     FBSDKAccessToken* cAccessToken = [FBSDKAccessToken currentAccessToken];
@@ -56,11 +76,51 @@
         return NO;
     }
 }
-
+/*
+- (void)checkUserPermissions{
+	// check permissions
+	
+	NSArray* permissions = @[@"public_profile", @"user_education_history", @"user_friends", @"user_groups"];
+	
+	FBSDKGraphRequest* request = [[FBSDKGraphRequest alloc] initWithGraphPath:@"/me/permissions" parameters:nil];
+	[request startWithCompletionHandler:^(FBSDKGraphRequestConnection *connection, NSDictionary* result, NSError *error) {
+		NSLog(@"%@", result);
+		NSArray* permissions = [result objectForKey:@"data"];
+		
+		BOOL permissionMissing = NO;
+		BOOL publishPermission = YES;
+		for(NSDictionary* permission in permissions){
+			NSString* info = [permission objectForKey:@"permission"];
+			NSString* status = [permission objectForKey:@"granted"];
+			
+			if([info isEqualToString:@"publish_actions"] && ![status isEqualToString:@"granted"]){
+				publishPermission = NO;
+			}
+			if(![status isEqualToString:@"granted"]){
+				permissionMissing = YES;
+			}
+		}
+		if(permissionMissing){
+			// Log In with Read Permissions
+			[PFFacebookUtils logInInBackgroundWithReadPermissions:permissions block:^(PFUser *user, NSError *error) {
+				if (!user) {
+					NSLog(@"Uh oh. The user cancelled the Facebook login.");
+				} else if (user.isNew) {
+					NSLog(@"User signed up and logged in through Facebook!");
+				} else {
+					NSLog(@"User logged in through Facebook!");
+				}
+			}];
+		}
+		if(!publishPermission){
+			// Request new Publish Permissions
+			[PFFacebookUtils linkUserInBackground:[PFUser currentUser] withPublishPermissions:@[@"publish_actions"]];
+		}
+		
+	}];
+}
+*/
 - (void)logInViewController:(PFLogInViewController *)controller didLogInUser:(PFUser *)user {
-    // Login procedure
-    [[self loginDelegate] loginViewController:self didLogin:YES];
-    
     if([user isNew]){
         FBSDKGraphRequest *request = [[FBSDKGraphRequest alloc] initWithGraphPath:@"me" parameters:nil];
         [request startWithCompletionHandler:^(FBSDKGraphRequestConnection *connection, id result, NSError *error) {
@@ -72,6 +132,9 @@
             }
         }];
     }
+
+	//[self checkUserPermissions];
+	[[self loginDelegate] loginViewController:self didLogin:YES];
 }
 
 - (void)logInViewControllerDidCancelLogIn:(PFLogInViewController *)logInController {
