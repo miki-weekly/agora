@@ -115,6 +115,8 @@
 }
 
 
+
+
 #pragma mark - VC lifecycle
 
 - (void)viewDidLoad {
@@ -136,6 +138,9 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
+
+
 
 #pragma mark - IB connection action stuff
 
@@ -262,6 +267,13 @@ int count;
     
     
 }
+
+
+-(void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
+    //NSLog(@"Touches ended in root");
+    [self snapClosed];
+}
+
 
 #pragma mark - overlay UI helpers
 
