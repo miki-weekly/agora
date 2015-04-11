@@ -20,6 +20,8 @@
 
  - Search functionality
  - settings page?
+ - filter by college
+ 
  
  
  - likeing/commenting posts?

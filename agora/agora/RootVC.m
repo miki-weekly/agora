@@ -9,9 +9,13 @@
 #import "RootVC.h"
 #import "SlideItemVC.h"
 #import "BrowseCollectionViewController.h"
+
+
 #import "UIImage+ImageEffects.h"
 #import "UIColor+AGColors.h"
 #import "UIButton+FormatText.h"
+
+
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
 #import <Parse/Parse.h>
 
@@ -64,7 +68,7 @@
     // must return dictionary with strings in order to appear on overlay menu
     
     if (!_buttonNames) {
-        _buttonNames =@[@"Browse",@"",@"Education",@"Fashion",@"Home",@"Tech",@"Misc",@"",@"My Posts"];
+        _buttonNames =@[@"Browse",@"Education",@"Fashion",@"Home",@"Tech",@"Misc",@"Chat",@"My Posts",@"Settings"];
     }
     
     return _buttonNames;
@@ -91,12 +95,14 @@
     
     //make other vcs but don't add them
     
+    UIViewController * chat = [story instantiateViewControllerWithIdentifier:@"chat nav"];
+    [self addChildViewController:chat];
+    
     UIViewController * manage = [story instantiateViewControllerWithIdentifier:@"manage nav"];
     [self addChildViewController:manage];
     
-    //    SlideItemVC * third = [story instantiateViewControllerWithIdentifier:@"ADD STORYBOARD ID HERE"];
-    //    third.root = self;
-    //    [self addChildViewController:third];
+    UIViewController * settings = [story instantiateViewControllerWithIdentifier:@"settings"];
+    [self addChildViewController:settings];
     
 }
 
@@ -113,6 +119,8 @@
         self.currentVC = newVC;
     }
 }
+
+
 
 
 #pragma mark - VC lifecycle
@@ -137,6 +145,9 @@
     // Dispose of any resources that can be recreated.
 }
 
+
+
+
 #pragma mark - IB connection action stuff
 
 -(IBAction)clickLogOut:(id)sender {
@@ -157,7 +168,7 @@
 
 -(IBAction)clickMenuItem:(id)sender {
     UIButton * b = (UIButton*)sender;
-    NSString * item = [[b.titleLabel.text substringWithRange:NSMakeRange(1, 1)] isEqualToString:@" "]?[b.titleLabel.text substringFromIndex:2]:b.titleLabel.text;
+    NSString * item = [[b.titleLabel.text substringWithRange:NSMakeRange(1, 1)] isEqualToString:@" "]?[b.titleLabel.text substringFromIndex:2]:b.titleLabel.text; //change category string to not include the color dot
     
     NSInteger buttonIndex = 0;
     for (int i = 0; i < [self.buttonNames count]; i++) {
@@ -172,10 +183,18 @@
         [self switchToViewController:buttonIndex];
         [((BrowseCollectionViewController*)self.currentVC.childViewControllers[0]) reloadData];
         
-    } else if (buttonIndex == 1) {
-        
-    } else if (buttonIndex == 8) {
+    } else if (buttonIndex == 6) {
+        // chat
         [self switchToViewController:1];
+        
+        
+    } else if (buttonIndex == 7) {
+        //my posts
+        [self switchToViewController:2];
+        
+    } else if (buttonIndex == 9) {
+        //settings
+        [self switchToViewController:3];
         
     } else {
         //clicked a category
@@ -263,6 +282,13 @@ int count;
     
 }
 
+
+-(void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
+    //NSLog(@"Touches ended in root");
+    [self snapClosed];
+}
+
+
 #pragma mark - overlay UI helpers
 
 -(void) snapOpen {
@@ -285,7 +311,7 @@ int count;
     }];
     self.buttonView.userInteractionEnabled = NO;
     self.needsNewScreenshot = YES;
-    }
+}
 
 
 -(void) setUpOverlay {
@@ -378,7 +404,7 @@ int count;
 - (void) reloadUserProfpicAndName {
     
     [self.profPic setProfileID:[[PFUser currentUser] objectForKey:@"facebookId"]];
-
+    
     
     FBSDKGraphRequest * request = [[FBSDKGraphRequest alloc]initWithGraphPath:[[PFUser currentUser] objectForKey:@"facebookId"] parameters:NULL];
     [request startWithCompletionHandler:^(FBSDKGraphRequestConnection *connection, id result, NSError *error) {
@@ -483,16 +509,16 @@ int blurMod = 0;
         UIGraphicsEndImageContext();
         self.needsNewScreenshot = NO;
     }
-        blurMod++;
-        if (blurMod == BLUR_RATE) {
-            UIImage* blurImg = [self.screenshot applyBlurWithRadius:ratio*4.0 tintColor:[UIColor clearColor] saturationDeltaFactor:1.2 maskImage:self.screenshot];
-            blurMod = 0;
-    
-            if (ratio != 0.0) {
-                self.blurView.image = blurImg;
-            }
-    
+    blurMod++;
+    if (blurMod == BLUR_RATE) {
+        UIImage* blurImg = [self.screenshot applyBlurWithRadius:ratio*4.0 tintColor:[UIColor clearColor] saturationDeltaFactor:1.2 maskImage:self.screenshot];
+        blurMod = 0;
+        
+        if (ratio != 0.0) {
+            self.blurView.image = blurImg;
         }
+        
+    }
     
     
     
