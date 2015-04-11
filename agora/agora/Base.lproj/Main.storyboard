@@ -110,11 +110,7 @@
                                 <action selector="clickMenu:" destination="nf8-rb-sYn" id="745-uu-4SG"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" systemItem="search" id="NXl-o3-GJ8">
-                            <connections>
-                                <segue destination="y3u-c9-yd0" kind="show" id="8Fn-EU-d3l"/>
-                            </connections>
-                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" systemItem="search" id="NXl-o3-GJ8"/>
                     </navigationItem>
                     <connections>
                         <outlet property="activitySpinner" destination="9FN-lk-XKO" id="4Of-Jl-zPm"/>
@@ -123,43 +119,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bHe-5x-Xgo" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2257.5" y="462"/>
-        </scene>
-        <!--SearchVC-->
-        <scene sceneID="vpA-zB-2A4">
-            <objects>
-                <viewController id="y3u-c9-yd0" customClass="SearchVC" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="bh6-CP-ORd"/>
-                        <viewControllerLayoutGuide type="bottom" id="HJe-W1-0aX"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="rb5-bh-ojQ">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <searchBar contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="VGw-N3-64x">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
-                                <textInputTraits key="textInputTraits"/>
-                                <variation key="heightClass=regular-widthClass=compact" fixedFrame="YES">
-                                    <rect key="frame" x="0.0" y="64" width="400" height="44"/>
-                                </variation>
-                            </searchBar>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <variation key="default">
-                            <mask key="subviews">
-                                <exclude reference="VGw-N3-64x"/>
-                            </mask>
-                        </variation>
-                        <variation key="heightClass=regular-widthClass=compact">
-                            <mask key="subviews">
-                                <include reference="VGw-N3-64x"/>
-                            </mask>
-                        </variation>
-                    </view>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Y47-4I-4cT" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="3228" y="-243"/>
         </scene>
         <!--Detailed Post View Controller-->
         <scene sceneID="QOJ-na-t22">
@@ -400,9 +359,6 @@
                                         <exclude reference="uOp-da-L94"/>
                                     </mask>
                                 </variation>
-                                <variation key="widthClass=compact" ambiguous="YES">
-                                    <rect key="frame" x="0.0" y="0.0" width="400" height="700"/>
-                                </variation>
                                 <variation key="heightClass=regular-widthClass=compact">
                                     <mask key="constraints">
                                         <include reference="KEC-Rq-dRu"/>
@@ -627,6 +583,7 @@
             <objects>
                 <tableViewController id="aeg-A9-AaZ" customClass="ChatVC" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="fNL-Ye-Pkh">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
@@ -673,6 +630,7 @@
                         <viewControllerLayoutGuide type="bottom" id="U29-0p-h4a"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="2eA-az-Y6n">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
