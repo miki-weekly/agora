@@ -12,7 +12,6 @@
 
 @property (strong, nonatomic) UIWindow *window;
 
-
 @end
 
 /* TODO:
@@ -21,6 +20,8 @@
 
  - Search functionality
  - settings page?
+ - filter by college
+ 
  
  
  - likeing/commenting posts?
