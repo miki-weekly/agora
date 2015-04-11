@@ -199,7 +199,7 @@
 
 - (IBAction)clickedContact:(id)sender {
     // open FB messager to user
-    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"fb-messenger://user-thread/971271449551860"]];
+    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"fb-messenger://user-thread/%@", [post creatorFacebookId]]];
     if([[UIApplication sharedApplication] canOpenURL:url]){
         [[UIApplication sharedApplication] openURL:url];
     }else{

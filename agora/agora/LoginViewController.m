@@ -76,50 +76,61 @@
         return NO;
     }
 }
-/*
+
 - (void)checkUserPermissions{
 	// check permissions
 	
-	NSArray* permissions = @[@"public_profile", @"user_education_history", @"user_friends", @"user_groups"];
+	NSArray* appRequestedPermissions = @[@"public_profile", @"user_education_history", @"user_friends", @"user_groups"];
+	NSArray* appRequestedWritePermissions = @[@"publish_actions"];
 	
 	FBSDKGraphRequest* request = [[FBSDKGraphRequest alloc] initWithGraphPath:@"/me/permissions" parameters:nil];
 	[request startWithCompletionHandler:^(FBSDKGraphRequestConnection *connection, NSDictionary* result, NSError *error) {
-		NSLog(@"%@", result);
-		NSArray* permissions = [result objectForKey:@"data"];
+		NSArray* userPermissions = [result objectForKey:@"data"];
+		NSMutableArray* grantedPermissions = [[NSMutableArray alloc] init];
 		
-		BOOL permissionMissing = NO;
-		BOOL publishPermission = YES;
-		for(NSDictionary* permission in permissions){
+		BOOL publishPermission = NO;												// Check for what permissions are given
+		for(NSDictionary* permission in userPermissions){
 			NSString* info = [permission objectForKey:@"permission"];
-			NSString* status = [permission objectForKey:@"granted"];
-			
-			if([info isEqualToString:@"publish_actions"] && ![status isEqualToString:@"granted"]){
-				publishPermission = NO;
-			}
-			if(![status isEqualToString:@"granted"]){
-				permissionMissing = YES;
+			NSString* status = [permission objectForKey:@"status"];
+
+			if([status isEqualToString:@"granted"]){
+				if([info isEqualToString:@"publish_actions"]){
+					publishPermission = YES;
+				}else{
+					[grantedPermissions addObject:info];
+				}
 			}
 		}
-		if(permissionMissing){
+		
+		for(NSInteger i=[grantedPermissions count]-1; i>=0; i--){					// Check for what permissions are missing
+			for(NSString* requiredPermission in grantedPermissions){
+				if([requiredPermission isEqualToString:grantedPermissions[i]]){
+					[grantedPermissions removeObjectAtIndex:i];
+					break;
+				}
+			}
+		}
+		
+		// TODO: Error message to re auth
+		if([grantedPermissions count] != 0){			// if any permissions are not given, request
 			// Log In with Read Permissions
-			[PFFacebookUtils logInInBackgroundWithReadPermissions:permissions block:^(PFUser *user, NSError *error) {
-				if (!user) {
+			[PFFacebookUtils logInInBackgroundWithReadPermissions:appRequestedPermissions block:^(PFUser *user, NSError *error) {
+				if(!user){
 					NSLog(@"Uh oh. The user cancelled the Facebook login.");
-				} else if (user.isNew) {
+				}else if([user isNew]){
 					NSLog(@"User signed up and logged in through Facebook!");
-				} else {
+				}else{
 					NSLog(@"User logged in through Facebook!");
 				}
 			}];
 		}
 		if(!publishPermission){
 			// Request new Publish Permissions
-			[PFFacebookUtils linkUserInBackground:[PFUser currentUser] withPublishPermissions:@[@"publish_actions"]];
+			[PFFacebookUtils linkUserInBackground:[PFUser currentUser] withPublishPermissions:appRequestedWritePermissions];
 		}
-		
 	}];
 }
-*/
+
 - (void)logInViewController:(PFLogInViewController *)controller didLogInUser:(PFUser *)user {
     if([user isNew]){
         FBSDKGraphRequest *request = [[FBSDKGraphRequest alloc] initWithGraphPath:@"me" parameters:nil];
@@ -133,7 +144,7 @@
         }];
     }
 
-	//[self checkUserPermissions];
+	[self checkUserPermissions];
 	[[self loginDelegate] loginViewController:self didLogin:YES];
 }
 
