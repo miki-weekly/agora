@@ -43,16 +43,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(keyboardDidShow:)
-                                                 name:UIKeyboardDidShowNotification
-                                               object:nil];
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(keyboardWillBeHidden:)
-                                                 name:UIKeyboardWillHideNotification
-                                               object:nil];
 	
 	_statusBarBack = [[UIView alloc] initWithFrame:[[UIApplication sharedApplication] statusBarFrame]];
 	[[_statusBarBack layer] setBackgroundColor:[[[UIColor indigoColor] colorWithAlphaComponent:0.8f] CGColor]];
@@ -96,13 +86,25 @@
 
 - (void)viewWillAppear:(BOOL)animated{
 	if(![self imagePickerController]){
-        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
-            [self setImagePickerController:[[UIImagePickerController alloc] init]];
-            [[self imagePickerController] setDelegate:self];
-        });
+		[self setImagePickerController:[[UIImagePickerController alloc] init]];
+		[[self imagePickerController] setDelegate:self];
     }
+	
+	[[NSNotificationCenter defaultCenter] addObserver:self
+											 selector:@selector(keyboardDidShow:)
+												 name:UIKeyboardDidShowNotification
+											   object:nil];
+	
+	[[NSNotificationCenter defaultCenter] addObserver:self
+											 selector:@selector(keyboardWillBeHidden:)
+												 name:UIKeyboardWillHideNotification
+											   object:nil];
 }
 
+- (void)viewDidDisappear:(BOOL)animated{
+	[[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardDidShowNotification object:nil];
+	[[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillHideNotification object:nil];
+}
 - (void)setUpEditting{
     Post* post = [self editingPost];
 	[[self mainImage] setImage:[post headerPhoto]];

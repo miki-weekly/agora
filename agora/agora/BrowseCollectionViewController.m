@@ -54,6 +54,24 @@
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent animated:animated];
     RootVC * r = (RootVC*)self.parentViewController.parentViewController;
     [r reloadUserProfpicAndName];
+	
+	/*
+	 //https://developers.facebook.com/docs/graph-api/reference/v2.3/group/feed
+	 // UC Merced Classifieds ID = 246947172002847
+	 FBSDKGraphRequest* request = [[FBSDKGraphRequest alloc] initWithGraphPath:@"/me/groups?limit=100" parameters:nil];
+	 [request startWithCompletionHandler:^(FBSDKGraphRequestConnection *connection, NSDictionary* result, NSError *error) {
+		NSLog(@"%@", result);
+		
+	 }];
+	 
+		NSDictionary *params = @{@"message": @"test",};
+		
+		request = [[FBSDKGraphRequest alloc] initWithGraphPath:@"/246947172002847/feed" parameters:params HTTPMethod:@"POST"];
+		[request startWithCompletionHandler:^(FBSDKGraphRequestConnection *connection, NSDictionary* result, NSError *error) {
+	 NSLog(@"%@", result);
+	 
+		}];
+	 */
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{

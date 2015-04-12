@@ -21,23 +21,6 @@
         [self setFields:PFLogInFieldsFacebook];
 		[self setFacebookPermissions:@[@"public_profile", @"user_friends", @"user_education_history", @"user_groups"]];
 		[self setDelegate:self];
-		/*
-		//https://developers.facebook.com/docs/graph-api/reference/v2.3/group/feed
-		// UC Merced Classifieds ID = 246947172002847
-		FBSDKGraphRequest* request = [[FBSDKGraphRequest alloc] initWithGraphPath:@"/246947172002847/feed" parameters:nil];
-		[request startWithCompletionHandler:^(FBSDKGraphRequestConnection *connection, NSDictionary* result, NSError *error) {
-			NSLog(@"%@", result);
-			
-		}];
-		
-		NSDictionary *params = @{@"message": @"test",};
-		
-		request = [[FBSDKGraphRequest alloc] initWithGraphPath:@"/246947172002847/feed" parameters:params HTTPMethod:@"POST"];
-		[request startWithCompletionHandler:^(FBSDKGraphRequestConnection *connection, NSDictionary* result, NSError *error) {
-			NSLog(@"%@", result);
-			
-		}];
-		 */
     }
     
     return self;
