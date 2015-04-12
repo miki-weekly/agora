@@ -49,7 +49,6 @@
 		AD958F541AA5994500ABCFB3 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AD958F531AA5994500ABCFB3 /* AudioToolbox.framework */; };
 		AD958F561AA5997600ABCFB3 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AD958F551AA5997600ABCFB3 /* SystemConfiguration.framework */; };
 		AD958F581AA599C800ABCFB3 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AD958F571AA599C800ABCFB3 /* MobileCoreServices.framework */; };
-		AD9A769E1AD8A22300BB2C23 /* Firebase.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AD9A769D1AD8A22300BB2C23 /* Firebase.framework */; };
 		AD9A76A01AD8A24400BB2C23 /* libicucore.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = AD9A769F1AD8A24400BB2C23 /* libicucore.dylib */; };
 		AD9A76A21AD8A25000BB2C23 /* libc++.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = AD9A76A11AD8A25000BB2C23 /* libc++.dylib */; };
 		AD9A76A41AD8A26200BB2C23 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AD9A76A31AD8A26200BB2C23 /* CFNetwork.framework */; };
@@ -136,7 +135,6 @@
 		AD958F531AA5994500ABCFB3 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		AD958F551AA5997600ABCFB3 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		AD958F571AA599C800ABCFB3 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
-		AD9A769D1AD8A22300BB2C23 /* Firebase.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Firebase.framework; sourceTree = "<group>"; };
 		AD9A769F1AD8A24400BB2C23 /* libicucore.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libicucore.dylib; path = usr/lib/libicucore.dylib; sourceTree = SDKROOT; };
 		AD9A76A11AD8A25000BB2C23 /* libc++.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libc++.dylib"; path = "usr/lib/libc++.dylib"; sourceTree = SDKROOT; };
 		AD9A76A31AD8A26200BB2C23 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
@@ -168,7 +166,6 @@
 				0BF40ABD1ACE215C0034A1E5 /* FBSDKShareKit.framework in Frameworks */,
 				AD958F541AA5994500ABCFB3 /* AudioToolbox.framework in Frameworks */,
 				0B8996D01ACE1CFB00357EC3 /* ParseUI.framework in Frameworks */,
-				AD9A769E1AD8A22300BB2C23 /* Firebase.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -251,7 +248,6 @@
 				AD9A76A31AD8A26200BB2C23 /* CFNetwork.framework */,
 				AD9A76A11AD8A25000BB2C23 /* libc++.dylib */,
 				AD9A769F1AD8A24400BB2C23 /* libicucore.dylib */,
-				AD9A769D1AD8A22300BB2C23 /* Firebase.framework */,
 				0BF40AB71ACE213D0034A1E5 /* FacebookSDK */,
 				0B8996C41ACE1CFB00357EC3 /* parse-library-1.7.1 */,
 				9EFE8A891AB7CF4C000018F7 /* Accounts.framework */,
@@ -642,6 +638,7 @@
 				);
 				INFOPLIST_FILE = agora/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				OTHER_LDFLAGS = "";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -659,6 +656,7 @@
 				);
 				INFOPLIST_FILE = agora/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				OTHER_LDFLAGS = "";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
