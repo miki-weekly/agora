@@ -41,6 +41,8 @@
 		AA8F66351A8EA73700CA4604 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AA8F66341A8EA73700CA4604 /* Images.xcassets */; };
 		AA8F66381A8EA73700CA4604 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = AA8F66361A8EA73700CA4604 /* LaunchScreen.xib */; };
 		AA8F66441A8EA73700CA4604 /* agoraTests.m in Sources */ = {isa = PBXBuildFile; fileRef = AA8F66431A8EA73700CA4604 /* agoraTests.m */; };
+		AAA611B91AD9076000535A7E /* ChatVC.m in Sources */ = {isa = PBXBuildFile; fileRef = AAA611B81AD9076000535A7E /* ChatVC.m */; };
+		AAA611BC1AD9085F00535A7E /* SettingsVC.m in Sources */ = {isa = PBXBuildFile; fileRef = AAA611BB1AD9085F00535A7E /* SettingsVC.m */; };
 		AAF958D21AD3B9FE00C1C7D5 /* UIButton+FormatText.m in Sources */ = {isa = PBXBuildFile; fileRef = AAF958D11AD3B9FE00C1C7D5 /* UIButton+FormatText.m */; };
 		AD958F521AA598C100ABCFB3 /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = AD958F511AA598C100ABCFB3 /* libsqlite3.dylib */; };
 		AD958F541AA5994500ABCFB3 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AD958F531AA5994500ABCFB3 /* AudioToolbox.framework */; };
@@ -123,6 +125,10 @@
 		AA8F663D1A8EA73700CA4604 /* agoraTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = agoraTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		AA8F66421A8EA73700CA4604 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		AA8F66431A8EA73700CA4604 /* agoraTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = agoraTests.m; sourceTree = "<group>"; };
+		AAA611B71AD9076000535A7E /* ChatVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChatVC.h; sourceTree = "<group>"; };
+		AAA611B81AD9076000535A7E /* ChatVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChatVC.m; sourceTree = "<group>"; };
+		AAA611BA1AD9085F00535A7E /* SettingsVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsVC.h; sourceTree = "<group>"; };
+		AAA611BB1AD9085F00535A7E /* SettingsVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsVC.m; sourceTree = "<group>"; };
 		AAF958D01AD3B9FE00C1C7D5 /* UIButton+FormatText.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIButton+FormatText.h"; sourceTree = "<group>"; };
 		AAF958D11AD3B9FE00C1C7D5 /* UIButton+FormatText.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIButton+FormatText.m"; sourceTree = "<group>"; };
 		AD958F511AA598C100ABCFB3 /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
@@ -275,10 +281,14 @@
 				0BC0256A1ABB3ECB0076A09B /* DetailedPostViewController.m */,
 				AA5A86951ACA0A63005DAF4A /* RootVC.h */,
 				AA5A86961ACA0A63005DAF4A /* RootVC.m */,
+				AAA611BA1AD9085F00535A7E /* SettingsVC.h */,
+				AAA611BB1AD9085F00535A7E /* SettingsVC.m */,
 				AA4938511AD24C9F000FCC9B /* ManageTableVC.h */,
 				AA4938521AD24C9F000FCC9B /* ManageTableVC.m */,
 				0BA5323C1AB7CC6000A730C6 /* BrowseCollectionViewController.h */,
 				0BA5323D1AB7CC6000A730C6 /* BrowseCollectionViewController.m */,
+				AAA611B71AD9076000535A7E /* ChatVC.h */,
+				AAA611B81AD9076000535A7E /* ChatVC.m */,
 			);
 			name = "View Controllers";
 			sourceTree = "<group>";
@@ -470,6 +480,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AAA611B91AD9076000535A7E /* ChatVC.m in Sources */,
 				0BC0256B1ABB3ECB0076A09B /* DetailedPostViewController.m in Sources */,
 				AA8F662D1A8EA73700CA4604 /* AppDelegate.m in Sources */,
 				0BA532411AB7CC6000A730C6 /* LoginViewController.m in Sources */,
@@ -486,6 +497,7 @@
 				0B5A58F51AD5BD2C005DD9C3 /* AddPostViewCell.m in Sources */,
 				0BA532401AB7CC6000A730C6 /* BrowseCollectionViewController.m in Sources */,
 				AA49384A1AD21470000FCC9B /* UIImage+ImageEffects.m in Sources */,
+				AAA611BC1AD9085F00535A7E /* SettingsVC.m in Sources */,
 				AA8F662A1A8EA73700CA4604 /* main.m in Sources */,
 				AA4938531AD24C9F000FCC9B /* ManageTableVC.m in Sources */,
 				AA4938501AD24C51000FCC9B /* slideItemTVC.m in Sources */,
