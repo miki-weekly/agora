@@ -52,8 +52,11 @@
 - (BOOL)userLoggedIn{
     PFUser* cUser = [PFUser currentUser];
 	FBSDKAccessToken* cAccessToken = [self getFBUserTokenFromDefaults];
-	[FBSDKAccessToken setCurrentAccessToken:cAccessToken];
-    NSLog(@"Parse: %@\nFB: %@", cUser, cAccessToken);
+	
+	if(cAccessToken != nil)
+		[FBSDKAccessToken setCurrentAccessToken:cAccessToken];
+	
+    NSLog(@"\nParse:\n%@\nFacebook:\n%@", cUser, cAccessToken);
     if(cUser && cAccessToken){                                       // Already logged in
         return YES;
     }else{
@@ -128,6 +131,7 @@
 
 - (FBSDKAccessToken*)getFBUserTokenFromDefaults{
 	NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
+	
 	FBSDKAccessToken* token = [[FBSDKAccessToken alloc] initWithTokenString:[defaults objectForKey:@"fbTokenString"]
 																permissions:[defaults objectForKey:@"fbPermissions"]
 														declinedPermissions:[defaults objectForKey:@"fbDeclinedPermissions"]
@@ -135,6 +139,9 @@
 																	 userID:[defaults objectForKey:@"fbAppID"]
 															 expirationDate:[defaults objectForKey:@"fbExpirationDate"]
 																refreshDate:[defaults objectForKey:@"fbRefreshDate"]];
+	
+	if(![defaults objectForKey:@"fbTokenString"] || [[defaults objectForKey:@"fbExpirationDate"] timeIntervalSinceNow] < 0.0)
+		return nil;
 	return token;
 }
 
@@ -151,7 +158,7 @@
         }];
     }
 	
-	NSLog(@"Logged in\nParse: %@\nFB: %@", [PFUser currentUser], [FBSDKAccessToken currentAccessToken]);
+	NSLog(@"Logged in\n%@\n%@", [PFUser currentUser], [FBSDKAccessToken currentAccessToken]);
 	[self saveFBUserToken];
 	[self checkUserPermissions];
 	[[self loginDelegate] loginViewController:self didLogin:YES];

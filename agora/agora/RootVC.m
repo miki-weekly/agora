@@ -153,6 +153,15 @@
 -(IBAction)clickLogOut:(id)sender {
     
     [PFUser logOut];
+	[FBSDKAccessToken setCurrentAccessToken:nil];
+	[[NSUserDefaults standardUserDefaults] removeObjectForKey:@"fbTokenString"];
+	[[NSUserDefaults standardUserDefaults] removeObjectForKey:@"fbPermissions"];
+	[[NSUserDefaults standardUserDefaults] removeObjectForKey:@"fbDeclinedPermissions"];
+	[[NSUserDefaults standardUserDefaults] removeObjectForKey:@"fbAppID"];
+	[[NSUserDefaults standardUserDefaults] removeObjectForKey:@"fbUserID"];
+	[[NSUserDefaults standardUserDefaults] removeObjectForKey:@"fbExpirationDate"];
+	[[NSUserDefaults standardUserDefaults] removeObjectForKey:@"fbRefreshDate"];
+	
     
     for (UIViewController * vc in self.childViewControllers) {
         [vc removeFromParentViewController];
