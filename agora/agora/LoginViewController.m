@@ -51,7 +51,8 @@
 
 - (BOOL)userLoggedIn{
     PFUser* cUser = [PFUser currentUser];
-    FBSDKAccessToken* cAccessToken = [FBSDKAccessToken currentAccessToken];
+	FBSDKAccessToken* cAccessToken = [self getFBUserTokenFromDefaults];
+	[FBSDKAccessToken setCurrentAccessToken:cAccessToken];
     NSLog(@"Parse: %@\nFB: %@", cUser, cAccessToken);
     if(cUser && cAccessToken){                                       // Already logged in
         return YES;
@@ -114,6 +115,29 @@
 	}];
 }
 
+- (void)saveFBUserToken{
+	FBSDKAccessToken* fbAccessToken = [FBSDKAccessToken currentAccessToken];
+	[[NSUserDefaults standardUserDefaults] setObject:[fbAccessToken tokenString] forKey:@"fbTokenString"];
+	[[NSUserDefaults standardUserDefaults] setObject:[[fbAccessToken permissions] allObjects] forKey:@"fbPermissions"];
+	[[NSUserDefaults standardUserDefaults] setObject:[[fbAccessToken declinedPermissions] allObjects] forKey:@"fbDeclinedPermissions"];
+	[[NSUserDefaults standardUserDefaults] setObject:[fbAccessToken appID] forKey:@"fbAppID"];
+	[[NSUserDefaults standardUserDefaults] setObject:[fbAccessToken userID] forKey:@"fbUserID"];
+	[[NSUserDefaults standardUserDefaults] setObject:[fbAccessToken expirationDate] forKey:@"fbExpirationDate"];
+	[[NSUserDefaults standardUserDefaults] setObject:[fbAccessToken refreshDate] forKey:@"fbRefreshDate"];
+}
+
+- (FBSDKAccessToken*)getFBUserTokenFromDefaults{
+	NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
+	FBSDKAccessToken* token = [[FBSDKAccessToken alloc] initWithTokenString:[defaults objectForKey:@"fbTokenString"]
+																permissions:[defaults objectForKey:@"fbPermissions"]
+														declinedPermissions:[defaults objectForKey:@"fbDeclinedPermissions"]
+																	  appID:[defaults objectForKey:@"fbAppID"]
+																	 userID:[defaults objectForKey:@"fbAppID"]
+															 expirationDate:[defaults objectForKey:@"fbExpirationDate"]
+																refreshDate:[defaults objectForKey:@"fbRefreshDate"]];
+	return token;
+}
+
 - (void)logInViewController:(PFLogInViewController *)controller didLogInUser:(PFUser *)user {
     if([user isNew]){
         FBSDKGraphRequest *request = [[FBSDKGraphRequest alloc] initWithGraphPath:@"me" parameters:nil];
@@ -126,7 +150,9 @@
             }
         }];
     }
-
+	
+	NSLog(@"Logged in\nParse: %@\nFB: %@", [PFUser currentUser], [FBSDKAccessToken currentAccessToken]);
+	[self saveFBUserToken];
 	[self checkUserPermissions];
 	[[self loginDelegate] loginViewController:self didLogin:YES];
 }

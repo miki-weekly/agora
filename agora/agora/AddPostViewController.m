@@ -99,12 +99,16 @@
 											 selector:@selector(keyboardWillBeHidden:)
 												 name:UIKeyboardWillHideNotification
 											   object:nil];
+	UITapGestureRecognizer *gestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(hideKeyboard)];
+	[self.scrollView addGestureRecognizer:gestureRecognizer];
+	gestureRecognizer.cancelsTouchesInView = NO;
 }
 
 - (void)viewDidDisappear:(BOOL)animated{
 	[[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardDidShowNotification object:nil];
 	[[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillHideNotification object:nil];
 }
+
 - (void)setUpEditting{
     Post* post = [self editingPost];
 	[[self mainImage] setImage:[post headerPhoto]];
@@ -240,6 +244,7 @@ int color;
 }
 
 - (IBAction)pressedCancel:(id)sender {
+	
     if(![self editingPost]){
         [[self delgate] addPostController:self didFinishWithPost:nil];
     }else{
@@ -257,6 +262,10 @@ int color;
 - (IBAction)removeImageFromArray:(UIButton*)sender{
 	[[self secondaryPictures] removeObjectAtIndex:[sender tag]];
 	[[self collectionView] reloadData];
+}
+
+- (void)hideKeyboard {
+	[self.descriptionTextView resignFirstResponder];
 }
 
 #pragma mark - Text Field
