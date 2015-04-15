@@ -23,4 +23,8 @@
 @property NSString *creatorFacebookId;
 @property NSArray *photosArray; //Array of UIImages
 
+@property NSString* fbPostID;
+
+- (NSString*)postToFacebook;
+
 @end

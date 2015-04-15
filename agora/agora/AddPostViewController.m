@@ -240,6 +240,9 @@ int color;
                 // TODO: failed update
             }
         }];
+		
+		// TODO: setting to post to facebook or not
+		[post postToFacebook];
     }
 }
 

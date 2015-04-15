@@ -66,6 +66,8 @@
     [self reloadPost];
     [self setUpButtons];
     [self setUpFBSeller];
+	
+	//[post postToFacebook];
 }
 
 - (void)viewDidAppear:(BOOL)animated{
@@ -131,7 +133,7 @@
                 if(i == 0)
                     mutualText = [mutualText stringByAppendingFormat:@" including %@", friendName];
                 else if(i == ([mutualFriends count]-1))
-                    mutualText = [mutualText stringByAppendingFormat:@" and %@,", friendName];
+                    mutualText = [mutualText stringByAppendingFormat:@" and %@", friendName];
                 else
                     mutualText = [mutualText stringByAppendingFormat:@" %@,", friendName];
             }
