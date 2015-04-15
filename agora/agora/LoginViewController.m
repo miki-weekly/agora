@@ -9,6 +9,7 @@
 #import "LoginViewController.h"
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
 #import <ParseFacebookUtilsV4/PFFacebookUtils.h>
+#import "UIColor+AGColors.h"
 
 @interface LoginViewController ()
 
@@ -33,12 +34,17 @@
     
     // TODO: Configure Login here, Set logo?
     //UIImageView *logoView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"logo.png"]];
+    CGFloat screenWidth = [UIScreen mainScreen].bounds.size.width;
+    CGFloat screenHeight = [UIScreen mainScreen].bounds.size.height;
+    CGFloat logoWidth = screenWidth*0.8;
+    CGFloat logoHeight = screenHeight*0.1;
     
-    UILabel * agora = [[UILabel alloc]initWithFrame:CGRectMake(10.0, 200.0, 300.0, 70.0)];
-    agora.textAlignment = NSTextAlignmentCenter;
-    [agora setFont:[UIFont systemFontOfSize:60.0]];
-    [agora setText:@"Agora"];
     
+    
+    UIImageView * agora = [[UIImageView alloc]initWithFrame:CGRectMake((screenWidth-logoWidth)/2,(screenHeight - logoHeight)/3, logoWidth, logoHeight)];
+    //[agora setBackgroundColor:[UIColor fashColor]];
+    [agora setImage:[UIImage imageNamed:@"Full_Logo"]];
+    [agora setContentMode:UIViewContentModeScaleAspectFit];
     self.logInView.logo = NULL;
     [self.logInView addSubview:agora];
 }
