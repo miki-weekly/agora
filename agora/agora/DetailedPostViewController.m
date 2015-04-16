@@ -66,8 +66,6 @@
     [self reloadPost];
     [self setUpButtons];
     [self setUpFBSeller];
-	
-	//[post postToFacebook];
 }
 
 - (void)viewDidAppear:(BOOL)animated{
@@ -151,10 +149,11 @@
 
 - (void)setPostDetails{
     if(![post headerPhoto]){
-        [ParseInterface getHeaderPhoto:post.objectId completion:^(UIImage *result) {
+        [ParseInterface getHeaderPhotoForPost:post completion:^(UIImage *result) {
             post.headerPhoto = result;
             [[self mainImageView] setImage:post.headerPhoto];
             [[self mainImageIndicator] stopAnimating];
+			[post postToFacebook];
         }];
     }else{
         [[self mainImageView] setImage:post.headerPhoto];

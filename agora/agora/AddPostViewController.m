@@ -212,6 +212,9 @@ int color;
 
         [ParseInterface saveNewPostToParse:post completion:^(BOOL succeeded){
             if(succeeded){
+				// TODO: setting to post to facebook or not
+				[post postToFacebook];
+				
                 [[self activitySpinner] stopAnimating];
                 [[self delgate] addPostController:self didFinishWithPost:post];
             }else{
@@ -240,9 +243,6 @@ int color;
                 // TODO: failed update
             }
         }];
-		
-		// TODO: setting to post to facebook or not
-		[post postToFacebook];
     }
 }
 

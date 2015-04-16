@@ -43,10 +43,18 @@
     if (post.price != nil) {
         parsePost[@"price"] = post.price;
     }
-    
+	
     [parsePost saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-        if(block)
-            block(succeeded);
+		
+		if(!error && succeeded){
+			[post setObjectId:[parsePost objectId]];
+			
+			if(block){
+				block(succeeded);
+			}
+		}else{
+			NSLog(@"%@", error);
+		}
     }];
 }
 
@@ -171,11 +179,11 @@ NS_INLINE void forceImageDecompression(UIImage *image) {
     CFRelease(context);
 }
 
-+(void) getHeaderPhoto: (NSString*) object_id completion: (void(^)(UIImage* result))block; {
++(void) getHeaderPhotoForPost: (Post*) post completion: (void(^)(UIImage* result))block; {
     PFQuery* query = [PFQuery queryWithClassName:@"Posts"];
     [query selectKeys:@[@"picture"]];
     
-    [query getObjectInBackgroundWithId:object_id block:^(PFObject *object, NSError *error) {
+    [query getObjectInBackgroundWithId:[post objectId] block:^(PFObject *object, NSError *error) {
         PFFile* file = [object objectForKey:@"picture"];
         NSMutableArray* container = [[NSMutableArray alloc] init];
         dispatch_group_t group = dispatch_group_create();
@@ -184,6 +192,7 @@ NS_INLINE void forceImageDecompression(UIImage *image) {
         dispatch_group_async(group, bg_queue, ^{
             if(block){
                 UIImage* image = [UIImage imageWithData:[file getData]];
+				[post setHeaderPhotoURL:[file url]];
                 forceImageDecompression(image);
                 [container addObject:image];
             }

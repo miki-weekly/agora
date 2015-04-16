@@ -52,15 +52,14 @@
     
     Post* postForCell = [self.postsArray
                          objectAtIndex:indexPath.row];
-        
-    //[[tableCell image] setImage:[postForCell thumbnail]];
+
     tableCell.categoryBar.backgroundColor = [UIColor catColor:postForCell.category];
 	tableCell.title.text = [postForCell title];
 	
     tableCell.image.contentMode = UIViewContentModeScaleAspectFill;
     tableCell.image.clipsToBounds = YES;
 	if(![postForCell thumbnail]){
-		[ParseInterface getHeaderPhoto:postForCell.objectId completion:^(UIImage *result) {
+		[ParseInterface getThumbnail:[postForCell objectId] completion:^(UIImage *result) {
 			tableCell.image.image = result;
 		}];
 	}else{
@@ -76,7 +75,6 @@
     DetailedPostViewController* detailPostView = [story instantiateViewControllerWithIdentifier:@"DetailedVC"];
     Post* postForPath = [[self postsArray] objectAtIndex:indexPath.row];
     
-    postForPath = [ParseInterface getFromParseIndividual:postForPath.objectId];
     [detailPostView setPost:postForPath];
     
     [[self navigationController] pushViewController:detailPostView animated:YES];

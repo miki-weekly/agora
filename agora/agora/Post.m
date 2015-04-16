@@ -7,24 +7,46 @@
 //
 
 #import "Post.h"
+#import "ParseInterface.h"
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
 
 @implementation Post : NSObject
 
-- (NSString*)postToFacebook{
+- (void)postToFacebook{
 	if([self fbPostID])
-		return nil;
+		return;
+	
 	NSString* message = [NSString stringWithFormat:@"%@ - $%@\n\n%@", [self title], [self price], [self itemDescription]];
-	NSDictionary *params = @{@"message": message,
-							 @"source": [UIImage imageNamed:@"Test"],};
-	
-	FBSDKGraphRequest* request = [[FBSDKGraphRequest alloc] initWithGraphPath:@"/1571489843128589/feed" parameters:params HTTPMethod:@"POST"];
-	[request startWithCompletionHandler:^(FBSDKGraphRequestConnection *connection, NSDictionary* result, NSError *error) {
-		[self setFbPostID:[result objectForKey:@"id"]];
+	// TODO: UGGLY COOOOODEEEEE
+	if(![self headerPhotoURL]){
+		[ParseInterface getHeaderPhotoForPost:self completion:^(UIImage *result) {
+			NSDictionary *params = @{@"message": message,
+									 @"url": [self headerPhotoURL],};
+			
+			FBSDKGraphRequest* request = [[FBSDKGraphRequest alloc] initWithGraphPath:@"/1571489843128589/photos" parameters:params HTTPMethod:@"POST"];
+			[request startWithCompletionHandler:^(FBSDKGraphRequestConnection *connection, NSDictionary* result, NSError *error) {
+				if(!error)
+					[self setFbPostID:[result objectForKey:@"id"]];
+				else
+					NSLog(@"%@", error);
+			}];
+
+		}];
+	}else{
+		NSDictionary *params = @{@"message": message,
+								 @"url": [self headerPhotoURL],};
 		
-	}];
+		FBSDKGraphRequest* request = [[FBSDKGraphRequest alloc] initWithGraphPath:@"/1571489843128589/photos" parameters:params HTTPMethod:@"POST"];
+		[request startWithCompletionHandler:^(FBSDKGraphRequestConnection *connection, NSDictionary* result, NSError *error) {
+			if(!error)
+				[self setFbPostID:[result objectForKey:@"id"]];
+			else
+				NSLog(@"%@", error);
+		}];
+
+	}
+
 	
-	return  @"";
 }
 
 @end
