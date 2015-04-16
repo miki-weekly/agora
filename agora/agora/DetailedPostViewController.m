@@ -152,9 +152,7 @@
         [ParseInterface getHeaderPhotoForPost:post completion:^(UIImage *result) {
             post.headerPhoto = result;
             [[self mainImageView] setImage:post.headerPhoto];
-            [[self mainImageIndicator] stopAnimating];
-			[post postToFacebook];
-        }];
+            [[self mainImageIndicator] stopAnimating];        }];
     }else{
         [[self mainImageView] setImage:post.headerPhoto];
         [[self mainImageIndicator] stopAnimating];
