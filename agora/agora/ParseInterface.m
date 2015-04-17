@@ -120,7 +120,7 @@
         [query setLimit:20];
         [query includeKey:@"createdBy"];
         [query selectKeys: [ParseInterface browseKeyArray]];
-        [query orderByAscending:@"createdAt"];
+        [query orderByDescending:@"createdAt"];
         
     } else if ([parameter isEqual:@"USER"]) { //Getting the user's posts
         [query whereKey:@"createdBy" equalTo:[PFUser currentUser]];

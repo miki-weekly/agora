@@ -10,8 +10,7 @@
 #import <QuartzCore/QuartzCore.h>
 #import <ParseFacebookUtilsV4/PFFacebookUtils.h>
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
-#import <FBSDKCoreKit/FBSDKAppLinkResolver.h>
-#import <Bolts/Bolts.h>
+//#import <FBSDKCoreKit/FBSDKAppLinkResolver.h>
 
 #import "UIColor+AGColors.h"
 #import "UILabel+FormattedText.h"
@@ -210,12 +209,12 @@
 
 - (IBAction)clickedFBSellerName:(id)sender {
     // Open seller's facebook page
-	NSString*fburl = @"https://www.facebook.com/app_scoped_user_id/956635704369806/";
-	BFTask* task = [[FBSDKAppLinkResolver resolver] appLinkFromURLInBackground:[NSURL URLWithString:fburl]];
+	//NSString*fburl = @"https://www.facebook.com/app_scoped_user_id/956635704369806/";
+	/*BFTask* task = [[FBSDKAppLinkResolver resolver] appLinkFromURLInBackground:[NSURL URLWithString:fburl]];
 	[task continueWithBlock:^id(BFTask *task) {
 		
 		return @"";
-	}];
+	}];*/
 	
     NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"fb://profile/%@", [post creatorFacebookId]]];
     [[UIApplication sharedApplication] openURL:url];
