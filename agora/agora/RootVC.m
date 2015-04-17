@@ -419,7 +419,6 @@ int count;
     [request startWithCompletionHandler:^(FBSDKGraphRequestConnection *connection, id result, NSError *error) {
         if (!error) {
             self.name.text = result[@"name"];
-            self.name.text = [self.name.text stringByAppendingString:@"  |"];
         }
     }];
     
@@ -432,37 +431,54 @@ int count;
     [self.buttonView addSubview:view];
     
     CGFloat h = view.frame.size.height;
+    CGFloat w = view.frame.size.width;
     
     
-    self.profPic = [[FBSDKProfilePictureView alloc]initWithFrame:CGRectMake(20, 0, h, h)];
+    // profile picture
+    self.profPic = [[FBSDKProfilePictureView alloc]initWithFrame:CGRectMake(10, 0, h, h)];
     [self.profPic setProfileID:[[PFUser currentUser] objectForKey:@"facebookId"]];
     [self.profPic.layer setBorderWidth:2.0];
     [self.profPic.layer setCornerRadius:h/2];
     [self.profPic.layer setMasksToBounds:YES];
     [view addSubview:self.profPic];
     
-    self.name = [[UILabel alloc]initWithFrame:CGRectMake(70, 0, 100, view.frame.size.height)];
+    
+    // name label
+    self.name = [[UILabel alloc]initWithFrame:CGRectMake(60, 0, 100, view.frame.size.height)];
     FBSDKGraphRequest * request = [[FBSDKGraphRequest alloc]initWithGraphPath:[[PFUser currentUser] objectForKey:@"facebookId"] parameters:NULL];
     [request startWithCompletionHandler:^(FBSDKGraphRequestConnection *connection, id result, NSError *error) {
         if (!error) {
             self.name.text = result[@"name"];
-            self.name.text = [self.name.text stringByAppendingString:@"  |"];
+            [self.name setFont:[UIFont systemFontOfSize:15.0]];
         }
     }];
-    
-    
-    
     [self.name setFont:[UIFont systemFontOfSize:15.0]];
     [self.name setTextColor:[UIColor whiteColor]];
     [view addSubview:self.name];
     
     
-    UIButton * logMeOut = [[UIButton alloc] initWithFrame:CGRectMake(160, 0, 150, view.frame.size.height)];
+    
+    
+    
+    // log out button
+    CGFloat logoutW = 150;
+    UIButton * logMeOut = [[UIButton alloc] initWithFrame:CGRectMake(w-logoutW-10, 0, logoutW, view.frame.size.height)];
+    //[logMeOut setBackgroundColor:[UIColor fashColor]];
+    //[logMeOut sizeToFit];
+    logMeOut.center = CGPointMake(w*(3.0/4.0), h/2.0);
     [logMeOut setTitle:@"Log Out" forState:UIControlStateNormal];
     [logMeOut setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [logMeOut.titleLabel setFont:[UIFont systemFontOfSize:15.0]];
     [logMeOut addTarget:self action:@selector(clickLogOut:) forControlEvents:UIControlEventTouchUpInside];
-    
     [view addSubview:logMeOut];
+    
+    // vertical bar dividing name and log out button
+    CGFloat divWidth = 4.0;
+    UILabel * divider = [[UILabel alloc] initWithFrame:CGRectMake((w/2.0)-divWidth/2, 0, divWidth, h)];
+    divider.text = @"|";
+    [divider setFont:[UIFont systemFontOfSize:26.0]];
+    [divider setTextColor:[UIColor whiteColor]];
+    [view addSubview:divider];
     
 }
 
