@@ -10,6 +10,7 @@
 #import "AddPostViewCell.h"
 #import "RootVC.h"
 #import "UIColor+AGColors.h"
+#import <QuartzCore/QuartzCore.h>
 
 @interface AddPostViewController () <UIActionSheetDelegate>
 
@@ -191,8 +192,28 @@ int color;
 
 - (IBAction)postToParse:(id)sender {
     // TODO: do checks on if required feilds are enter, secondary pics
-	if([[[self titleTextField] text] isEqualToString:@""] || [[[[self categoryButton] titleLabel] text] isEqualToString:@"Select"])
+    if([[[self titleTextField] text] isEqualToString:@""]){
+        NSLog(@"no title");
         return;
+    }
+    
+    if([[[[self categoryButton] titleLabel] text] isEqualToString:@"Select"]){
+        NSLog(@"no category");
+        return;
+    }
+    
+    if([self.priceTextField.text isEqualToString:@""]){
+        NSLog(@"no price");
+        return;
+    }
+    
+    CGImageRef cgref = self.mainImage.image.CGImage;
+    CIImage *cim = self.mainImage.image.CIImage;
+    
+    if (cim == nil && cgref == NULL){
+        NSLog(@"no main image");
+        return;
+    }
 	
 	[[self scrollView] setUserInteractionEnabled:NO];
     [[self activitySpinner] startAnimating];
@@ -212,6 +233,9 @@ int color;
 
         [ParseInterface saveNewPostToParse:post completion:^(BOOL succeeded){
             if(succeeded){
+				// TODO: setting to post to facebook or not
+				[post postToFacebook];
+				
                 [[self activitySpinner] stopAnimating];
                 [[self delgate] addPostController:self didFinishWithPost:post];
             }else{

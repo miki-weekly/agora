@@ -18,9 +18,16 @@
 @property NSString *objectId;
 @property NSArray *stringTags; //Array of strings
 @property NSNumber *price;
-@property UIImage *headerPhoto;
-@property UIImage *thumbnail;
+
 @property NSString *creatorFacebookId;
+@property NSString* fbPostID;
+
+@property UIImage *thumbnail;
+@property UIImage *headerPhoto;
 @property NSArray *photosArray; //Array of UIImages
+
+@property NSString *headerPhotoURL;
+
+- (void)postToFacebook;
 
 @end

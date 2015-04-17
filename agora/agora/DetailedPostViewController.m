@@ -10,8 +10,7 @@
 #import <QuartzCore/QuartzCore.h>
 #import <ParseFacebookUtilsV4/PFFacebookUtils.h>
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
-#import <FBSDKCoreKit/FBSDKAppLinkResolver.h>
-#import <Bolts/Bolts.h>
+//#import <FBSDKCoreKit/FBSDKAppLinkResolver.h>
 
 #import "UIColor+AGColors.h"
 #import "UILabel+FormattedText.h"
@@ -131,7 +130,7 @@
                 if(i == 0)
                     mutualText = [mutualText stringByAppendingFormat:@" including %@", friendName];
                 else if(i == ([mutualFriends count]-1))
-                    mutualText = [mutualText stringByAppendingFormat:@" and %@,", friendName];
+                    mutualText = [mutualText stringByAppendingFormat:@" and %@", friendName];
                 else
                     mutualText = [mutualText stringByAppendingFormat:@" %@,", friendName];
             }
@@ -149,11 +148,10 @@
 
 - (void)setPostDetails{
     if(![post headerPhoto]){
-        [ParseInterface getHeaderPhoto:post.objectId completion:^(UIImage *result) {
+        [ParseInterface getHeaderPhotoForPost:post completion:^(UIImage *result) {
             post.headerPhoto = result;
             [[self mainImageView] setImage:post.headerPhoto];
-            [[self mainImageIndicator] stopAnimating];
-        }];
+            [[self mainImageIndicator] stopAnimating];        }];
     }else{
         [[self mainImageView] setImage:post.headerPhoto];
         [[self mainImageIndicator] stopAnimating];
@@ -211,12 +209,12 @@
 
 - (IBAction)clickedFBSellerName:(id)sender {
     // Open seller's facebook page
-	NSString*fburl = @"https://www.facebook.com/app_scoped_user_id/956635704369806/";
-	BFTask* task = [[FBSDKAppLinkResolver resolver] appLinkFromURLInBackground:[NSURL URLWithString:fburl]];
+	//NSString*fburl = @"https://www.facebook.com/app_scoped_user_id/956635704369806/";
+	/*BFTask* task = [[FBSDKAppLinkResolver resolver] appLinkFromURLInBackground:[NSURL URLWithString:fburl]];
 	[task continueWithBlock:^id(BFTask *task) {
 		
 		return @"";
-	}];
+	}];*/
 	
     NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"fb://profile/%@", [post creatorFacebookId]]];
     [[UIApplication sharedApplication] openURL:url];
