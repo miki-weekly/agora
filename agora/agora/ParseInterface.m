@@ -68,7 +68,14 @@
             NSLog(@"OBJECT FOUND");
             NSData *image = UIImageJPEGRepresentation(post.headerPhoto, 1.0);
             PFFile *imageFile = [PFFile fileWithData:image];
-            
+			
+			NSMutableArray *PFFileArray = [NSMutableArray array];
+			for (UIImage *image in post.photosArray) {
+				NSData *imageData = UIImageJPEGRepresentation(image, 1.0);
+				[PFFileArray addObject:[PFFile fileWithData: imageData]];
+			}
+			
+			object[@"pictures"] = PFFileArray;
             [object setObject: post.title forKey:@"title"];
             [object setObject: post.itemDescription forKey:@"description"];
             [object setObject: post.category forKey:@"category"];

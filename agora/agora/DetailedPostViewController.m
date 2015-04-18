@@ -10,8 +10,6 @@
 #import <QuartzCore/QuartzCore.h>
 #import <ParseFacebookUtilsV4/PFFacebookUtils.h>
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
-//#import <FBSDKCoreKit/FBSDKAppLinkResolver.h>
-
 #import "UIColor+AGColors.h"
 #import "UILabel+FormattedText.h"
 
@@ -252,6 +250,7 @@
     UICollectionViewCell* postCell = [collectionView dequeueReusableCellWithReuseIdentifier:@"imageCell" forIndexPath:indexPath];
 	
     UIImageView* imageView = (UIImageView*)[postCell viewWithTag:1];
+	[imageView setContentMode:UIViewContentModeScaleAspectFill];
     [imageView setImage:[[post photosArray] objectAtIndex:[indexPath row]]];
     
     return postCell;

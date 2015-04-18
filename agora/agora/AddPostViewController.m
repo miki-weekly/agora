@@ -120,7 +120,10 @@
     [[self titleTextField] setText:[post title]];
     [[self priceTextField] setText:[[post price] stringValue]];
     [[self categoryButton] setTitle:[post category] forState:UIControlStateNormal];
+	[[self categoryButton] setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+	[self presentCategorySelection];
     [[self descriptionTextView] setText:[post itemDescription]];
+	[[self descriptionTextView] setTextColor:[UIColor blackColor]];
     [self setSecondaryPictures:[[NSMutableArray alloc] initWithArray:[post photosArray]]];
 }
 
@@ -485,6 +488,7 @@ int color;
     if([indexPath row] != [[self secondaryPictures] count]){
         AddPostViewCell* imageCell = [collectionView dequeueReusableCellWithReuseIdentifier:@"imageCell" forIndexPath:indexPath];
 		NSInteger row = [indexPath row];
+		[imageCell setContentMode:UIViewContentModeScaleAspectFill];
         [[imageCell cellImage] setImage:[[self secondaryPictures] objectAtIndex:[indexPath row]]];
 		[[imageCell removeButton] setTag:row];
 		[[imageCell removeButton] addTarget:self action:@selector(removeImageFromArray:) forControlEvents:UIControlEventTouchDown];
