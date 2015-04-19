@@ -31,22 +31,19 @@
     [super viewDidLoad];
     
     [[self view] setBackgroundColor:[UIColor whiteColor]];
-    
-    // TODO: Configure Login here, Set logo?
-    //UIImageView *logoView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"logo.png"]];
+
     CGFloat screenWidth = [UIScreen mainScreen].bounds.size.width;
     CGFloat screenHeight = [UIScreen mainScreen].bounds.size.height;
     CGFloat logoWidth = screenWidth*0.8;
-    CGFloat logoHeight = screenHeight*0.1;
-    
-    
-    
-    UIImageView * agora = [[UIImageView alloc]initWithFrame:CGRectMake((screenWidth-logoWidth)/2,(screenHeight - logoHeight)/3, logoWidth, logoHeight)];
-    //[agora setBackgroundColor:[UIColor fashColor]];
-    [agora setImage:[UIImage imageNamed:@"Full_Logo"]];
-    [agora setContentMode:UIViewContentModeScaleAspectFit];
-    self.logInView.logo = NULL;
-    [self.logInView addSubview:agora];
+    CGFloat logoHeight = screenHeight*0.8;
+	
+	UIImageView *logoView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"Icon_no_bg"]];
+	CGRect logoFrame = CGRectMake((screenWidth-logoWidth)/2,(screenHeight - logoHeight)/3, logoWidth, logoHeight);
+	logoView.frame = logoFrame;
+	[logoView setContentMode:UIViewContentModeScaleAspectFit];
+
+	self.logInView.logo = nil;
+	[self.logInView addSubview:logoView];
 }
 
 - (void)viewDidAppear:(BOOL)animated{
