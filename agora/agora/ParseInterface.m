@@ -45,6 +45,9 @@
     if (post.price != nil) {
         parsePost[@"price"] = post.price;
     }
+    if (post.fbPostID != nil) {
+        parsePost[@"FBPostId"] = post.fbPostID;
+    }
 	
     [parsePost saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
 		
@@ -117,6 +120,7 @@
     post.objectId = [object objectId];
     post.creatorFacebookId = [user objectForKey:@"facebookId"];
     post.createdBy = [user objectForKey:@"createdBy"];
+    post.fbPostID = [object objectForKey:@"FBPostId"];
     
     return post;
 }
@@ -160,7 +164,8 @@
                 post.category = [object objectForKey:@"category"];
                 post.objectId = object.objectId;
                 post.creatorFacebookId = [user objectForKey:@"facebookId"];
-                
+                post.fbPostID = [object objectForKey:@"FBPostId"];
+
                 [postArray addObject:post];
             }
         });
