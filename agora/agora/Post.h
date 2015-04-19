@@ -19,6 +19,7 @@
 @property NSArray *stringTags; //Array of strings
 @property NSNumber *price;
 
+@property PFUser *createdBy;
 @property NSString *creatorFacebookId;
 @property NSString* fbPostID;
 

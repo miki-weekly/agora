@@ -44,11 +44,11 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-	
-	_statusBarBack = [[UIView alloc] initWithFrame:[[UIApplication sharedApplication] statusBarFrame]];
-	[[_statusBarBack layer] setBackgroundColor:[[[UIColor indigoColor] colorWithAlphaComponent:0.8f] CGColor]];
-	[[self view] addSubview:_statusBarBack];
-	
+    
+    _statusBarBack = [[UIView alloc] initWithFrame:[[UIApplication sharedApplication] statusBarFrame]];
+    [[_statusBarBack layer] setBackgroundColor:[[[UIColor indigoColor] colorWithAlphaComponent:0.8f] CGColor]];
+    [[self view] addSubview:_statusBarBack];
+    
     [[self scrollView] setContentSize:[[UIScreen mainScreen] bounds].size];
     
     [[self mainImage] setContentMode:UIViewContentModeScaleAspectFill];
@@ -70,57 +70,60 @@
     
     [self setupSelectButton:self.categoryButton];
     self.catColors = @{@"Tech":[UIColor techColor],@"Home":[UIColor homeColor],@"Fashion":[UIColor fashColor],@"Education":[UIColor eduColor],@"Misc":[UIColor miscColor]};
-	/*
-	CALayer* removeMainLayer = [[self removeMainImageButton] layer];
-	[removeMainLayer setCornerRadius:[[self mainImage] frame].size.height/2];
-	[removeMainLayer setMasksToBounds:YES];
-	[removeMainLayer setBorderColor:[[UIColor blackColor] CGColor]];
-	[removeMainLayer setBorderWidth:2];*/
-	
+    /*
+     CALayer* removeMainLayer = [[self removeMainImageButton] layer];
+     [removeMainLayer setCornerRadius:[[self mainImage] frame].size.height/2];
+     [removeMainLayer setMasksToBounds:YES];
+     [removeMainLayer setBorderColor:[[UIColor blackColor] CGColor]];
+     [removeMainLayer setBorderWidth:2];*/
+    
     if([self editingPost]){
         [self setUpEditting];
         [[self addButton] setTitle:@"Save" forState:UIControlStateNormal];
-	}else{
-		[[self removeMainImageButton] setHidden:YES];
-	}
+    }else{
+        [[self removeMainImageButton] setHidden:YES];
+    }
 }
 
 - (void)viewWillAppear:(BOOL)animated{
-	if(![self imagePickerController]){
-		[self setImagePickerController:[[UIImagePickerController alloc] init]];
-		[[self imagePickerController] setDelegate:self];
+    if(![self imagePickerController]){
+        [self setImagePickerController:[[UIImagePickerController alloc] init]];
+        [[self imagePickerController] setDelegate:self];
     }
-	
-	[[NSNotificationCenter defaultCenter] addObserver:self
-											 selector:@selector(keyboardDidShow:)
-												 name:UIKeyboardDidShowNotification
-											   object:nil];
-	
-	[[NSNotificationCenter defaultCenter] addObserver:self
-											 selector:@selector(keyboardWillBeHidden:)
-												 name:UIKeyboardWillHideNotification
-											   object:nil];
-	UITapGestureRecognizer *gestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(hideKeyboard)];
-	[self.scrollView addGestureRecognizer:gestureRecognizer];
-	gestureRecognizer.cancelsTouchesInView = NO;
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(keyboardDidShow:)
+                                                 name:UIKeyboardDidShowNotification
+                                               object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(keyboardWillBeHidden:)
+                                                 name:UIKeyboardWillHideNotification
+                                               object:nil];
+    UITapGestureRecognizer *gestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(hideKeyboard)];
+    [self.scrollView addGestureRecognizer:gestureRecognizer];
+    gestureRecognizer.cancelsTouchesInView = NO;
 }
 
 - (void)viewDidDisappear:(BOOL)animated{
-	[[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardDidShowNotification object:nil];
-	[[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillHideNotification object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardDidShowNotification object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillHideNotification object:nil];
 }
 
 - (void)setUpEditting{
     Post* post = [self editingPost];
-	[[self mainImage] setImage:[post headerPhoto]];
-	[[self modifyMainImageButton] setTitle:@"" forState:UIControlStateNormal];
-	[[self removeMainImageButton] setEnabled:YES];
-	
-	[[self titleTextField] setTextColor:[UIColor blackColor]];
+    [[self mainImage] setImage:[post headerPhoto]];
+    [[self modifyMainImageButton] setTitle:@"" forState:UIControlStateNormal];
+    [[self removeMainImageButton] setEnabled:YES];
+    
+    [[self titleTextField] setTextColor:[UIColor blackColor]];
     [[self titleTextField] setText:[post title]];
     [[self priceTextField] setText:[[post price] stringValue]];
     [[self categoryButton] setTitle:[post category] forState:UIControlStateNormal];
+    [[self categoryButton] setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    [self presentCategorySelection];
     [[self descriptionTextView] setText:[post itemDescription]];
+    [[self descriptionTextView] setTextColor:[UIColor blackColor]];
     [self setSecondaryPictures:[[NSMutableArray alloc] initWithArray:[post photosArray]]];
 }
 
@@ -144,23 +147,23 @@ int color;
     UIColor * newColor = self.catColors[newCat];
     [self.categoryButton.layer setBorderColor:newColor.CGColor];
     [self.categoryButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-	
-	// also change statusBarBackground
-	[UIView animateWithDuration:0.5
-						  delay:0.0
-						options: UIViewAnimationOptionCurveEaseOut
-					 animations:^{
-						 [[_statusBarBack layer] setBackgroundColor:[[newColor colorWithAlphaComponent:0.8f] CGColor]];
-					 }
-					 completion:^(BOOL finished){}];
+    
+    // also change statusBarBackground
+    [UIView animateWithDuration:0.5
+                          delay:0.0
+                        options: UIViewAnimationOptionCurveEaseOut
+                     animations:^{
+                         [[_statusBarBack layer] setBackgroundColor:[[newColor colorWithAlphaComponent:0.8f] CGColor]];
+                     }
+                     completion:^(BOOL finished){}];
     color++;
     if (color == 5) {
         color = 0;
-	}else if(color == 1){	// if color is yellow, set black statusbar
-		[[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault animated:YES];
-	}else{
-		[[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent animated:YES];
-	}
+    }else if(color == 1){	// if color is yellow, set black statusbar
+        [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault animated:YES];
+    }else{
+        [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent animated:YES];
+    }
 }
 
 -(void)dismissCategoryVCWithSelection:(NSString *)cat {
@@ -170,20 +173,20 @@ int color;
 #pragma mark - IB Actions
 
 - (IBAction)selectMainImage:(id)sender {
-	UIActionSheet *popup = [[UIActionSheet alloc] initWithTitle:@"Select an Image Source:" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:	@"Camera",
-							@"Photo Library",
-							nil];
-	popup.tag = 1;
-	[popup showInView:[UIApplication sharedApplication].keyWindow];
-	
-	[self setSelectingHeadImage:YES];
+    UIActionSheet *popup = [[UIActionSheet alloc] initWithTitle:@"Select an Image Source:" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:	@"Camera",
+                            @"Photo Library",
+                            nil];
+    popup.tag = 1;
+    [popup showInView:[UIApplication sharedApplication].keyWindow];
+    
+    [self setSelectingHeadImage:YES];
 }
 - (IBAction)addSecondaryImage:(id)sender {
-	UIActionSheet *popup = [[UIActionSheet alloc] initWithTitle:@"Select an Image Source:" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:	@"Camera",
-							@"Photo Library",
-							nil];
-	popup.tag = 1;
-	[popup showInView:[UIApplication sharedApplication].keyWindow];
+    UIActionSheet *popup = [[UIActionSheet alloc] initWithTitle:@"Select an Image Source:" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:	@"Camera",
+                            @"Photo Library",
+                            nil];
+    popup.tag = 1;
+    [popup showInView:[UIApplication sharedApplication].keyWindow];
 }
 
 - (IBAction)selectCatagory:(id)sender {
@@ -192,19 +195,49 @@ int color;
 
 - (IBAction)postToParse:(id)sender {
     // TODO: do checks on if required feilds are enter, secondary pics
+    
+    bool text = true, category = true, price = true, mainImg = true;
+    
     if([[[self titleTextField] text] isEqualToString:@""]){
         NSLog(@"no title");
-        return;
+        [UIView animateWithDuration:.1
+                         animations:^{
+                             [_titleTextField setBackgroundColor:[[UIColor redColor] colorWithAlphaComponent:0.3]];
+                         } completion:^(BOOL finished) {
+                             [UIView animateWithDuration:.7
+                                              animations:^{
+                                                  [_titleTextField setBackgroundColor:[UIColor whiteColor]];
+                                              }];
+                         }];
+        text = false;
     }
     
     if([[[[self categoryButton] titleLabel] text] isEqualToString:@"Select"]){
         NSLog(@"no category");
-        return;
+        [UIView animateWithDuration:.1
+                         animations:^{
+                             [_categoryButton setBackgroundColor:[[UIColor redColor] colorWithAlphaComponent:0.3]];
+                         } completion:^(BOOL finished) {
+                             [UIView animateWithDuration:.7
+                                              animations:^{
+                                                  [_categoryButton setBackgroundColor:[UIColor whiteColor]];
+                                              }];
+                         }];
+        category = false;
     }
     
     if([self.priceTextField.text isEqualToString:@""]){
         NSLog(@"no price");
-        return;
+        [UIView animateWithDuration:.1
+                         animations:^{
+                             [_priceTextField setBackgroundColor:[[UIColor redColor] colorWithAlphaComponent:0.3]];
+                         } completion:^(BOOL finished) {
+                             [UIView animateWithDuration:.7
+                                              animations:^{
+                                                  [_priceTextField setBackgroundColor:[UIColor whiteColor]];
+                                              }];
+                         }];
+        price = false;
     }
     
     CGImageRef cgref = self.mainImage.image.CGImage;
@@ -212,30 +245,43 @@ int color;
     
     if (cim == nil && cgref == NULL){
         NSLog(@"no main image");
+        [UIView animateWithDuration:.1
+                         animations:^{
+                             [_mainImage setBackgroundColor:[[UIColor redColor] colorWithAlphaComponent:0.3]];
+                         } completion:^(BOOL finished) {
+                             [UIView animateWithDuration:.7
+                                              animations:^{
+                                                  [_mainImage setBackgroundColor:[UIColor whiteColor]];
+                                              }];
+                         }];
+        mainImg = false;
+    }
+    
+    if (!text || !category || !price || !mainImg){
         return;
     }
-	
-	[[self scrollView] setUserInteractionEnabled:NO];
+    
+    [[self scrollView] setUserInteractionEnabled:NO];
     [[self activitySpinner] startAnimating];
-	if(![self editingPost]){
-		Post* post = [[Post alloc] init];
-		
-		[post setTitle:[[self titleTextField] text]];
-		[post setItemDescription:[[self descriptionTextView] text]];
-		[post setCategory:[[[self categoryButton] titleLabel] text]];
-		[post setStringTags:@[@"[]"]];
-		[post setHeaderPhoto:[[self mainImage] image]];
-		[post setCreatorFacebookId:[[PFUser currentUser] objectForKey:@"facebookId"]];
-		[post setPhotosArray:[self secondaryPictures]];
-		
-		NSString* price = [[[self priceTextField] text] stringByReplacingOccurrencesOfString:@"$" withString:@""];
-		[post setPrice:[NSNumber numberWithDouble:[price doubleValue]]];
-
+    if(![self editingPost]){
+        Post* post = [[Post alloc] init];
+        
+        [post setTitle:[[self titleTextField] text]];
+        [post setItemDescription:[[self descriptionTextView] text]];
+        [post setCategory:[[[self categoryButton] titleLabel] text]];
+        [post setStringTags:@[@"[]"]];
+        [post setHeaderPhoto:[[self mainImage] image]];
+        [post setCreatorFacebookId:[[PFUser currentUser] objectForKey:@"facebookId"]];
+        [post setPhotosArray:[self secondaryPictures]];
+        
+        NSString* price = [[[self priceTextField] text] stringByReplacingOccurrencesOfString:@"$" withString:@""];
+        [post setPrice:[NSNumber numberWithDouble:[price doubleValue]]];
+        
         [ParseInterface saveNewPostToParse:post completion:^(BOOL succeeded){
             if(succeeded){
-				// TODO: setting to post to facebook or not
-				[post postToFacebook];
-				
+                // TODO: setting to post to facebook or not
+                [post postToFacebook];
+                
                 [[self activitySpinner] stopAnimating];
                 [[self delgate] addPostController:self didFinishWithPost:post];
             }else{
@@ -243,18 +289,18 @@ int color;
             }
         }];
     }else{
-		// TODO: Centralized Post (shorten Code)
-		Post* post = [self editingPost];
-		[post setTitle:[[self titleTextField] text]];
-		[post setItemDescription:[[self descriptionTextView] text]];
-		[post setCategory:[[[self categoryButton] titleLabel] text]];
-		[post setStringTags:@[@"[]"]];
-		[post setHeaderPhoto:[[self mainImage] image]];
-		[post setPhotosArray:[self secondaryPictures]];
-		
-		NSString* price = [[[self priceTextField] text] stringByReplacingOccurrencesOfString:@"$" withString:@""];
-		[post setPrice:[NSNumber numberWithDouble:[price doubleValue]]];
-		
+        // TODO: Centralized Post (shorten Code)
+        Post* post = [self editingPost];
+        [post setTitle:[[self titleTextField] text]];
+        [post setItemDescription:[[self descriptionTextView] text]];
+        [post setCategory:[[[self categoryButton] titleLabel] text]];
+        [post setStringTags:@[@"[]"]];
+        [post setHeaderPhoto:[[self mainImage] image]];
+        [post setPhotosArray:[self secondaryPictures]];
+        
+        NSString* price = [[[self priceTextField] text] stringByReplacingOccurrencesOfString:@"$" withString:@""];
+        [post setPrice:[NSNumber numberWithDouble:[price doubleValue]]];
+        
         [ParseInterface updateParsePost:post completion:^(BOOL succeeded) {
             if(succeeded){
                 // TODO: Splash screen succeded or not
@@ -268,7 +314,7 @@ int color;
 }
 
 - (IBAction)pressedCancel:(id)sender {
-	
+    
     if(![self editingPost]){
         [[self delgate] addPostController:self didFinishWithPost:nil];
     }else{
@@ -276,20 +322,20 @@ int color;
     }
 }
 - (IBAction)removeMainImage:(id)sender {
-	[[self mainImage] setImage:nil];
-	
-	[[self removeMainImageButton] setHidden:YES];
-	[[self removeMainImageButton] setEnabled:NO];
-	[[self modifyMainImageButton] setTitle:@"📷+" forState:UIControlStateNormal];
+    [[self mainImage] setImage:nil];
+    
+    [[self removeMainImageButton] setHidden:YES];
+    [[self removeMainImageButton] setEnabled:NO];
+    [[self modifyMainImageButton] setTitle:@"📷+" forState:UIControlStateNormal];
 }
 
 - (IBAction)removeImageFromArray:(UIButton*)sender{
-	[[self secondaryPictures] removeObjectAtIndex:[sender tag]];
-	[[self collectionView] reloadData];
+    [[self secondaryPictures] removeObjectAtIndex:[sender tag]];
+    [[self collectionView] reloadData];
 }
 
 - (void)hideKeyboard {
-	[self.descriptionTextView resignFirstResponder];
+    [self.descriptionTextView resignFirstResponder];
 }
 
 #pragma mark - Text Field
@@ -298,7 +344,7 @@ int color;
     NSDictionary* info = [notification userInfo];
     CGRect kbRect = [[info objectForKey:UIKeyboardFrameBeginUserInfoKey] CGRectValue];
     kbRect = [self.view convertRect:kbRect fromView:nil];
-
+    
     UIEdgeInsets contentInsets = UIEdgeInsetsMake(0.0, 0.0, kbRect.size.height, 0.0);
     self.scrollView.contentInset = contentInsets;
     self.scrollView.scrollIndicatorInsets = contentInsets;
@@ -318,16 +364,16 @@ int color;
 
 - (IBAction)textFieldDidBeginEditing:(UITextField *)sender {
     [self setActiveField:sender];
-	
-	if(sender == [self priceTextField])
-		[[self priceTextField] setText:[[[self priceTextField] text] stringByReplacingOccurrencesOfString:@"$" withString:@""]];
+    
+    if(sender == [self priceTextField])
+        [[self priceTextField] setText:[[[self priceTextField] text] stringByReplacingOccurrencesOfString:@"$" withString:@""]];
 }
 
 - (IBAction)textFieldDidEndEditing:(UITextField *)sender {
     [self setActiveField:nil];
-	
-	if(sender == [self priceTextField] && ![[[self priceTextField] text] isEqualToString:@""])
-		[[self priceTextField] setText:[@"$" stringByAppendingString:[[self priceTextField] text]]];
+    
+    if(sender == [self priceTextField] && ![[[self priceTextField] text] isEqualToString:@""])
+        [[self priceTextField] setText:[@"$" stringByAppendingString:[[self priceTextField] text]]];
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField{
@@ -337,57 +383,57 @@ int color;
 
 // http://stackoverflow.com/questions/27308595/how-do-you-dynamically-format-a-number-to-have-commas-in-a-uitextfield-entry
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
-	if(textField != [self priceTextField]) return YES; // only moderate the priceLabel
-	if([[textField text] length] > 6 && ![string isEqualToString:@""]) return NO;
-	
-	if (([string isEqualToString:@"0"] || [string isEqualToString:@""]) && [textField.text rangeOfString:@"."].location < range.location) {
-		return YES;
-	}
-	
-	// First check whether the replacement string's numeric...
-	NSCharacterSet *cs = [[NSCharacterSet characterSetWithCharactersInString:@"0123456789"] invertedSet];
-	NSString *filtered = [[string componentsSeparatedByCharactersInSet:cs] componentsJoinedByString:@""];
-	bool isNumeric = [string isEqualToString:filtered];
-	
-	// Then if the replacement string's numeric, or if it's
-	// a backspace, or if it's a decimal point and the text
-	// field doesn't already contain a decimal point,
-	// reformat the new complete number using
-	// NSNumberFormatterDecimalStyle
-	if (isNumeric ||
-		[string isEqualToString:@""] ||
-		([string isEqualToString:@"."] &&
-		 [textField.text rangeOfString:@"."].location == NSNotFound)) {
-			
-			// Create the decimal style formatter
-			NSNumberFormatter *formatter = [[NSNumberFormatter alloc] init];
-			[formatter setNumberStyle:NSNumberFormatterDecimalStyle];
-			[formatter setMaximumFractionDigits:10];
-			
-			// Combine the new text with the old; then remove any
-			// commas from the textField before formatting
-			NSString *combinedText = [textField.text stringByReplacingCharactersInRange:range withString:string];
-			NSString *numberWithoutCommas = [combinedText stringByReplacingOccurrencesOfString:@"," withString:@""];
-			NSNumber *number = [formatter numberFromString:numberWithoutCommas];
-			
-			NSString *formattedString = [formatter stringFromNumber:number];
-			
-			// If the last entry was a decimal or a zero after a decimal,
-			// re-add it here because the formatter will naturally remove
-			// it.
-			if ([string isEqualToString:@"."] &&
-				range.location == textField.text.length) {
-				formattedString = [formattedString stringByAppendingString:@"."];
-			}
-			
-			textField.text = formattedString;
-			
-		}
-	
-	// Return no, because either the replacement string is not
-	// valid or it is and the textfield has already been updated
-	// accordingly
-	return NO;
+    if(textField != [self priceTextField]) return YES; // only moderate the priceLabel
+    if([[textField text] length] > 6 && ![string isEqualToString:@""]) return NO;
+    
+    if (([string isEqualToString:@"0"] || [string isEqualToString:@""]) && [textField.text rangeOfString:@"."].location < range.location) {
+        return YES;
+    }
+    
+    // First check whether the replacement string's numeric...
+    NSCharacterSet *cs = [[NSCharacterSet characterSetWithCharactersInString:@"0123456789"] invertedSet];
+    NSString *filtered = [[string componentsSeparatedByCharactersInSet:cs] componentsJoinedByString:@""];
+    bool isNumeric = [string isEqualToString:filtered];
+    
+    // Then if the replacement string's numeric, or if it's
+    // a backspace, or if it's a decimal point and the text
+    // field doesn't already contain a decimal point,
+    // reformat the new complete number using
+    // NSNumberFormatterDecimalStyle
+    if (isNumeric ||
+        [string isEqualToString:@""] ||
+        ([string isEqualToString:@"."] &&
+         [textField.text rangeOfString:@"."].location == NSNotFound)) {
+            
+            // Create the decimal style formatter
+            NSNumberFormatter *formatter = [[NSNumberFormatter alloc] init];
+            [formatter setNumberStyle:NSNumberFormatterDecimalStyle];
+            [formatter setMaximumFractionDigits:10];
+            
+            // Combine the new text with the old; then remove any
+            // commas from the textField before formatting
+            NSString *combinedText = [textField.text stringByReplacingCharactersInRange:range withString:string];
+            NSString *numberWithoutCommas = [combinedText stringByReplacingOccurrencesOfString:@"," withString:@""];
+            NSNumber *number = [formatter numberFromString:numberWithoutCommas];
+            
+            NSString *formattedString = [formatter stringFromNumber:number];
+            
+            // If the last entry was a decimal or a zero after a decimal,
+            // re-add it here because the formatter will naturally remove
+            // it.
+            if ([string isEqualToString:@"."] &&
+                range.location == textField.text.length) {
+                formattedString = [formattedString stringByAppendingString:@"."];
+            }
+            
+            textField.text = formattedString;
+            
+        }
+    
+    // Return no, because either the replacement string is not
+    // valid or it is and the textfield has already been updated
+    // accordingly
+    return NO;
 }
 
 #pragma mark - Text View
@@ -420,28 +466,28 @@ int color;
 #pragma mark - UIActionSheetDelegate
 
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex{
-	switch(actionSheet.tag){
-		case 1:{
-				switch (buttonIndex){
-					case 0:		// Camera
-						[[self imagePickerController] setSourceType:UIImagePickerControllerSourceTypeCamera];
-						[self presentViewController:[self imagePickerController] animated:YES completion:nil];
-						[[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent animated:YES];
-						break;
-					case 1:		// Photo Library
-						[[self imagePickerController] setSourceType:UIImagePickerControllerSourceTypePhotoLibrary];
-						[self presentViewController:[self imagePickerController] animated:YES completion:nil];
-						[[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent animated:YES];
-						break;
-					default:
-						break;
-				}
-				break;
-			}
-			break;
-		default:
-			break;
-	}
+    switch(actionSheet.tag){
+        case 1:{
+            switch (buttonIndex){
+                case 0:		// Camera
+                    [[self imagePickerController] setSourceType:UIImagePickerControllerSourceTypeCamera];
+                    [self presentViewController:[self imagePickerController] animated:YES completion:nil];
+                    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent animated:YES];
+                    break;
+                case 1:		// Photo Library
+                    [[self imagePickerController] setSourceType:UIImagePickerControllerSourceTypePhotoLibrary];
+                    [self presentViewController:[self imagePickerController] animated:YES completion:nil];
+                    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent animated:YES];
+                    break;
+                default:
+                    break;
+            }
+            break;
+        }
+            break;
+        default:
+            break;
+    }
 }
 
 #pragma mark - UIImagePickerController
@@ -454,10 +500,10 @@ int color;
     if([self selectingHeadImage]){
         [[self mainImage] setImage:image];
         [self setSelectingHeadImage:NO];
-		[[self removeMainImageButton] setHidden:NO];
-		[[self removeMainImageButton] setEnabled:YES];
-		[[self modifyMainImageButton] setTitle:@"" forState:UIControlStateNormal];
-	}else{
+        [[self removeMainImageButton] setHidden:NO];
+        [[self removeMainImageButton] setEnabled:YES];
+        [[self modifyMainImageButton] setTitle:@"" forState:UIControlStateNormal];
+    }else{
         [[self secondaryPictures] addObject:image];
         [[self collectionView] reloadData];
     }
@@ -481,19 +527,20 @@ int color;
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
-	UICollectionViewCell* cell;
+    UICollectionViewCell* cell;
     if([indexPath row] != [[self secondaryPictures] count]){
         AddPostViewCell* imageCell = [collectionView dequeueReusableCellWithReuseIdentifier:@"imageCell" forIndexPath:indexPath];
-		NSInteger row = [indexPath row];
+        NSInteger row = [indexPath row];
+        [imageCell setContentMode:UIViewContentModeScaleAspectFill];
         [[imageCell cellImage] setImage:[[self secondaryPictures] objectAtIndex:[indexPath row]]];
-		[[imageCell removeButton] setTag:row];
-		[[imageCell removeButton] addTarget:self action:@selector(removeImageFromArray:) forControlEvents:UIControlEventTouchDown];
-		
-		return imageCell;
+        [[imageCell removeButton] setTag:row];
+        [[imageCell removeButton] addTarget:self action:@selector(removeImageFromArray:) forControlEvents:UIControlEventTouchDown];
+        
+        return imageCell;
     }else{
         cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"addCell" forIndexPath:indexPath];
     }
-
+    
     return cell;
 }
 

@@ -178,21 +178,24 @@
     }else{
         [[postCell imageView] setImage:[postForCell thumbnail]];
     }
-   
-    
+
     [postCell.gradient setBackgroundColor:[UIColor clearColor]];
     if ([postCell.gradient.layer.sublayers count] == 0) {
         [self addGradientBGForView:postCell.gradient];
     }
-    
-    [postCell.contentView bringSubviewToFront:postCell.titleLabel];
     
     return postCell;
 }
 
 - (void) addGradientBGForView:(UIView*) view {
     CAGradientLayer * gradient = [CAGradientLayer layer];
-    gradient.frame = view.bounds;
+	
+	// TODO: Bug were gradientFrame does not match Story board
+	CGRect frame = view.bounds;
+	frame.size.height = 35.0f;
+	gradient.frame = frame;
+	
+	//NSLog(@"%f, %f", gradient.frame.size.height, frame.size.height);
     gradient.colors = [NSArray arrayWithObjects:(id)[[UIColor blackColor] colorWithAlphaComponent:0.1].CGColor, [[UIColor blackColor] colorWithAlphaComponent:0.8].CGColor, nil];
     gradient.startPoint = CGPointMake(0.5, 0.0);
     gradient.endPoint = CGPointMake(0.5, 1.0);

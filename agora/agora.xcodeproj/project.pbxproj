@@ -51,6 +51,13 @@
 		AD958F541AA5994500ABCFB3 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AD958F531AA5994500ABCFB3 /* AudioToolbox.framework */; };
 		AD958F561AA5997600ABCFB3 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AD958F551AA5997600ABCFB3 /* SystemConfiguration.framework */; };
 		AD958F581AA599C800ABCFB3 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AD958F571AA599C800ABCFB3 /* MobileCoreServices.framework */; };
+		AD99EDA81ADDF9910017A1C7 /* Message.m in Sources */ = {isa = PBXBuildFile; fileRef = AD99EDA71ADDF9910017A1C7 /* Message.m */; };
+		AD99EDAB1ADDFB270017A1C7 /* Conversation.m in Sources */ = {isa = PBXBuildFile; fileRef = AD99EDAA1ADDFB270017A1C7 /* Conversation.m */; };
+		AD9A76A01AD8A24400BB2C23 /* libicucore.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = AD9A769F1AD8A24400BB2C23 /* libicucore.dylib */; };
+		AD9A76A21AD8A25000BB2C23 /* libc++.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = AD9A76A11AD8A25000BB2C23 /* libc++.dylib */; };
+		AD9A76A41AD8A26200BB2C23 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AD9A76A31AD8A26200BB2C23 /* CFNetwork.framework */; };
+		AD9A76A61AD8A27600BB2C23 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AD9A76A51AD8A27600BB2C23 /* Security.framework */; };
+		AD9A76A71AD8A49700BB2C23 /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0BE047281AD8502300949C69 /* Bolts.framework */; };
 		ADA500F11ABF6E7C000D6D9E /* Post.m in Sources */ = {isa = PBXBuildFile; fileRef = ADA500F01ABF6E7C000D6D9E /* Post.m */; };
 /* End PBXBuildFile section */
 
@@ -137,6 +144,14 @@
 		AD958F531AA5994500ABCFB3 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		AD958F551AA5997600ABCFB3 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		AD958F571AA599C800ABCFB3 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
+		AD99EDA61ADDF9910017A1C7 /* Message.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Message.h; sourceTree = "<group>"; };
+		AD99EDA71ADDF9910017A1C7 /* Message.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Message.m; sourceTree = "<group>"; };
+		AD99EDA91ADDFB270017A1C7 /* Conversation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Conversation.h; sourceTree = "<group>"; };
+		AD99EDAA1ADDFB270017A1C7 /* Conversation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Conversation.m; sourceTree = "<group>"; };
+		AD9A769F1AD8A24400BB2C23 /* libicucore.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libicucore.dylib; path = usr/lib/libicucore.dylib; sourceTree = SDKROOT; };
+		AD9A76A11AD8A25000BB2C23 /* libc++.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libc++.dylib"; path = "usr/lib/libc++.dylib"; sourceTree = SDKROOT; };
+		AD9A76A31AD8A26200BB2C23 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
+		AD9A76A51AD8A27600BB2C23 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		ADA500F01ABF6E7C000D6D9E /* Post.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Post.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -285,10 +300,14 @@
 		9EFE8A821AB7C454000018F7 /* Data */ = {
 			isa = PBXGroup;
 			children = (
+				AD99EDA61ADDF9910017A1C7 /* Message.h */,
+				AD99EDA71ADDF9910017A1C7 /* Message.m */,
 				0BA532451AB7CCB000A730C6 /* ParseInterface.h */,
 				0BA532461AB7CCB000A730C6 /* ParseInterface.m */,
 				9EFE8A7A1AB7B819000018F7 /* Post.h */,
 				ADA500F01ABF6E7C000D6D9E /* Post.m */,
+				AD99EDA91ADDFB270017A1C7 /* Conversation.h */,
+				AD99EDAA1ADDFB270017A1C7 /* Conversation.m */,
 			);
 			name = Data;
 			sourceTree = "<group>";
@@ -484,6 +503,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				AAA611B91AD9076000535A7E /* ChatVC.m in Sources */,
+				AD99EDA81ADDF9910017A1C7 /* Message.m in Sources */,
 				0BC0256B1ABB3ECB0076A09B /* DetailedPostViewController.m in Sources */,
 				AA8F662D1A8EA73700CA4604 /* AppDelegate.m in Sources */,
 				0BA532411AB7CC6000A730C6 /* LoginViewController.m in Sources */,
@@ -503,6 +523,7 @@
 				AA49384A1AD21470000FCC9B /* UIImage+ImageEffects.m in Sources */,
 				AAA611BC1AD9085F00535A7E /* SettingsVC.m in Sources */,
 				AA8F662A1A8EA73700CA4604 /* main.m in Sources */,
+				AD99EDAB1ADDFB270017A1C7 /* Conversation.m in Sources */,
 				AA4938531AD24C9F000FCC9B /* ManageTableVC.m in Sources */,
 				AA4938501AD24C51000FCC9B /* slideItemTVC.m in Sources */,
 				0BC025681ABB2E390076A09B /* PostCollectionViewCell.m in Sources */,
