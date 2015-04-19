@@ -14,7 +14,7 @@
 @implementation ParseInterface
 
 + (NSArray*) browseKeyArray {
-    return @[@"objectId", @"title", @"category", @"price", @"createdBy", @"description"];
+    return @[@"objectId", @"title", @"category", @"price", @"createdBy", @"description", @"FBPostId"];
 }
 
 + (void) saveNewPostToParse: (Post*) post completion:(void (^)(BOOL succeeded))block{
@@ -88,7 +88,8 @@
             [object setObject: post.stringTags forKey:@"tags"];
             [object setObject: post.price forKey:@"price"];
             [object setObject: [PFUser currentUser] forKey:@"createdBy"];
-            
+			object[@"FBPostId"] = post.fbPostID;
+			
             [object saveInBackground];
             NSLog(@"OBJECT UPDATED!");
             if(block)
