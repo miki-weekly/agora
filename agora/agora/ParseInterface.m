@@ -293,14 +293,11 @@ NS_INLINE void forceImageDecompression(UIImage *image) {
             
             if ([object objectForKey:@"Recipient"] != [PFUser currentUser]) {
                 conversation.recipient = [object objectForKey:@"Recipient"];
-                conversation.selfFaceBookId = [[object objectForKey:@"Seller"] objectForKey:@"facebookId"];
             } else {
                 conversation.recipient = [object objectForKey:@"Seller"];
-                conversation.selfFaceBookId = [[object objectForKey:@"Recipient"] objectForKey:@"facebookId"];
             }
             conversation.objectId = [object objectForKey:@"objectId"];
             conversation.post = [object objectForKey:@"Post"];
-            conversation.recipientFaceBookId = [[conversation recipient] objectForKey:@"facebookId"];
             [conversationArray addObject:conversation];
         }
         block(conversationArray);
