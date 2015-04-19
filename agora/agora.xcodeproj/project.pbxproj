@@ -29,6 +29,8 @@
 		9E2DA4371AD3705400296C34 /* ManageTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E2DA4361AD3705400296C34 /* ManageTableViewCell.m */; };
 		9EFE8A881AB7CED1000018F7 /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9EFE8A831AB7C475000018F7 /* Social.framework */; };
 		9EFE8A8A1AB7CF4C000018F7 /* Accounts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9EFE8A891AB7CF4C000018F7 /* Accounts.framework */; };
+		AA3DA6651AE1E42800847C18 /* ConversationVC.m in Sources */ = {isa = PBXBuildFile; fileRef = AA3DA6641AE1E42800847C18 /* ConversationVC.m */; };
+		AA3DA6681AE1E9CA00847C18 /* MessageView.m in Sources */ = {isa = PBXBuildFile; fileRef = AA3DA6671AE1E9CA00847C18 /* MessageView.m */; };
 		AA49384A1AD21470000FCC9B /* UIImage+ImageEffects.m in Sources */ = {isa = PBXBuildFile; fileRef = AA4938491AD21470000FCC9B /* UIImage+ImageEffects.m */; };
 		AA49384D1AD215D9000FCC9B /* UILabel+FormattedText.m in Sources */ = {isa = PBXBuildFile; fileRef = AA49384B1AD215D9000FCC9B /* UILabel+FormattedText.m */; };
 		AA4938501AD24C51000FCC9B /* slideItemTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = AA49384F1AD24C51000FCC9B /* slideItemTVC.m */; };
@@ -95,6 +97,10 @@
 		9EFE8A7A1AB7B819000018F7 /* Post.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Post.h; sourceTree = "<group>"; };
 		9EFE8A831AB7C475000018F7 /* Social.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Social.framework; path = System/Library/Frameworks/Social.framework; sourceTree = SDKROOT; };
 		9EFE8A891AB7CF4C000018F7 /* Accounts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accounts.framework; path = System/Library/Frameworks/Accounts.framework; sourceTree = SDKROOT; };
+		AA3DA6631AE1E42800847C18 /* ConversationVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConversationVC.h; sourceTree = "<group>"; };
+		AA3DA6641AE1E42800847C18 /* ConversationVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConversationVC.m; sourceTree = "<group>"; };
+		AA3DA6661AE1E9CA00847C18 /* MessageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessageView.h; sourceTree = "<group>"; };
+		AA3DA6671AE1E9CA00847C18 /* MessageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessageView.m; sourceTree = "<group>"; };
 		AA4938481AD21470000FCC9B /* UIImage+ImageEffects.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+ImageEffects.h"; sourceTree = "<group>"; };
 		AA4938491AD21470000FCC9B /* UIImage+ImageEffects.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+ImageEffects.m"; sourceTree = "<group>"; };
 		AA49384B1AD215D9000FCC9B /* UILabel+FormattedText.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UILabel+FormattedText.m"; sourceTree = "<group>"; };
@@ -121,8 +127,8 @@
 		AA8F663D1A8EA73700CA4604 /* agoraTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = agoraTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		AA8F66421A8EA73700CA4604 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		AA8F66431A8EA73700CA4604 /* agoraTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = agoraTests.m; sourceTree = "<group>"; };
-		AAA611B71AD9076000535A7E /* ChatVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChatVC.h; sourceTree = "<group>"; };
-		AAA611B81AD9076000535A7E /* ChatVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChatVC.m; sourceTree = "<group>"; };
+		AAA611B71AD9076000535A7E /* ChatVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ChatVC.h; path = agora/ChatVC.h; sourceTree = "<group>"; };
+		AAA611B81AD9076000535A7E /* ChatVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ChatVC.m; path = agora/ChatVC.m; sourceTree = "<group>"; };
 		AAA611BA1AD9085F00535A7E /* SettingsVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsVC.h; sourceTree = "<group>"; };
 		AAA611BB1AD9085F00535A7E /* SettingsVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsVC.m; sourceTree = "<group>"; };
 		AAF958D01AD3B9FE00C1C7D5 /* UIButton+FormatText.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIButton+FormatText.h"; sourceTree = "<group>"; };
@@ -271,8 +277,7 @@
 				AA4938521AD24C9F000FCC9B /* ManageTableVC.m */,
 				0BA5323C1AB7CC6000A730C6 /* BrowseCollectionViewController.h */,
 				0BA5323D1AB7CC6000A730C6 /* BrowseCollectionViewController.m */,
-				AAA611B71AD9076000535A7E /* ChatVC.h */,
-				AAA611B81AD9076000535A7E /* ChatVC.m */,
+				AA3DA6691AE4536200847C18 /* Chat */,
 			);
 			name = "View Controllers";
 			sourceTree = "<group>";
@@ -286,6 +291,20 @@
 				ADA500F01ABF6E7C000D6D9E /* Post.m */,
 			);
 			name = Data;
+			sourceTree = "<group>";
+		};
+		AA3DA6691AE4536200847C18 /* Chat */ = {
+			isa = PBXGroup;
+			children = (
+				AAA611B71AD9076000535A7E /* ChatVC.h */,
+				AAA611B81AD9076000535A7E /* ChatVC.m */,
+				AA3DA6631AE1E42800847C18 /* ConversationVC.h */,
+				AA3DA6641AE1E42800847C18 /* ConversationVC.m */,
+				AA3DA6661AE1E9CA00847C18 /* MessageView.h */,
+				AA3DA6671AE1E9CA00847C18 /* MessageView.m */,
+			);
+			name = Chat;
+			path = ..;
 			sourceTree = "<group>";
 		};
 		AA87F4881ACF4E5800AA6AB1 /* Categories */ = {
@@ -471,6 +490,7 @@
 				AAF958D21AD3B9FE00C1C7D5 /* UIButton+FormatText.m in Sources */,
 				AA5A86941ACA09C0005DAF4A /* SlideItemVC.m in Sources */,
 				0BC025641ABB27860076A09B /* AddPostViewController.m in Sources */,
+				AA3DA6681AE1E9CA00847C18 /* MessageView.m in Sources */,
 				0BCC9C551ACFAA8A00A75108 /* AddPostButton.m in Sources */,
 				AA49384D1AD215D9000FCC9B /* UILabel+FormattedText.m in Sources */,
 				AA5A869D1ACA572B005DAF4A /* SlideItemCVC.m in Sources */,
@@ -487,6 +507,7 @@
 				AA4938501AD24C51000FCC9B /* slideItemTVC.m in Sources */,
 				0BC025681ABB2E390076A09B /* PostCollectionViewCell.m in Sources */,
 				AA87F4871ACF4C1900AA6AB1 /* UIColor+AGColors.m in Sources */,
+				AA3DA6651AE1E42800847C18 /* ConversationVC.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
