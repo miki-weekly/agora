@@ -21,6 +21,7 @@
 @property UIImage *headerPhoto;
 @property UIImage *thumbnail;
 @property NSString *creatorFacebookId;
+@property PFUser *createdBy;
 @property NSArray *photosArray; //Array of UIImages
 
 @end
