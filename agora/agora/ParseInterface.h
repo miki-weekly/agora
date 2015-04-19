@@ -19,7 +19,7 @@
     + (Post*) getFromParseIndividual: (NSString*) object_id ;
     + (void) getFromParse: (NSString*) parameter withSkip: (NSInteger) skip completion:(void (^)(NSArray* result))block;
     + (void) deleteFromParse: (NSString*) object_id;
-    + (void) getHeaderPhoto: (NSString*) object_id completion: (void(^)(UIImage* result))block;
+    + (void) getHeaderPhotoForPost: (Post*)post completion: (void(^)(UIImage* result))block;
     + (void) getThumbnail: (NSString*) object_id completion: (void (^)(UIImage* result))block;
     + (void) getPhotosArrayWithObjectID:(NSString*)objectID completion:(void (^)(NSArray* result))block;
 //Conversations & Messages Parse Interface

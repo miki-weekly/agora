@@ -20,6 +20,7 @@
 		0BC025681ABB2E390076A09B /* PostCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0BC025671ABB2E390076A09B /* PostCollectionViewCell.m */; };
 		0BC0256B1ABB3ECB0076A09B /* DetailedPostViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0BC0256A1ABB3ECB0076A09B /* DetailedPostViewController.m */; };
 		0BCC9C551ACFAA8A00A75108 /* AddPostButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 0BCC9C541ACFAA8A00A75108 /* AddPostButton.m */; };
+		0BDE0BB41AD9D7230007972B /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0BE047281AD8502300949C69 /* Bolts.framework */; };
 		0BF40ABB1ACE215C0034A1E5 /* FBSDKCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0BF40AB81ACE215C0034A1E5 /* FBSDKCoreKit.framework */; };
 		0BF40ABC1ACE215C0034A1E5 /* FBSDKMessengerShareKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0BF40AB91ACE215C0034A1E5 /* FBSDKMessengerShareKit.framework */; };
 		0BF40ABD1ACE215C0034A1E5 /* FBSDKShareKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0BF40ABA1ACE215C0034A1E5 /* FBSDKShareKit.framework */; };
@@ -153,10 +154,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AD9A76A61AD8A27600BB2C23 /* Security.framework in Frameworks */,
-				AD9A76A41AD8A26200BB2C23 /* CFNetwork.framework in Frameworks */,
-				AD9A76A21AD8A25000BB2C23 /* libc++.dylib in Frameworks */,
-				AD9A76A01AD8A24400BB2C23 /* libicucore.dylib in Frameworks */,
+				0BDE0BB41AD9D7230007972B /* Bolts.framework in Frameworks */,
 				0BF40AC31ACE2A9A0034A1E5 /* ParseFacebookUtilsV4.framework in Frameworks */,
 				9EFE8A8A1AB7CF4C000018F7 /* Accounts.framework in Frameworks */,
 				0BF40ABB1ACE215C0034A1E5 /* FBSDKCoreKit.framework in Frameworks */,
@@ -168,7 +166,6 @@
 				0BF40ABC1ACE215C0034A1E5 /* FBSDKMessengerShareKit.framework in Frameworks */,
 				AD958F581AA599C800ABCFB3 /* MobileCoreServices.framework in Frameworks */,
 				AD958F561AA5997600ABCFB3 /* SystemConfiguration.framework in Frameworks */,
-				AD9A76A71AD8A49700BB2C23 /* Bolts.framework in Frameworks */,
 				0BF40ABD1ACE215C0034A1E5 /* FBSDKShareKit.framework in Frameworks */,
 				AD958F541AA5994500ABCFB3 /* AudioToolbox.framework in Frameworks */,
 				0B8996D01ACE1CFB00357EC3 /* ParseUI.framework in Frameworks */,
@@ -250,10 +247,6 @@
 		9EFE8A7F1AB7C3F7000018F7 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				AD9A76A51AD8A27600BB2C23 /* Security.framework */,
-				AD9A76A31AD8A26200BB2C23 /* CFNetwork.framework */,
-				AD9A76A11AD8A25000BB2C23 /* libc++.dylib */,
-				AD9A769F1AD8A24400BB2C23 /* libicucore.dylib */,
 				0BF40AB71ACE213D0034A1E5 /* FacebookSDK */,
 				0B8996C41ACE1CFB00357EC3 /* parse-library-1.7.1 */,
 				9EFE8A891AB7CF4C000018F7 /* Accounts.framework */,
@@ -560,7 +553,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
+				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = NO;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
@@ -604,7 +597,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
+				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = NO;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;

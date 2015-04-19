@@ -9,6 +9,7 @@
 #import "LoginViewController.h"
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
 #import <ParseFacebookUtilsV4/PFFacebookUtils.h>
+#import "UIColor+AGColors.h"
 
 @interface LoginViewController ()
 
@@ -21,23 +22,6 @@
         [self setFields:PFLogInFieldsFacebook];
 		[self setFacebookPermissions:@[@"public_profile", @"user_friends", @"user_education_history", @"user_groups"]];
 		[self setDelegate:self];
-		/*
-		//https://developers.facebook.com/docs/graph-api/reference/v2.3/group/feed
-		// UC Merced Classifieds ID = 246947172002847
-		FBSDKGraphRequest* request = [[FBSDKGraphRequest alloc] initWithGraphPath:@"/246947172002847/feed" parameters:nil];
-		[request startWithCompletionHandler:^(FBSDKGraphRequestConnection *connection, NSDictionary* result, NSError *error) {
-			NSLog(@"%@", result);
-			
-		}];
-		
-		NSDictionary *params = @{@"message": @"test",};
-		
-		request = [[FBSDKGraphRequest alloc] initWithGraphPath:@"/246947172002847/feed" parameters:params HTTPMethod:@"POST"];
-		[request startWithCompletionHandler:^(FBSDKGraphRequestConnection *connection, NSDictionary* result, NSError *error) {
-			NSLog(@"%@", result);
-			
-		}];
-		 */
     }
     
     return self;
@@ -50,12 +34,17 @@
     
     // TODO: Configure Login here, Set logo?
     //UIImageView *logoView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"logo.png"]];
+    CGFloat screenWidth = [UIScreen mainScreen].bounds.size.width;
+    CGFloat screenHeight = [UIScreen mainScreen].bounds.size.height;
+    CGFloat logoWidth = screenWidth*0.8;
+    CGFloat logoHeight = screenHeight*0.1;
     
-    UILabel * agora = [[UILabel alloc]initWithFrame:CGRectMake(10.0, 200.0, 300.0, 70.0)];
-    agora.textAlignment = NSTextAlignmentCenter;
-    [agora setFont:[UIFont systemFontOfSize:60.0]];
-    [agora setText:@"Agora"];
     
+    
+    UIImageView * agora = [[UIImageView alloc]initWithFrame:CGRectMake((screenWidth-logoWidth)/2,(screenHeight - logoHeight)/3, logoWidth, logoHeight)];
+    //[agora setBackgroundColor:[UIColor fashColor]];
+    [agora setImage:[UIImage imageNamed:@"Full_Logo"]];
+    [agora setContentMode:UIViewContentModeScaleAspectFit];
     self.logInView.logo = NULL;
     [self.logInView addSubview:agora];
 }
@@ -68,8 +57,12 @@
 
 - (BOOL)userLoggedIn{
     PFUser* cUser = [PFUser currentUser];
-    FBSDKAccessToken* cAccessToken = [FBSDKAccessToken currentAccessToken];
-    NSLog(@"Parse: %@\nFB: %@", cUser, cAccessToken);
+	FBSDKAccessToken* cAccessToken = [self getFBUserTokenFromDefaults];
+	
+	if(cAccessToken != nil)
+		[FBSDKAccessToken setCurrentAccessToken:cAccessToken];
+	
+    NSLog(@"\nParse:\n%@\nFacebook:\n%@", cUser, cAccessToken);
     if(cUser && cAccessToken){                                       // Already logged in
         return YES;
     }else{
@@ -131,6 +124,33 @@
 	}];
 }
 
+- (void)saveFBUserToken{
+	FBSDKAccessToken* fbAccessToken = [FBSDKAccessToken currentAccessToken];
+	[[NSUserDefaults standardUserDefaults] setObject:[fbAccessToken tokenString] forKey:@"fbTokenString"];
+	[[NSUserDefaults standardUserDefaults] setObject:[[fbAccessToken permissions] allObjects] forKey:@"fbPermissions"];
+	[[NSUserDefaults standardUserDefaults] setObject:[[fbAccessToken declinedPermissions] allObjects] forKey:@"fbDeclinedPermissions"];
+	[[NSUserDefaults standardUserDefaults] setObject:[fbAccessToken appID] forKey:@"fbAppID"];
+	[[NSUserDefaults standardUserDefaults] setObject:[fbAccessToken userID] forKey:@"fbUserID"];
+	[[NSUserDefaults standardUserDefaults] setObject:[fbAccessToken expirationDate] forKey:@"fbExpirationDate"];
+	[[NSUserDefaults standardUserDefaults] setObject:[fbAccessToken refreshDate] forKey:@"fbRefreshDate"];
+}
+
+- (FBSDKAccessToken*)getFBUserTokenFromDefaults{
+	NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
+	
+	FBSDKAccessToken* token = [[FBSDKAccessToken alloc] initWithTokenString:[defaults objectForKey:@"fbTokenString"]
+																permissions:[defaults objectForKey:@"fbPermissions"]
+														declinedPermissions:[defaults objectForKey:@"fbDeclinedPermissions"]
+																	  appID:[defaults objectForKey:@"fbAppID"]
+																	 userID:[defaults objectForKey:@"fbAppID"]
+															 expirationDate:[defaults objectForKey:@"fbExpirationDate"]
+																refreshDate:[defaults objectForKey:@"fbRefreshDate"]];
+	
+	if(![defaults objectForKey:@"fbTokenString"] || [[defaults objectForKey:@"fbExpirationDate"] timeIntervalSinceNow] < 0.0)
+		return nil;
+	return token;
+}
+
 - (void)logInViewController:(PFLogInViewController *)controller didLogInUser:(PFUser *)user {
     if([user isNew]){
         FBSDKGraphRequest *request = [[FBSDKGraphRequest alloc] initWithGraphPath:@"me" parameters:nil];
@@ -143,7 +163,9 @@
             }
         }];
     }
-
+	
+	NSLog(@"Logged in\n%@\n%@", [PFUser currentUser], [FBSDKAccessToken currentAccessToken]);
+	[self saveFBUserToken];
 	[self checkUserPermissions];
 	[[self loginDelegate] loginViewController:self didLogin:YES];
 }

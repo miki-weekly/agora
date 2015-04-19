@@ -45,10 +45,18 @@
     if (post.price != nil) {
         parsePost[@"price"] = post.price;
     }
-    
+	
     [parsePost saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-        if(block)
-            block(succeeded);
+		
+		if(!error && succeeded){
+			[post setObjectId:[parsePost objectId]];
+			
+			if(block){
+				block(succeeded);
+			}
+		}else{
+			NSLog(@"%@", error);
+		}
     }];
 }
 
@@ -62,7 +70,14 @@
             NSLog(@"OBJECT FOUND");
             NSData *image = UIImageJPEGRepresentation(post.headerPhoto, 1.0);
             PFFile *imageFile = [PFFile fileWithData:image];
-            
+			
+			NSMutableArray *PFFileArray = [NSMutableArray array];
+			for (UIImage *image in post.photosArray) {
+				NSData *imageData = UIImageJPEGRepresentation(image, 1.0);
+				[PFFileArray addObject:[PFFile fileWithData: imageData]];
+			}
+			
+			object[@"pictures"] = PFFileArray;
             [object setObject: post.title forKey:@"title"];
             [object setObject: post.itemDescription forKey:@"description"];
             [object setObject: post.category forKey:@"category"];
@@ -115,7 +130,7 @@
         [query setLimit:20];
         [query includeKey:@"createdBy"];
         [query selectKeys: [ParseInterface browseKeyArray]];
-        [query orderByAscending:@"createdAt"];
+        [query orderByDescending:@"createdAt"];
         
     } else if ([parameter isEqual:@"USER"]) { //Getting the user's posts
         [query whereKey:@"createdBy" equalTo:[PFUser currentUser]];
@@ -160,7 +175,7 @@
 + (void) deleteFromParse: (NSString*) object_id {
     PFObject *object = [PFObject objectWithoutDataWithClassName:@"Posts" objectId: object_id];
     
-    [object deleteEventually];
+    [object deleteInBackground];
 }
 
 // http://orion98mc.blogspot.com/2012/08/on-ios-uiimage-decompression-nightmare.html
@@ -174,11 +189,11 @@ NS_INLINE void forceImageDecompression(UIImage *image) {
     CFRelease(context);
 }
 
-+(void) getHeaderPhoto: (NSString*) object_id completion: (void(^)(UIImage* result))block; {
++(void) getHeaderPhotoForPost: (Post*) post completion: (void(^)(UIImage* result))block; {
     PFQuery* query = [PFQuery queryWithClassName:@"Posts"];
     [query selectKeys:@[@"picture"]];
     
-    [query getObjectInBackgroundWithId:object_id block:^(PFObject *object, NSError *error) {
+    [query getObjectInBackgroundWithId:[post objectId] block:^(PFObject *object, NSError *error) {
         PFFile* file = [object objectForKey:@"picture"];
         NSMutableArray* container = [[NSMutableArray alloc] init];
         dispatch_group_t group = dispatch_group_create();
@@ -187,6 +202,7 @@ NS_INLINE void forceImageDecompression(UIImage *image) {
         dispatch_group_async(group, bg_queue, ^{
             if(block){
                 UIImage* image = [UIImage imageWithData:[file getData]];
+				[post setHeaderPhotoURL:[file url]];
                 forceImageDecompression(image);
                 [container addObject:image];
             }

@@ -10,13 +10,14 @@
 #import <QuartzCore/QuartzCore.h>
 #import <ParseFacebookUtilsV4/PFFacebookUtils.h>
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
-
 #import "UIColor+AGColors.h"
 #import "UILabel+FormattedText.h"
 
 #define post [self post]
 
 @interface DetailedPostViewController ()
+
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *editNavigationButton;
 
 @property (weak, nonatomic) IBOutlet UIView *contentView;
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
@@ -52,14 +53,6 @@
     
     [[self mainImageView] setContentMode:UIViewContentModeScaleAspectFill];
     [[self mainImageView] setClipsToBounds:YES];
-    
-    if([[post creatorFacebookId] isEqualToString:[[PFUser currentUser] objectForKey:@"facebookId"]]){
-        UIBarButtonItem* editButton = [[UIBarButtonItem alloc] initWithTitle:@"Edit"
-                                                                       style:UIBarButtonItemStylePlain
-                                                                      target:self
-                                                                       action:@selector(clickedEdit:)];
-        [[self navigationItem] setRightBarButtonItem:editButton];
-    }
     
     [self reloadPost];
     [self setUpButtons];
@@ -119,6 +112,7 @@
     }];
     
     if(!([[post creatorFacebookId] isEqualToString:[[PFUser currentUser] objectForKey:@"facebookId"]])){
+		self.navigationItem.rightBarButtonItem = nil;
         FBSDKGraphRequest *request = [[FBSDKGraphRequest alloc] initWithGraphPath:[post creatorFacebookId] parameters:@{@"fields": @"context.fields(mutual_friends)",} HTTPMethod:@"GET"];
         [request startWithCompletionHandler:^(FBSDKGraphRequestConnection *connection, NSDictionary* result, NSError *error) {
             NSString* mutualText = [NSString stringWithFormat:@"%@ mutual friends", result[@"context"][@"mutual_friends"][@"summary"][@"total_count"]];
@@ -129,7 +123,7 @@
                 if(i == 0)
                     mutualText = [mutualText stringByAppendingFormat:@" including %@", friendName];
                 else if(i == ([mutualFriends count]-1))
-                    mutualText = [mutualText stringByAppendingFormat:@" and %@,", friendName];
+                    mutualText = [mutualText stringByAppendingFormat:@" and %@", friendName];
                 else
                     mutualText = [mutualText stringByAppendingFormat:@" %@,", friendName];
             }
@@ -147,11 +141,10 @@
 
 - (void)setPostDetails{
     if(![post headerPhoto]){
-        [ParseInterface getHeaderPhoto:post.objectId completion:^(UIImage *result) {
+        [ParseInterface getHeaderPhotoForPost:post completion:^(UIImage *result) {
             post.headerPhoto = result;
             [[self mainImageView] setImage:post.headerPhoto];
-            [[self mainImageIndicator] stopAnimating];
-        }];
+            [[self mainImageIndicator] stopAnimating];        }];
     }else{
         [[self mainImageView] setImage:post.headerPhoto];
         [[self mainImageIndicator] stopAnimating];
@@ -209,6 +202,13 @@
 
 - (IBAction)clickedFBSellerName:(id)sender {
     // Open seller's facebook page
+	//NSString*fburl = @"https://www.facebook.com/app_scoped_user_id/956635704369806/";
+	/*BFTask* task = [[FBSDKAppLinkResolver resolver] appLinkFromURLInBackground:[NSURL URLWithString:fburl]];
+	[task continueWithBlock:^id(BFTask *task) {
+		
+		return @"";
+	}];*/
+	
     NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"fb://profile/%@", [post creatorFacebookId]]];
     [[UIApplication sharedApplication] openURL:url];
     if([[UIApplication sharedApplication] canOpenURL:url]){
@@ -245,6 +245,7 @@
     UICollectionViewCell* postCell = [collectionView dequeueReusableCellWithReuseIdentifier:@"imageCell" forIndexPath:indexPath];
 	
     UIImageView* imageView = (UIImageView*)[postCell viewWithTag:1];
+	[imageView setContentMode:UIViewContentModeScaleAspectFill];
     [imageView setImage:[[post photosArray] objectAtIndex:[indexPath row]]];
     
     return postCell;
