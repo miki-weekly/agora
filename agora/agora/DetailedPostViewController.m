@@ -17,6 +17,8 @@
 
 @interface DetailedPostViewController ()
 
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *editNavigationButton;
+
 @property (weak, nonatomic) IBOutlet UIView *contentView;
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
 @property (weak, nonatomic) IBOutlet UIImageView *mainImageView;
@@ -51,14 +53,6 @@
     
     [[self mainImageView] setContentMode:UIViewContentModeScaleAspectFill];
     [[self mainImageView] setClipsToBounds:YES];
-    
-    if([[post creatorFacebookId] isEqualToString:[[PFUser currentUser] objectForKey:@"facebookId"]]){
-        UIBarButtonItem* editButton = [[UIBarButtonItem alloc] initWithTitle:@"Edit"
-                                                                       style:UIBarButtonItemStylePlain
-                                                                      target:self
-                                                                       action:@selector(clickedEdit:)];
-        [[self navigationItem] setRightBarButtonItem:editButton];
-    }
     
     [self reloadPost];
     [self setUpButtons];
@@ -118,6 +112,7 @@
     }];
     
     if(!([[post creatorFacebookId] isEqualToString:[[PFUser currentUser] objectForKey:@"facebookId"]])){
+		self.navigationItem.rightBarButtonItem = nil;
         FBSDKGraphRequest *request = [[FBSDKGraphRequest alloc] initWithGraphPath:[post creatorFacebookId] parameters:@{@"fields": @"context.fields(mutual_friends)",} HTTPMethod:@"GET"];
         [request startWithCompletionHandler:^(FBSDKGraphRequestConnection *connection, NSDictionary* result, NSError *error) {
             NSString* mutualText = [NSString stringWithFormat:@"%@ mutual friends", result[@"context"][@"mutual_friends"][@"summary"][@"total_count"]];

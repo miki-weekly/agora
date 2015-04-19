@@ -172,7 +172,7 @@
 + (void) deleteFromParse: (NSString*) object_id {
     PFObject *object = [PFObject objectWithoutDataWithClassName:@"Posts" objectId: object_id];
     
-    [object deleteEventually];
+    [object deleteInBackground];
 }
 
 // http://orion98mc.blogspot.com/2012/08/on-ios-uiimage-decompression-nightmare.html

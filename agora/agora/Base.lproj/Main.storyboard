@@ -212,7 +212,7 @@
             </objects>
             <point key="canvasLocation" x="2257.5" y="462"/>
         </scene>
-        <!--Detailed Post View Controller-->
+        <!--Title-->
         <scene sceneID="QOJ-na-t22">
             <objects>
                 <viewController storyboardIdentifier="DetailedVC" id="aPy-YZ-LJV" customClass="DetailedPostViewController" sceneMemberID="viewController">
@@ -501,6 +501,16 @@
                             </mask>
                         </variation>
                     </view>
+                    <toolbarItems/>
+                    <navigationItem key="navigationItem" title="Title" id="88y-c3-cTZ">
+                        <barButtonItem key="rightBarButtonItem" title="Edit" id="Zkn-GW-966">
+                            <color key="tintColor" red="1" green="0.49803921569999998" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                            <connections>
+                                <action selector="clickedEdit:" destination="aPy-YZ-LJV" id="FUe-lo-Z8O"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="FBMutualFriendsLabel" destination="JgR-Y2-z4O" id="e1D-nG-TuO"/>
                         <outlet property="FBSellerImageView" destination="anW-xt-eyp" id="fcu-Zd-ZMS"/>
@@ -511,6 +521,7 @@
                         <outlet property="contactButton" destination="09v-wR-mok" id="fV8-lg-Oae"/>
                         <outlet property="contentView" destination="eHA-np-gCH" id="hcA-4c-H6y"/>
                         <outlet property="descriptionTextField" destination="Ub6-jd-DDB" id="3Mc-g7-03q"/>
+                        <outlet property="editNavigationButton" destination="Zkn-GW-966" id="Mu1-pe-Xon"/>
                         <outlet property="mainImageIndicator" destination="uei-e7-Gc2" id="Lkx-iM-8cS"/>
                         <outlet property="mainImageView" destination="BPg-CC-oau" id="ucJ-Mq-Zuc"/>
                         <outlet property="priceLabel" destination="g3A-E8-xuT" id="U4s-py-MZP"/>

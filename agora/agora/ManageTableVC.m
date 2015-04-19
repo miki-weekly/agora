@@ -80,4 +80,21 @@
     [[self navigationController] pushViewController:detailPostView animated:YES];
 }
 
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath{
+	if(editingStyle == UITableViewCellEditingStyleDelete){
+		[self removeObjectFromListAtIndex:indexPath];
+		[tableView beginUpdates];
+		
+		[tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
+		
+		[tableView endUpdates];
+	}
+}
+
+- (void)removeObjectFromListAtIndex:(NSIndexPath *)indexPath{
+	Post* postToDelete = [[self postsArray] objectAtIndex:[indexPath row]];
+	[ParseInterface deleteFromParse:[postToDelete objectId]];
+	[[self postsArray] removeObjectAtIndex:[indexPath row]];
+}
+
 @end
