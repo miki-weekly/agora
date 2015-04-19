@@ -25,9 +25,11 @@
 			
 			FBSDKGraphRequest* request = [[FBSDKGraphRequest alloc] initWithGraphPath:@"/1571489843128589/photos" parameters:params HTTPMethod:@"POST"];
 			[request startWithCompletionHandler:^(FBSDKGraphRequestConnection *connection, NSDictionary* result, NSError *error) {
-				if(!error)
-					[self setFbPostID:[result objectForKey:@"id"]];
-				else
+				if(!error){
+					[self setFbPostID:[result objectForKey:@"post_id"]];
+					[ParseInterface updateParsePost:self completion:^(BOOL succeeded) {
+					}];
+				}else
 					NSLog(@"%@", error);
 			}];
 
@@ -44,6 +46,7 @@
 				NSLog(@"%@", error);
 		}];
 	}
+	
 }
 
 - (void)deletePost{
