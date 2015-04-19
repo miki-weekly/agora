@@ -43,10 +43,18 @@
 			else
 				NSLog(@"%@", error);
 		}];
-
 	}
+}
 
+- (void)deletePost{
+	if([self fbPostID]){
+		FBSDKGraphRequest* request = [[FBSDKGraphRequest alloc] initWithGraphPath:[NSString stringWithFormat:@"/%@", [self fbPostID]] parameters:nil HTTPMethod:@"DELETE"];
+		[request startWithCompletionHandler:^(FBSDKGraphRequestConnection *connection, id result, NSError *error) {
+			
+		}];
+	}
 	
+	[ParseInterface deleteFromParse:[self objectId]];
 }
 
 @end

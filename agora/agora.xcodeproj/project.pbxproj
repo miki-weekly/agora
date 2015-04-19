@@ -51,11 +51,6 @@
 		AD958F581AA599C800ABCFB3 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AD958F571AA599C800ABCFB3 /* MobileCoreServices.framework */; };
 		AD99EDA81ADDF9910017A1C7 /* Message.m in Sources */ = {isa = PBXBuildFile; fileRef = AD99EDA71ADDF9910017A1C7 /* Message.m */; };
 		AD99EDAB1ADDFB270017A1C7 /* Conversation.m in Sources */ = {isa = PBXBuildFile; fileRef = AD99EDAA1ADDFB270017A1C7 /* Conversation.m */; };
-		AD9A76A01AD8A24400BB2C23 /* libicucore.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = AD9A769F1AD8A24400BB2C23 /* libicucore.dylib */; };
-		AD9A76A21AD8A25000BB2C23 /* libc++.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = AD9A76A11AD8A25000BB2C23 /* libc++.dylib */; };
-		AD9A76A41AD8A26200BB2C23 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AD9A76A31AD8A26200BB2C23 /* CFNetwork.framework */; };
-		AD9A76A61AD8A27600BB2C23 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AD9A76A51AD8A27600BB2C23 /* Security.framework */; };
-		AD9A76A71AD8A49700BB2C23 /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0BE047281AD8502300949C69 /* Bolts.framework */; };
 		ADA500F11ABF6E7C000D6D9E /* Post.m in Sources */ = {isa = PBXBuildFile; fileRef = ADA500F01ABF6E7C000D6D9E /* Post.m */; };
 /* End PBXBuildFile section */
 
@@ -142,10 +137,6 @@
 		AD99EDA71ADDF9910017A1C7 /* Message.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Message.m; sourceTree = "<group>"; };
 		AD99EDA91ADDFB270017A1C7 /* Conversation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Conversation.h; sourceTree = "<group>"; };
 		AD99EDAA1ADDFB270017A1C7 /* Conversation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Conversation.m; sourceTree = "<group>"; };
-		AD9A769F1AD8A24400BB2C23 /* libicucore.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libicucore.dylib; path = usr/lib/libicucore.dylib; sourceTree = SDKROOT; };
-		AD9A76A11AD8A25000BB2C23 /* libc++.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libc++.dylib"; path = "usr/lib/libc++.dylib"; sourceTree = SDKROOT; };
-		AD9A76A31AD8A26200BB2C23 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
-		AD9A76A51AD8A27600BB2C23 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		ADA500F01ABF6E7C000D6D9E /* Post.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Post.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -185,8 +176,8 @@
 		0B6A8BDF1AD0B89800523D63 /* AddPostView */ = {
 			isa = PBXGroup;
 			children = (
-				0BCC9C531ACFAA8A00A75108 /* AddPostButton.h */,
 				0BCC9C541ACFAA8A00A75108 /* AddPostButton.m */,
+				0BCC9C531ACFAA8A00A75108 /* AddPostButton.h */,
 				0B5A58F31AD5BD2C005DD9C3 /* AddPostViewCell.h */,
 				0B5A58F41AD5BD2C005DD9C3 /* AddPostViewCell.m */,
 				0BC025621ABB27860076A09B /* AddPostViewController.h */,

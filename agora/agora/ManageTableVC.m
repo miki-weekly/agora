@@ -65,8 +65,7 @@
 	}else{
 		tableCell.image.image = [postForCell thumbnail];
 	}
-    
-    
+
     return tableCell;
 }
 
@@ -92,8 +91,7 @@
 }
 
 - (void)removeObjectFromListAtIndex:(NSIndexPath *)indexPath{
-	Post* postToDelete = [[self postsArray] objectAtIndex:[indexPath row]];
-	[ParseInterface deleteFromParse:[postToDelete objectId]];
+	[[[self postsArray] objectAtIndex:[indexPath row]] deletePost];
 	[[self postsArray] removeObjectAtIndex:[indexPath row]];
 }
 
