@@ -26,4 +26,6 @@
     + (void) getConversations:(void (^)(NSArray* result))block;
     + (void) getMessagesOfConversation: (Conversation*) conversation AfterDate: (NSDate*) date completion:(void (^)(NSArray* result))block;
     + (void) saveMessage: (Message*) message InConversation: (Conversation*) conversation;
+//Search
+    + (void) search: (NSArray*) keywords completion:(void (^)(NSArray* result))block;
 @end

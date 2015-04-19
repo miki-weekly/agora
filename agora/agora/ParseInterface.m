@@ -359,4 +359,27 @@ NS_INLINE void forceImageDecompression(UIImage *image) {
     }];
 }
 
++ (void) search: (NSArray*) keywords completion:(void (^)(NSArray* result))block {
+    NSMutableArray* postArray = [[NSMutableArray alloc] init];
+    PFQuery *query = [PFQuery queryWithClassName:@"Posts"];
+    [query whereKey:@"Tags" containedIn:keywords];
+    [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+        for (PFObject *object in objects) {
+            Post *post = [[Post alloc] init];
+            PFUser *user = [object objectForKey:@"createdBy"];
+            
+            post.title = [object objectForKey:@"title"];
+            post.price = [object objectForKey:@"price"];
+            post.itemDescription = [object objectForKey:@"description"];
+            post.category = [object objectForKey:@"category"];
+            post.objectId = object.objectId;
+            post.creatorFacebookId = [user objectForKey:@"facebookId"];
+            post.fbPostID = [object objectForKey:@"FBPostId"];
+            
+            [postArray addObject: post];
+        }
+    }];
+    block(postArray);
+}
+
 @end
