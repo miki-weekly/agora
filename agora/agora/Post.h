@@ -19,8 +19,12 @@
 @property NSArray *stringTags; //Array of strings
 @property NSNumber *price;
 
-@property NSString *creatorFacebookId;
 @property PFUser *createdBy;
+@property NSString *creatorFacebookId;
+@property NSString* fbPostID;
+
+@property UIImage *thumbnail;
+@property UIImage *headerPhoto;
 @property NSArray *photosArray; //Array of UIImages
 
 @property NSString *headerPhotoURL;
