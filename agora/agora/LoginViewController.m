@@ -58,8 +58,7 @@
 	
 	if(cAccessToken != nil)
 		[FBSDKAccessToken setCurrentAccessToken:cAccessToken];
-	
-    NSLog(@"\nParse:\n%@\nFacebook:\n%@", cUser, cAccessToken);
+
     if(cUser && cAccessToken){                                       // Already logged in
         return YES;
     }else{
