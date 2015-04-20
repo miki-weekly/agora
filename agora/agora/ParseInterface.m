@@ -37,7 +37,6 @@
     parsePost[@"pictures"] = PFFileArray;
     parsePost[@"createdBy"] = [PFUser currentUser];
     parsePost[@"title"] = post.title;
-    if (post.itemDescription != nil) {
     parsePost[@"description"] = post.itemDescription;
     parsePost[@"category"] = post.category;
     if (post.stringTags != nil) {
