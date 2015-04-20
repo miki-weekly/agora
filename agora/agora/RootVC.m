@@ -339,7 +339,7 @@ int count;
     
     self.gradient = [CAGradientLayer layer];
     self.gradient.frame = self.menu.bounds;
-    self.gradient.colors = [NSArray arrayWithObjects:(id)[[UIColor blackColor] colorWithAlphaComponent:0.9].CGColor, [[UIColor blackColor] colorWithAlphaComponent:0.7].CGColor, nil];
+    self.gradient.colors = [NSArray arrayWithObjects:(id)[[UIColor blackColor] colorWithAlphaComponent:0.8].CGColor, [[UIColor blackColor] colorWithAlphaComponent:0.5].CGColor, nil];
     self.gradient.startPoint = CGPointMake(0.0, 0.5);
     self.gradient.endPoint = CGPointMake(1.0, 0.5);
     
@@ -437,7 +437,6 @@ int count;
     // profile picture
     self.profPic = [[FBSDKProfilePictureView alloc]initWithFrame:CGRectMake(10, 0, h, h)];
     [self.profPic setProfileID:[[PFUser currentUser] objectForKey:@"facebookId"]];
-    [self.profPic.layer setBorderWidth:2.0];
     [self.profPic.layer setCornerRadius:h/2];
     [self.profPic.layer setMasksToBounds:YES];
     [view addSubview:self.profPic];

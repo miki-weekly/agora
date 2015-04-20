@@ -683,7 +683,7 @@
             </objects>
             <point key="canvasLocation" x="2257.5" y="1131"/>
         </scene>
-        <!--Root View Controller-->
+        <!--Chat VC-->
         <scene sceneID="pPB-Gy-d6Y">
             <objects>
                 <tableViewController id="aeg-A9-AaZ" customClass="ChatVC" sceneMemberID="viewController">
@@ -692,11 +692,14 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="pBh-QZ-r8S">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="conversation" id="pBh-QZ-r8S">
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="pBh-QZ-r8S" id="D4q-2c-jT2">
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <segue destination="Tvm-kJ-Nzc" kind="show" id="I0a-XE-5Uw"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -704,11 +707,28 @@
                             <outlet property="delegate" destination="aeg-A9-AaZ" id="3ZK-xC-fzI"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Root View Controller" id="zvb-EC-afa"/>
+                    <navigationItem key="navigationItem" title="Chat VC" id="zvb-EC-afa"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qLX-dK-dSg" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2257.5" y="1785"/>
+        </scene>
+        <!--Kalvin-->
+        <scene sceneID="ntN-Ky-7Zb">
+            <objects>
+                <viewController title="Kalvin" id="Tvm-kJ-Nzc" customClass="ConversationVC" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="m9G-Ol-m4t"/>
+                        <viewControllerLayoutGuide type="bottom" id="zgb-G4-X1S"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="vOa-qW-CpK">
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="aH0-l8-Wt5" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3063" y="1785"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="jpY-AM-Ebu">

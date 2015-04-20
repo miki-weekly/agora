@@ -31,6 +31,7 @@
 		9EFE8A8A1AB7CF4C000018F7 /* Accounts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9EFE8A891AB7CF4C000018F7 /* Accounts.framework */; };
 		AA3DA6651AE1E42800847C18 /* ConversationVC.m in Sources */ = {isa = PBXBuildFile; fileRef = AA3DA6641AE1E42800847C18 /* ConversationVC.m */; };
 		AA3DA6681AE1E9CA00847C18 /* MessageView.m in Sources */ = {isa = PBXBuildFile; fileRef = AA3DA6671AE1E9CA00847C18 /* MessageView.m */; };
+		AA3DA6B91AE4724A00847C18 /* LabelView.m in Sources */ = {isa = PBXBuildFile; fileRef = AA3DA6B71AE4724A00847C18 /* LabelView.m */; };
 		AA49384A1AD21470000FCC9B /* UIImage+ImageEffects.m in Sources */ = {isa = PBXBuildFile; fileRef = AA4938491AD21470000FCC9B /* UIImage+ImageEffects.m */; };
 		AA49384D1AD215D9000FCC9B /* UILabel+FormattedText.m in Sources */ = {isa = PBXBuildFile; fileRef = AA49384B1AD215D9000FCC9B /* UILabel+FormattedText.m */; };
 		AA4938501AD24C51000FCC9B /* slideItemTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = AA49384F1AD24C51000FCC9B /* slideItemTVC.m */; };
@@ -53,11 +54,6 @@
 		AD958F581AA599C800ABCFB3 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AD958F571AA599C800ABCFB3 /* MobileCoreServices.framework */; };
 		AD99EDA81ADDF9910017A1C7 /* Message.m in Sources */ = {isa = PBXBuildFile; fileRef = AD99EDA71ADDF9910017A1C7 /* Message.m */; };
 		AD99EDAB1ADDFB270017A1C7 /* Conversation.m in Sources */ = {isa = PBXBuildFile; fileRef = AD99EDAA1ADDFB270017A1C7 /* Conversation.m */; };
-		AD9A76A01AD8A24400BB2C23 /* libicucore.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = AD9A769F1AD8A24400BB2C23 /* libicucore.dylib */; };
-		AD9A76A21AD8A25000BB2C23 /* libc++.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = AD9A76A11AD8A25000BB2C23 /* libc++.dylib */; };
-		AD9A76A41AD8A26200BB2C23 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AD9A76A31AD8A26200BB2C23 /* CFNetwork.framework */; };
-		AD9A76A61AD8A27600BB2C23 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AD9A76A51AD8A27600BB2C23 /* Security.framework */; };
-		AD9A76A71AD8A49700BB2C23 /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0BE047281AD8502300949C69 /* Bolts.framework */; };
 		ADA500F11ABF6E7C000D6D9E /* Post.m in Sources */ = {isa = PBXBuildFile; fileRef = ADA500F01ABF6E7C000D6D9E /* Post.m */; };
 /* End PBXBuildFile section */
 
@@ -108,6 +104,8 @@
 		AA3DA6641AE1E42800847C18 /* ConversationVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConversationVC.m; sourceTree = "<group>"; };
 		AA3DA6661AE1E9CA00847C18 /* MessageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessageView.h; sourceTree = "<group>"; };
 		AA3DA6671AE1E9CA00847C18 /* MessageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessageView.m; sourceTree = "<group>"; };
+		AA3DA6B71AE4724A00847C18 /* LabelView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LabelView.m; path = agora/LabelView.m; sourceTree = "<group>"; };
+		AA3DA6B81AE4724A00847C18 /* LabelView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LabelView.h; path = agora/LabelView.h; sourceTree = "<group>"; };
 		AA4938481AD21470000FCC9B /* UIImage+ImageEffects.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+ImageEffects.h"; sourceTree = "<group>"; };
 		AA4938491AD21470000FCC9B /* UIImage+ImageEffects.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+ImageEffects.m"; sourceTree = "<group>"; };
 		AA49384B1AD215D9000FCC9B /* UILabel+FormattedText.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UILabel+FormattedText.m"; sourceTree = "<group>"; };
@@ -148,10 +146,6 @@
 		AD99EDA71ADDF9910017A1C7 /* Message.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Message.m; sourceTree = "<group>"; };
 		AD99EDA91ADDFB270017A1C7 /* Conversation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Conversation.h; sourceTree = "<group>"; };
 		AD99EDAA1ADDFB270017A1C7 /* Conversation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Conversation.m; sourceTree = "<group>"; };
-		AD9A769F1AD8A24400BB2C23 /* libicucore.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libicucore.dylib; path = usr/lib/libicucore.dylib; sourceTree = SDKROOT; };
-		AD9A76A11AD8A25000BB2C23 /* libc++.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libc++.dylib"; path = "usr/lib/libc++.dylib"; sourceTree = SDKROOT; };
-		AD9A76A31AD8A26200BB2C23 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
-		AD9A76A51AD8A27600BB2C23 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		ADA500F01ABF6E7C000D6D9E /* Post.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Post.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -300,12 +294,12 @@
 		9EFE8A821AB7C454000018F7 /* Data */ = {
 			isa = PBXGroup;
 			children = (
-				AD99EDA61ADDF9910017A1C7 /* Message.h */,
-				AD99EDA71ADDF9910017A1C7 /* Message.m */,
 				0BA532451AB7CCB000A730C6 /* ParseInterface.h */,
 				0BA532461AB7CCB000A730C6 /* ParseInterface.m */,
 				9EFE8A7A1AB7B819000018F7 /* Post.h */,
 				ADA500F01ABF6E7C000D6D9E /* Post.m */,
+				AD99EDA61ADDF9910017A1C7 /* Message.h */,
+				AD99EDA71ADDF9910017A1C7 /* Message.m */,
 				AD99EDA91ADDFB270017A1C7 /* Conversation.h */,
 				AD99EDAA1ADDFB270017A1C7 /* Conversation.m */,
 			);
@@ -321,6 +315,8 @@
 				AA3DA6641AE1E42800847C18 /* ConversationVC.m */,
 				AA3DA6661AE1E9CA00847C18 /* MessageView.h */,
 				AA3DA6671AE1E9CA00847C18 /* MessageView.m */,
+				AA3DA6B71AE4724A00847C18 /* LabelView.m */,
+				AA3DA6B81AE4724A00847C18 /* LabelView.h */,
 			);
 			name = Chat;
 			path = ..;
@@ -523,6 +519,7 @@
 				AA49384A1AD21470000FCC9B /* UIImage+ImageEffects.m in Sources */,
 				AAA611BC1AD9085F00535A7E /* SettingsVC.m in Sources */,
 				AA8F662A1A8EA73700CA4604 /* main.m in Sources */,
+				AA3DA6B91AE4724A00847C18 /* LabelView.m in Sources */,
 				AD99EDAB1ADDFB270017A1C7 /* Conversation.m in Sources */,
 				AA4938531AD24C9F000FCC9B /* ManageTableVC.m in Sources */,
 				AA4938501AD24C51000FCC9B /* slideItemTVC.m in Sources */,
