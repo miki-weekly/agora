@@ -300,8 +300,10 @@ NS_INLINE void forceImageDecompression(UIImage *image) {
             
             if ([object objectForKey:@"Recipient"] != [PFUser currentUser]) {
                 conversation.recipient = [object objectForKey:@"Recipient"];
+                conversation.unread = [object objectForKey:@"RecipientUnread"];
             } else {
-                conversation.recipient = [object objectForKey:@"Seller"];
+                conversation.recipient = [object objectForKey:@"Sender"];
+                conversation.unread = [object objectForKey:@"SenderUnread"];
             }
             conversation.objectId = [object objectForKey:@"objectId"];
             conversation.post = [object objectForKey:@"Post"];
@@ -318,7 +320,10 @@ NS_INLINE void forceImageDecompression(UIImage *image) {
     [query whereKey:@"createdAt" greaterThan:date];
     
     [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+        int count = 0;
         for (PFObject* object in objects) {
+            count--;
+            
             Message* message = [[Message alloc] init];
             
             message.parent = conversation;
@@ -326,11 +331,18 @@ NS_INLINE void forceImageDecompression(UIImage *image) {
             
             [messageArray addObject:message];
         }
+        
+        PFObject* parseConversation = [PFQuery getObjectOfClass:@"Conversation" objectId:conversation.objectId];
+        if ([parseConversation objectForKey:@"Recipient"] != [PFUser currentUser]) {
+            [parseConversation incrementKey:@"SenderUnread" byAmount:[NSNumber numberWithInt:count]];
+        } else {
+            [parseConversation incrementKey:@"RecipientUnread" byAmount:[NSNumber numberWithInt:count]];
+        }
     }];
     block(messageArray);
 }
 
-+ (void) saveMessage:(Message *)message InConversation:(Conversation *)conversation {
++ (void) saveMessage:(Message*)message InConversation:(Conversation*)conversation {
     PFQuery* orSender = [PFQuery queryWithClassName:@"Conversation"];
     PFQuery* orRecipient = [PFQuery queryWithClassName:@"Conversation"];
     PFQuery* doesConversationExist = [PFQuery queryWithClassName:@"Conversation"];
@@ -354,6 +366,9 @@ NS_INLINE void forceImageDecompression(UIImage *image) {
                     parseMessage[@"Parent"] = parseConversation.objectId;
                     
                     [parseMessage saveEventually];
+                    
+                    [parseConversation incrementKey:@"RecipientUnread"];
+                    [parseConversation saveEventually];
                 }
             }];
         } else {
@@ -362,7 +377,36 @@ NS_INLINE void forceImageDecompression(UIImage *image) {
             parseMessage[@"Parent"] = conversation.objectId;
             
             [parseMessage saveEventually];
+
+            PFObject* parseConversation = [PFQuery getObjectOfClass:@"Conversation" objectId:conversation.objectId];
+            if ([parseConversation objectForKey:@"Recipient"] != [PFUser currentUser]) {
+                [parseConversation incrementKey:@"RecipientUnread"];
+            } else {
+                [parseConversation incrementKey:@"SenderUnread"];
+            }
+            [parseConversation saveEventually];
         }
+    }];
+}
+
++ (void) getTotalNewMessagesCount:(void(^)(NSNumber* result))block {
+    PFQuery* sender = [PFQuery queryWithClassName:@"Conversation"];
+    PFQuery* recipient = [PFQuery queryWithClassName:@"Conversation"];
+    
+    [sender whereKey:@"Sender" equalTo:[PFUser currentUser]];
+    [recipient whereKey:@"Recipient" equalTo:[PFUser currentUser]];
+    
+    PFQuery* query = [PFQuery orQueryWithSubqueries:@[sender, recipient]];
+    [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+        int count = 0;
+        for (PFObject* object in objects) {
+            if ([object objectForKey:@"Recipient"] != [PFUser currentUser]) {
+                count += [[object objectForKey:@"SenderUnread"] intValue];
+            } else {
+                count += [[object objectForKey:@"RecipientUnread"] intValue];
+            }
+        }
+        block([NSNumber numberWithInt:count]);
     }];
 }
 
