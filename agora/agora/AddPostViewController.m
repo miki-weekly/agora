@@ -267,8 +267,11 @@ int color;
         Post* post = [[Post alloc] init];
         
         [post setTitle:[[self titleTextField] text]];
-		if(![[[self descriptionTextView] text] isEqualToString:@"Enter a description"])
+        if(![[[self descriptionTextView] text] isEqualToString:@"Enter a description"]){
 			[post setItemDescription:[[self descriptionTextView] text]];
+        } else {
+            [post setItemDescription:@""];
+        }
         [post setCategory:[[[self categoryButton] titleLabel] text]];
         [post setStringTags:@[@"[]"]];
         [post setHeaderPhoto:[[self mainImage] image]];
@@ -293,8 +296,11 @@ int color;
         // TODO: Centralized Post (shorten Code)
         Post* post = [self editingPost];
         [post setTitle:[[self titleTextField] text]];
-		if(![[[self descriptionTextView] text] isEqualToString:@"Enter a description"])
+        if(![[[self descriptionTextView] text] isEqualToString:@"Enter a description"]){
 			[post setItemDescription:[[self descriptionTextView] text]];
+        } else {
+            [post setItemDescription:@""];
+        }
         [post setCategory:[[[self categoryButton] titleLabel] text]];
         [post setStringTags:@[@"[]"]];
         [post setHeaderPhoto:[[self mainImage] image]];
