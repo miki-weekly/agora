@@ -38,6 +38,7 @@
     [[self view] addSubview:addButton];
     
     [self setPostsArray:[[NSMutableArray alloc] init]];
+	[self reloadData];
 }
 
 - (void)viewWillAppear:(BOOL)animated{
@@ -53,8 +54,6 @@
 		[logInController setLoginDelegate:self];
 		if(![logInController userLoggedIn]){
 			[self presentViewController:logInController animated:YES completion:nil];
-		}else{
-			[self reloadData];
 		}
 	}
 }
