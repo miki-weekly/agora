@@ -13,6 +13,8 @@
 
 @implementation ParseInterface
 
+#pragma mark Post Operations
+
 + (NSArray*) browseKeyArray {
     return @[@"objectId", @"title", @"category", @"price", @"createdBy", @"description", @"FBPostId"];
 }
@@ -37,8 +39,9 @@
     parsePost[@"pictures"] = PFFileArray;
     parsePost[@"createdBy"] = [PFUser currentUser];
     parsePost[@"title"] = post.title;
-    parsePost[@"description"] = post.itemDescription;
     parsePost[@"category"] = post.category;
+	if(post.itemDescription != nil)
+		parsePost[@"description"] = post.itemDescription;
     if (post.stringTags != nil) {
         parsePost[@"tags"] = post.stringTags;
     }
@@ -74,7 +77,7 @@
             NSData *image = UIImageJPEGRepresentation(post.headerPhoto, 1.0);
             PFFile *imageFile = [PFFile fileWithData:image];
 			
-			NSMutableArray *PFFileArray = [NSMutableArray array];
+			NSMutableArray *PFFileArray = [[NSMutableArray alloc] init];
 			for (UIImage *image in post.photosArray) {
 				NSData *imageData = UIImageJPEGRepresentation(image, 1.0);
 				[PFFileArray addObject:[PFFile fileWithData: imageData]];
@@ -82,7 +85,6 @@
 			
 			object[@"pictures"] = PFFileArray;
             [object setObject: post.title forKey:@"title"];
-            [object setObject: post.itemDescription forKey:@"description"];
             [object setObject: post.category forKey:@"category"];
             [object setObject: imageFile forKey:@"picture"];
             [object setObject: post.stringTags forKey:@"tags"];
@@ -90,8 +92,11 @@
             [object setObject: [PFUser currentUser] forKey:@"createdBy"];
 			object[@"FBPostId"] = post.fbPostID;
 			
-            [object saveInBackground];
-            NSLog(@"OBJECT UPDATED!");
+			if([post itemDescription])
+				[object setObject: post.itemDescription forKey:@"description"];
+			
+			[object saveInBackground];
+			NSLog(@"OBJECT UPDATED!");
             if(block)
                 block(YES);
         } else {
@@ -270,6 +275,8 @@ NS_INLINE void forceImageDecompression(UIImage *image) {
     }];
 }
 
+#pragma mark Chat
+
 + (void) getConversations:(void (^)(NSArray* result))block{
     NSMutableArray* conversationArray = [[NSMutableArray alloc] init];
     PFQuery* sender = [PFQuery queryWithClassName:@"Conversation"];
@@ -358,6 +365,8 @@ NS_INLINE void forceImageDecompression(UIImage *image) {
         }
     }];
 }
+
+#pragma mark Search
 
 + (void) search: (NSArray*) keywords completion:(void (^)(NSArray* result))block {
     NSMutableArray* postArray = [[NSMutableArray alloc] init];
