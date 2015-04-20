@@ -13,9 +13,8 @@
 @interface Conversation : NSObject
 
 @property NSString* objectId;
-@property NSString *selfFaceBookId;
-@property PFUser *recipient;
-@property NSString *recipientFaceBookId;
-@property Post *post;
+@property PFUser* recipient;
+@property Post* post;
+@property NSNumber* unread;
 
 @end

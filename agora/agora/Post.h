@@ -30,5 +30,6 @@
 @property NSString *headerPhotoURL;
 
 - (void)postToFacebook;
+- (void)deletePost;
 
 @end

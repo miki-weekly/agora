@@ -13,8 +13,10 @@
 
 @implementation ParseInterface
 
+#pragma mark Post Operations
+
 + (NSArray*) browseKeyArray {
-    return @[@"objectId", @"title", @"category", @"price", @"createdBy", @"description"];
+    return @[@"objectId", @"title", @"category", @"price", @"createdBy", @"description", @"FBPostId"];
 }
 
 + (void) saveNewPostToParse: (Post*) post completion:(void (^)(BOOL succeeded))block{
@@ -37,13 +39,17 @@
     parsePost[@"pictures"] = PFFileArray;
     parsePost[@"createdBy"] = [PFUser currentUser];
     parsePost[@"title"] = post.title;
-    parsePost[@"description"] = post.itemDescription;
     parsePost[@"category"] = post.category;
+	if(post.itemDescription != nil)
+		parsePost[@"description"] = post.itemDescription;
     if (post.stringTags != nil) {
         parsePost[@"tags"] = post.stringTags;
     }
     if (post.price != nil) {
         parsePost[@"price"] = post.price;
+    }
+    if (post.fbPostID != nil) {
+        parsePost[@"FBPostId"] = post.fbPostID;
     }
 	
     [parsePost saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
@@ -71,7 +77,7 @@
             NSData *image = UIImageJPEGRepresentation(post.headerPhoto, 1.0);
             PFFile *imageFile = [PFFile fileWithData:image];
 			
-			NSMutableArray *PFFileArray = [NSMutableArray array];
+			NSMutableArray *PFFileArray = [[NSMutableArray alloc] init];
 			for (UIImage *image in post.photosArray) {
 				NSData *imageData = UIImageJPEGRepresentation(image, 1.0);
 				[PFFileArray addObject:[PFFile fileWithData: imageData]];
@@ -79,15 +85,18 @@
 			
 			object[@"pictures"] = PFFileArray;
             [object setObject: post.title forKey:@"title"];
-            [object setObject: post.itemDescription forKey:@"description"];
             [object setObject: post.category forKey:@"category"];
             [object setObject: imageFile forKey:@"picture"];
             [object setObject: post.stringTags forKey:@"tags"];
             [object setObject: post.price forKey:@"price"];
             [object setObject: [PFUser currentUser] forKey:@"createdBy"];
-            
-            [object saveInBackground];
-            NSLog(@"OBJECT UPDATED!");
+			object[@"FBPostId"] = post.fbPostID;
+			
+			if([post itemDescription])
+				[object setObject: post.itemDescription forKey:@"description"];
+			
+			[object saveInBackground];
+			NSLog(@"OBJECT UPDATED!");
             if(block)
                 block(YES);
         } else {
@@ -117,6 +126,7 @@
     post.objectId = [object objectId];
     post.creatorFacebookId = [user objectForKey:@"facebookId"];
     post.createdBy = [user objectForKey:@"createdBy"];
+    post.fbPostID = [object objectForKey:@"FBPostId"];
     
     return post;
 }
@@ -160,7 +170,8 @@
                 post.category = [object objectForKey:@"category"];
                 post.objectId = object.objectId;
                 post.creatorFacebookId = [user objectForKey:@"facebookId"];
-                
+                post.fbPostID = [object objectForKey:@"FBPostId"];
+
                 [postArray addObject:post];
             }
         });
@@ -264,6 +275,8 @@ NS_INLINE void forceImageDecompression(UIImage *image) {
     }];
 }
 
+#pragma mark Chat
+
 + (void) getConversations:(void (^)(NSArray* result))block{
     NSMutableArray* conversationArray = [[NSMutableArray alloc] init];
     PFQuery* sender = [PFQuery queryWithClassName:@"Conversation"];
@@ -287,14 +300,13 @@ NS_INLINE void forceImageDecompression(UIImage *image) {
             
             if ([object objectForKey:@"Recipient"] != [PFUser currentUser]) {
                 conversation.recipient = [object objectForKey:@"Recipient"];
-                conversation.selfFaceBookId = [[object objectForKey:@"Seller"] objectForKey:@"facebookId"];
+                conversation.unread = [object objectForKey:@"RecipientUnread"];
             } else {
-                conversation.recipient = [object objectForKey:@"Seller"];
-                conversation.selfFaceBookId = [[object objectForKey:@"Recipient"] objectForKey:@"facebookId"];
+                conversation.recipient = [object objectForKey:@"Sender"];
+                conversation.unread = [object objectForKey:@"SenderUnread"];
             }
             conversation.objectId = [object objectForKey:@"objectId"];
             conversation.post = [object objectForKey:@"Post"];
-            conversation.recipientFaceBookId = [[conversation recipient] objectForKey:@"facebookId"];
             [conversationArray addObject:conversation];
         }
         block(conversationArray);
@@ -308,7 +320,10 @@ NS_INLINE void forceImageDecompression(UIImage *image) {
     [query whereKey:@"createdAt" greaterThan:date];
     
     [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+        int count = 0;
         for (PFObject* object in objects) {
+            count--;
+            
             Message* message = [[Message alloc] init];
             
             message.parent = conversation;
@@ -316,11 +331,18 @@ NS_INLINE void forceImageDecompression(UIImage *image) {
             
             [messageArray addObject:message];
         }
+        
+        PFObject* parseConversation = [PFQuery getObjectOfClass:@"Conversation" objectId:conversation.objectId];
+        if ([parseConversation objectForKey:@"Recipient"] != [PFUser currentUser]) {
+            [parseConversation incrementKey:@"SenderUnread" byAmount:[NSNumber numberWithInt:count]];
+        } else {
+            [parseConversation incrementKey:@"RecipientUnread" byAmount:[NSNumber numberWithInt:count]];
+        }
     }];
     block(messageArray);
 }
 
-+ (void) saveMessage:(Message *)message InConversation:(Conversation *)conversation {
++ (void) saveMessage:(Message*)message InConversation:(Conversation*)conversation {
     PFQuery* orSender = [PFQuery queryWithClassName:@"Conversation"];
     PFQuery* orRecipient = [PFQuery queryWithClassName:@"Conversation"];
     PFQuery* doesConversationExist = [PFQuery queryWithClassName:@"Conversation"];
@@ -344,6 +366,9 @@ NS_INLINE void forceImageDecompression(UIImage *image) {
                     parseMessage[@"Parent"] = parseConversation.objectId;
                     
                     [parseMessage saveEventually];
+                    
+                    [parseConversation incrementKey:@"RecipientUnread"];
+                    [parseConversation saveEventually];
                 }
             }];
         } else {
@@ -352,8 +377,62 @@ NS_INLINE void forceImageDecompression(UIImage *image) {
             parseMessage[@"Parent"] = conversation.objectId;
             
             [parseMessage saveEventually];
+
+            PFObject* parseConversation = [PFQuery getObjectOfClass:@"Conversation" objectId:conversation.objectId];
+            if ([parseConversation objectForKey:@"Recipient"] != [PFUser currentUser]) {
+                [parseConversation incrementKey:@"RecipientUnread"];
+            } else {
+                [parseConversation incrementKey:@"SenderUnread"];
+            }
+            [parseConversation saveEventually];
         }
     }];
+}
+
++ (void) getTotalNewMessagesCount:(void(^)(NSNumber* result))block {
+    PFQuery* sender = [PFQuery queryWithClassName:@"Conversation"];
+    PFQuery* recipient = [PFQuery queryWithClassName:@"Conversation"];
+    
+    [sender whereKey:@"Sender" equalTo:[PFUser currentUser]];
+    [recipient whereKey:@"Recipient" equalTo:[PFUser currentUser]];
+    
+    PFQuery* query = [PFQuery orQueryWithSubqueries:@[sender, recipient]];
+    [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+        int count = 0;
+        for (PFObject* object in objects) {
+            if ([object objectForKey:@"Recipient"] != [PFUser currentUser]) {
+                count += [[object objectForKey:@"SenderUnread"] intValue];
+            } else {
+                count += [[object objectForKey:@"RecipientUnread"] intValue];
+            }
+        }
+        block([NSNumber numberWithInt:count]);
+    }];
+}
+
+#pragma mark Search
+
++ (void) search: (NSArray*) keywords completion:(void (^)(NSArray* result))block {
+    NSMutableArray* postArray = [[NSMutableArray alloc] init];
+    PFQuery *query = [PFQuery queryWithClassName:@"Posts"];
+    [query whereKey:@"Tags" containedIn:keywords];
+    [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+        for (PFObject *object in objects) {
+            Post *post = [[Post alloc] init];
+            PFUser *user = [object objectForKey:@"createdBy"];
+            
+            post.title = [object objectForKey:@"title"];
+            post.price = [object objectForKey:@"price"];
+            post.itemDescription = [object objectForKey:@"description"];
+            post.category = [object objectForKey:@"category"];
+            post.objectId = object.objectId;
+            post.creatorFacebookId = [user objectForKey:@"facebookId"];
+            post.fbPostID = [object objectForKey:@"FBPostId"];
+            
+            [postArray addObject: post];
+        }
+    }];
+    block(postArray);
 }
 
 @end

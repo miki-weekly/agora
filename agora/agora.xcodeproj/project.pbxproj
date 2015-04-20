@@ -185,8 +185,8 @@
 		0B6A8BDF1AD0B89800523D63 /* AddPostView */ = {
 			isa = PBXGroup;
 			children = (
-				0BCC9C531ACFAA8A00A75108 /* AddPostButton.h */,
 				0BCC9C541ACFAA8A00A75108 /* AddPostButton.m */,
+				0BCC9C531ACFAA8A00A75108 /* AddPostButton.h */,
 				0B5A58F31AD5BD2C005DD9C3 /* AddPostViewCell.h */,
 				0B5A58F41AD5BD2C005DD9C3 /* AddPostViewCell.m */,
 				0BC025621ABB27860076A09B /* AddPostViewController.h */,

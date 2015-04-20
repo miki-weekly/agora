@@ -61,6 +61,9 @@
 
 - (void)viewDidAppear:(BOOL)animated{
 	[[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent animated:animated];
+    if(post.photosArray.count == 0){
+        [_collectionView setBackgroundColor:UIColor.whiteColor];
+    }
 }
 
 - (void)setUpCategoryLabel {
