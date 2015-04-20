@@ -32,46 +32,31 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    // Let LoginViewController controll login
-    LoginViewController *logInController = [[LoginViewController alloc] init];
-    [logInController setLoginDelegate:self];
-    if(![logInController userLoggedIn]){
-        [self presentViewController:logInController animated:YES completion:nil];
-    }else{
-        [self reloadData];
-    }
-    
     AddPostButton* addButton = [[AddPostButton alloc] init];
     
     [addButton addTarget:self action:@selector(pressedAddButton) forControlEvents:UIControlEventTouchDown];
     [[self view] addSubview:addButton];
     
     [self setPostsArray:[[NSMutableArray alloc] init]];
-    
 }
 
 - (void)viewWillAppear:(BOOL)animated{
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent animated:animated];
     RootVC * r = (RootVC*)self.parentViewController.parentViewController;
-    [r reloadUserProfpicAndName];
-	
-	/*
-	 //https://developers.facebook.com/docs/graph-api/reference/v2.3/group/feed
-	 // UC Merced Classifieds ID = 246947172002847
-	 FBSDKGraphRequest* request = [[FBSDKGraphRequest alloc] initWithGraphPath:@"/me/groups?limit=100" parameters:nil];
-	 [request startWithCompletionHandler:^(FBSDKGraphRequestConnection *connection, NSDictionary* result, NSError *error) {
-		NSLog(@"%@", result);
-		
-	 }];
-	 
-		NSDictionary *params = @{@"message": @"test",};
-		
-		request = [[FBSDKGraphRequest alloc] initWithGraphPath:@"/246947172002847/feed" parameters:params HTTPMethod:@"POST"];
-		[request startWithCompletionHandler:^(FBSDKGraphRequestConnection *connection, NSDictionary* result, NSError *error) {
-	 NSLog(@"%@", result);
-	 
-		}];
-	 */
+	[r reloadUserProfpicAndName];
+}
+
+- (void)viewDidAppear:(BOOL)animated{
+	if(!animated){
+		// Let LoginViewController controll login
+		LoginViewController *logInController = [[LoginViewController alloc] init];
+		[logInController setLoginDelegate:self];
+		if(![logInController userLoggedIn]){
+			[self presentViewController:logInController animated:YES completion:nil];
+		}else{
+			[self reloadData];
+		}
+	}
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
