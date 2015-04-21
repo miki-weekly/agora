@@ -20,10 +20,15 @@
 #import "PostCollectionViewCell.h"
 #import "RootVC.h"
 
-@interface BrowseCollectionViewController () <LoginViewControllerDelegate, AddPostViewControllerDelegate>
+@interface BrowseCollectionViewController () <UICollectionViewDelegateFlowLayout, LoginViewControllerDelegate, AddPostViewControllerDelegate>
 
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activitySpinner;
+
+@property CGSize cellSize;
+@property NSString* catagory;
 @property NSMutableArray* postsArray;
+
+@property BOOL loadingMorePosts;
 
 @end
 
@@ -38,6 +43,14 @@
     [[self view] addSubview:addButton];
     
     [self setPostsArray:[[NSMutableArray alloc] init]];
+	
+	// Calculate Cell rects
+	CGSize screen = [[UIScreen mainScreen] bounds].size;
+	CGFloat leftInset = [(UICollectionViewFlowLayout *)self.collectionViewLayout sectionInset].left;
+	CGFloat cellWidth = (screen.width - leftInset*3)/2;
+	[self setCellSize:CGSizeMake(cellWidth, cellWidth)];
+	
+	[self setCatagory:@"RECENTS"];
 	[self reloadData];
 }
 
@@ -68,15 +81,17 @@
 }
 
 -(void) reloadData {
-    [self reloadDataWithCategory:@"RECENTS"];
+    [self reloadDataWithCategory:[self catagory]];
 }
 
 - (void) reloadDataWithCategory:(NSString*) cat {
     // populate array
+	[self setCatagory:cat];
     [[self activitySpinner] startAnimating];
+	[[self postsArray] removeAllObjects];
+	[[self collectionView] reloadData]; 
     [ParseInterface getFromParse:cat withSkip:0 completion:^(NSArray * result) {
-        [[self activitySpinner] stopAnimating];         // automatiicaly started via Storyboard
-        [[self postsArray] removeAllObjects];
+        [[self activitySpinner] stopAnimating];
         [[self postsArray] addObjectsFromArray:result];
         [[self collectionView] reloadData];
     }];
@@ -89,19 +104,16 @@
 }
 
 - (IBAction)clickMenu:(id)sender {
-    
     RootVC * root = (RootVC*)self.parentViewController.parentViewController;
     [root snapOpen];
 }
-
 
 - (void)pressedAddButton{
     UIStoryboard* story = [UIStoryboard storyboardWithName:@"Main" bundle:NULL];
     AddPostViewController* addView = [story instantiateViewControllerWithIdentifier:@"Add Post"];
     [addView setDelgate:self];
-    [self presentViewController:addView animated:YES completion:^{
-        [[self activitySpinner] startAnimating];
-    }];
+	
+    [self presentViewController:addView animated:YES completion:nil];
 }
 
 #pragma mark - AddPostDelegate
@@ -113,7 +125,6 @@
         [self reloadData];
     }else{
         // No post was made
-        [[self activitySpinner] stopAnimating];
     }
 }
 
@@ -128,6 +139,33 @@
     message:@"Login Error" delegate:nil cancelButtonTitle:@"cancel" otherButtonTitles:nil, nil];
         [alert show];
     }
+}
+
+#pragma mark - Scroll View
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView{
+	CGFloat loadAheadOfScrollDist = 0.8f;	// Load more post once %80 scrolled
+	
+	CGFloat actualPosition = scrollView.contentOffset.y;
+	CGFloat contentHeight = scrollView.contentSize.height - self.collectionView.frame.size.height;
+	if(actualPosition >= (contentHeight*loadAheadOfScrollDist) && contentHeight > 0 && ![self loadingMorePosts]){
+		[self setLoadingMorePosts:YES];
+		[ParseInterface getFromParse:@"RECENTS" withSkip:[[self postsArray] count] completion:^(NSArray * result) {
+			[self.collectionView performBatchUpdates:^{
+				NSUInteger resultsSize = [self.postsArray count];
+				[[self postsArray] addObjectsFromArray:result];
+				NSMutableArray *arrayWithIndexPaths = [NSMutableArray array];
+							
+				for (NSUInteger i=resultsSize; i < resultsSize + result.count; i++)
+					[arrayWithIndexPaths addObject:[NSIndexPath indexPathForRow:i inSection:0]];
+							
+				[self.collectionView insertItemsAtIndexPaths:arrayWithIndexPaths];
+				
+			} completion:nil];
+			
+			[self setLoadingMorePosts:NO];
+		}];
+	}
 }
 
 #pragma mark - Collection view data source
@@ -146,15 +184,15 @@
     
     // Cell config
     [[postCell layer] setCornerRadius:5.0f];
-    
+
     [[postCell titleLabel] setText:[postForCell title]];
     [[postCell titleLabel] setTextColor:[UIColor whiteColor]];
     [[postCell priceLabel] setText:[@"$" stringByAppendingString:[[postForCell price] stringValue]]];
     [[postCell priceLabel] setTextColor:[UIColor whiteColor]];
     [[postCell imageView] setContentMode:UIViewContentModeScaleAspectFill];
-	[[postCell imageView] setImage:nil];
 	
     if(![postForCell thumbnail]){
+		[[postCell imageView] setImage:nil];
         [ParseInterface getThumbnail:[postForCell objectId] completion:^(UIImage *result){
             [postForCell setThumbnail:result];
             [[postCell imageView] setImage:[postForCell thumbnail]];
@@ -173,10 +211,11 @@
 
 - (void) addGradientBGForView:(UIView*) view {
     CAGradientLayer * gradient = [CAGradientLayer layer];
-	
 	// TODO: Bug were gradientFrame does not match Story board
+	// final size of cell is not calculated until after gradient is drawn
 	CGRect frame = view.bounds;
 	frame.size.height = 35.0f;
+	frame.size.width = _cellSize.width;
 	gradient.frame = frame;
 	
 	//NSLog(@"%f, %f", gradient.frame.size.height, frame.size.height);
@@ -184,7 +223,10 @@
     gradient.startPoint = CGPointMake(0.5, 0.0);
     gradient.endPoint = CGPointMake(0.5, 1.0);
     [view.layer addSublayer:gradient];
-    
+}
+
+- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath{
+	return _cellSize;
 }
 
 @end

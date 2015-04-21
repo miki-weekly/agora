@@ -161,7 +161,6 @@
 	[[NSUserDefaults standardUserDefaults] removeObjectForKey:@"fbUserID"];
 	[[NSUserDefaults standardUserDefaults] removeObjectForKey:@"fbExpirationDate"];
 	[[NSUserDefaults standardUserDefaults] removeObjectForKey:@"fbRefreshDate"];
-	
     
     for (UIViewController * vc in self.childViewControllers) {
         [vc removeFromParentViewController];
@@ -190,7 +189,7 @@
     
     if (buttonIndex == 0) {
         [self switchToViewController:buttonIndex];
-        [((BrowseCollectionViewController*)self.currentVC.childViewControllers[0]) reloadData];
+        [((BrowseCollectionViewController*)self.currentVC.childViewControllers[0]) reloadDataWithCategory:@"RECENTS"];
         
     } else if (buttonIndex == 6) {
         // chat

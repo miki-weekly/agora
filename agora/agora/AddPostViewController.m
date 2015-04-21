@@ -32,6 +32,7 @@
 @property NSMutableArray* secondaryPictures;
 
 @property (weak, nonatomic) id activeField;
+@property BOOL initialHeadImageSelect;
 @property BOOL selectingHeadImage;
 
 @property UIView* statusBarBack;
@@ -70,17 +71,11 @@
     
     [self setupSelectButton:self.categoryButton];
     self.catColors = @{@"Tech":[UIColor techColor],@"Home":[UIColor homeColor],@"Fashion":[UIColor fashColor],@"Education":[UIColor eduColor],@"Misc":[UIColor miscColor]};
-    /*
-     CALayer* removeMainLayer = [[self removeMainImageButton] layer];
-     [removeMainLayer setCornerRadius:[[self mainImage] frame].size.height/2];
-     [removeMainLayer setMasksToBounds:YES];
-     [removeMainLayer setBorderColor:[[UIColor blackColor] CGColor]];
-     [removeMainLayer setBorderWidth:2];*/
-    
+
     if([self editingPost]){
         [self setUpEditting];
-        [[self addButton] setTitle:@"Save" forState:UIControlStateNormal];
     }else{
+		[self setInitialHeadImageSelect:YES];
         [[self removeMainImageButton] setHidden:YES];
     }
 }
@@ -88,9 +83,16 @@
 - (void)viewWillAppear:(BOOL)animated{
     if(![self imagePickerController]){
         [self setImagePickerController:[[UIImagePickerController alloc] init]];
+		[[self imagePickerController] setAllowsEditing:YES];
         [[self imagePickerController] setDelegate:self];
     }
-    
+	
+	if([self initialHeadImageSelect]){
+		[[self imagePickerController] setSourceType:UIImagePickerControllerSourceTypeCamera];
+		[self setSelectingHeadImage:YES];
+		[self presentViewController:[self imagePickerController] animated:YES completion:nil];
+	}
+	
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(keyboardDidShow:)
                                                  name:UIKeyboardDidShowNotification
@@ -119,12 +121,84 @@
     [[self titleTextField] setTextColor:[UIColor blackColor]];
     [[self titleTextField] setText:[post title]];
     [[self priceTextField] setText:[[post price] stringValue]];
-    [[self categoryButton] setTitle:[post category] forState:UIControlStateNormal];
-    [[self categoryButton] setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-    [self presentCategorySelection];
+	
+	[[self addButton] setTitle:@"Save" forState:UIControlStateNormal];
+	
     [[self descriptionTextView] setText:[post itemDescription]];
     [[self descriptionTextView] setTextColor:[UIColor blackColor]];
+	
     [self setSecondaryPictures:[[NSMutableArray alloc] initWithArray:[post photosArray]]];
+	[[self categoryButton] setTitle:[post category] forState:UIControlStateNormal];
+	[self changeViewForCategory];
+}
+
+- (BOOL)userFilledinRequiredFields{
+	bool text = true, category = true, price = true, mainImg = true;
+	
+	if([[[self titleTextField] text] isEqualToString:@""]){
+		NSLog(@"no title");
+		[UIView animateWithDuration:.1
+						 animations:^{
+							 [_titleTextField setBackgroundColor:[[UIColor redColor] colorWithAlphaComponent:0.3]];
+						 } completion:^(BOOL finished) {
+							 [UIView animateWithDuration:.7
+											  animations:^{
+												  [_titleTextField setBackgroundColor:[UIColor whiteColor]];
+											  }];
+						 }];
+		text = false;
+	}
+	
+	if([[[[self categoryButton] titleLabel] text] isEqualToString:@"Select"]){
+		NSLog(@"no category");
+		[UIView animateWithDuration:.1
+						 animations:^{
+							 [_categoryButton setBackgroundColor:[[UIColor redColor] colorWithAlphaComponent:0.3]];
+						 } completion:^(BOOL finished) {
+							 [UIView animateWithDuration:.7
+											  animations:^{
+												  [_categoryButton setBackgroundColor:[UIColor whiteColor]];
+											  }];
+						 }];
+		category = false;
+	}
+	
+	if([self.priceTextField.text isEqualToString:@""]){
+		NSLog(@"no price");
+		[UIView animateWithDuration:.1
+						 animations:^{
+							 [_priceTextField setBackgroundColor:[[UIColor redColor] colorWithAlphaComponent:0.3]];
+						 } completion:^(BOOL finished) {
+							 [UIView animateWithDuration:.7
+											  animations:^{
+												  [_priceTextField setBackgroundColor:[UIColor whiteColor]];
+											  }];
+						 }];
+		price = false;
+	}
+	
+	CGImageRef cgref = self.mainImage.image.CGImage;
+	CIImage *cim = self.mainImage.image.CIImage;
+	
+	if (cim == nil && cgref == NULL){
+		NSLog(@"no main image");
+		[UIView animateWithDuration:.1
+						 animations:^{
+							 [_mainImage setBackgroundColor:[[UIColor redColor] colorWithAlphaComponent:0.3]];
+						 } completion:^(BOOL finished) {
+							 [UIView animateWithDuration:.7
+											  animations:^{
+												  [_mainImage setBackgroundColor:[UIColor whiteColor]];
+											  }];
+						 }];
+		mainImg = false;
+	}
+	
+	if (!text || !category || !price || !mainImg){
+		return NO;
+	}
+	
+	return YES;
 }
 
 #pragma mark - Category selection things
@@ -133,33 +207,37 @@ int color;
     [button.layer setCornerRadius:4.0];
     [button.layer setBorderColor:[UIColor blueColor].CGColor];
     [button.layer setBorderWidth:2.0];
-    
+	
     color = 0;
-    
+}
+
+- (void)changeViewForCategory{
+	UIColor * newColor = self.catColors[[[self categoryButton] titleForState:UIControlStateNormal]];
+	[self.categoryButton.layer setBorderColor:newColor.CGColor];
+	[self.categoryButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+	
+	// also change statusBarBackground
+	[UIView animateWithDuration:0.5
+						  delay:0.0
+						options: UIViewAnimationOptionCurveEaseOut
+					 animations:^{
+						 [[_statusBarBack layer] setBackgroundColor:[[newColor colorWithAlphaComponent:0.8f] CGColor]];
+					 }
+					 completion:^(BOOL finished){}];
 }
 
 -(void) presentCategorySelection {
     NSArray * k = self.catColors.allKeys;
-    
+	
     NSString * newCat = k[color];
-    
+	
     [[self categoryButton] setTitle:newCat forState:UIControlStateNormal];
-    UIColor * newColor = self.catColors[newCat];
-    [self.categoryButton.layer setBorderColor:newColor.CGColor];
-    [self.categoryButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-    
-    // also change statusBarBackground
-    [UIView animateWithDuration:0.5
-                          delay:0.0
-                        options: UIViewAnimationOptionCurveEaseOut
-                     animations:^{
-                         [[_statusBarBack layer] setBackgroundColor:[[newColor colorWithAlphaComponent:0.8f] CGColor]];
-                     }
-                     completion:^(BOOL finished){}];
+	[self changeViewForCategory];
+	
     color++;
     if (color == 5) {
         color = 0;
-    }else if(color == 1){	// if color is yellow, set black statusbar
+    }else if([newCat isEqualToString:@"Fashion"]){	// if color is yellow, set black statusbar
         [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault animated:YES];
     }else{
         [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent animated:YES];
@@ -194,141 +272,65 @@ int color;
 }
 
 - (IBAction)postToParse:(id)sender {
-    // TODO: do checks on if required feilds are enter, secondary pics
-    
-    bool text = true, category = true, price = true, mainImg = true;
-    
-    if([[[self titleTextField] text] isEqualToString:@""]){
-        NSLog(@"no title");
-        [UIView animateWithDuration:.1
-                         animations:^{
-                             [_titleTextField setBackgroundColor:[[UIColor redColor] colorWithAlphaComponent:0.3]];
-                         } completion:^(BOOL finished) {
-                             [UIView animateWithDuration:.7
-                                              animations:^{
-                                                  [_titleTextField setBackgroundColor:[UIColor whiteColor]];
-                                              }];
-                         }];
-        text = false;
-    }
-    
-    if([[[[self categoryButton] titleLabel] text] isEqualToString:@"Select"]){
-        NSLog(@"no category");
-        [UIView animateWithDuration:.1
-                         animations:^{
-                             [_categoryButton setBackgroundColor:[[UIColor redColor] colorWithAlphaComponent:0.3]];
-                         } completion:^(BOOL finished) {
-                             [UIView animateWithDuration:.7
-                                              animations:^{
-                                                  [_categoryButton setBackgroundColor:[UIColor whiteColor]];
-                                              }];
-                         }];
-        category = false;
-    }
-    
-    if([self.priceTextField.text isEqualToString:@""]){
-        NSLog(@"no price");
-        [UIView animateWithDuration:.1
-                         animations:^{
-                             [_priceTextField setBackgroundColor:[[UIColor redColor] colorWithAlphaComponent:0.3]];
-                         } completion:^(BOOL finished) {
-                             [UIView animateWithDuration:.7
-                                              animations:^{
-                                                  [_priceTextField setBackgroundColor:[UIColor whiteColor]];
-                                              }];
-                         }];
-        price = false;
-    }
-    
-    CGImageRef cgref = self.mainImage.image.CGImage;
-    CIImage *cim = self.mainImage.image.CIImage;
-    
-    if (cim == nil && cgref == NULL){
-        NSLog(@"no main image");
-        [UIView animateWithDuration:.1
-                         animations:^{
-                             [_mainImage setBackgroundColor:[[UIColor redColor] colorWithAlphaComponent:0.3]];
-                         } completion:^(BOOL finished) {
-                             [UIView animateWithDuration:.7
-                                              animations:^{
-                                                  [_mainImage setBackgroundColor:[UIColor whiteColor]];
-                                              }];
-                         }];
-        mainImg = false;
-    }
-    
-    if (!text || !category || !price || !mainImg){
-        return;
-    }
-    
-    [[self scrollView] setUserInteractionEnabled:NO];
-    [[self activitySpinner] startAnimating];
-    if(![self editingPost]){
-        Post* post = [[Post alloc] init];
-        
-        [post setTitle:[[self titleTextField] text]];
-        if(![[[self descriptionTextView] text] isEqualToString:@"Enter a description"]){
-			[post setItemDescription:[[self descriptionTextView] text]];
-        } else {
-            [post setItemDescription:@""];
-        }
-        [post setCategory:[[[self categoryButton] titleLabel] text]];
-        [post setStringTags:@[@"[]"]];
-        [post setHeaderPhoto:[[self mainImage] image]];
-        [post setCreatorFacebookId:[[PFUser currentUser] objectForKey:@"facebookId"]];
-        [post setPhotosArray:[self secondaryPictures]];
-        
-        NSString* price = [[[self priceTextField] text] stringByReplacingOccurrencesOfString:@"$" withString:@""];
-        [post setPrice:[NSNumber numberWithDouble:[price doubleValue]]];
-        
-        [ParseInterface saveNewPostToParse:post completion:^(BOOL succeeded){
-            if(succeeded){
-                // TODO: setting to post to facebook or not
-                [post postToFacebook];
-                
-                [[self activitySpinner] stopAnimating];
-                [[self delgate] addPostController:self didFinishWithPost:post];
-            }else{
-                // TODO: failed add
-            }
-        }];
-    }else{
-        // TODO: Centralized Post (shorten Code)
-        Post* post = [self editingPost];
-        [post setTitle:[[self titleTextField] text]];
-        if(![[[self descriptionTextView] text] isEqualToString:@"Enter a description"]){
-			[post setItemDescription:[[self descriptionTextView] text]];
-        } else {
-            [post setItemDescription:@""];
-        }
-        [post setCategory:[[[self categoryButton] titleLabel] text]];
-        [post setStringTags:@[@"[]"]];
-        [post setHeaderPhoto:[[self mainImage] image]];
-        [post setPhotosArray:[self secondaryPictures]];
-        
-        NSString* price = [[[self priceTextField] text] stringByReplacingOccurrencesOfString:@"$" withString:@""];
-        [post setPrice:[NSNumber numberWithDouble:[price doubleValue]]];
-        
-        [ParseInterface updateParsePost:post completion:^(BOOL succeeded) {
-            if(succeeded){
-                // TODO: Splash screen succeded or not
-                [[self activitySpinner] stopAnimating];
-                [[self delgate] addPostController:self didFinishUpdatePost:post];
-            }else{
-                // TODO: failed update
-            }
-        }];
-    }
+	// TODO: do checks on if required feilds are enter, secondary pics
+	if(![self userFilledinRequiredFields])
+		return;
+	
+	[[self scrollView] setUserInteractionEnabled:NO];
+	[[self activitySpinner] startAnimating];
+	
+	
+	Post* post;
+	if(![self editingPost])
+		post = [[Post alloc] init];
+	else
+		post = [self editingPost];
+
+	if(![[[self descriptionTextView] text] isEqualToString:@"Enter a description"])
+		[post setItemDescription:[[self descriptionTextView] text]];
+	
+	[post setTitle:[[self titleTextField] text]];
+	[post setCategory:[[[self categoryButton] titleLabel] text]];
+	[post setStringTags:@[@"[]"]];
+	[post setHeaderPhoto:[[self mainImage] image]];
+	[post setCreatorFacebookId:[[PFUser currentUser] objectForKey:@"facebookId"]];
+	[post setPhotosArray:[self secondaryPictures]];
+	
+	NSString* price = [[[self priceTextField] text] stringByReplacingOccurrencesOfString:@"$" withString:@""];
+	[post setPrice:[NSNumber numberWithDouble:[price doubleValue]]];
+	
+	if(![self editingPost]){
+		[ParseInterface saveNewPostToParse:post completion:^(BOOL succeeded){
+			if(succeeded){
+				// TODO: setting to post to facebook or not
+				[post postToFacebook];
+				
+				[[self activitySpinner] stopAnimating];
+				[[self delgate] addPostController:self didFinishWithPost:post];
+			}else{
+				// TODO: failed add
+			}
+		}];
+	}else{
+		[ParseInterface updateParsePost:post completion:^(BOOL succeeded) {
+			if(succeeded){
+				// TODO: Splash screen succeded or not
+				[[self activitySpinner] stopAnimating];
+				[[self delgate] addPostController:self didFinishUpdatePost:post];
+			}else{
+				// TODO: failed update
+			}
+		}];
+	}
 }
 
 - (IBAction)pressedCancel:(id)sender {
-    
-    if(![self editingPost]){
+    if(![self editingPost])
         [[self delgate] addPostController:self didFinishWithPost:nil];
-    }else{
+    else
         [[self delgate] addPostController:self didFinishUpdatePost:nil];
-    }
 }
+
 - (IBAction)removeMainImage:(id)sender {
     [[self mainImage] setImage:nil];
     
@@ -338,11 +340,17 @@ int color;
 }
 
 - (IBAction)removeImageFromArray:(UIButton*)sender{
-    [[self secondaryPictures] removeObjectAtIndex:[sender tag]];
+	[self.collectionView performBatchUpdates:^{
+		AddPostViewCell* cell = (AddPostViewCell*)[sender superview];
+		NSIndexPath* path = [self.collectionView indexPathForCell:cell];
+		[[self secondaryPictures] removeObjectAtIndex:[path row]];
+		[self.collectionView deleteItemsAtIndexPaths:@[[NSIndexPath indexPathForRow:[path row] inSection:0]]];
+	}completion:nil];
+	
     [[self collectionView] reloadData];
 }
 
-- (void)hideKeyboard {
+- (void)hideKeyboard{
     [self.descriptionTextView resignFirstResponder];
 }
 
@@ -462,6 +470,7 @@ int color;
         [textView setText:@"Enter a description"];
         [textView setTextColor:[UIColor grayColor]];
     }
+	
     [self setActiveField:nil];
     [textView resignFirstResponder];
 }
@@ -479,17 +488,15 @@ int color;
             switch (buttonIndex){
                 case 0:		// Camera
                     [[self imagePickerController] setSourceType:UIImagePickerControllerSourceTypeCamera];
-                    [self presentViewController:[self imagePickerController] animated:YES completion:nil];
-                    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent animated:YES];
                     break;
                 case 1:		// Photo Library
                     [[self imagePickerController] setSourceType:UIImagePickerControllerSourceTypePhotoLibrary];
-                    [self presentViewController:[self imagePickerController] animated:YES completion:nil];
                     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent animated:YES];
                     break;
                 default:
                     break;
             }
+			[self presentViewController:[self imagePickerController] animated:YES completion:nil];
             break;
         }
             break;
@@ -501,19 +508,22 @@ int color;
 #pragma mark - UIImagePickerController
 
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info{
-    UIImage* image = info[@"UIImagePickerControllerOriginalImage"];
+    UIImage* image = info[@"UIImagePickerControllerEditedImage"];
     // How to know which imagePicker is which? (Main vs array of subimage)
     // do something with Image
     
-    if([self selectingHeadImage]){
+    if([self selectingHeadImage] || [self initialHeadImageSelect]){
         [[self mainImage] setImage:image];
         [self setSelectingHeadImage:NO];
+		[self setInitialHeadImageSelect:NO];
         [[self removeMainImageButton] setHidden:NO];
-        [[self removeMainImageButton] setEnabled:YES];
+		[[self removeMainImageButton] setEnabled:YES];
         [[self modifyMainImageButton] setTitle:@"" forState:UIControlStateNormal];
     }else{
-        [[self secondaryPictures] addObject:image];
-        [[self collectionView] reloadData];
+        [self.collectionView performBatchUpdates:^{
+			[[self secondaryPictures] addObject:image];
+			[self.collectionView insertItemsAtIndexPaths:@[[NSIndexPath indexPathForRow:[[self secondaryPictures] count]-1 inSection:0]]];
+		} completion:nil];
     }
     
     [picker dismissViewControllerAnimated:YES completion:nil];
@@ -521,6 +531,7 @@ int color;
 
 - (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker{
     [picker dismissViewControllerAnimated:YES completion:nil];
+	[self setInitialHeadImageSelect:NO];
     [self setSelectingHeadImage:NO];
 }
 
@@ -539,7 +550,7 @@ int color;
     if([indexPath row] != [[self secondaryPictures] count]){
         AddPostViewCell* imageCell = [collectionView dequeueReusableCellWithReuseIdentifier:@"imageCell" forIndexPath:indexPath];
         NSInteger row = [indexPath row];
-        [imageCell setContentMode:UIViewContentModeScaleAspectFill];
+        [[imageCell cellImage] setContentMode:UIViewContentModeScaleAspectFill];
         [[imageCell cellImage] setImage:[[self secondaryPictures] objectAtIndex:[indexPath row]]];
         [[imageCell removeButton] setTag:row];
         [[imageCell removeButton] addTarget:self action:@selector(removeImageFromArray:) forControlEvents:UIControlEventTouchDown];
