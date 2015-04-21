@@ -70,13 +70,7 @@
     
     [self setupSelectButton:self.categoryButton];
     self.catColors = @{@"Tech":[UIColor techColor],@"Home":[UIColor homeColor],@"Fashion":[UIColor fashColor],@"Education":[UIColor eduColor],@"Misc":[UIColor miscColor]};
-    /*
-     CALayer* removeMainLayer = [[self removeMainImageButton] layer];
-     [removeMainLayer setCornerRadius:[[self mainImage] frame].size.height/2];
-     [removeMainLayer setMasksToBounds:YES];
-     [removeMainLayer setBorderColor:[[UIColor blackColor] CGColor]];
-     [removeMainLayer setBorderWidth:2];*/
-    
+
     if([self editingPost]){
         [self setUpEditting];
         [[self addButton] setTitle:@"Save" forState:UIControlStateNormal];
@@ -119,12 +113,84 @@
     [[self titleTextField] setTextColor:[UIColor blackColor]];
     [[self titleTextField] setText:[post title]];
     [[self priceTextField] setText:[[post price] stringValue]];
+	
     [[self categoryButton] setTitle:[post category] forState:UIControlStateNormal];
     [[self categoryButton] setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     [self presentCategorySelection];
+	
     [[self descriptionTextView] setText:[post itemDescription]];
     [[self descriptionTextView] setTextColor:[UIColor blackColor]];
+	
     [self setSecondaryPictures:[[NSMutableArray alloc] initWithArray:[post photosArray]]];
+}
+
+- (BOOL)userFilledinRequiredFields{
+	bool text = true, category = true, price = true, mainImg = true;
+	
+	if([[[self titleTextField] text] isEqualToString:@""]){
+		NSLog(@"no title");
+		[UIView animateWithDuration:.1
+						 animations:^{
+							 [_titleTextField setBackgroundColor:[[UIColor redColor] colorWithAlphaComponent:0.3]];
+						 } completion:^(BOOL finished) {
+							 [UIView animateWithDuration:.7
+											  animations:^{
+												  [_titleTextField setBackgroundColor:[UIColor whiteColor]];
+											  }];
+						 }];
+		text = false;
+	}
+	
+	if([[[[self categoryButton] titleLabel] text] isEqualToString:@"Select"]){
+		NSLog(@"no category");
+		[UIView animateWithDuration:.1
+						 animations:^{
+							 [_categoryButton setBackgroundColor:[[UIColor redColor] colorWithAlphaComponent:0.3]];
+						 } completion:^(BOOL finished) {
+							 [UIView animateWithDuration:.7
+											  animations:^{
+												  [_categoryButton setBackgroundColor:[UIColor whiteColor]];
+											  }];
+						 }];
+		category = false;
+	}
+	
+	if([self.priceTextField.text isEqualToString:@""]){
+		NSLog(@"no price");
+		[UIView animateWithDuration:.1
+						 animations:^{
+							 [_priceTextField setBackgroundColor:[[UIColor redColor] colorWithAlphaComponent:0.3]];
+						 } completion:^(BOOL finished) {
+							 [UIView animateWithDuration:.7
+											  animations:^{
+												  [_priceTextField setBackgroundColor:[UIColor whiteColor]];
+											  }];
+						 }];
+		price = false;
+	}
+	
+	CGImageRef cgref = self.mainImage.image.CGImage;
+	CIImage *cim = self.mainImage.image.CIImage;
+	
+	if (cim == nil && cgref == NULL){
+		NSLog(@"no main image");
+		[UIView animateWithDuration:.1
+						 animations:^{
+							 [_mainImage setBackgroundColor:[[UIColor redColor] colorWithAlphaComponent:0.3]];
+						 } completion:^(BOOL finished) {
+							 [UIView animateWithDuration:.7
+											  animations:^{
+												  [_mainImage setBackgroundColor:[UIColor whiteColor]];
+											  }];
+						 }];
+		mainImg = false;
+	}
+	
+	if (!text || !category || !price || !mainImg){
+		return NO;
+	}
+	
+	return YES;
 }
 
 #pragma mark - Category selection things
@@ -133,21 +199,20 @@ int color;
     [button.layer setCornerRadius:4.0];
     [button.layer setBorderColor:[UIColor blueColor].CGColor];
     [button.layer setBorderWidth:2.0];
-    
+	
     color = 0;
-    
 }
 
 -(void) presentCategorySelection {
     NSArray * k = self.catColors.allKeys;
-    
+	
     NSString * newCat = k[color];
-    
+	
     [[self categoryButton] setTitle:newCat forState:UIControlStateNormal];
     UIColor * newColor = self.catColors[newCat];
     [self.categoryButton.layer setBorderColor:newColor.CGColor];
     [self.categoryButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-    
+	
     // also change statusBarBackground
     [UIView animateWithDuration:0.5
                           delay:0.0
@@ -194,140 +259,63 @@ int color;
 }
 
 - (IBAction)postToParse:(id)sender {
-    // TODO: do checks on if required feilds are enter, secondary pics
-    
-    bool text = true, category = true, price = true, mainImg = true;
-    
-    if([[[self titleTextField] text] isEqualToString:@""]){
-        NSLog(@"no title");
-        [UIView animateWithDuration:.1
-                         animations:^{
-                             [_titleTextField setBackgroundColor:[[UIColor redColor] colorWithAlphaComponent:0.3]];
-                         } completion:^(BOOL finished) {
-                             [UIView animateWithDuration:.7
-                                              animations:^{
-                                                  [_titleTextField setBackgroundColor:[UIColor whiteColor]];
-                                              }];
-                         }];
-        text = false;
-    }
-    
-    if([[[[self categoryButton] titleLabel] text] isEqualToString:@"Select"]){
-        NSLog(@"no category");
-        [UIView animateWithDuration:.1
-                         animations:^{
-                             [_categoryButton setBackgroundColor:[[UIColor redColor] colorWithAlphaComponent:0.3]];
-                         } completion:^(BOOL finished) {
-                             [UIView animateWithDuration:.7
-                                              animations:^{
-                                                  [_categoryButton setBackgroundColor:[UIColor whiteColor]];
-                                              }];
-                         }];
-        category = false;
-    }
-    
-    if([self.priceTextField.text isEqualToString:@""]){
-        NSLog(@"no price");
-        [UIView animateWithDuration:.1
-                         animations:^{
-                             [_priceTextField setBackgroundColor:[[UIColor redColor] colorWithAlphaComponent:0.3]];
-                         } completion:^(BOOL finished) {
-                             [UIView animateWithDuration:.7
-                                              animations:^{
-                                                  [_priceTextField setBackgroundColor:[UIColor whiteColor]];
-                                              }];
-                         }];
-        price = false;
-    }
-    
-    CGImageRef cgref = self.mainImage.image.CGImage;
-    CIImage *cim = self.mainImage.image.CIImage;
-    
-    if (cim == nil && cgref == NULL){
-        NSLog(@"no main image");
-        [UIView animateWithDuration:.1
-                         animations:^{
-                             [_mainImage setBackgroundColor:[[UIColor redColor] colorWithAlphaComponent:0.3]];
-                         } completion:^(BOOL finished) {
-                             [UIView animateWithDuration:.7
-                                              animations:^{
-                                                  [_mainImage setBackgroundColor:[UIColor whiteColor]];
-                                              }];
-                         }];
-        mainImg = false;
-    }
-    
-    if (!text || !category || !price || !mainImg){
-        return;
-    }
-    
-    [[self scrollView] setUserInteractionEnabled:NO];
-    [[self activitySpinner] startAnimating];
-    if(![self editingPost]){
-        Post* post = [[Post alloc] init];
-        
-        [post setTitle:[[self titleTextField] text]];
-        if(![[[self descriptionTextView] text] isEqualToString:@"Enter a description"]){
-			[post setItemDescription:[[self descriptionTextView] text]];
-        } else {
-            [post setItemDescription:@""];
-        }
-        [post setCategory:[[[self categoryButton] titleLabel] text]];
-        [post setStringTags:@[@"[]"]];
-        [post setHeaderPhoto:[[self mainImage] image]];
-        [post setCreatorFacebookId:[[PFUser currentUser] objectForKey:@"facebookId"]];
-        [post setPhotosArray:[self secondaryPictures]];
-        
-        NSString* price = [[[self priceTextField] text] stringByReplacingOccurrencesOfString:@"$" withString:@""];
-        [post setPrice:[NSNumber numberWithDouble:[price doubleValue]]];
-        
-        [ParseInterface saveNewPostToParse:post completion:^(BOOL succeeded){
-            if(succeeded){
-                // TODO: setting to post to facebook or not
-                [post postToFacebook];
-                
-                [[self activitySpinner] stopAnimating];
-                [[self delgate] addPostController:self didFinishWithPost:post];
-            }else{
-                // TODO: failed add
-            }
-        }];
-    }else{
-        // TODO: Centralized Post (shorten Code)
-        Post* post = [self editingPost];
-        [post setTitle:[[self titleTextField] text]];
-        if(![[[self descriptionTextView] text] isEqualToString:@"Enter a description"]){
-			[post setItemDescription:[[self descriptionTextView] text]];
-        } else {
-            [post setItemDescription:@""];
-        }
-        [post setCategory:[[[self categoryButton] titleLabel] text]];
-        [post setStringTags:@[@"[]"]];
-        [post setHeaderPhoto:[[self mainImage] image]];
-        [post setPhotosArray:[self secondaryPictures]];
-        
-        NSString* price = [[[self priceTextField] text] stringByReplacingOccurrencesOfString:@"$" withString:@""];
-        [post setPrice:[NSNumber numberWithDouble:[price doubleValue]]];
-        
-        [ParseInterface updateParsePost:post completion:^(BOOL succeeded) {
-            if(succeeded){
-                // TODO: Splash screen succeded or not
-                [[self activitySpinner] stopAnimating];
-                [[self delgate] addPostController:self didFinishUpdatePost:post];
-            }else{
-                // TODO: failed update
-            }
-        }];
-    }
+	// TODO: do checks on if required feilds are enter, secondary pics
+	if(![self userFilledinRequiredFields])
+		return;
+	
+	[[self scrollView] setUserInteractionEnabled:NO];
+	[[self activitySpinner] startAnimating];
+	
+	
+	Post* post;
+	if(![self editingPost])
+		post = [[Post alloc] init];
+	else
+		post = [self editingPost];
+
+	if(![[[self descriptionTextView] text] isEqualToString:@"Enter a description"])
+		[post setItemDescription:[[self descriptionTextView] text]];
+	
+	[post setTitle:[[self titleTextField] text]];
+	[post setCategory:[[[self categoryButton] titleLabel] text]];
+	[post setStringTags:@[@"[]"]];
+	[post setHeaderPhoto:[[self mainImage] image]];
+	[post setCreatorFacebookId:[[PFUser currentUser] objectForKey:@"facebookId"]];
+	[post setPhotosArray:[self secondaryPictures]];
+	
+	NSString* price = [[[self priceTextField] text] stringByReplacingOccurrencesOfString:@"$" withString:@""];
+	[post setPrice:[NSNumber numberWithDouble:[price doubleValue]]];
+	
+	if(![self editingPost]){
+		[ParseInterface saveNewPostToParse:post completion:^(BOOL succeeded){
+			if(succeeded){
+				// TODO: setting to post to facebook or not
+				[post postToFacebook];
+				
+				[[self activitySpinner] stopAnimating];
+				[[self delgate] addPostController:self didFinishWithPost:post];
+			}else{
+				// TODO: failed add
+			}
+		}];
+	}else{
+		[ParseInterface updateParsePost:post completion:^(BOOL succeeded) {
+			if(succeeded){
+				// TODO: Splash screen succeded or not
+				[[self activitySpinner] stopAnimating];
+				[[self delgate] addPostController:self didFinishUpdatePost:post];
+			}else{
+				// TODO: failed update
+			}
+		}];
+	}
 }
 
 - (IBAction)pressedCancel:(id)sender {
-    
-    if(![self editingPost]){
+    if(![self editingPost])
         [[self delgate] addPostController:self didFinishWithPost:nil];
-    }else{
+    else
         [[self delgate] addPostController:self didFinishUpdatePost:nil];
-    }
 }
 - (IBAction)removeMainImage:(id)sender {
     [[self mainImage] setImage:nil];
@@ -342,7 +330,7 @@ int color;
     [[self collectionView] reloadData];
 }
 
-- (void)hideKeyboard {
+- (void)hideKeyboard{
     [self.descriptionTextView resignFirstResponder];
 }
 
@@ -462,6 +450,7 @@ int color;
         [textView setText:@"Enter a description"];
         [textView setTextColor:[UIColor grayColor]];
     }
+	
     [self setActiveField:nil];
     [textView resignFirstResponder];
 }

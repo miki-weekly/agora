@@ -23,7 +23,11 @@
 @interface BrowseCollectionViewController () <LoginViewControllerDelegate, AddPostViewControllerDelegate>
 
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activitySpinner;
+
+@property NSString* catagory;
 @property NSMutableArray* postsArray;
+
+@property BOOL loadingMorePosts;
 
 @end
 
@@ -38,6 +42,8 @@
     [[self view] addSubview:addButton];
     
     [self setPostsArray:[[NSMutableArray alloc] init]];
+	
+	[self setCatagory:@"RECENTS"];
 	[self reloadData];
 }
 
@@ -68,14 +74,15 @@
 }
 
 -(void) reloadData {
-    [self reloadDataWithCategory:@"RECENTS"];
+    [self reloadDataWithCategory:[self catagory]];
 }
 
 - (void) reloadDataWithCategory:(NSString*) cat {
     // populate array
+	[self setCatagory:cat];
     [[self activitySpinner] startAnimating];
     [ParseInterface getFromParse:cat withSkip:0 completion:^(NSArray * result) {
-        [[self activitySpinner] stopAnimating];         // automatiicaly started via Storyboard
+        [[self activitySpinner] stopAnimating];
         [[self postsArray] removeAllObjects];
         [[self postsArray] addObjectsFromArray:result];
         [[self collectionView] reloadData];
@@ -89,19 +96,16 @@
 }
 
 - (IBAction)clickMenu:(id)sender {
-    
     RootVC * root = (RootVC*)self.parentViewController.parentViewController;
     [root snapOpen];
 }
-
 
 - (void)pressedAddButton{
     UIStoryboard* story = [UIStoryboard storyboardWithName:@"Main" bundle:NULL];
     AddPostViewController* addView = [story instantiateViewControllerWithIdentifier:@"Add Post"];
     [addView setDelgate:self];
-    [self presentViewController:addView animated:YES completion:^{
-        [[self activitySpinner] startAnimating];
-    }];
+	
+    [self presentViewController:addView animated:YES completion:nil];
 }
 
 #pragma mark - AddPostDelegate
@@ -113,7 +117,6 @@
         [self reloadData];
     }else{
         // No post was made
-        [[self activitySpinner] stopAnimating];
     }
 }
 
@@ -128,6 +131,24 @@
     message:@"Login Error" delegate:nil cancelButtonTitle:@"cancel" otherButtonTitles:nil, nil];
         [alert show];
     }
+}
+
+#pragma mark - Scroll View
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView{
+	CGFloat loadAheadOfScrollDist = 200.0f;
+	
+	CGFloat actualPosition = scrollView.contentOffset.y;
+	CGFloat contentHeight = scrollView.contentSize.height - self.collectionView.frame.size.height - loadAheadOfScrollDist;
+	NSLog(@"Actual:%f content:%f", actualPosition, contentHeight);
+	if(actualPosition >= contentHeight && contentHeight > 0 && ![self loadingMorePosts]){
+		[self setLoadingMorePosts:YES];
+		[ParseInterface getFromParse:@"RECENTS" withSkip:[[self postsArray] count] completion:^(NSArray * result) {
+			[[self postsArray] addObjectsFromArray:result];
+			[self setLoadingMorePosts:NO];
+			[self.collectionView reloadData];
+		}];
+	}
 }
 
 #pragma mark - Collection view data source
