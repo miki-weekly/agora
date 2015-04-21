@@ -122,16 +122,14 @@
     [[self titleTextField] setText:[post title]];
     [[self priceTextField] setText:[[post price] stringValue]];
 	
-    [[self categoryButton] setTitle:[post category] forState:UIControlStateNormal];
-    [[self categoryButton] setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-    [self presentCategorySelection];
-	
 	[[self addButton] setTitle:@"Save" forState:UIControlStateNormal];
 	
     [[self descriptionTextView] setText:[post itemDescription]];
     [[self descriptionTextView] setTextColor:[UIColor blackColor]];
 	
     [self setSecondaryPictures:[[NSMutableArray alloc] initWithArray:[post photosArray]]];
+	[[self categoryButton] setTitle:[post category] forState:UIControlStateNormal];
+	[self changeViewForCategory];
 }
 
 - (BOOL)userFilledinRequiredFields{
@@ -213,28 +211,33 @@ int color;
     color = 0;
 }
 
+- (void)changeViewForCategory{
+	UIColor * newColor = self.catColors[[[self categoryButton] titleForState:UIControlStateNormal]];
+	[self.categoryButton.layer setBorderColor:newColor.CGColor];
+	[self.categoryButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+	
+	// also change statusBarBackground
+	[UIView animateWithDuration:0.5
+						  delay:0.0
+						options: UIViewAnimationOptionCurveEaseOut
+					 animations:^{
+						 [[_statusBarBack layer] setBackgroundColor:[[newColor colorWithAlphaComponent:0.8f] CGColor]];
+					 }
+					 completion:^(BOOL finished){}];
+}
+
 -(void) presentCategorySelection {
     NSArray * k = self.catColors.allKeys;
 	
     NSString * newCat = k[color];
 	
     [[self categoryButton] setTitle:newCat forState:UIControlStateNormal];
-    UIColor * newColor = self.catColors[newCat];
-    [self.categoryButton.layer setBorderColor:newColor.CGColor];
-    [self.categoryButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+	[self changeViewForCategory];
 	
-    // also change statusBarBackground
-    [UIView animateWithDuration:0.5
-                          delay:0.0
-                        options: UIViewAnimationOptionCurveEaseOut
-                     animations:^{
-                         [[_statusBarBack layer] setBackgroundColor:[[newColor colorWithAlphaComponent:0.8f] CGColor]];
-                     }
-                     completion:^(BOOL finished){}];
     color++;
     if (color == 5) {
         color = 0;
-    }else if(color == 1){	// if color is yellow, set black statusbar
+    }else if([newCat isEqualToString:@"Fashion"]){	// if color is yellow, set black statusbar
         [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault animated:YES];
     }else{
         [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent animated:YES];
@@ -337,7 +340,13 @@ int color;
 }
 
 - (IBAction)removeImageFromArray:(UIButton*)sender{
-    [[self secondaryPictures] removeObjectAtIndex:[sender tag]];
+	[self.collectionView performBatchUpdates:^{
+		AddPostViewCell* cell = (AddPostViewCell*)[sender superview];
+		NSIndexPath* path = [self.collectionView indexPathForCell:cell];
+		[[self secondaryPictures] removeObjectAtIndex:[path row]];
+		[self.collectionView deleteItemsAtIndexPaths:@[[NSIndexPath indexPathForRow:[path row] inSection:0]]];
+	}completion:nil];
+	
     [[self collectionView] reloadData];
 }
 
@@ -511,8 +520,10 @@ int color;
 		[[self removeMainImageButton] setEnabled:YES];
         [[self modifyMainImageButton] setTitle:@"" forState:UIControlStateNormal];
     }else{
-        [[self secondaryPictures] addObject:image];
-        [[self collectionView] reloadData];
+        [self.collectionView performBatchUpdates:^{
+			[[self secondaryPictures] addObject:image];
+			[self.collectionView insertItemsAtIndexPaths:@[[NSIndexPath indexPathForRow:[[self secondaryPictures] count]-1 inSection:0]]];
+		} completion:nil];
     }
     
     [picker dismissViewControllerAnimated:YES completion:nil];
@@ -539,7 +550,7 @@ int color;
     if([indexPath row] != [[self secondaryPictures] count]){
         AddPostViewCell* imageCell = [collectionView dequeueReusableCellWithReuseIdentifier:@"imageCell" forIndexPath:indexPath];
         NSInteger row = [indexPath row];
-        [imageCell setContentMode:UIViewContentModeScaleAspectFill];
+        [[imageCell cellImage] setContentMode:UIViewContentModeScaleAspectFill];
         [[imageCell cellImage] setImage:[[self secondaryPictures] objectAtIndex:[indexPath row]]];
         [[imageCell removeButton] setTag:row];
         [[imageCell removeButton] addTarget:self action:@selector(removeImageFromArray:) forControlEvents:UIControlEventTouchDown];

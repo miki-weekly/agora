@@ -65,7 +65,6 @@
 	
 	[[self scrollView] setContentInset:UIEdgeInsetsZero];
 	[[self scrollView] setScrollIndicatorInsets:UIEdgeInsetsZero];
-	
 }
 
 - (void)setPostDetails{
@@ -73,27 +72,29 @@
 		[ParseInterface getHeaderPhotoForPost:post completion:^(UIImage *result) {
 			post.headerPhoto = result;
 			[[self mainImageView] setImage:post.headerPhoto];
+			[[self mainImageIndicator] stopAnimating];
 		}];
 	}else{
 		[[self mainImageView] setImage:post.headerPhoto];
+		[[self mainImageIndicator] stopAnimating];
 	}
-	[[self mainImageIndicator] stopAnimating];
 	
 	if(![post photosArray]){
 		[ParseInterface getPhotosArrayWithObjectID:post.objectId completion:^(NSArray *result) {
 			if([result count] > 0){
 				[post setPhotosArray:result];
 				
-				[[self collectionView] setBackgroundColor:[[UIColor grayColor] colorWithAlphaComponent:0.2f]];
+				[[self collectionView] setBackgroundColor:[[self mainImageView] backgroundColor]];
 				[[self collectionView] reloadData];
+				[[self collectionIndicator] stopAnimating];
 			}
 		}];
 	}else{
-		[[self collectionView] reloadData];
+		[[self collectionIndicator] stopAnimating];
 	}
 	if([[post photosArray] count] > 0)
-		[[self collectionView] setBackgroundColor:[[UIColor grayColor] colorWithAlphaComponent:0.7f]];
-	[[self collectionIndicator] stopAnimating];
+		[[self collectionView] setBackgroundColor:[[UIColor grayColor] colorWithAlphaComponent:0.3f]];
+	
 	
 	// configure title, description and price
 	[[self titleLabel] setText:[post title]];

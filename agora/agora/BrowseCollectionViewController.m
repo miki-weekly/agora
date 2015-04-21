@@ -88,9 +88,10 @@
     // populate array
 	[self setCatagory:cat];
     [[self activitySpinner] startAnimating];
+	[[self postsArray] removeAllObjects];
+	[[self collectionView] reloadData]; 
     [ParseInterface getFromParse:cat withSkip:0 completion:^(NSArray * result) {
         [[self activitySpinner] stopAnimating];
-        [[self postsArray] removeAllObjects];
         [[self postsArray] addObjectsFromArray:result];
         [[self collectionView] reloadData];
     }];
@@ -147,13 +148,22 @@
 	
 	CGFloat actualPosition = scrollView.contentOffset.y;
 	CGFloat contentHeight = scrollView.contentSize.height - self.collectionView.frame.size.height;
-	NSLog(@"actual:%f content:%f", actualPosition, contentHeight);
 	if(actualPosition >= (contentHeight*loadAheadOfScrollDist) && contentHeight > 0 && ![self loadingMorePosts]){
 		[self setLoadingMorePosts:YES];
 		[ParseInterface getFromParse:@"RECENTS" withSkip:[[self postsArray] count] completion:^(NSArray * result) {
-			[[self postsArray] addObjectsFromArray:result];
+			[self.collectionView performBatchUpdates:^{
+				NSUInteger resultsSize = [self.postsArray count];
+				[[self postsArray] addObjectsFromArray:result];
+				NSMutableArray *arrayWithIndexPaths = [NSMutableArray array];
+							
+				for (NSUInteger i=resultsSize; i < resultsSize + result.count; i++)
+					[arrayWithIndexPaths addObject:[NSIndexPath indexPathForRow:i inSection:0]];
+							
+				[self.collectionView insertItemsAtIndexPaths:arrayWithIndexPaths];
+				
+			} completion:nil];
+			
 			[self setLoadingMorePosts:NO];
-			[self.collectionView reloadData];
 		}];
 	}
 }
@@ -174,8 +184,7 @@
     
     // Cell config
     [[postCell layer] setCornerRadius:5.0f];
-	
-    [[postCell imageView] setImage:nil];
+
     [[postCell titleLabel] setText:[postForCell title]];
     [[postCell titleLabel] setTextColor:[UIColor whiteColor]];
     [[postCell priceLabel] setText:[@"$" stringByAppendingString:[[postForCell price] stringValue]]];
@@ -183,6 +192,7 @@
     [[postCell imageView] setContentMode:UIViewContentModeScaleAspectFill];
 	
     if(![postForCell thumbnail]){
+		[[postCell imageView] setImage:nil];
         [ParseInterface getThumbnail:[postForCell objectId] completion:^(UIImage *result){
             [postForCell setThumbnail:result];
             [[postCell imageView] setImage:[postForCell thumbnail]];
@@ -218,4 +228,5 @@
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath{
 	return _cellSize;
 }
+
 @end
