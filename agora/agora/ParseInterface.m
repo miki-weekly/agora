@@ -211,12 +211,13 @@ NS_INLINE void forceImageDecompression(UIImage *image) {
         dispatch_queue_t bg_queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
         
         dispatch_group_async(group, bg_queue, ^{
-            if(block){
-                UIImage* image = [UIImage imageWithData:[file getData]];
-				[post setHeaderPhotoURL:[file url]];
-                forceImageDecompression(image);
-                [container addObject:image];
-            }
+			UIImage* image = [UIImage imageWithData:[file getData]];
+			[post setHeaderPhotoURL:[file url]];
+			
+			if(image){
+				forceImageDecompression(image);
+				[container addObject:image];
+			}
         });
         
         dispatch_group_notify(group, dispatch_get_main_queue(), ^{
@@ -228,7 +229,7 @@ NS_INLINE void forceImageDecompression(UIImage *image) {
 
 + (void) getThumbnail: (NSString*) object_id completion: (void (^)(UIImage* result))block; {
     PFQuery* query = [PFQuery queryWithClassName:@"Posts"];
-    [query selectKeys:@[@"thumbnail" ]];
+    [query selectKeys:@[@"thumbnail"]];
     
     [query getObjectInBackgroundWithId:object_id block:^(PFObject *object, NSError *error) {
         PFFile* file = [object objectForKey:@"thumbnail"];
@@ -237,11 +238,12 @@ NS_INLINE void forceImageDecompression(UIImage *image) {
         dispatch_queue_t bg_queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
         
         dispatch_group_async(group, bg_queue, ^{
-            if(block){
-                UIImage* image = [UIImage imageWithData:[file getData]];
-                forceImageDecompression(image);
-                [container addObject:image];
-            }
+			UIImage* image = [UIImage imageWithData:[file getData]];
+			
+			if(image){
+				forceImageDecompression(image);
+				[container addObject:image];
+			}
         });
         
         dispatch_group_notify(group, dispatch_get_main_queue(), ^{
@@ -264,7 +266,12 @@ NS_INLINE void forceImageDecompression(UIImage *image) {
         
         dispatch_group_async(group, bg_queue, ^{
             for (PFFile *picture in picturesPFFileArray) {
-                [photosArray addObject:[UIImage imageWithData:[picture getData]]];
+				UIImage* image = [UIImage imageWithData:[picture getData]];
+				
+				if(image){
+					forceImageDecompression(image);
+					[photosArray addObject:image];
+				}
             }
         });
         //when done do this

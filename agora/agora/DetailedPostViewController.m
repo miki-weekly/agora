@@ -59,16 +59,53 @@
     [self setUpFBSeller];
 }
 
-- (void)viewDidAppear:(BOOL)animated{
+- (void)viewWillAppear:(BOOL)animated{
 	[[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent animated:animated];
-    if(post.photosArray.count == 0){
-        [_collectionView setBackgroundColor:UIColor.whiteColor];
-    }
+	[[self scrollView] setContentOffset:CGPointZero];					// Does not work first time?
+	
+	[[self scrollView] setContentInset:UIEdgeInsetsZero];
+	[[self scrollView] setScrollIndicatorInsets:UIEdgeInsetsZero];
+	
+}
+
+- (void)setPostDetails{
+	if(![post headerPhoto]){
+		[ParseInterface getHeaderPhotoForPost:post completion:^(UIImage *result) {
+			post.headerPhoto = result;
+			[[self mainImageView] setImage:post.headerPhoto];
+		}];
+	}else{
+		[[self mainImageView] setImage:post.headerPhoto];
+	}
+	[[self mainImageIndicator] stopAnimating];
+	
+	if(![post photosArray]){
+		[ParseInterface getPhotosArrayWithObjectID:post.objectId completion:^(NSArray *result) {
+			if([result count] > 0){
+				[post setPhotosArray:result];
+				
+				[[self collectionView] setBackgroundColor:[[UIColor grayColor] colorWithAlphaComponent:0.2f]];
+				[[self collectionView] reloadData];
+			}
+		}];
+	}else{
+		[[self collectionView] reloadData];
+	}
+	if([[post photosArray] count] > 0)
+		[[self collectionView] setBackgroundColor:[[UIColor grayColor] colorWithAlphaComponent:0.7f]];
+	[[self collectionIndicator] stopAnimating];
+	
+	// configure title, description and price
+	[[self titleLabel] setText:[post title]];
+	[[self priceLabel] setText:[@"$" stringByAppendingString:[[post price] stringValue]]];
+	
+	// configure description textField
+	[[self descriptionTextField] setText:[post itemDescription]];
 }
 
 - (void)setUpCategoryLabel {
     //[[self categoryLabel] setText:[post category]];
-    
+	
     NSString * catText = [NSString stringWithFormat:@"%@ %@",@"⦁",[post category]];
     
     NSAttributedString * cat = [[NSAttributedString alloc]initWithString:catText];
@@ -93,7 +130,7 @@
 }
 
 - (void)setUpFBSeller{
-    [[[self FBSellerImageView] layer] setCornerRadius:[[self FBSellerImageView] frame].size.height/2];
+	[[[self FBSellerImageView] layer] setCornerRadius:[[self FBSellerImageView] frame].size.height/1.7];	// BUG: CornerRadius broken by FBImage set to 60?
     [[[self FBSellerImageView] layer] setMasksToBounds:YES];
     [[[self FBSellerImageView] layer] setBorderWidth:0];
     
@@ -140,37 +177,6 @@
         [[[self contactButton] layer] setBackgroundColor:[[UIColor grayColor] CGColor]];
         [[[self contactButton] layer] setBorderColor:[[UIColor grayColor] CGColor]];
     }
-}
-
-- (void)setPostDetails{
-    if(![post headerPhoto]){
-        [ParseInterface getHeaderPhotoForPost:post completion:^(UIImage *result) {
-            post.headerPhoto = result;
-            [[self mainImageView] setImage:post.headerPhoto];
-            [[self mainImageIndicator] stopAnimating];        }];
-    }else{
-        [[self mainImageView] setImage:post.headerPhoto];
-        [[self mainImageIndicator] stopAnimating];
-    }
-	
-    if(![post photosArray]){
-        [ParseInterface getPhotosArrayWithObjectID:post.objectId completion:^(NSArray *result) {
-            [post setPhotosArray:result];
-            
-            [[self collectionView] reloadData];
-            [[self collectionIndicator] stopAnimating];
-        }];
-    }else{
-        [[self collectionView] reloadData];
-        [[self collectionIndicator] stopAnimating];
-    }
-    
-    // configure title, description and price
-    [[self titleLabel] setText:[post title]];
-    [[self priceLabel] setText:[@"$" stringByAppendingString:[[post price] stringValue]]];
-    
-    // configure description textField
-    [[self descriptionTextField] setText:[post itemDescription]];
 }
 
 - (void)reloadPost{

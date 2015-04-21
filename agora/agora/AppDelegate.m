@@ -24,8 +24,8 @@
     // Override point for customization after application launch.
     [[UINavigationBar appearance] setBarStyle:UIBarStyleBlack];
     [[UINavigationBar appearance] setBarTintColor:[UIColor indigoColor]];
-    [[UIBarButtonItem appearance] setTintColor:[UIColor whiteColor]];
-    
+	[[UINavigationBar appearance] setTintColor:[UIColor colorWithRed:0.0f green:51.0f blue:0.0f alpha:1.0f]];
+
     //Connects app to Parse servers
     [Parse setApplicationId:@"U7URHkl93QVktNmfR9D1ZoZiQoib1fXZgMKIySXl"
                   clientKey:@"447pKmFDlBBmYDLXUbn6lTFuXeRa0NUUjPghtM4Q"];

@@ -32,6 +32,7 @@
 @property NSMutableArray* secondaryPictures;
 
 @property (weak, nonatomic) id activeField;
+@property BOOL initialHeadImageSelect;
 @property BOOL selectingHeadImage;
 
 @property UIView* statusBarBack;
@@ -73,8 +74,8 @@
 
     if([self editingPost]){
         [self setUpEditting];
-        [[self addButton] setTitle:@"Save" forState:UIControlStateNormal];
     }else{
+		[self setInitialHeadImageSelect:YES];
         [[self removeMainImageButton] setHidden:YES];
     }
 }
@@ -82,9 +83,16 @@
 - (void)viewWillAppear:(BOOL)animated{
     if(![self imagePickerController]){
         [self setImagePickerController:[[UIImagePickerController alloc] init]];
+		[[self imagePickerController] setAllowsEditing:YES];
         [[self imagePickerController] setDelegate:self];
     }
-    
+	
+	if([self initialHeadImageSelect]){
+		[[self imagePickerController] setSourceType:UIImagePickerControllerSourceTypeCamera];
+		[self setSelectingHeadImage:YES];
+		[self presentViewController:[self imagePickerController] animated:YES completion:nil];
+	}
+	
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(keyboardDidShow:)
                                                  name:UIKeyboardDidShowNotification
@@ -117,6 +125,8 @@
     [[self categoryButton] setTitle:[post category] forState:UIControlStateNormal];
     [[self categoryButton] setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     [self presentCategorySelection];
+	
+	[[self addButton] setTitle:@"Save" forState:UIControlStateNormal];
 	
     [[self descriptionTextView] setText:[post itemDescription]];
     [[self descriptionTextView] setTextColor:[UIColor blackColor]];
@@ -317,6 +327,7 @@ int color;
     else
         [[self delgate] addPostController:self didFinishUpdatePost:nil];
 }
+
 - (IBAction)removeMainImage:(id)sender {
     [[self mainImage] setImage:nil];
     
@@ -468,17 +479,15 @@ int color;
             switch (buttonIndex){
                 case 0:		// Camera
                     [[self imagePickerController] setSourceType:UIImagePickerControllerSourceTypeCamera];
-                    [self presentViewController:[self imagePickerController] animated:YES completion:nil];
-                    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent animated:YES];
                     break;
                 case 1:		// Photo Library
                     [[self imagePickerController] setSourceType:UIImagePickerControllerSourceTypePhotoLibrary];
-                    [self presentViewController:[self imagePickerController] animated:YES completion:nil];
                     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent animated:YES];
                     break;
                 default:
                     break;
             }
+			[self presentViewController:[self imagePickerController] animated:YES completion:nil];
             break;
         }
             break;
@@ -490,15 +499,16 @@ int color;
 #pragma mark - UIImagePickerController
 
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info{
-    UIImage* image = info[@"UIImagePickerControllerOriginalImage"];
+    UIImage* image = info[@"UIImagePickerControllerEditedImage"];
     // How to know which imagePicker is which? (Main vs array of subimage)
     // do something with Image
     
-    if([self selectingHeadImage]){
+    if([self selectingHeadImage] || [self initialHeadImageSelect]){
         [[self mainImage] setImage:image];
         [self setSelectingHeadImage:NO];
+		[self setInitialHeadImageSelect:NO];
         [[self removeMainImageButton] setHidden:NO];
-        [[self removeMainImageButton] setEnabled:YES];
+		[[self removeMainImageButton] setEnabled:YES];
         [[self modifyMainImageButton] setTitle:@"" forState:UIControlStateNormal];
     }else{
         [[self secondaryPictures] addObject:image];
@@ -510,6 +520,7 @@ int color;
 
 - (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker{
     [picker dismissViewControllerAnimated:YES completion:nil];
+	[self setInitialHeadImageSelect:NO];
     [self setSelectingHeadImage:NO];
 }
 

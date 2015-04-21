@@ -20,10 +20,11 @@
 #import "PostCollectionViewCell.h"
 #import "RootVC.h"
 
-@interface BrowseCollectionViewController () <LoginViewControllerDelegate, AddPostViewControllerDelegate>
+@interface BrowseCollectionViewController () <UICollectionViewDelegateFlowLayout, LoginViewControllerDelegate, AddPostViewControllerDelegate>
 
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activitySpinner;
 
+@property CGSize cellSize;
 @property NSString* catagory;
 @property NSMutableArray* postsArray;
 
@@ -42,6 +43,12 @@
     [[self view] addSubview:addButton];
     
     [self setPostsArray:[[NSMutableArray alloc] init]];
+	
+	// Calculate Cell rects
+	CGSize screen = [[UIScreen mainScreen] bounds].size;
+	CGFloat leftInset = [(UICollectionViewFlowLayout *)self.collectionViewLayout sectionInset].left;
+	CGFloat cellWidth = (screen.width - leftInset*3)/2;
+	[self setCellSize:CGSizeMake(cellWidth, cellWidth)];
 	
 	[self setCatagory:@"RECENTS"];
 	[self reloadData];
@@ -136,12 +143,12 @@
 #pragma mark - Scroll View
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView{
-	CGFloat loadAheadOfScrollDist = 200.0f;
+	CGFloat loadAheadOfScrollDist = 0.8f;	// Load more post once %80 scrolled
 	
 	CGFloat actualPosition = scrollView.contentOffset.y;
-	CGFloat contentHeight = scrollView.contentSize.height - self.collectionView.frame.size.height - loadAheadOfScrollDist;
-	NSLog(@"Actual:%f content:%f", actualPosition, contentHeight);
-	if(actualPosition >= contentHeight && contentHeight > 0 && ![self loadingMorePosts]){
+	CGFloat contentHeight = scrollView.contentSize.height - self.collectionView.frame.size.height;
+	NSLog(@"actual:%f content:%f", actualPosition, contentHeight);
+	if(actualPosition >= (contentHeight*loadAheadOfScrollDist) && contentHeight > 0 && ![self loadingMorePosts]){
 		[self setLoadingMorePosts:YES];
 		[ParseInterface getFromParse:@"RECENTS" withSkip:[[self postsArray] count] completion:^(NSArray * result) {
 			[[self postsArray] addObjectsFromArray:result];
@@ -167,13 +174,13 @@
     
     // Cell config
     [[postCell layer] setCornerRadius:5.0f];
-    
+	
+    [[postCell imageView] setImage:nil];
     [[postCell titleLabel] setText:[postForCell title]];
     [[postCell titleLabel] setTextColor:[UIColor whiteColor]];
     [[postCell priceLabel] setText:[@"$" stringByAppendingString:[[postForCell price] stringValue]]];
     [[postCell priceLabel] setTextColor:[UIColor whiteColor]];
     [[postCell imageView] setContentMode:UIViewContentModeScaleAspectFill];
-	[[postCell imageView] setImage:nil];
 	
     if(![postForCell thumbnail]){
         [ParseInterface getThumbnail:[postForCell objectId] completion:^(UIImage *result){
@@ -194,10 +201,11 @@
 
 - (void) addGradientBGForView:(UIView*) view {
     CAGradientLayer * gradient = [CAGradientLayer layer];
-	
 	// TODO: Bug were gradientFrame does not match Story board
+	// final size of cell is not calculated until after gradient is drawn
 	CGRect frame = view.bounds;
 	frame.size.height = 35.0f;
+	frame.size.width = _cellSize.width;
 	gradient.frame = frame;
 	
 	//NSLog(@"%f, %f", gradient.frame.size.height, frame.size.height);
@@ -205,7 +213,9 @@
     gradient.startPoint = CGPointMake(0.5, 0.0);
     gradient.endPoint = CGPointMake(0.5, 1.0);
     [view.layer addSublayer:gradient];
-    
 }
 
+- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath{
+	return _cellSize;
+}
 @end
