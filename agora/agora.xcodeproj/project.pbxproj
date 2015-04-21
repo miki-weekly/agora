@@ -31,7 +31,6 @@
 		9EFE8A8A1AB7CF4C000018F7 /* Accounts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9EFE8A891AB7CF4C000018F7 /* Accounts.framework */; };
 		AA3DA6651AE1E42800847C18 /* ConversationVC.m in Sources */ = {isa = PBXBuildFile; fileRef = AA3DA6641AE1E42800847C18 /* ConversationVC.m */; };
 		AA3DA6681AE1E9CA00847C18 /* MessageView.m in Sources */ = {isa = PBXBuildFile; fileRef = AA3DA6671AE1E9CA00847C18 /* MessageView.m */; };
-		AA3DA6B91AE4724A00847C18 /* LabelView.m in Sources */ = {isa = PBXBuildFile; fileRef = AA3DA6B71AE4724A00847C18 /* LabelView.m */; };
 		AA49384A1AD21470000FCC9B /* UIImage+ImageEffects.m in Sources */ = {isa = PBXBuildFile; fileRef = AA4938491AD21470000FCC9B /* UIImage+ImageEffects.m */; };
 		AA49384D1AD215D9000FCC9B /* UILabel+FormattedText.m in Sources */ = {isa = PBXBuildFile; fileRef = AA49384B1AD215D9000FCC9B /* UILabel+FormattedText.m */; };
 		AA4938501AD24C51000FCC9B /* slideItemTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = AA49384F1AD24C51000FCC9B /* slideItemTVC.m */; };
@@ -104,8 +103,6 @@
 		AA3DA6641AE1E42800847C18 /* ConversationVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConversationVC.m; sourceTree = "<group>"; };
 		AA3DA6661AE1E9CA00847C18 /* MessageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessageView.h; sourceTree = "<group>"; };
 		AA3DA6671AE1E9CA00847C18 /* MessageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessageView.m; sourceTree = "<group>"; };
-		AA3DA6B71AE4724A00847C18 /* LabelView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LabelView.m; path = agora/LabelView.m; sourceTree = "<group>"; };
-		AA3DA6B81AE4724A00847C18 /* LabelView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LabelView.h; path = agora/LabelView.h; sourceTree = "<group>"; };
 		AA4938481AD21470000FCC9B /* UIImage+ImageEffects.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+ImageEffects.h"; sourceTree = "<group>"; };
 		AA4938491AD21470000FCC9B /* UIImage+ImageEffects.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+ImageEffects.m"; sourceTree = "<group>"; };
 		AA49384B1AD215D9000FCC9B /* UILabel+FormattedText.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UILabel+FormattedText.m"; sourceTree = "<group>"; };
@@ -315,8 +312,6 @@
 				AA3DA6641AE1E42800847C18 /* ConversationVC.m */,
 				AA3DA6661AE1E9CA00847C18 /* MessageView.h */,
 				AA3DA6671AE1E9CA00847C18 /* MessageView.m */,
-				AA3DA6B71AE4724A00847C18 /* LabelView.m */,
-				AA3DA6B81AE4724A00847C18 /* LabelView.h */,
 			);
 			name = Chat;
 			path = ..;
@@ -519,7 +514,6 @@
 				AA49384A1AD21470000FCC9B /* UIImage+ImageEffects.m in Sources */,
 				AAA611BC1AD9085F00535A7E /* SettingsVC.m in Sources */,
 				AA8F662A1A8EA73700CA4604 /* main.m in Sources */,
-				AA3DA6B91AE4724A00847C18 /* LabelView.m in Sources */,
 				AD99EDAB1ADDFB270017A1C7 /* Conversation.m in Sources */,
 				AA4938531AD24C9F000FCC9B /* ManageTableVC.m in Sources */,
 				AA4938501AD24C51000FCC9B /* slideItemTVC.m in Sources */,
