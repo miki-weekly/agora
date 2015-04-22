@@ -29,6 +29,8 @@
 
 @property NSString *headerPhotoURL;
 
+- (void)dropImages;
+
 - (void)postToFacebook;
 - (void)deletePost;
 

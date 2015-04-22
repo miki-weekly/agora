@@ -87,7 +87,8 @@
 				[[self collectionView] setBackgroundColor:[[self mainImageView] backgroundColor]];
 				[[self collectionView] reloadData];
 				[[self collectionIndicator] stopAnimating];
-			}
+			}else
+				[[self collectionIndicator] stopAnimating];
 		}];
 	}else{
 		[[self collectionIndicator] stopAnimating];

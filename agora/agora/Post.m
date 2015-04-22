@@ -12,6 +12,11 @@
 
 @implementation Post : NSObject
 
+- (void)dropImages{
+	_headerPhoto = nil;
+	_photosArray = nil;
+}
+
 - (void)postToFacebook{
 	if([self fbPostID])
 		return;

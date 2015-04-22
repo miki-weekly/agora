@@ -71,6 +71,12 @@
 	}
 }
 
+- (void)didReceiveMemoryWarning{
+	[super didReceiveMemoryWarning];
+	NSLog(@"Memory Warning: dropping images");
+	for(Post* post in self.postsArray)
+		[post dropImages];
+}
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
     if([[segue identifier] isEqualToString: @"viewPostSegue"]){
         DetailedPostViewController* destination = [segue destinationViewController];
@@ -80,18 +86,20 @@
     }
 }
 
--(void) reloadData {
+- (void)reloadData{
     [self reloadDataWithCategory:[self catagory]];
 }
 
-- (void) reloadDataWithCategory:(NSString*) cat {
+- (void)reloadDataWithCategory:(NSString*) cat {
     // populate array
 	[self setCatagory:cat];
     [[self activitySpinner] startAnimating];
-	[[self postsArray] removeAllObjects];
-	[[self collectionView] reloadData]; 
+	[[self collectionView] setUserInteractionEnabled:NO];
+		//[[self collectionView] reloadData];
     [ParseInterface getFromParse:cat withSkip:0 completion:^(NSArray * result) {
         [[self activitySpinner] stopAnimating];
+		[[self collectionView] setUserInteractionEnabled:YES];
+		[[self postsArray] removeAllObjects];
         [[self postsArray] addObjectsFromArray:result];
         [[self collectionView] reloadData];
     }];
@@ -143,11 +151,20 @@
 
 #pragma mark - Scroll View
 
-- (void)scrollViewDidScroll:(UIScrollView *)scrollView{
-	CGFloat loadAheadOfScrollDist = 0.8f;	// Load more post once %80 scrolled
+- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate{
+	CGFloat actualPosition = scrollView.contentOffset.y;
 	
+	CGFloat threshold = 80.0f;
+	if(actualPosition < -64.0f - threshold){
+		[self reloadData];
+	}
+}
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView{
 	CGFloat actualPosition = scrollView.contentOffset.y;
 	CGFloat contentHeight = scrollView.contentSize.height - self.collectionView.frame.size.height;
+	
+	CGFloat loadAheadOfScrollDist = 0.8f;	// Load more post once %80 scrolled
 	if(actualPosition >= (contentHeight*loadAheadOfScrollDist) && contentHeight > 0 && ![self loadingMorePosts]){
 		[self setLoadingMorePosts:YES];
 		[ParseInterface getFromParse:@"RECENTS" withSkip:[[self postsArray] count] completion:^(NSArray * result) {
