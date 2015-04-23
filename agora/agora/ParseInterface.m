@@ -90,15 +90,23 @@
             [object setObject: post.stringTags forKey:@"tags"];
             [object setObject: post.price forKey:@"price"];
             [object setObject: [PFUser currentUser] forKey:@"createdBy"];
-			object[@"FBPostId"] = post.fbPostID;
+			
+			if(post.fbPostID)
+				object[@"FBPostId"] = post.fbPostID;
 			
 			if([post itemDescription])
 				[object setObject: post.itemDescription forKey:@"description"];
 			
-			[object saveInBackground];
-			NSLog(@"OBJECT UPDATED!");
-            if(block)
-                block(YES);
+			[object saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+				if(succeeded){
+					NSLog(@"OBJECT UPDATED!");
+					if(block)
+						block(YES);
+				}else{
+					if(block)
+						block(NO);
+				}
+			}];
         } else {
             NSLog(@"UPDATE: NO OBJECT FOUND");
             if(block)

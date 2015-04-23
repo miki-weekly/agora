@@ -14,6 +14,7 @@
 
 #import "AddPostButton.h"
 #import "AddPostViewController.h"
+#import "AGActivityOverlay.h"
 #import "DetailedPostViewController.h"
 #import "LoginViewController.h"
 #import "ParseInterface.h"
@@ -21,8 +22,6 @@
 #import "RootVC.h"
 
 @interface BrowseCollectionViewController () <UICollectionViewDelegateFlowLayout, LoginViewControllerDelegate, AddPostViewControllerDelegate>
-
-@property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activitySpinner;
 
 @property CGSize cellSize;
 @property NSString* catagory;
@@ -93,15 +92,25 @@
 - (void)reloadDataWithCategory:(NSString*) cat {
     // populate array
 	[self setCatagory:cat];
-    [[self activitySpinner] startAnimating];
 	[[self collectionView] setUserInteractionEnabled:NO];
-		//[[self collectionView] reloadData];
+	AGActivityOverlay* overlay = [[AGActivityOverlay alloc] initWithString:@"Loading"];
+	overlay.center = self.view.center;
+	[self.view addSubview:overlay];
+	[UIView animateWithDuration:0.2f delay:0.0 options:UIViewAnimationOptionCurveEaseIn animations:^{
+		overlay.alpha = 1.0f;
+	} completion:^(BOOL finished) {
+	}];
+
     [ParseInterface getFromParse:cat withSkip:0 completion:^(NSArray * result) {
-        [[self activitySpinner] stopAnimating];
-		[[self collectionView] setUserInteractionEnabled:YES];
 		[[self postsArray] removeAllObjects];
         [[self postsArray] addObjectsFromArray:result];
         [[self collectionView] reloadData];
+		[[self collectionView] setUserInteractionEnabled:YES];
+		[UIView animateWithDuration:0.2f delay:0.0 options:UIViewAnimationOptionCurveEaseIn animations:^{
+			overlay.alpha = 0.0f;
+		} completion:^(BOOL finished) {
+			[overlay removeFromSuperview];
+		}];
     }];
     
     if ([cat isEqualToString:@"RECENTS"]) {
@@ -129,8 +138,9 @@
 - (void)addPostController:(AddPostViewController *)addPostController didFinishWithPost:(Post *)addedPost{
     [addPostController dismissViewControllerAnimated:YES completion:nil];
     
-    if(addedPost){
-        [self reloadData];
+    if(addedPost){	// Only refresh if post catagory is same as viewing catagory
+		if([self.catagory isEqualToString:addedPost.category])
+			[self reloadData];
     }else{
         // No post was made
     }
