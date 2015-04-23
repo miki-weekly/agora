@@ -77,8 +77,7 @@
     if([self editingPost]){
         [self setUpEditting];
     }else{
-		[self setInitialHeadImageSelect:YES];
-        [[self removeMainImageButton] setHidden:YES];
+		[self setInitialHeadImageSelect:NO];		// YES if bring up camera every initial time
     }
 }
 
