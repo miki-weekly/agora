@@ -17,12 +17,14 @@
         CGSize screen = [[UIScreen mainScreen] bounds].size;
         CGSize button = CGSizeMake(50, 50);
         CGRect frame = CGRectMake(screen.width - button.width - 10, screen.height - button.height - 10, button.width, button.height);
+		
         [self setFrame:frame];
-        UILabel* plus = [[UILabel alloc] initWithFrame:CGRectMake(frame.size.height/2 - 15, frame.size.height/2 - 25, 40, 40)];
-        [plus setText:@"+"];
-        [plus setFont:[UIFont systemFontOfSize:48]];
-        [plus setTextColor:[UIColor whiteColor]];
-        
+		[self setTitle:@"+" forState:UIControlStateNormal];
+		[self setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+		[[self titleLabel] setFont:[UIFont systemFontOfSize:36.0f]];
+		[self setContentVerticalAlignment:UIControlContentVerticalAlignmentTop];
+		[self setTitleEdgeInsets:UIEdgeInsetsMake(0.0f, -1.0f, 0.0f, 0.0f)];
+
         // config button shadow
         [[self layer] setCornerRadius:frame.size.height/2];
         [[self layer] setMasksToBounds:NO];
@@ -30,13 +32,13 @@
         
         [[self layer] setShadowOffset:CGSizeMake(0, 0)];
         [[self layer] setShadowRadius:4.0f];
-        [[self layer] setShadowOpacity:0.4f];
+        [[self layer] setShadowOpacity:0.5f];
         [[self layer] setShadowPath:[[UIBezierPath bezierPathWithRoundedRect:[self bounds] cornerRadius:[[self layer] cornerRadius]] CGPath]];
-        
-        [self addSubview:plus];
-        [self setBackgroundColor:[UIColor indigoColor]];
+
+		[self setBackgroundColor:[UIColor indigoColor]];	// Colorized add button depending on viewed category?
     }
     
     return self;
 }
+
 @end

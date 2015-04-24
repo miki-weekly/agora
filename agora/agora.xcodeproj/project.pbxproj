@@ -207,10 +207,10 @@
 			isa = PBXGroup;
 			children = (
 				AA87F4881ACF4E5800AA6AB1 /* Categories */,
-				0BC025661ABB2E390076A09B /* PostCollectionViewCell.h */,
-				0BC025671ABB2E390076A09B /* PostCollectionViewCell.m */,
 				9E2DA4351AD3705400296C34 /* ManageTableViewCell.h */,
 				9E2DA4361AD3705400296C34 /* ManageTableViewCell.m */,
+				0BC025661ABB2E390076A09B /* PostCollectionViewCell.h */,
+				0BC025671ABB2E390076A09B /* PostCollectionViewCell.m */,
 				0B72DA0F1AE8489200CD99BD /* agora-Bridging-Header.h */,
 				0B72DA121AE84B2700CD99BD /* AGActivityOverlay.h */,
 				0B72DA131AE84B2700CD99BD /* AGActivityOverlay.m */,
