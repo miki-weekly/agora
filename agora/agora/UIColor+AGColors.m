@@ -10,6 +10,11 @@
 
 @implementation UIColor (AGColors)
 
++ (instancetype)indigoColor {
+    return [UIColor colorWithRed:(63.0/255.0) green:(81.0/255.0) blue:(181.0/255.0) alpha:1.0];
+}
+
+
 +(instancetype)techColor {
     return [UIColor blueColor];
 }
@@ -30,11 +35,6 @@
     return [UIColor colorWithRed:1.0 green:(102.0/255.0) blue:(204.0/255.0) alpha:1.0];
 }
 
-+ (instancetype)indigoColor {
-    return [UIColor colorWithRed:(63.0/255.0) green:(81.0/255.0) blue:(181.0/255.0) alpha:1.0];
-}
-
-
 + (instancetype) catColor:(NSString*) cat {
     cat  = [cat lowercaseString];
     if ([cat isEqualToString:@"edu"] || [cat isEqualToString:@"education"]) {
@@ -51,6 +51,17 @@
     
     return NULL;
 }
+
+
+
++(instancetype)msgBlue {
+    return [UIColor colorWithRed:(0.0/256.0) green:(127.0/256.0) blue:1.0 alpha:1.0];
+}
+
++(instancetype)msgGrey {
+    return [UIColor colorWithRed:(235.0/256.0) green:(235.0/256.0) blue:(235.0/256.0) alpha:1.0];
+}
+
 
 
 @end

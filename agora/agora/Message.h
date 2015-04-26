@@ -14,5 +14,7 @@
 @property Conversation *parent;
 @property NSString *chatMessage;
 @property NSDate *sentDate;
+@property NSInteger height;
+@property NSString * sender;
 
 @end

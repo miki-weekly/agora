@@ -7,14 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "Message.h"
 
 @interface MessageView : UIView
 
 
-+(instancetype) leftViewWithText:(NSString*) msg;
-+(instancetype) rightViewWithText:(NSString*) msg;
+@property Message * msg;
++(instancetype) viewForMessage:(Message*) msg;
 -(void) reloadProfilePic;
 
-@property BOOL leftSide;
 
 @end

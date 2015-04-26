@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7531" systemVersion="14C1510" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="HDU-bj-3hO">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7702" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="HDU-bj-3hO">
     <dependencies>
         <deployment version="2048" identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7520"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7701"/>
         <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
@@ -270,7 +270,7 @@
                                                     <action selector="clickedContact:" destination="aPy-YZ-LJV" eventType="touchUpInside" id="3jx-mz-TC2"/>
                                                 </connections>
                                             </button>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="friends" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JgR-Y2-z4O">
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="friends" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JgR-Y2-z4O">
                                                 <rect key="frame" x="70" y="475" width="475" height="21"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="25" id="hOC-dj-ofJ">
@@ -460,12 +460,12 @@
                                                 <exclude reference="Nhb-eM-D8s"/>
                                             </mask>
                                             <mask key="constraints">
+                                                <exclude reference="REo-9C-C1U"/>
+                                                <exclude reference="hLO-tN-vla"/>
                                                 <exclude reference="M4y-4i-t8U"/>
                                                 <exclude reference="lok-sA-tTC"/>
                                                 <exclude reference="EyT-yf-6R7"/>
                                                 <exclude reference="Ig3-1N-AUY"/>
-                                                <exclude reference="REo-9C-C1U"/>
-                                                <exclude reference="hLO-tN-vla"/>
                                             </mask>
                                         </variation>
                                         <variation key="heightClass=regular-widthClass=compact">
@@ -474,13 +474,13 @@
                                                 <include reference="Nhb-eM-D8s"/>
                                             </mask>
                                             <mask key="constraints">
+                                                <include reference="REo-9C-C1U"/>
+                                                <include reference="hLO-tN-vla"/>
                                                 <include reference="M4y-4i-t8U"/>
                                                 <include reference="lok-sA-tTC"/>
                                                 <exclude reference="EyT-yf-6R7"/>
                                                 <include reference="Ig3-1N-AUY"/>
                                                 <exclude reference="bEQ-ki-7jY"/>
-                                                <include reference="REo-9C-C1U"/>
-                                                <include reference="hLO-tN-vla"/>
                                             </mask>
                                         </variation>
                                     </view>
@@ -745,7 +745,7 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableViewCellContentView>
                                 <connections>
-                                    <segue destination="Tvm-kJ-Nzc" kind="show" id="I0a-XE-5Uw"/>
+                                    <segue destination="YCS-gx-mOt" kind="show" id="R7X-Se-2bB"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -760,22 +760,30 @@
             </objects>
             <point key="canvasLocation" x="2257.5" y="1785"/>
         </scene>
-        <!--Kalvin-->
-        <scene sceneID="ntN-Ky-7Zb">
+        <!--ConversationVC-->
+        <scene sceneID="b0J-Ib-oXk">
             <objects>
-                <viewController title="Kalvin" id="Tvm-kJ-Nzc" customClass="ConversationVC" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="m9G-Ol-m4t"/>
-                        <viewControllerLayoutGuide type="bottom" id="zgb-G4-X1S"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="vOa-qW-CpK">
+                <tableViewController id="YCS-gx-mOt" customClass="ConversationVC" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="Jcc-gl-VAc">
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    </view>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="aH0-l8-Wt5" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                        <prototypes>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="message cell" id="mce-hS-fQI">
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="mce-hS-fQI" id="7zl-YO-jdb">
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="YCS-gx-mOt" id="RqW-7U-Wds"/>
+                            <outlet property="delegate" destination="YCS-gx-mOt" id="q8Z-DW-hEb"/>
+                        </connections>
+                    </tableView>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dpR-XU-Pmt" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3063" y="1785"/>
+            <point key="canvasLocation" x="3003" y="1785"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="jpY-AM-Ebu">
@@ -919,6 +927,9 @@
                                                             <subviews>
                                                                 <imageView userInteractionEnabled="NO" tag="1" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="aBb-cz-olI">
                                                                     <rect key="frame" x="0.0" y="0.0" width="150" height="150"/>
+                                                                    <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
+                                                                        <rect key="frame" x="0.0" y="0.0" width="0.0" height="0.0"/>
+                                                                    </variation>
                                                                 </imageView>
                                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zAW-qY-yjw">
                                                                     <rect key="frame" x="-23" y="-15" width="46" height="30"/>
@@ -937,7 +948,8 @@
                                                                             <exclude reference="a5J-Ef-Fjy"/>
                                                                         </mask>
                                                                     </variation>
-                                                                    <variation key="heightClass=regular-widthClass=compact">
+                                                                    <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
+                                                                        <rect key="frame" x="-35" y="5" width="30" height="30"/>
                                                                         <mask key="constraints">
                                                                             <include reference="8is-gd-KM2"/>
                                                                             <include reference="a5J-Ef-Fjy"/>
@@ -960,12 +972,12 @@
                                                                 <exclude reference="zAW-qY-yjw"/>
                                                             </mask>
                                                             <mask key="constraints">
+                                                                <exclude reference="F3X-vx-fmX"/>
+                                                                <exclude reference="XKh-Nb-ISx"/>
                                                                 <exclude reference="Oky-bC-Y7J"/>
                                                                 <exclude reference="bN5-Us-csj"/>
                                                                 <exclude reference="jhU-wY-axX"/>
                                                                 <exclude reference="phr-eE-lmw"/>
-                                                                <exclude reference="F3X-vx-fmX"/>
-                                                                <exclude reference="XKh-Nb-ISx"/>
                                                             </mask>
                                                         </variation>
                                                         <variation key="heightClass=regular-widthClass=compact">
@@ -973,12 +985,12 @@
                                                                 <include reference="zAW-qY-yjw"/>
                                                             </mask>
                                                             <mask key="constraints">
+                                                                <include reference="F3X-vx-fmX"/>
+                                                                <include reference="XKh-Nb-ISx"/>
                                                                 <include reference="Oky-bC-Y7J"/>
                                                                 <include reference="bN5-Us-csj"/>
                                                                 <include reference="jhU-wY-axX"/>
                                                                 <include reference="phr-eE-lmw"/>
-                                                                <include reference="F3X-vx-fmX"/>
-                                                                <include reference="XKh-Nb-ISx"/>
                                                             </mask>
                                                         </variation>
                                                         <connections>
@@ -999,6 +1011,9 @@
                                                                     <state key="normal" title="+">
                                                                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                                     </state>
+                                                                    <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
+                                                                        <rect key="frame" x="-15" y="-32" width="30" height="64"/>
+                                                                    </variation>
                                                                     <connections>
                                                                         <action selector="addSecondaryImage:" destination="MTM-at-aU3" eventType="touchUpInside" id="krj-VY-4vq"/>
                                                                     </connections>

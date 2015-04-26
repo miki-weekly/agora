@@ -10,13 +10,20 @@
 
 @interface UIColor (AGColors)
 
++(instancetype) indigoColor;
+
+
+
+//category color methods
 +(instancetype) techColor;
 +(instancetype) homeColor;
 +(instancetype) eduColor;
 +(instancetype) miscColor;
 +(instancetype) fashColor;
-
-+(instancetype) indigoColor;
 +(instancetype) catColor:(NSString*) cat;
+
++(instancetype) msgBlue;
++(instancetype) msgGrey;
+
 
 @end
