@@ -21,6 +21,7 @@
 
 @property PFUser *createdBy;
 @property NSString *creatorFacebookId;
+@property NSString *communityID;
 @property NSString* fbPostID;
 
 @property UIImage *thumbnail;

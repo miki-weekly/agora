@@ -133,7 +133,6 @@
 
 - (FBSDKAccessToken*)getFBUserTokenFromDefaults{
 	NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
-	
 	FBSDKAccessToken* token = [[FBSDKAccessToken alloc] initWithTokenString:[defaults objectForKey:@"fbTokenString"]
 																permissions:[defaults objectForKey:@"fbPermissions"]
 														declinedPermissions:[defaults objectForKey:@"fbDeclinedPermissions"]
@@ -141,7 +140,8 @@
 																	 userID:[defaults objectForKey:@"fbAppID"]
 															 expirationDate:[defaults objectForKey:@"fbExpirationDate"]
 																refreshDate:[defaults objectForKey:@"fbRefreshDate"]];
-	
+	[FBSDKSettings setClientToken:[token tokenString]];
+
 	if(![defaults objectForKey:@"fbTokenString"] || [[defaults objectForKey:@"fbExpirationDate"] timeIntervalSinceNow] < 0.0)
 		return nil;
 	return token;
@@ -149,6 +149,8 @@
 
 - (void)logInViewController:(PFLogInViewController *)controller didLogInUser:(PFUser *)user {
     if([user isNew]){
+		[[NSUserDefaults standardUserDefaults] setObject:@"199221610195298" forKey:@"currentCommunity"];
+
         FBSDKGraphRequest *request = [[FBSDKGraphRequest alloc] initWithGraphPath:@"me" parameters:nil];
         [request startWithCompletionHandler:^(FBSDKGraphRequestConnection *connection, id result, NSError *error) {
             if(!error){

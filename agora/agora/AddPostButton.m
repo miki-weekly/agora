@@ -23,7 +23,6 @@
 		[self setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
 		[[self titleLabel] setFont:[UIFont systemFontOfSize:36.0f]];
 		[self setContentVerticalAlignment:UIControlContentVerticalAlignmentTop];
-		[self setTitleEdgeInsets:UIEdgeInsetsMake(0.0f, -1.0f, 0.0f, 0.0f)];
 
         // config button shadow
         [[self layer] setCornerRadius:frame.size.height/2];

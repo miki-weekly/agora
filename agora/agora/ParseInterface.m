@@ -143,13 +143,15 @@
     PFQuery *query = [PFQuery queryWithClassName:@"Posts"];
     NSMutableArray *postArray = [NSMutableArray array];
 
+	NSString* communityID = [[NSUserDefaults standardUserDefaults] stringForKey:@"currentCommunity"];
+	[query whereKey:@"communityID" equalTo:communityID];
+
     if ([parameter isEqual: @"RECENTS"]) { //Getting most recent posts
         [query setSkip:skip];
         [query setLimit:20];
         [query includeKey:@"createdBy"];
         [query selectKeys: [ParseInterface browseKeyArray]];
         [query orderByDescending:@"createdAt"];
-        
     } else if ([parameter isEqual:@"USER"]) { //Getting the user's posts
         [query whereKey:@"createdBy" equalTo:[PFUser currentUser]];
         [query selectKeys: [ParseInterface browseKeyArray]];
@@ -185,6 +187,8 @@
         });
         //when done do this
         dispatch_group_notify(group, dispatch_get_main_queue(), ^{
+			NSLog(@"CommunityID: %@ Loaded", communityID);
+			
             if(block)
                 block(postArray);
         });

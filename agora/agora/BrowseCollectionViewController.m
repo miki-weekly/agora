@@ -51,6 +51,9 @@
 	CGFloat leftInset = [(UICollectionViewFlowLayout *)self.collectionViewLayout sectionInset].left;
 	CGFloat cellWidth = (screen.width - leftInset*3)/2;
 	[self setCellSize:CGSizeMake(cellWidth, cellWidth)];
+
+	// TEST Code to prime currentCommunity register
+	[[NSUserDefaults standardUserDefaults] setObject:@"199221610195298" forKey:@"currentCommunity"];
 	
 	[self setCatagory:@"RECENTS"];
 	[self reloadData];

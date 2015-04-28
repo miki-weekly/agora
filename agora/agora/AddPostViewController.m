@@ -309,8 +309,8 @@ int color;
 	if(![self editingPost]){
 		[ParseInterface saveNewPostToParse:post completion:^(BOOL succeeded){
 			if(succeeded){
-				// TODO: setting to post to facebook or not
-				[post postToFacebook];
+				if([[NSUserDefaults standardUserDefaults] boolForKey:@"postToFB"])
+					[post postToFacebook];
 				
 				[activityOverlay setTitle:@"Posted!"];
 				[UIView animateWithDuration:0.2f delay:0.5f options:UIViewAnimationOptionCurveEaseIn animations:^{

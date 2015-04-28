@@ -11,6 +11,7 @@
 		0B58E4CF1ACFC27300694BE8 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0B58E4CD1ACFC27300694BE8 /* Main.storyboard */; };
 		0B5A58F51AD5BD2C005DD9C3 /* AddPostViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B5A58F41AD5BD2C005DD9C3 /* AddPostViewCell.m */; };
 		0B72DA141AE84B2700CD99BD /* AGActivityOverlay.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B72DA131AE84B2700CD99BD /* AGActivityOverlay.m */; };
+		0B7592401AEAD2E500A6EA9D /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0B75923F1AEAD2E500A6EA9D /* Bolts.framework */; };
 		0B8996CC1ACE1CFB00357EC3 /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0B8996C61ACE1CFB00357EC3 /* Parse.framework */; };
 		0B8996CD1ACE1CFB00357EC3 /* ParseCrashReporting.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0B8996C71ACE1CFB00357EC3 /* ParseCrashReporting.framework */; };
 		0B8996D01ACE1CFB00357EC3 /* ParseUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0B8996CA1ACE1CFB00357EC3 /* ParseUI.framework */; };
@@ -21,12 +22,12 @@
 		0BC025681ABB2E390076A09B /* PostCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0BC025671ABB2E390076A09B /* PostCollectionViewCell.m */; };
 		0BC0256B1ABB3ECB0076A09B /* DetailedPostViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0BC0256A1ABB3ECB0076A09B /* DetailedPostViewController.m */; };
 		0BCC9C551ACFAA8A00A75108 /* AddPostButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 0BCC9C541ACFAA8A00A75108 /* AddPostButton.m */; };
-		0BDE0BB41AD9D7230007972B /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0BE047281AD8502300949C69 /* Bolts.framework */; };
 		0BF40ABB1ACE215C0034A1E5 /* FBSDKCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0BF40AB81ACE215C0034A1E5 /* FBSDKCoreKit.framework */; };
 		0BF40ABC1ACE215C0034A1E5 /* FBSDKMessengerShareKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0BF40AB91ACE215C0034A1E5 /* FBSDKMessengerShareKit.framework */; };
 		0BF40ABD1ACE215C0034A1E5 /* FBSDKShareKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0BF40ABA1ACE215C0034A1E5 /* FBSDKShareKit.framework */; };
 		0BF40AC11ACE28CC0034A1E5 /* FBSDKLoginKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0BF40AC01ACE28CC0034A1E5 /* FBSDKLoginKit.framework */; };
 		0BF40AC31ACE2A9A0034A1E5 /* ParseFacebookUtilsV4.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0BF40ABE1ACE21900034A1E5 /* ParseFacebookUtilsV4.framework */; };
+		0BFA10EA1AEEAEB80067771C /* ScrollableImageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0BFA10E91AEEAEB80067771C /* ScrollableImageViewController.m */; };
 		9E2DA4371AD3705400296C34 /* ManageTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E2DA4361AD3705400296C34 /* ManageTableViewCell.m */; };
 		9EFE8A881AB7CED1000018F7 /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9EFE8A831AB7C475000018F7 /* Social.framework */; };
 		9EFE8A8A1AB7CF4C000018F7 /* Accounts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9EFE8A891AB7CF4C000018F7 /* Accounts.framework */; };
@@ -42,9 +43,8 @@
 		AA8F662D1A8EA73700CA4604 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = AA8F662C1A8EA73700CA4604 /* AppDelegate.m */; };
 		AA8F66351A8EA73700CA4604 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AA8F66341A8EA73700CA4604 /* Images.xcassets */; };
 		AA8F66381A8EA73700CA4604 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = AA8F66361A8EA73700CA4604 /* LaunchScreen.xib */; };
-		AA8F66441A8EA73700CA4604 /* agoraTests.m in Sources */ = {isa = PBXBuildFile; fileRef = AA8F66431A8EA73700CA4604 /* agoraTests.m */; };
 		AAA611B91AD9076000535A7E /* ChatVC.m in Sources */ = {isa = PBXBuildFile; fileRef = AAA611B81AD9076000535A7E /* ChatVC.m */; };
-		AAA611BC1AD9085F00535A7E /* SettingsVC.m in Sources */ = {isa = PBXBuildFile; fileRef = AAA611BB1AD9085F00535A7E /* SettingsVC.m */; };
+		AAA611BC1AD9085F00535A7E /* CommunityVC.m in Sources */ = {isa = PBXBuildFile; fileRef = AAA611BB1AD9085F00535A7E /* CommunityVC.m */; };
 		AAF958D21AD3B9FE00C1C7D5 /* UIButton+FormatText.m in Sources */ = {isa = PBXBuildFile; fileRef = AAF958D11AD3B9FE00C1C7D5 /* UIButton+FormatText.m */; };
 		AD958F521AA598C100ABCFB3 /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = AD958F511AA598C100ABCFB3 /* libsqlite3.dylib */; };
 		AD958F541AA5994500ABCFB3 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AD958F531AA5994500ABCFB3 /* AudioToolbox.framework */; };
@@ -55,16 +55,6 @@
 		ADA500F11ABF6E7C000D6D9E /* Post.m in Sources */ = {isa = PBXBuildFile; fileRef = ADA500F01ABF6E7C000D6D9E /* Post.m */; };
 /* End PBXBuildFile section */
 
-/* Begin PBXContainerItemProxy section */
-		AA8F663E1A8EA73700CA4604 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = AA8F661C1A8EA73700CA4604 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = AA8F66231A8EA73700CA4604;
-			remoteInfo = agora;
-		};
-/* End PBXContainerItemProxy section */
-
 /* Begin PBXFileReference section */
 		0B4664CC1ACBAECD00E9A3E8 /* Entitlements.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Entitlements.plist; sourceTree = SOURCE_ROOT; };
 		0B58E4CE1ACFC27300694BE8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -73,6 +63,7 @@
 		0B72DA0F1AE8489200CD99BD /* agora-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "agora-Bridging-Header.h"; sourceTree = "<group>"; };
 		0B72DA121AE84B2700CD99BD /* AGActivityOverlay.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AGActivityOverlay.h; sourceTree = "<group>"; };
 		0B72DA131AE84B2700CD99BD /* AGActivityOverlay.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AGActivityOverlay.m; sourceTree = "<group>"; };
+		0B75923F1AEAD2E500A6EA9D /* Bolts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Bolts.framework; sourceTree = "<group>"; };
 		0B8996C61ACE1CFB00357EC3 /* Parse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Parse.framework; sourceTree = "<group>"; };
 		0B8996C71ACE1CFB00357EC3 /* ParseCrashReporting.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ParseCrashReporting.framework; sourceTree = "<group>"; };
 		0B8996CA1ACE1CFB00357EC3 /* ParseUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ParseUI.framework; sourceTree = "<group>"; };
@@ -90,12 +81,13 @@
 		0BC0256A1ABB3ECB0076A09B /* DetailedPostViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailedPostViewController.m; sourceTree = "<group>"; };
 		0BCC9C531ACFAA8A00A75108 /* AddPostButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddPostButton.h; sourceTree = "<group>"; };
 		0BCC9C541ACFAA8A00A75108 /* AddPostButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddPostButton.m; sourceTree = "<group>"; };
-		0BE047281AD8502300949C69 /* Bolts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Bolts.framework; sourceTree = "<group>"; };
 		0BF40AB81ACE215C0034A1E5 /* FBSDKCoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSDKCoreKit.framework; path = agora/FacebookSDK/FBSDKCoreKit.framework; sourceTree = "<group>"; };
 		0BF40AB91ACE215C0034A1E5 /* FBSDKMessengerShareKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSDKMessengerShareKit.framework; path = agora/FacebookSDK/FBSDKMessengerShareKit.framework; sourceTree = "<group>"; };
 		0BF40ABA1ACE215C0034A1E5 /* FBSDKShareKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSDKShareKit.framework; path = agora/FacebookSDK/FBSDKShareKit.framework; sourceTree = "<group>"; };
 		0BF40ABE1ACE21900034A1E5 /* ParseFacebookUtilsV4.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ParseFacebookUtilsV4.framework; sourceTree = "<group>"; };
 		0BF40AC01ACE28CC0034A1E5 /* FBSDKLoginKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSDKLoginKit.framework; path = agora/FacebookSDK/FBSDKLoginKit.framework; sourceTree = "<group>"; };
+		0BFA10E81AEEAEB80067771C /* ScrollableImageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScrollableImageViewController.h; sourceTree = "<group>"; };
+		0BFA10E91AEEAEB80067771C /* ScrollableImageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScrollableImageViewController.m; sourceTree = "<group>"; };
 		9E2DA4351AD3705400296C34 /* ManageTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ManageTableViewCell.h; sourceTree = "<group>"; };
 		9E2DA4361AD3705400296C34 /* ManageTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ManageTableViewCell.m; sourceTree = "<group>"; };
 		9EFE8A7A1AB7B819000018F7 /* Post.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Post.h; sourceTree = "<group>"; };
@@ -124,13 +116,10 @@
 		AA8F662C1A8EA73700CA4604 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		AA8F66341A8EA73700CA4604 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		AA8F66371A8EA73700CA4604 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
-		AA8F663D1A8EA73700CA4604 /* agoraTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = agoraTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		AA8F66421A8EA73700CA4604 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		AA8F66431A8EA73700CA4604 /* agoraTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = agoraTests.m; sourceTree = "<group>"; };
 		AAA611B71AD9076000535A7E /* ChatVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChatVC.h; sourceTree = "<group>"; };
 		AAA611B81AD9076000535A7E /* ChatVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChatVC.m; sourceTree = "<group>"; };
-		AAA611BA1AD9085F00535A7E /* SettingsVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsVC.h; sourceTree = "<group>"; };
-		AAA611BB1AD9085F00535A7E /* SettingsVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsVC.m; sourceTree = "<group>"; };
+		AAA611BA1AD9085F00535A7E /* CommunityVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommunityVC.h; sourceTree = "<group>"; };
+		AAA611BB1AD9085F00535A7E /* CommunityVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommunityVC.m; sourceTree = "<group>"; };
 		AAF958D01AD3B9FE00C1C7D5 /* UIButton+FormatText.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIButton+FormatText.h"; sourceTree = "<group>"; };
 		AAF958D11AD3B9FE00C1C7D5 /* UIButton+FormatText.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIButton+FormatText.m"; sourceTree = "<group>"; };
 		AD958F511AA598C100ABCFB3 /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
@@ -149,7 +138,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0BDE0BB41AD9D7230007972B /* Bolts.framework in Frameworks */,
+				0B7592401AEAD2E500A6EA9D /* Bolts.framework in Frameworks */,
 				0BF40AC31ACE2A9A0034A1E5 /* ParseFacebookUtilsV4.framework in Frameworks */,
 				9EFE8A8A1AB7CF4C000018F7 /* Accounts.framework in Frameworks */,
 				0BF40ABB1ACE215C0034A1E5 /* FBSDKCoreKit.framework in Frameworks */,
@@ -164,13 +153,6 @@
 				0BF40ABD1ACE215C0034A1E5 /* FBSDKShareKit.framework in Frameworks */,
 				AD958F541AA5994500ABCFB3 /* AudioToolbox.framework in Frameworks */,
 				0B8996D01ACE1CFB00357EC3 /* ParseUI.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		AA8F663A1A8EA73700CA4604 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -193,7 +175,7 @@
 		0B8996C41ACE1CFB00357EC3 /* parse-library-1.7.1 */ = {
 			isa = PBXGroup;
 			children = (
-				0BE047281AD8502300949C69 /* Bolts.framework */,
+				0B75923F1AEAD2E500A6EA9D /* Bolts.framework */,
 				0BF40ABE1ACE21900034A1E5 /* ParseFacebookUtilsV4.framework */,
 				0B8996C61ACE1CFB00357EC3 /* Parse.framework */,
 				0B8996C71ACE1CFB00357EC3 /* ParseCrashReporting.framework */,
@@ -214,6 +196,8 @@
 				0B72DA0F1AE8489200CD99BD /* agora-Bridging-Header.h */,
 				0B72DA121AE84B2700CD99BD /* AGActivityOverlay.h */,
 				0B72DA131AE84B2700CD99BD /* AGActivityOverlay.m */,
+				0BFA10E81AEEAEB80067771C /* ScrollableImageViewController.h */,
+				0BFA10E91AEEAEB80067771C /* ScrollableImageViewController.m */,
 			);
 			name = Misc;
 			sourceTree = "<group>";
@@ -278,8 +262,8 @@
 				0BC0256A1ABB3ECB0076A09B /* DetailedPostViewController.m */,
 				AA5A86951ACA0A63005DAF4A /* RootVC.h */,
 				AA5A86961ACA0A63005DAF4A /* RootVC.m */,
-				AAA611BA1AD9085F00535A7E /* SettingsVC.h */,
-				AAA611BB1AD9085F00535A7E /* SettingsVC.m */,
+				AAA611BA1AD9085F00535A7E /* CommunityVC.h */,
+				AAA611BB1AD9085F00535A7E /* CommunityVC.m */,
 				AA4938511AD24C9F000FCC9B /* ManageTableVC.h */,
 				AA4938521AD24C9F000FCC9B /* ManageTableVC.m */,
 				0BA5323C1AB7CC6000A730C6 /* BrowseCollectionViewController.h */,
@@ -325,7 +309,6 @@
 			children = (
 				9EFE8A7F1AB7C3F7000018F7 /* Frameworks */,
 				AA8F66261A8EA73700CA4604 /* agora */,
-				AA8F66401A8EA73700CA4604 /* agoraTests */,
 				AA8F66251A8EA73700CA4604 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -334,7 +317,6 @@
 			isa = PBXGroup;
 			children = (
 				AA8F66241A8EA73700CA4604 /* agora.app */,
-				AA8F663D1A8EA73700CA4604 /* agoraTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -363,23 +345,6 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		AA8F66401A8EA73700CA4604 /* agoraTests */ = {
-			isa = PBXGroup;
-			children = (
-				AA8F66431A8EA73700CA4604 /* agoraTests.m */,
-				AA8F66411A8EA73700CA4604 /* Supporting Files */,
-			);
-			path = agoraTests;
-			sourceTree = "<group>";
-		};
-		AA8F66411A8EA73700CA4604 /* Supporting Files */ = {
-			isa = PBXGroup;
-			children = (
-				AA8F66421A8EA73700CA4604 /* Info.plist */,
-			);
-			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -400,24 +365,6 @@
 			productReference = AA8F66241A8EA73700CA4604 /* agora.app */;
 			productType = "com.apple.product-type.application";
 		};
-		AA8F663C1A8EA73700CA4604 /* agoraTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = AA8F664A1A8EA73700CA4604 /* Build configuration list for PBXNativeTarget "agoraTests" */;
-			buildPhases = (
-				AA8F66391A8EA73700CA4604 /* Sources */,
-				AA8F663A1A8EA73700CA4604 /* Frameworks */,
-				AA8F663B1A8EA73700CA4604 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				AA8F663F1A8EA73700CA4604 /* PBXTargetDependency */,
-			);
-			name = agoraTests;
-			productName = agoraTests;
-			productReference = AA8F663D1A8EA73700CA4604 /* agoraTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -429,10 +376,6 @@
 				TargetAttributes = {
 					AA8F66231A8EA73700CA4604 = {
 						CreatedOnToolsVersion = 6.1.1;
-					};
-					AA8F663C1A8EA73700CA4604 = {
-						CreatedOnToolsVersion = 6.1.1;
-						TestTargetID = AA8F66231A8EA73700CA4604;
 					};
 				};
 			};
@@ -450,7 +393,6 @@
 			projectRoot = "";
 			targets = (
 				AA8F66231A8EA73700CA4604 /* agora */,
-				AA8F663C1A8EA73700CA4604 /* agoraTests */,
 			);
 		};
 /* End PBXProject section */
@@ -467,13 +409,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		AA8F663B1A8EA73700CA4604 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -482,6 +417,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				AAA611B91AD9076000535A7E /* ChatVC.m in Sources */,
+				0BFA10EA1AEEAEB80067771C /* ScrollableImageViewController.m in Sources */,
 				0B72DA141AE84B2700CD99BD /* AGActivityOverlay.m in Sources */,
 				AD99EDA81ADDF9910017A1C7 /* Message.m in Sources */,
 				0BC0256B1ABB3ECB0076A09B /* DetailedPostViewController.m in Sources */,
@@ -500,7 +436,7 @@
 				0B5A58F51AD5BD2C005DD9C3 /* AddPostViewCell.m in Sources */,
 				0BA532401AB7CC6000A730C6 /* BrowseCollectionViewController.m in Sources */,
 				AA49384A1AD21470000FCC9B /* UIImage+ImageEffects.m in Sources */,
-				AAA611BC1AD9085F00535A7E /* SettingsVC.m in Sources */,
+				AAA611BC1AD9085F00535A7E /* CommunityVC.m in Sources */,
 				AA8F662A1A8EA73700CA4604 /* main.m in Sources */,
 				AD99EDAB1ADDFB270017A1C7 /* Conversation.m in Sources */,
 				AA4938531AD24C9F000FCC9B /* ManageTableVC.m in Sources */,
@@ -510,23 +446,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		AA8F66391A8EA73700CA4604 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				AA8F66441A8EA73700CA4604 /* agoraTests.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXTargetDependency section */
-		AA8F663F1A8EA73700CA4604 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = AA8F66231A8EA73700CA4604 /* agora */;
-			targetProxy = AA8F663E1A8EA73700CA4604 /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		0B58E4CD1ACFC27300694BE8 /* Main.storyboard */ = {
@@ -612,7 +532,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_ENTITLEMENTS = Entitlements.plist;
 				CODE_SIGN_IDENTITY = "-";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "-";
 				COPY_PHASE_STRIP = YES;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -671,40 +591,6 @@
 			};
 			name = Release;
 		};
-		AA8F664B1A8EA73700CA4604 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-				);
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				INFOPLIST_FILE = agoraTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/agora.app/agora";
-			};
-			name = Debug;
-		};
-		AA8F664C1A8EA73700CA4604 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-				);
-				INFOPLIST_FILE = agoraTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/agora.app/agora";
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -722,15 +608,6 @@
 			buildConfigurations = (
 				AA8F66481A8EA73700CA4604 /* Debug */,
 				AA8F66491A8EA73700CA4604 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		AA8F664A1A8EA73700CA4604 /* Build configuration list for PBXNativeTarget "agoraTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				AA8F664B1A8EA73700CA4604 /* Debug */,
-				AA8F664C1A8EA73700CA4604 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
