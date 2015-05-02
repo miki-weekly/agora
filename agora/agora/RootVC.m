@@ -101,8 +101,8 @@
         UIViewController * manage = [story instantiateViewControllerWithIdentifier:@"manage nav"];
         [self addChildViewController:manage];
         
-        UIViewController * settings = [story instantiateViewControllerWithIdentifier:@"settings"];
-        [self addChildViewController:settings];
+        UIViewController * comm = [story instantiateViewControllerWithIdentifier:@"community nav"];
+        [self addChildViewController:comm];
         
 }
 
@@ -200,7 +200,7 @@
                 //my posts
                 [self switchToViewController:2];
                 
-        } else if (buttonIndex == 9) {
+        } else if (buttonIndex == 8) {
                 //settings
                 [self switchToViewController:3];
                 

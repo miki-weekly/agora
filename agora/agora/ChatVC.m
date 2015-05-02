@@ -12,7 +12,7 @@
 
 -(void)viewDidLoad {
     [super viewDidLoad];
-    self.title = @"Back"; //working title
+    self.title = @"Messages"; //working title
     [self.navigationController.navigationBar setTintColor:[UIColor colorWithWhite:(213.0/256.0) alpha:1.0]];
     
 }
@@ -26,7 +26,7 @@
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:@"conversation"];
-    [cell.textLabel setText:@"Kalvin"];
+    [cell.textLabel setText:@"Ethan"];
     
     
     return cell;
