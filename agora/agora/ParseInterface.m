@@ -90,15 +90,23 @@
             [object setObject: post.stringTags forKey:@"tags"];
             [object setObject: post.price forKey:@"price"];
             [object setObject: [PFUser currentUser] forKey:@"createdBy"];
-			object[@"FBPostId"] = post.fbPostID;
+			
+			if(post.fbPostID)
+				object[@"FBPostId"] = post.fbPostID;
 			
 			if([post itemDescription])
 				[object setObject: post.itemDescription forKey:@"description"];
 			
-			[object saveInBackground];
-			NSLog(@"OBJECT UPDATED!");
-            if(block)
-                block(YES);
+			[object saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+				if(succeeded){
+					NSLog(@"OBJECT UPDATED!");
+					if(block)
+						block(YES);
+				}else{
+					if(block)
+						block(NO);
+				}
+			}];
         } else {
             NSLog(@"UPDATE: NO OBJECT FOUND");
             if(block)
@@ -135,13 +143,15 @@
     PFQuery *query = [PFQuery queryWithClassName:@"Posts"];
     NSMutableArray *postArray = [NSMutableArray array];
 
+	NSString* communityID = [[NSUserDefaults standardUserDefaults] stringForKey:@"currentCommunity"];
+	[query whereKey:@"communityID" equalTo:communityID];
+
     if ([parameter isEqual: @"RECENTS"]) { //Getting most recent posts
         [query setSkip:skip];
         [query setLimit:20];
         [query includeKey:@"createdBy"];
         [query selectKeys: [ParseInterface browseKeyArray]];
         [query orderByDescending:@"createdAt"];
-        
     } else if ([parameter isEqual:@"USER"]) { //Getting the user's posts
         [query whereKey:@"createdBy" equalTo:[PFUser currentUser]];
         [query selectKeys: [ParseInterface browseKeyArray]];
@@ -177,6 +187,8 @@
         });
         //when done do this
         dispatch_group_notify(group, dispatch_get_main_queue(), ^{
+			NSLog(@"CommunityID: %@ Loaded", communityID);
+			
             if(block)
                 block(postArray);
         });

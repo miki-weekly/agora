@@ -14,19 +14,21 @@
 
 #import "AddPostButton.h"
 #import "AddPostViewController.h"
+#import "AGActivityOverlay.h"
 #import "DetailedPostViewController.h"
 #import "LoginViewController.h"
 #import "ParseInterface.h"
 #import "PostCollectionViewCell.h"
 #import "RootVC.h"
+#import "UIColor+AGColors.h"
 
 @interface BrowseCollectionViewController () <UICollectionViewDelegateFlowLayout, LoginViewControllerDelegate, AddPostViewControllerDelegate>
-
-@property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activitySpinner;
 
 @property CGSize cellSize;
 @property NSString* catagory;
 @property NSMutableArray* postsArray;
+
+@property AddPostButton* addButton;
 
 @property BOOL loadingMorePosts;
 
@@ -37,10 +39,10 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    AddPostButton* addButton = [[AddPostButton alloc] init];
+    [self setAddButton:[[AddPostButton alloc] init]];
     
-    [addButton addTarget:self action:@selector(pressedAddButton) forControlEvents:UIControlEventTouchDown];
-    [[self view] addSubview:addButton];
+    [_addButton addTarget:self action:@selector(pressedAddButton) forControlEvents:UIControlEventTouchUpInside];
+    [[self view] addSubview:_addButton];
     
     [self setPostsArray:[[NSMutableArray alloc] init]];
 	
@@ -49,6 +51,9 @@
 	CGFloat leftInset = [(UICollectionViewFlowLayout *)self.collectionViewLayout sectionInset].left;
 	CGFloat cellWidth = (screen.width - leftInset*3)/2;
 	[self setCellSize:CGSizeMake(cellWidth, cellWidth)];
+
+	// TEST Code to prime currentCommunity register
+	[[NSUserDefaults standardUserDefaults] setObject:@"199221610195298" forKey:@"currentCommunity"];
 	
 	[self setCatagory:@"RECENTS"];
 	[self reloadData];
@@ -71,6 +76,12 @@
 	}
 }
 
+- (void)didReceiveMemoryWarning{
+	[super didReceiveMemoryWarning];
+	NSLog(@"Memory Warning: dropping images");
+	for(Post* post in self.postsArray)
+		[post dropImages];
+}
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
     if([[segue identifier] isEqualToString: @"viewPostSegue"]){
         DetailedPostViewController* destination = [segue destinationViewController];
@@ -80,20 +91,42 @@
     }
 }
 
--(void) reloadData {
+- (void)reloadData{
     [self reloadDataWithCategory:[self catagory]];
 }
 
-- (void) reloadDataWithCategory:(NSString*) cat {
-    // populate array
+- (void)reloadDataWithCategory:(NSString*) cat {
 	[self setCatagory:cat];
-    [[self activitySpinner] startAnimating];
-	[[self postsArray] removeAllObjects];
-	[[self collectionView] reloadData]; 
+
+	UIColor* buttonColor = nil;
+	if([[self catagory] isEqualToString:@"RECENTS"])
+		buttonColor = [UIColor indigoColor];
+	else
+		buttonColor = [UIColor catColor:[self catagory]];
+	[UIView animateWithDuration:0.2f delay:0.0f options:UIViewAnimationOptionCurveEaseIn animations:^{
+		[_addButton setBackgroundColor:buttonColor];
+	} completion:^(BOOL finished) {}];
+
+    // populate array
+	[[self collectionView] setUserInteractionEnabled:NO];
+	AGActivityOverlay* overlay = [[AGActivityOverlay alloc] initWithString:@"Loading"];
+	overlay.center = self.view.center;
+	[self.view addSubview:overlay];
+	[UIView animateWithDuration:0.2f delay:0.0 options:UIViewAnimationOptionCurveEaseIn animations:^{
+		overlay.alpha = 1.0f;
+	} completion:^(BOOL finished) {
+	}];
+
     [ParseInterface getFromParse:cat withSkip:0 completion:^(NSArray * result) {
-        [[self activitySpinner] stopAnimating];
+		[[self postsArray] removeAllObjects];
         [[self postsArray] addObjectsFromArray:result];
         [[self collectionView] reloadData];
+		[[self collectionView] setUserInteractionEnabled:YES];
+		[UIView animateWithDuration:0.2f delay:0.0 options:UIViewAnimationOptionCurveEaseIn animations:^{
+			overlay.alpha = 0.0f;
+		} completion:^(BOOL finished) {
+			[overlay removeFromSuperview];
+		}];
     }];
     
     if ([cat isEqualToString:@"RECENTS"]) {
@@ -121,8 +154,9 @@
 - (void)addPostController:(AddPostViewController *)addPostController didFinishWithPost:(Post *)addedPost{
     [addPostController dismissViewControllerAnimated:YES completion:nil];
     
-    if(addedPost){
-        [self reloadData];
+    if(addedPost){	// Only refresh if post catagory is same as viewing catagory
+		if([self.catagory isEqualToString:addedPost.category])
+			[self reloadData];
     }else{
         // No post was made
     }
@@ -143,11 +177,20 @@
 
 #pragma mark - Scroll View
 
-- (void)scrollViewDidScroll:(UIScrollView *)scrollView{
-	CGFloat loadAheadOfScrollDist = 0.8f;	// Load more post once %80 scrolled
+- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate{
+	CGFloat actualPosition = scrollView.contentOffset.y;
 	
+	CGFloat threshold = 80.0f;
+	if(actualPosition < -64.0f - threshold){
+		[self reloadData];
+	}
+}
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView{
 	CGFloat actualPosition = scrollView.contentOffset.y;
 	CGFloat contentHeight = scrollView.contentSize.height - self.collectionView.frame.size.height;
+	
+	CGFloat loadAheadOfScrollDist = 0.8f;	// Load more post once %80 scrolled
 	if(actualPosition >= (contentHeight*loadAheadOfScrollDist) && contentHeight > 0 && ![self loadingMorePosts]){
 		[self setLoadingMorePosts:YES];
 		[ParseInterface getFromParse:@"RECENTS" withSkip:[[self postsArray] count] completion:^(NSArray * result) {
@@ -205,7 +248,7 @@
     if ([postCell.gradient.layer.sublayers count] == 0) {
         [self addGradientBGForView:postCell.gradient];
     }
-    
+
     return postCell;
 }
 

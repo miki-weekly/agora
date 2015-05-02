@@ -1,5 +1,5 @@
 //
-//  SettingsVC.h
+//  CommunityVC.h
 //  agora
 //
 //  Created by Ethan Gates on 4/11/15.
@@ -7,8 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "SlideItemVC.h"
+#import "slideItemTVC.h"
 
-@interface SettingsVC : SlideItemVC
+@interface CommunityVC : slideItemTVC
 
 @end

@@ -6,11 +6,14 @@
 //  Copyright (c) 2015 Ethan. All rights reserved.
 //
 
+#import <QuartzCore/QuartzCore.h>
+
 #import "AddPostViewController.h"
 #import "AddPostViewCell.h"
+#import "AGActivityOverlay.h"
 #import "RootVC.h"
 #import "UIColor+AGColors.h"
-#import <QuartzCore/QuartzCore.h>
+
 
 @interface AddPostViewController () <UIActionSheetDelegate>
 
@@ -26,7 +29,6 @@
 @property (weak, nonatomic) IBOutlet UITextView *descriptionTextView;
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
 @property (weak, nonatomic) IBOutlet UIButton *addButton;
-@property (weak, nonatomic) IBOutlet UIActivityIndicatorView* activitySpinner;
 
 @property (strong, nonatomic) UIImagePickerController* imagePickerController;
 @property NSMutableArray* secondaryPictures;
@@ -75,8 +77,7 @@
     if([self editingPost]){
         [self setUpEditting];
     }else{
-		[self setInitialHeadImageSelect:YES];
-        [[self removeMainImageButton] setHidden:YES];
+		[self setInitialHeadImageSelect:NO];		// YES if bring up camera every initial time
     }
 }
 
@@ -219,11 +220,16 @@ int color;
 	// also change statusBarBackground
 	[UIView animateWithDuration:0.5
 						  delay:0.0
-						options: UIViewAnimationOptionCurveEaseOut
+						options: UIViewAnimationOptionCurveEaseInOut
 					 animations:^{
 						 [[_statusBarBack layer] setBackgroundColor:[[newColor colorWithAlphaComponent:0.8f] CGColor]];
 					 }
 					 completion:^(BOOL finished){}];
+	if([[[self categoryButton] titleForState:UIControlStateNormal] isEqualToString:@"Fashion"]){	// if color is yellow, set black statusbar
+		[[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault animated:YES];
+	}else{
+		[[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent animated:YES];
+	}
 }
 
 -(void) presentCategorySelection {
@@ -237,10 +243,6 @@ int color;
     color++;
     if (color == 5) {
         color = 0;
-    }else if([newCat isEqualToString:@"Fashion"]){	// if color is yellow, set black statusbar
-        [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault animated:YES];
-    }else{
-        [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent animated:YES];
     }
 }
 
@@ -277,8 +279,13 @@ int color;
 		return;
 	
 	[[self scrollView] setUserInteractionEnabled:NO];
-	[[self activitySpinner] startAnimating];
-	
+	AGActivityOverlay* activityOverlay = [[AGActivityOverlay alloc] initWithString:@"Posting"];
+	activityOverlay.center = self.view.center;
+	[self.view addSubview:activityOverlay];
+	[UIView animateWithDuration:0.2f delay:0.0 options:UIViewAnimationOptionCurveEaseIn animations:^{
+		activityOverlay.alpha = 1.0f;
+	} completion:^(BOOL finished) {
+	}];
 	
 	Post* post;
 	if(![self editingPost])
@@ -302,20 +309,32 @@ int color;
 	if(![self editingPost]){
 		[ParseInterface saveNewPostToParse:post completion:^(BOOL succeeded){
 			if(succeeded){
-				// TODO: setting to post to facebook or not
-				[post postToFacebook];
+				if([[NSUserDefaults standardUserDefaults] boolForKey:@"postToFB"])
+					[post postToFacebook];
 				
-				[[self activitySpinner] stopAnimating];
+				[activityOverlay setTitle:@"Posted!"];
+				[UIView animateWithDuration:0.2f delay:0.5f options:UIViewAnimationOptionCurveEaseIn animations:^{
+					activityOverlay.alpha = 0.0f;
+				} completion:^(BOOL finished) {
+					[activityOverlay removeFromSuperview];
+				}];
+				
 				[[self delgate] addPostController:self didFinishWithPost:post];
 			}else{
 				// TODO: failed add
 			}
 		}];
 	}else{
+		[activityOverlay setTitle:@"Updating"];
 		[ParseInterface updateParsePost:post completion:^(BOOL succeeded) {
 			if(succeeded){
-				// TODO: Splash screen succeded or not
-				[[self activitySpinner] stopAnimating];
+				[activityOverlay setTitle:@"Saved!"];
+				[UIView animateWithDuration:0.2f delay:0.5f options:UIViewAnimationOptionCurveEaseIn animations:^{
+					activityOverlay.alpha = 0.0f;
+				} completion:^(BOOL finished) {
+					[activityOverlay removeFromSuperview];
+				}];
+				
 				[[self delgate] addPostController:self didFinishUpdatePost:post];
 			}else{
 				// TODO: failed update

@@ -21,6 +21,7 @@
 
 @property PFUser *createdBy;
 @property NSString *creatorFacebookId;
+@property NSString *communityID;
 @property NSString* fbPostID;
 
 @property UIImage *thumbnail;
@@ -28,6 +29,8 @@
 @property NSArray *photosArray; //Array of UIImages
 
 @property NSString *headerPhotoURL;
+
+- (void)dropImages;
 
 - (void)postToFacebook;
 - (void)deletePost;

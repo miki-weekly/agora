@@ -6,10 +6,13 @@
 //  Copyright (c) 2015 Ethan. All rights reserved.
 //
 
-#import "DetailedPostViewController.h"
 #import <QuartzCore/QuartzCore.h>
 #import <ParseFacebookUtilsV4/PFFacebookUtils.h>
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
+#import <FBSDKShareKit/FBSDKShareKit.h>
+
+#import "DetailedPostViewController.h"
+#import "ScrollableImageViewController.h"
 #import "UIColor+AGColors.h"
 #import "UILabel+FormattedText.h"
 
@@ -87,7 +90,8 @@
 				[[self collectionView] setBackgroundColor:[[self mainImageView] backgroundColor]];
 				[[self collectionView] reloadData];
 				[[self collectionIndicator] stopAnimating];
-			}
+			}else
+				[[self collectionIndicator] stopAnimating];
 		}];
 	}else{
 		[[self collectionIndicator] stopAnimating];
@@ -197,8 +201,9 @@
 }
 
 - (IBAction)clickedShare:(id)sender {
-    // open share action sheet
-}
+	FBSDKShareLinkContent *content = [[FBSDKShareLinkContent alloc] init];
+	content.contentURL = [NSURL URLWithString:@"https://developers.facebook.com"];
+	[FBSDKMessageDialog showWithContent:content delegate:nil];}
 
 - (IBAction)clickedContact:(id)sender {
     // open FB messager to user
@@ -212,14 +217,7 @@
 
 - (IBAction)clickedFBSellerName:(id)sender {
     // Open seller's facebook page
-	//NSString*fburl = @"https://www.facebook.com/app_scoped_user_id/956635704369806/";
-	/*BFTask* task = [[FBSDKAppLinkResolver resolver] appLinkFromURLInBackground:[NSURL URLWithString:fburl]];
-	[task continueWithBlock:^id(BFTask *task) {
-		
-		return @"";
-	}];*/
-	
-    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"fb://profile/%@", [post creatorFacebookId]]];
+	NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"fb://profile/%@", [post creatorFacebookId]]];
     [[UIApplication sharedApplication] openURL:url];
     if([[UIApplication sharedApplication] canOpenURL:url]){
         [[UIApplication sharedApplication] openURL:url];
@@ -260,4 +258,14 @@
     
     return postCell;
 }
+
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
+	UIImage* imageToView = [[post photosArray] objectAtIndex:[indexPath row]];
+	UIStoryboard* story = [UIStoryboard storyboardWithName:@"Main" bundle:NULL];
+	ScrollableImageViewController* scrollView = [story instantiateViewControllerWithIdentifier:@"scrollImage"];
+
+	[scrollView setImageToScroll:imageToView];
+	[self presentViewController:scrollView animated:YES completion:nil];
+}
+
 @end
