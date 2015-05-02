@@ -13,13 +13,14 @@
 #import "UILabel+dynamicHeight.h"
 
 
-
+#define TABLEVIEWCELL_PADDING 4
 #define WIDTH_PERCENT 75
 #define PROFILE_SIZE 50
 #define PROFILE_PADDING 5
 #define MESSAGE_PADDING 7
 #define TRIANGLE_W 18
 #define TRIANGLE_H 12
+
 
 
 @interface MessageView()
@@ -92,6 +93,7 @@
                 [message setText:msg.chatMessage];
                 [message setNumberOfLines:0];
                 [message setFont:[UIFont systemFontOfSize:12]];
+                
                 if (msg.height == 0) {
                         [message resizeLabel];
                         msg.height = message.frame.size.height;
@@ -129,7 +131,7 @@
                 
               
                 
-                self.frame = CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, message.frame.size.height+self.textPad+self.textPad);
+                self.frame = CGRectMake(0, TABLEVIEWCELL_PADDING, [UIScreen mainScreen].bounds.size.width, message.frame.size.height+self.textPad+self.textPad);
                 
                 
 
@@ -153,7 +155,9 @@
 -(void)reloadProfilePic {
         if ([self isLeftSide]) {
                 //set sellers profile pic to left bottom
-                [self.profPic setProfileID:@"956635704369806"];
+                //[self.profPic setProfileID:@"956635704369806"];
+                
+                [self.profPic setProfileID:[self.msg.parent.recipient objectForKey:@"facebookId"]];
                 self.profPic.frame = CGRectMake(self.picDiff, self.frame.size.height-self.picDim - self.picDiff, self.picDim, self.picDim);
                 
         } else {

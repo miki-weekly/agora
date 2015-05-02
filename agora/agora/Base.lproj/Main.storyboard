@@ -233,7 +233,7 @@
                                         <subviews>
                                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="BPg-CC-oau">
                                                 <rect key="frame" x="0.0" y="0.0" width="600" height="375"/>
-                                                <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                                <color key="backgroundColor" red="0.93725490196078431" green="0.93725490196078431" blue="0.95686274509803926" alpha="1" colorSpace="calibratedRGB"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" secondItem="BPg-CC-oau" secondAttribute="height" multiplier="8:5" id="DCD-SW-mv0"/>
                                                 </constraints>
@@ -745,7 +745,7 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableViewCellContentView>
                                 <connections>
-                                    <segue destination="YCS-gx-mOt" kind="show" id="R7X-Se-2bB"/>
+                                    <segue destination="6NU-VI-4UD" kind="show" id="jo1-yV-ndY"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -761,29 +761,77 @@
             <point key="canvasLocation" x="2257.5" y="1785"/>
         </scene>
         <!--ConversationVC-->
-        <scene sceneID="b0J-Ib-oXk">
+        <scene sceneID="ofz-G7-jFh">
             <objects>
-                <tableViewController id="YCS-gx-mOt" customClass="ConversationVC" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="Jcc-gl-VAc">
+                <viewController id="6NU-VI-4UD" customClass="ConversationVC" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="x8R-LY-ass"/>
+                        <viewControllerLayoutGuide type="bottom" id="Z6n-Eg-Ke2"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="jNF-aH-UCk">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="536"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="message cell" id="mce-hS-fQI">
-                                <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="mce-hS-fQI" id="7zl-YO-jdb">
-                                    <autoresizingMask key="autoresizingMask"/>
-                                </tableViewCellContentView>
-                            </tableViewCell>
-                        </prototypes>
-                        <connections>
-                            <outlet property="dataSource" destination="YCS-gx-mOt" id="RqW-7U-Wds"/>
-                            <outlet property="delegate" destination="YCS-gx-mOt" id="q8Z-DW-hEb"/>
-                        </connections>
-                    </tableView>
-                </tableViewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="dpR-XU-Pmt" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="kih-32-Bqv">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="separatorColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <prototypes>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="message cell" id="vuD-Pa-aVw">
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="vuD-Pa-aVw" id="IHZ-Up-A6W">
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </prototypes>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" red="0.95525568181818177" green="0.95525568181818177" blue="0.95525568181818177" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstItem="kih-32-Bqv" firstAttribute="leading" secondItem="jNF-aH-UCk" secondAttribute="leadingMargin" constant="36" id="45Q-bO-kB0">
+                                <variation key="heightClass=regular-widthClass=compact" constant="-16"/>
+                            </constraint>
+                            <constraint firstItem="kih-32-Bqv" firstAttribute="top" secondItem="x8R-LY-ass" secondAttribute="bottom" constant="55" id="SeF-jw-WIM">
+                                <variation key="heightClass=regular-widthClass=compact" constant="0.0"/>
+                            </constraint>
+                            <constraint firstItem="Z6n-Eg-Ke2" firstAttribute="top" secondItem="kih-32-Bqv" secondAttribute="bottom" constant="44" id="UaS-Ji-e4g">
+                                <variation key="heightClass=regular-widthClass=compact" constant="44"/>
+                            </constraint>
+                            <constraint firstAttribute="trailingMargin" secondItem="kih-32-Bqv" secondAttribute="trailing" constant="17" id="rPi-R3-HMX">
+                                <variation key="heightClass=regular-widthClass=compact" constant="-16"/>
+                            </constraint>
+                        </constraints>
+                        <variation key="default">
+                            <mask key="subviews">
+                                <exclude reference="kih-32-Bqv"/>
+                            </mask>
+                            <mask key="constraints">
+                                <exclude reference="45Q-bO-kB0"/>
+                                <exclude reference="SeF-jw-WIM"/>
+                                <exclude reference="rPi-R3-HMX"/>
+                                <exclude reference="UaS-Ji-e4g"/>
+                            </mask>
+                        </variation>
+                        <variation key="heightClass=regular-widthClass=compact">
+                            <mask key="subviews">
+                                <include reference="kih-32-Bqv"/>
+                            </mask>
+                            <mask key="constraints">
+                                <include reference="45Q-bO-kB0"/>
+                                <include reference="SeF-jw-WIM"/>
+                                <include reference="rPi-R3-HMX"/>
+                                <include reference="UaS-Ji-e4g"/>
+                            </mask>
+                        </variation>
+                    </view>
+                    <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
+                    <connections>
+                        <outlet property="tableview" destination="kih-32-Bqv" id="LAZ-nU-PjP"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Xzq-O6-ZVM" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3003" y="1785"/>
+            <point key="canvasLocation" x="3091.5" y="1785"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="jpY-AM-Ebu">
