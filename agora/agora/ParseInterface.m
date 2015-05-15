@@ -418,6 +418,18 @@ NS_INLINE void forceImageDecompression(UIImage *image) {
     }];
 }
 
++ (void) createNewConversation:(Post*) post {
+    PFObject* conversation = [[PFObject alloc] init];
+    
+    conversation[@"Post"] = post.objectId;
+    conversation[@"Recipient"] = post.createdBy;
+    conversation[@"Sender"] = [PFUser currentUser];
+    conversation[@"SenderUnread"] = 0;
+    conversation[@"RecipientUnread"] = 0;
+    
+    [conversation saveInBackground];
+}
+
 #pragma mark Search
 
 + (void) search: (NSArray*) keywords completion:(void (^)(NSArray* result))block {
