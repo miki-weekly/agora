@@ -24,7 +24,7 @@
     + (void) getPhotosArrayWithObjectID:(NSString*)objectID completion:(void (^)(NSArray* result))block;
 //Conversations & Messages Parse Interface
     + (void) getConversations:(void (^)(NSArray* result))block;
-    + (void) getMessagesOfConversation: (Conversation*) conversation AfterDate: (NSDate*) date completion:(void (^)(NSArray* result))block;
+    + (void) getMessagesOfConversation: (Conversation*) conversation completion:(void (^)(NSArray* result))block;
     + (void) saveMessage: (Message*) message InConversation: (Conversation*) conversation;
     + (void) getTotalNewMessagesCount:(void(^)(NSNumber* result))block;
 //Search
