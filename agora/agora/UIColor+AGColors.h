@@ -24,6 +24,7 @@
 
 +(instancetype) msgBlue;
 +(instancetype) msgGrey;
++(instancetype) sendMsgGrey;
 
 
 @end

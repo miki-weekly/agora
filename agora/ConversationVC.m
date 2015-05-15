@@ -14,7 +14,7 @@
 
 #define SEND_VIEW_HEIGHT 44
 #define SEND_BUTTON_WIDTH 50
-#define MARGIN 16
+#define MARGIN 6
 #define FIELD_BUTTON_PADDING 9
 
 @interface ConversationVC() <UITableViewDataSource,UITableViewDelegate,UITextFieldDelegate>
@@ -52,7 +52,7 @@
         self.tableview.delegate = self;
         self.tableview.dataSource = self;
         
-        [self setupTextInputView];
+        //[self setupTextInputView];
         
         [self setupKeyboardAnimations];
         
@@ -67,7 +67,7 @@
 -(void)viewDidAppear:(BOOL)animated {
         [super viewDidAppear:animated];
         
-       
+        [self setupTextInputView];
 
         
         //CGSize s = [UIScreen mainScreen].bounds.size;
@@ -88,22 +88,30 @@
 -(void) setupKeyboardAnimations {
         NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
         [center addObserver:self selector:@selector(keyboardOnScreen:) name:UIKeyboardDidShowNotification object:nil];
-        [center addObserver:self selector:@selector(keyboardOffScreen:) name:UIKeyboardDidHideNotification object:nil];
 }
 
 
 
 -(void) setupTextInputView {
         CGRect r = self.view.frame;
+        //NSLog(@"%@",self.view.description);
+        
+        // parent view setup
         self.sendMsgView = [[UIView alloc]initWithFrame:CGRectMake(0, r.size.height-SEND_VIEW_HEIGHT, self.view.frame.size.width, SEND_VIEW_HEIGHT)];
+        [self.sendMsgView setBackgroundColor:[UIColor sendMsgGrey]];
+        
+        // text field setup
         self.sendMsgField = [[UITextField alloc]initWithFrame:CGRectMake(MARGIN, 7, r.size.width - 2*MARGIN - FIELD_BUTTON_PADDING - 50, 30)];
+        [self.sendMsgField setBorderStyle:UITextBorderStyleRoundedRect];
+        [self.sendMsgField setPlaceholder:@"Type a Message..."];
+        [self.sendMsgField setBackgroundColor:[UIColor whiteColor]];
+        [self.sendMsgField setDelegate:self];
         
-        
+        // send button setup
         self.sendMsgButton = [[UIButton alloc]initWithFrame:CGRectMake(self.sendMsgField.frame.size.width + MARGIN + FIELD_BUTTON_PADDING, 7, 50, 30)];
         
         [self.sendMsgView addSubview:self.sendMsgButton];
         [self.sendMsgView addSubview:self.sendMsgField];
-        [self.sendMsgView setBackgroundColor:[UIColor redColor]];
         
         [self.view insertSubview:self.sendMsgView aboveSubview:self.tableview];
 }
@@ -135,16 +143,17 @@
         
         [self.messageViews addObject:[MessageView viewForMessage:second]];
         
+        [self.messageViews addObject:[MessageView viewForMessage:second]];
+        [self.messageViews addObject:[MessageView viewForMessage:second]];
+        [self.messageViews addObject:[MessageView viewForMessage:second]];
+        [self.messageViews addObject:[MessageView viewForMessage:second]];
         
 }
 
 #pragma mark - connections for keyboard
 
--(IBAction)keyboardOffScreen:(NSNotification*) note {
-        [self animateFieldAbsolute:0];
-        
-}
-
+CGFloat previousHeight;
+CGFloat defaultHeight;
 -(IBAction)keyboardOnScreen:(NSNotification*) note {
         NSDictionary *info  = note.userInfo;
         NSValue      *value = info[UIKeyboardFrameEndUserInfoKey];
@@ -152,22 +161,32 @@
         CGRect rawFrame      = [value CGRectValue];
         CGRect keyboardFrame = [self.view convertRect:rawFrame fromView:nil];
         CGFloat height = keyboardFrame.size.height;
-        NSLog(@"height: %f", height);
+        //NSLog(@"height: %f", height);
         
-        [self animateFieldAbsolute:height];
+        
+        
+        [self animateFieldChange:previousHeight - height withDuration:0.0];
+        previousHeight = height;
+        defaultHeight = height;
         
 }
 
 
--(void) animateFieldAbsolute:(CGFloat) height {
+-(void) animateFieldChange:(CGFloat) changeHeight withDuration:(CGFloat) sec {
         
         
-        [UIView animateWithDuration:0.0 animations:^{
-                CGRect old = self.sendMsgView.frame;
-                self.sendMsgView.frame = CGRectMake(old.origin.x, [UIScreen mainScreen].bounds.size.height - height - old.size.height, old.size.width, old.size.height);
+        [UIView animateWithDuration:sec animations:^{
+                CGPoint old = self.sendMsgView.center;
+                self.sendMsgView.center = CGPointMake(old.x, old.y + changeHeight);
                 
                 CGRect tableFrame = self.tableview.frame;
-                self.tableview.frame = CGRectMake(tableFrame.origin.x, tableFrame.origin.y, tableFrame.size.width, [UIScreen mainScreen].bounds.size.height - height - self.sendMsgView.frame.size.height); // for status bar
+                self.tableview.frame = CGRectMake(tableFrame.origin.x, tableFrame.origin.y, tableFrame.size.width, tableFrame.size.height +changeHeight); // for status bar
+                NSLog(@"%@",self.tableview.description);
+        } completion:^(BOOL finished) {
+                NSIndexPath* path = [NSIndexPath indexPathForRow:self.messageViews.count-1 inSection:0];
+                
+                [self.tableview scrollToRowAtIndexPath:path atScrollPosition:UITableViewScrollPositionTop animated:YES];
+
         }];
         
 }
@@ -175,13 +194,16 @@
 #pragma mark - Text field delegates
 
 -(BOOL)textFieldShouldBeginEditing:(UITextField *)textField {
-        
-        
-        return YES;
+        [self animateFieldChange:-defaultHeight withDuration:0.27];
+        previousHeight = defaultHeight;
+                return YES;
 }
 
 -(BOOL)textFieldShouldReturn:(UITextField *)textField {
         [textField resignFirstResponder];
+        [self animateFieldChange:previousHeight withDuration:0.27];
+        previousHeight = 0;
+
         return YES;
 }
 

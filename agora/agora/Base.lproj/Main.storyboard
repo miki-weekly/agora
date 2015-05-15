@@ -929,16 +929,16 @@
                                                     <exclude reference="lLG-a9-5iF"/>
                                                 </mask>
                                                 <mask key="constraints">
-                                                    <exclude reference="4sb-sS-5yQ"/>
-                                                    <exclude reference="rxF-uu-hw0"/>
-                                                    <exclude reference="5ax-5z-VKQ"/>
-                                                    <exclude reference="NJy-BG-zJ2"/>
-                                                    <exclude reference="Vhf-8B-5UG"/>
                                                     <exclude reference="Vo3-FF-dNh"/>
                                                     <exclude reference="pjP-8l-Kso"/>
                                                     <exclude reference="sYa-rj-GxY"/>
                                                     <exclude reference="vnH-Zg-J0z"/>
                                                     <exclude reference="wux-GT-K1H"/>
+                                                    <exclude reference="5ax-5z-VKQ"/>
+                                                    <exclude reference="NJy-BG-zJ2"/>
+                                                    <exclude reference="Vhf-8B-5UG"/>
+                                                    <exclude reference="4sb-sS-5yQ"/>
+                                                    <exclude reference="rxF-uu-hw0"/>
                                                 </mask>
                                             </variation>
                                             <variation key="heightClass=regular-widthClass=compact">
@@ -948,16 +948,16 @@
                                                     <include reference="lLG-a9-5iF"/>
                                                 </mask>
                                                 <mask key="constraints">
-                                                    <include reference="4sb-sS-5yQ"/>
-                                                    <include reference="rxF-uu-hw0"/>
-                                                    <include reference="5ax-5z-VKQ"/>
-                                                    <include reference="NJy-BG-zJ2"/>
-                                                    <include reference="Vhf-8B-5UG"/>
                                                     <include reference="Vo3-FF-dNh"/>
                                                     <exclude reference="pjP-8l-Kso"/>
                                                     <include reference="sYa-rj-GxY"/>
                                                     <include reference="vnH-Zg-J0z"/>
                                                     <include reference="wux-GT-K1H"/>
+                                                    <include reference="5ax-5z-VKQ"/>
+                                                    <include reference="NJy-BG-zJ2"/>
+                                                    <include reference="Vhf-8B-5UG"/>
+                                                    <include reference="4sb-sS-5yQ"/>
+                                                    <include reference="rxF-uu-hw0"/>
                                                 </mask>
                                             </variation>
                                         </tableViewCellContentView>
