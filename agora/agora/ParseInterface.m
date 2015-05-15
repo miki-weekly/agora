@@ -332,30 +332,19 @@ NS_INLINE void forceImageDecompression(UIImage *image) {
     }];
 }
 
-+ (void) getMessagesOfConversation: (Conversation*) conversation AfterDate: (NSDate*) date completion:(void (^)(NSArray* result))block {
++ (void) getMessagesOfConversation: (Conversation*) conversation completion:(void (^)(NSArray* result))block {
     NSMutableArray* messageArray = [[NSMutableArray alloc] init];
     PFQuery* query = [PFQuery queryWithClassName:@"Message"];
     [query whereKey:@"Parent" equalTo:conversation];
-    [query whereKey:@"createdAt" greaterThan:date];
     
     [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
-        int count = 0;
         for (PFObject* object in objects) {
-            count--;
-            
             Message* message = [[Message alloc] init];
             
             message.parent = conversation;
             message.chatMessage = [object objectForKey:@"Message"];
             
             [messageArray addObject:message];
-        }
-        
-        PFObject* parseConversation = [PFQuery getObjectOfClass:@"Conversation" objectId:conversation.objectId];
-        if ([parseConversation objectForKey:@"Recipient"] != [PFUser currentUser]) {
-            [parseConversation incrementKey:@"SenderUnread" byAmount:[NSNumber numberWithInt:count]];
-        } else {
-            [parseConversation incrementKey:@"RecipientUnread" byAmount:[NSNumber numberWithInt:count]];
         }
     }];
     block(messageArray);
