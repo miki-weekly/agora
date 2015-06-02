@@ -7,7 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "Conversation.h"
 
 @interface ConversationVC : UIViewController
+
+@property Conversation * convo;
 
 @end

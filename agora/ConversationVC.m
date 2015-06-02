@@ -11,15 +11,21 @@
 #import "Message.h"
 #import "Conversation.h"
 #import "UIColor+AGColors.h"
+#import "ParseInterface.h"
+#import <FBSDKCoreKit/FBSDKCoreKit.h>
 
 #define SEND_VIEW_HEIGHT 44
 #define SEND_BUTTON_WIDTH 50
 #define MARGIN 6
 #define FIELD_BUTTON_PADDING 9
 
+#define KEYBOARD_SPEED 0.27
+
 @interface ConversationVC() <UITableViewDataSource,UITableViewDelegate,UITextFieldDelegate>
 
 @property NSMutableArray * messageViews;
+@property NSArray * messages;
+
 @property (weak, nonatomic) IBOutlet UITableView *tableview;
 
 @property UIView * sendMsgView;
@@ -27,7 +33,7 @@
 @property UIButton * sendMsgButton;
 
 
-
+@property CGFloat tableHeight;
 
 @end
 
@@ -47,7 +53,14 @@
 -(void)viewDidLoad {
         [super viewDidLoad];
         
-        self.title = @"Kalvin";
+        FBSDKGraphRequest * request = [[FBSDKGraphRequest alloc]initWithGraphPath:[self.convo.recipient objectForKey:@"facebookId"] parameters:NULL];
+        [request startWithCompletionHandler:^(FBSDKGraphRequestConnection *connection, id result, NSError *error) {
+                if (!error) {
+                        self.title = result[@"name"];
+                        [self.tableview reloadData];
+                }
+        }];
+        
         
         self.tableview.delegate = self;
         self.tableview.dataSource = self;
@@ -56,11 +69,17 @@
         
         [self setupKeyboardAnimations];
         
-        [self loadMessages];
+        //[self loadMessages];
         
+        [ParseInterface getMessagesOfConversation:self.convo completion:^(NSArray *result) {
+                self.messages = result;
+        }];
         
+        for (int i = 0; i < self.messages.count; i++) {
+                [self.messageViews addObject:[MessageView viewForMessage:(Message*)self.messages[i]]];
+        }
         
-        
+        self.tableHeight = self.tableview.frame.size.height;
         
 }
 
@@ -155,6 +174,7 @@
 CGFloat previousHeight;
 CGFloat defaultHeight;
 -(IBAction)keyboardOnScreen:(NSNotification*) note {
+        [self checkTableViewForHeight];
         NSDictionary *info  = note.userInfo;
         NSValue      *value = info[UIKeyboardFrameEndUserInfoKey];
         
@@ -171,17 +191,25 @@ CGFloat defaultHeight;
         
 }
 
+-(void) checkTableViewForHeight {
+        if (self.tableview.frame.size.height != self.tableHeight && self.tableHeight != 0) {
+                CGRect oldFrame = self.tableview.frame;
+                self.tableview.frame = CGRectMake(oldFrame.origin.x, oldFrame.origin.y, oldFrame.size.width, self.tableHeight);
+        }
+}
 
 -(void) animateFieldChange:(CGFloat) changeHeight withDuration:(CGFloat) sec {
         
-        
+        NSLog(@"animate with change %f",changeHeight);
         [UIView animateWithDuration:sec animations:^{
                 CGPoint old = self.sendMsgView.center;
                 self.sendMsgView.center = CGPointMake(old.x, old.y + changeHeight);
                 
                 CGRect tableFrame = self.tableview.frame;
                 self.tableview.frame = CGRectMake(tableFrame.origin.x, tableFrame.origin.y, tableFrame.size.width, tableFrame.size.height +changeHeight); // for status bar
-                NSLog(@"%@",self.tableview.description);
+                self.tableHeight = self.tableview.frame.size.height;
+                CGRect newFrame = self.tableview.frame;
+                NSLog(@"{%f %f, %f %f",newFrame.origin.x,newFrame.origin.y,newFrame.size.width,newFrame.size.height);
         } completion:^(BOOL finished) {
                 NSIndexPath* path = [NSIndexPath indexPathForRow:self.messageViews.count-1 inSection:0];
                 
@@ -194,14 +222,15 @@ CGFloat defaultHeight;
 #pragma mark - Text field delegates
 
 -(BOOL)textFieldShouldBeginEditing:(UITextField *)textField {
-        [self animateFieldChange:-defaultHeight withDuration:0.27];
+        [self animateFieldChange:-defaultHeight withDuration:KEYBOARD_SPEED];
         previousHeight = defaultHeight;
                 return YES;
+        // upon return tableview frame is correct
 }
 
 -(BOOL)textFieldShouldReturn:(UITextField *)textField {
         [textField resignFirstResponder];
-        [self animateFieldChange:previousHeight withDuration:0.27];
+        [self animateFieldChange:previousHeight withDuration:KEYBOARD_SPEED];
         previousHeight = 0;
 
         return YES;
@@ -210,7 +239,7 @@ CGFloat defaultHeight;
 #pragma mark - Table View delegates
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-        return self.messageViews.count;
+        return self.messageViews.count?self.messageViews.count:0;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {

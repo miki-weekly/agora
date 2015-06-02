@@ -302,22 +302,22 @@ NS_INLINE void forceImageDecompression(UIImage *image) {
     PFQuery* recipient = [PFQuery queryWithClassName:@"Conversation"];
     
     [sender whereKey:@"Sender" equalTo:[PFUser currentUser]];
-    [sender includeKey:@"Recipient"];
-    [sender includeKey:@"Sender"];
-    [sender includeKey:@"Post"];
+    
     
     [recipient whereKey:@"Recipient" equalTo:[PFUser currentUser]];
-    [recipient includeKey:@"Recipient"];
-    [recipient includeKey:@"Sender"];
-    [recipient includeKey:@"Post"];
+    
     
     PFQuery* query = [PFQuery orQueryWithSubqueries:@[sender, recipient]];
-    
+        [query includeKey:@"Recipient"];
+        [query includeKey:@"Sender"];
+        [query includeKey:@"Post"];
+        
+        
     [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         for (PFObject* object in objects) {
             Conversation* conversation = [[Conversation alloc]init];
             
-            if ([object objectForKey:@"Recipient"] != [PFUser currentUser]) {
+            if ([object objectForKey:@"Recipient"] == [PFUser currentUser]) {
                 conversation.recipient = [object objectForKey:@"Recipient"];
                 conversation.unread = [object objectForKey:@"RecipientUnread"];
             } else {
